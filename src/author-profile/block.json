@@ -45,6 +45,19 @@
 			"default": 20
 		}
 	},
+	"example": {
+		"attributes": {
+      "textAlign": "left",
+      "showImage": true,
+      "showEmail": true,
+      "showDescription": true,
+      "showMore": true,
+      "moreContent": "This is an example of the additional content section.",
+			"backgroundColor": "#f8f9fa",
+			"padding": 25
+		},
+		"viewportWidth": 800
+	},
 	"supports": {
 		"html": false,
 		"align": ["wide", "full"]

@@ -1,27 +1,20 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
-import { useEffect, useState, WPElement } from '@wordpress/element';
+import {__} from '@wordpress/i18n';
+import {useEffect, useState, WPElement} from '@wordpress/element';
+import {InspectorControls, RichText, useBlockProps} from '@wordpress/block-editor';
 import {
-    useBlockProps,
-    InspectorControls,
-    RichText
-} from '@wordpress/block-editor';
-import {
-    PanelBody,
-    ToggleControl,
-    RangeControl,
-    SelectControl,
-    Placeholder,
-    Spinner,
-    Button,
-    TextControl,
-    ColorPicker,
-    SearchControl
+	Button,
+	ColorPicker,
+	PanelBody,
+	Placeholder,
+	RangeControl,
+	SearchControl,
+	SelectControl,
+	Spinner,
+	ToggleControl
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
-import { store as coreDataStore } from '@wordpress/core-data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -38,7 +31,7 @@ import './editor.scss';
  * @param {Function} props.setAttributes Function to set block attributes.
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
+export default function Edit({attributes, setAttributes}) {
 	const {
 		authorId,
 		showImage,
@@ -60,11 +53,11 @@ export default function Edit({ attributes, setAttributes }) {
 	// Fetch list of author profiles
 	useEffect(() => {
 		setIsLoading(true);
-		apiFetch({ path: '/wp/v2/author_profile?per_page=100' })
+		apiFetch({path: '/wp/v2/author_profile?per_page=100'})
 			.then((posts) => {
 				setAuthors(posts.map(post => ({
 					id: post.id,
-					title: post.title.rendered,
+					label: post.title?.rendered,
 					value: post.id
 				})));
 				setIsLoading(false);
@@ -77,72 +70,56 @@ export default function Edit({ attributes, setAttributes }) {
 
 	// Fetch selected author data when authorId changes
 	useEffect(() => {
-		if (authorId) {
-			setIsLoading(true);
-			apiFetch({ path: `/wp/v2/author_profile/${authorId}` })
-				.then((post) => {
-					setSelectedAuthor({
-						title: post.title.rendered,
-						email: post.meta?.wpas_author_email || '',
-						description: post.meta?.wpas_author_description || '',
-						featuredImage: post.featured_media ? post._links['wp:featuredmedia'][0].href : null
-					});
+		if (!authorId) return;
 
-					// If there's a featured image, fetch it
-					if (post.featured_media) {
-						apiFetch({ url: post._links['wp:featuredmedia'][0].href })
-							.then((media) => {
-								setSelectedAuthor(prev => ({
-									...prev,
-									imageUrl: media.source_url
-								}));
-								setIsLoading(false);
-							});
-					} else {
-						setIsLoading(false);
-					}
-				})
-				.catch((error) => {
-					console.error('Error fetching author data:', error);
-					setIsLoading(false);
+		setIsLoading(true);
+		apiFetch({path: `/wp/v2/author_profile/${authorId}`})
+			.then((post) => {
+				setSelectedAuthor({
+					name: post.title?.rendered,
+					email: post.meta?.wpas_author_email || '',
+					description: post.meta?.wpas_author_description || '',
+					featuredImage: post.featured_media ? post._links['wp:featuredmedia'][0].href : null
 				});
-		}
+
+				// If there's a featured image, fetch it
+				if (post.featured_media) {
+					apiFetch({url: post._links['wp:featuredmedia'][0].href})
+						.then((media) => {
+							setSelectedAuthor(prev => ({
+								...prev,
+								imageUrl: media.source_url
+							}));
+							setIsLoading(false);
+						});
+				} else {
+					setIsLoading(false);
+				}
+			})
+			.catch((error) => {
+				console.error('Error fetching author data:', error);
+				setIsLoading(false);
+			});
 	}, [authorId]);
 
 	// Search for authors when searchTerm changes
 	useEffect(() => {
-		if (searchTerm.length > 2) {
-			setIsSearching(true);
-			apiFetch({ path: `/wp/v2/author_profile?search=${encodeURIComponent(searchTerm)}` })
-				.then((posts) => {
-					setAuthors(posts.map(post => ({
-						id: post.id,
-						title: post.title.rendered,
-						value: post.id
-					})));
-					setIsSearching(false);
-				})
-				.catch((error) => {
-					console.error('Error searching author profiles:', error);
-					setIsSearching(false);
-				});
-		} else if (searchTerm.length === 0 && authors.length === 0) {
-			// Reset to full list when search term is cleared
-			setIsSearching(true);
-			apiFetch({ path: '/wp/v2/author_profile?per_page=100' })
-				.then((posts) => {
-					setAuthors(posts.map(post => ({
-						id: post.id,
-						title: post.title.rendered,
-						value: post.id
-					})));
-					setIsSearching(false);
-				})
-				.catch((error) => {
-					console.error('Error fetching author profiles:', error);
-					setIsSearching(false);
-				});
-		}
+		if (searchTerm.length <= 2) return;
+
+		setIsSearching(true);
+		apiFetch({path: `/wp/v2/author_profile?search=${encodeURIComponent(searchTerm)}`})
+			.then((posts) => {
+				setAuthors(posts.map(post => ({
+					id: post.id,
+					name: post.title?.rendered,
+					value: post.id
+				})));
+				setIsSearching(false);
+			})
+			.catch((error) => {
+				console.error('Error searching author profiles:', error);
+				setIsSearching(false);
+			});
 	}, [searchTerm]);
 
 	// Block wrapper styles
@@ -158,10 +135,15 @@ export default function Edit({ attributes, setAttributes }) {
 
 	// Filter authors based on search term for the dropdown
 	const filteredAuthors = searchTerm.length > 0
-		? authors.filter(author => 
-			author.title.toLowerCase().includes(searchTerm.toLowerCase())
+		? authors.filter(author =>
+			author.name?.toLowerCase().includes(searchTerm.toLowerCase())
 		)
 		: authors;
+
+	const authorOptions = authors.map(author => ({
+		label: author.name,
+		value: author.id
+	}));
 
 	// If no author is selected or still loading data
 	if (!authorId || isLoading) {
@@ -173,32 +155,32 @@ export default function Edit({ attributes, setAttributes }) {
 					instructions={__('Search and select an author profile to display.', 'wp-author-showcase')}
 				>
 					{isLoading ? (
-						<Spinner />
+						<Spinner/>
 					) : (
-						<div style={{ width: '100%' }}>
+						<div style={{width: '100%'}}>
 							<SearchControl
 								value={searchTerm}
 								onChange={setSearchTerm}
 								label={__('Search authors', 'wp-author-showcase')}
 								placeholder={__('Type to search authors...', 'wp-author-showcase')}
-								style={{ marginBottom: '10px', width: '100%' }}
+								style={{marginBottom: '10px', width: '100%'}}
 							/>
-							
+
 							{isSearching ? (
-								<Spinner />
+								<Spinner/>
 							) : (
 								<SelectControl
 									label={__('Select Author', 'wp-author-showcase')}
 									value={authorId}
 									options={[
-										{ label: __('-- Select an author --', 'wp-author-showcase'), value: 0 },
-										...filteredAuthors
+										{label: __('-- Select an author --', 'wp-author-showcase'), value: 0},
+										...authorOptions
 									]}
-									onChange={(value) => setAttributes({ authorId: parseInt(value, 10) })}
+									onChange={(value) => setAttributes({authorId: parseInt(value ?? '', 10)})}
 								/>
 							)}
-							
-							{searchTerm.length > 0 && filteredAuthors.length === 0 && !isSearching && (
+
+							{searchTerm.length > 0 && authorOptions.length === 0 && !isSearching && (
 								<p>{__('No authors found matching your search.', 'wp-author-showcase')}</p>
 							)}
 						</div>
@@ -218,31 +200,31 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={setSearchTerm}
 						label={__('Search authors', 'wp-author-showcase')}
 						placeholder={__('Type to search authors...', 'wp-author-showcase')}
-						style={{ marginBottom: '10px' }}
+						style={{marginBottom: '10px'}}
 					/>
-					
+
 					{isSearching ? (
-						<Spinner />
+						<Spinner/>
 					) : (
 						<SelectControl
 							label={__('Select Author', 'wp-author-showcase')}
 							value={authorId}
 							options={[
-								{ label: __('-- Select an author --', 'wp-author-showcase'), value: 0 },
+								{label: __('-- Select an author --', 'wp-author-showcase'), value: 0},
 								...filteredAuthors
 							]}
-							onChange={(value) => setAttributes({ authorId: parseInt(value, 10) })}
+							onChange={(value) => setAttributes({authorId: parseInt(value, 10)})}
 						/>
 					)}
-					
+
 					{searchTerm.length > 0 && filteredAuthors.length === 0 && !isSearching && (
 						<p>{__('No authors found matching your search.', 'wp-author-showcase')}</p>
 					)}
-					
+
 					<Button
 						isSecondary
-						onClick={() => setAttributes({ authorId: 0 })}
-						style={{ marginTop: '10px' }}
+						onClick={() => setAttributes({authorId: 0})}
+						style={{marginTop: '10px'}}
 					>
 						{__('Clear Selection', 'wp-author-showcase')}
 					</Button>
@@ -252,19 +234,19 @@ export default function Edit({ attributes, setAttributes }) {
 					<ToggleControl
 						label={__('Show Image', 'wp-author-showcase')}
 						checked={showImage}
-						onChange={() => setAttributes({ showImage: !showImage })}
+						onChange={() => setAttributes({showImage: !showImage})}
 					/>
 
 					<ToggleControl
 						label={__('Show Email', 'wp-author-showcase')}
 						checked={showEmail}
-						onChange={() => setAttributes({ showEmail: !showEmail })}
+						onChange={() => setAttributes({showEmail: !showEmail})}
 					/>
 
 					<ToggleControl
 						label={__('Show Description', 'wp-author-showcase')}
 						checked={showDescription}
-						onChange={() => setAttributes({ showDescription: !showDescription })}
+						onChange={() => setAttributes({showDescription: !showDescription})}
 					/>
 				</PanelBody>
 
@@ -272,7 +254,7 @@ export default function Edit({ attributes, setAttributes }) {
 					<p>{__('Background Color', 'wp-author-showcase')}</p>
 					<ColorPicker
 						color={backgroundColor}
-						onChange={(color) => setAttributes({ backgroundColor: color })}
+						onChange={(color) => setAttributes({backgroundColor: color})}
 						enableAlpha
 					/>
 
@@ -280,17 +262,17 @@ export default function Edit({ attributes, setAttributes }) {
 						label={__('Text Alignment', 'wp-author-showcase')}
 						value={textAlign}
 						options={[
-							{ label: __('Left', 'wp-author-showcase'), value: 'left' },
-							{ label: __('Center', 'wp-author-showcase'), value: 'center' },
-							{ label: __('Right', 'wp-author-showcase'), value: 'right' }
+							{label: __('Left', 'wp-author-showcase'), value: 'left'},
+							{label: __('Center', 'wp-author-showcase'), value: 'center'},
+							{label: __('Right', 'wp-author-showcase'), value: 'right'}
 						]}
-						onChange={(value) => setAttributes({ textAlign: value })}
+						onChange={(value) => setAttributes({textAlign: value})}
 					/>
 
 					<RangeControl
 						label={__('Padding (px)', 'wp-author-showcase')}
 						value={padding}
-						onChange={(value) => setAttributes({ padding: value })}
+						onChange={(value) => setAttributes({padding: value})}
 						min={0}
 						max={100}
 						step={1}
@@ -301,7 +283,7 @@ export default function Edit({ attributes, setAttributes }) {
 					<ToggleControl
 						label={__('Show More Section', 'wp-author-showcase')}
 						checked={showMore}
-						onChange={() => setAttributes({ showMore: !showMore })}
+						onChange={() => setAttributes({showMore: !showMore})}
 						help={__('Add a custom content section below the author profile.', 'wp-author-showcase')}
 					/>
 				</PanelBody>
@@ -313,14 +295,14 @@ export default function Edit({ attributes, setAttributes }) {
 						<div className="wpas-author-image">
 							<img
 								src={selectedAuthor.imageUrl}
-								alt={selectedAuthor.title}
+								alt={selectedAuthor.name}
 							/>
 						</div>
 					)}
 
 					<div className="wpas-author-info">
 						<h3 className="wpas-author-name">
-							{selectedAuthor?.title}
+							{selectedAuthor?.name}
 						</h3>
 
 						{showEmail && selectedAuthor?.email && (
@@ -334,7 +316,7 @@ export default function Edit({ attributes, setAttributes }) {
 						{showDescription && selectedAuthor?.description && (
 							<div
 								className="wpas-author-description"
-								dangerouslySetInnerHTML={{ __html: selectedAuthor.description }}
+								dangerouslySetInnerHTML={{__html: selectedAuthor.description}}
 							/>
 						)}
 					</div>
@@ -345,7 +327,7 @@ export default function Edit({ attributes, setAttributes }) {
 						<RichText
 							tagName="div"
 							value={moreContent}
-							onChange={(content) => setAttributes({ moreContent: content })}
+							onChange={(content) => setAttributes({moreContent: content})}
 							placeholder={__('Add additional content here...', 'wp-author-showcase')}
 						/>
 					</div>
