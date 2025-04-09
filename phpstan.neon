@@ -1,5 +1,6 @@
 includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 parameters:
     level: 5
@@ -14,13 +15,16 @@ parameters:
         - vendor/
         - node_modules/
         - build/
-        - bin/
 
     ignoreErrors:
         - identifier: class.notFound
         - identifier: missingType.generics
+        - '#^Constant [A-Z_]+ not found\.#'
+        - '#^Function [a-zA-Z0-9_]+ not found\.#'
+        - '#^Class [a-zA-Z0-9_\\]+ not found\.#'
 
     treatPhpDocTypesAsCertain: false
     inferPrivatePropertyTypeFromConstructor: true
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+
+    bootstrapFiles:
+        - vendor/autoload.php

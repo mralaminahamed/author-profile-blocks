@@ -24,6 +24,11 @@
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
     </rule>
 
+    <!-- Security specific rules -->
+    <rule ref="WordPress.Security.ValidatedSanitizedInput"/>
+    <rule ref="WordPress.Security.NonceVerification"/>
+    <rule ref="WordPress.Security.EscapeOutput"/>
+
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
@@ -41,4 +46,8 @@
             </property>
         </properties>
     </rule>
+    
+    <!-- PHP compatibility checks -->
+    <rule ref="PHPCompatibility"/>
+    <config name="testVersion" value="7.4-"/>
 </ruleset>

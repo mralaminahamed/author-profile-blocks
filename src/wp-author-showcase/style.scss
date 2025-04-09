@@ -10,3 +10,77 @@
 	color: #fff;
 	padding: 2px;
 }
+
+.wp-block-wp-author-showcase-author-profile {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    
+    .wpas-author-profile-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        
+        @media (max-width: 600px) {
+            flex-direction: column;
+        }
+        
+        .wpas-author-image {
+            flex: 0 0 auto;
+            max-width: 150px;
+            
+            img {
+                border-radius: 5px;
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+        
+        .wpas-author-info {
+            flex: 1;
+            min-width: 200px;
+            
+            .wpas-author-name {
+                margin-top: 0;
+                margin-bottom: 10px;
+                font-size: 1.5em;
+                color: #333;
+            }
+            
+            .wpas-author-email {
+                margin-bottom: 10px;
+                
+                a {
+                    color: #0073aa;
+                    text-decoration: none;
+                    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            
+            .wpas-author-description {
+                line-height: 1.6;
+                
+                p {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    
+    .wpas-author-more-content {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+}
