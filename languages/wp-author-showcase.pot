@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-09T17:20:31+00:00\n"
+"POT-Creation-Date: 2025-04-09T19:52:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: wp-author-showcase\n"
@@ -39,246 +39,252 @@ msgstr ""
 msgid "https://github.com/mralaminahamed"
 msgstr ""
 
-#: build/author-profile/render.php:41
-#: src/author-profile/render.php:41
+#: build/author-profile/render.php:51
+#: src/author-profile/render.php:51
 msgid "Please select an author profile to display."
 msgstr ""
 
-#: build/author-profile/render.php:52
-#: src/author-profile/render.php:52
+#: build/author-profile/render.php:67
+#: src/author-profile/render.php:67
 msgid "Author profile not found."
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:68
+#: includes/Post_Types/Author_Profile.php:85
 msgctxt "post type general name"
 msgid "Author Profiles"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:69
+#: includes/Post_Types/Author_Profile.php:86
 msgctxt "post type singular name"
 msgid "Author Profile"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:70
+#: includes/Post_Types/Author_Profile.php:87
 msgctxt "admin menu"
 msgid "Author Profiles"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:71
+#: includes/Post_Types/Author_Profile.php:88
 msgctxt "add new on admin bar"
 msgid "Author Profile"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:72
+#: includes/Post_Types/Author_Profile.php:89
 msgctxt "author profile"
 msgid "Add New"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:73
+#: includes/Post_Types/Author_Profile.php:90
 msgid "Add New Author Profile"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:74
+#: includes/Post_Types/Author_Profile.php:91
 msgid "New Author Profile"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:75
+#: includes/Post_Types/Author_Profile.php:92
 msgid "Edit Author Profile"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:76
+#: includes/Post_Types/Author_Profile.php:93
 msgid "View Author Profile"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:77
+#: includes/Post_Types/Author_Profile.php:94
 msgid "All Author Profiles"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:78
+#: includes/Post_Types/Author_Profile.php:95
 msgid "Search Author Profiles"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:79
+#: includes/Post_Types/Author_Profile.php:96
 msgid "Parent Author Profiles:"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:80
+#: includes/Post_Types/Author_Profile.php:97
 msgid "No author profiles found."
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:81
+#: includes/Post_Types/Author_Profile.php:98
 msgid "No author profiles found in Trash."
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:150
+#: includes/Post_Types/Author_Profile.php:167
 msgid "Author Details"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:175
+#: includes/Post_Types/Author_Profile.php:194
 msgid "Email Address"
 msgstr ""
 
-#: includes/PostTypes/AuthorProfile.php:180
+#: includes/Post_Types/Author_Profile.php:199
+#: includes/Post_Types/Author_Profile.php:282
 msgid "Description"
 msgstr ""
 
-#: build/author-profile/index.js:178
-#: src/author-profile/edit.js:156
-#: build/author-profile/index.js:156
+#: includes/Post_Types/Author_Profile.php:279
+msgid "Image"
+msgstr ""
+
+#: includes/Post_Types/Author_Profile.php:280
+msgid "Name"
+msgstr ""
+
+#: includes/Post_Types/Author_Profile.php:281
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:340
+msgid "Email"
+msgstr ""
+
+#. translators: %d: number of characters
+#: includes/Post_Types/Author_Profile.php:351
+msgid "%d characters"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:88
+msgid "Unnamed Author"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:183
 msgid "Author Profile"
 msgstr ""
 
-#: build/author-profile/index.js:179
-#: src/author-profile/edit.js:157
-#: build/author-profile/index.js:157
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:184
 msgid "Search and select an author profile to display."
 msgstr ""
 
-#: build/author-profile/index.js:187
-#: build/author-profile/index.js:219
-#: src/author-profile/edit.js:166
-#: src/author-profile/edit.js:203
-#: build/author-profile/index.js:166
-#: build/author-profile/index.js:203
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:193
+#: src/author-profile/edit.js:229
 msgid "Search authors"
 msgstr ""
 
-#: build/author-profile/index.js:188
-#: build/author-profile/index.js:220
-#: src/author-profile/edit.js:167
-#: src/author-profile/edit.js:204
-#: build/author-profile/index.js:167
-#: build/author-profile/index.js:204
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:194
+#: src/author-profile/edit.js:230
 msgid "Type to search authors..."
 msgstr ""
 
-#: build/author-profile/index.js:194
-#: build/author-profile/index.js:225
-#: src/author-profile/edit.js:175
-#: src/author-profile/edit.js:212
-#: build/author-profile/index.js:175
-#: build/author-profile/index.js:212
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:201
+#: src/author-profile/edit.js:237
 msgid "Select Author"
 msgstr ""
 
-#: build/author-profile/index.js:197
-#: build/author-profile/index.js:228
-#: src/author-profile/edit.js:178
-#: src/author-profile/edit.js:215
-#: build/author-profile/index.js:178
-#: build/author-profile/index.js:215
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:204
+#: src/author-profile/edit.js:240
 msgid "-- Select an author --"
 msgstr ""
 
-#: build/author-profile/index.js:204
-#: build/author-profile/index.js:235
-#: src/author-profile/edit.js:186
-#: src/author-profile/edit.js:223
-#: build/author-profile/index.js:186
-#: build/author-profile/index.js:223
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:212
+#: src/author-profile/edit.js:248
 msgid "No authors found matching your search."
 msgstr ""
 
-#: build/author-profile/index.js:215
-#: src/author-profile/edit.js:199
-#: build/author-profile/index.js:199
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:225
 msgid "Author Selection"
 msgstr ""
 
-#: build/author-profile/index.js:244
-#: src/author-profile/edit.js:231
-#: build/author-profile/index.js:231
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:256
 msgid "Clear Selection"
 msgstr ""
 
-#: build/author-profile/index.js:247
-#: src/author-profile/edit.js:235
-#: build/author-profile/index.js:235
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:260
 msgid "Display Settings"
 msgstr ""
 
-#: build/author-profile/index.js:249
-#: src/author-profile/edit.js:237
-#: build/author-profile/index.js:237
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:262
 msgid "Show Image"
 msgstr ""
 
-#: build/author-profile/index.js:255
-#: src/author-profile/edit.js:243
-#: build/author-profile/index.js:243
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:268
 msgid "Show Email"
 msgstr ""
 
-#: build/author-profile/index.js:261
-#: src/author-profile/edit.js:249
-#: build/author-profile/index.js:249
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:274
 msgid "Show Description"
 msgstr ""
 
-#: build/author-profile/index.js:268
-#: src/author-profile/edit.js:255
-#: build/author-profile/index.js:255
-msgid "Style Settings"
-msgstr ""
-
-#: build/author-profile/index.js:270
-#: src/author-profile/edit.js:256
-#: build/author-profile/index.js:256
-msgid "Background Color"
-msgstr ""
-
-#: build/author-profile/index.js:278
-#: src/author-profile/edit.js:264
-#: build/author-profile/index.js:264
-msgid "Text Alignment"
-msgstr ""
-
-#: build/author-profile/index.js:281
-#: src/author-profile/edit.js:267
-#: build/author-profile/index.js:267
-msgid "Left"
-msgstr ""
-
-#: build/author-profile/index.js:284
-#: src/author-profile/edit.js:268
-#: build/author-profile/index.js:268
-msgid "Center"
-msgstr ""
-
-#: build/author-profile/index.js:287
-#: src/author-profile/edit.js:269
-#: build/author-profile/index.js:269
-msgid "Right"
-msgstr ""
-
-#: build/author-profile/index.js:294
-#: src/author-profile/edit.js:275
-#: build/author-profile/index.js:275
-msgid "Padding (px)"
-msgstr ""
-
-#: build/author-profile/index.js:304
-#: src/author-profile/edit.js:284
-#: build/author-profile/index.js:284
-msgid "Additional Content"
-msgstr ""
-
-#: build/author-profile/index.js:306
-#: src/author-profile/edit.js:286
-#: build/author-profile/index.js:286
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:280
 msgid "Show More Section"
 msgstr ""
 
-#: build/author-profile/index.js:311
-#: src/author-profile/edit.js:289
-#: build/author-profile/index.js:289
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:283
 msgid "Add a custom content section below the author profile."
 msgstr ""
 
-#: build/author-profile/index.js:350
-#: src/author-profile/edit.js:333
-#: build/author-profile/index.js:333
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:287
+msgid "Style Settings"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:289
+msgid "Background Color"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:298
+msgid "Text Alignment"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:301
+msgid "Left"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:302
+msgid "Center"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:303
+msgid "Right"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:309
+msgid "Padding (px)"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:320
+msgid "Author profile information"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:351
+msgid "Author description"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:360
+msgid "Additional content"
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:366
 msgid "Add additional content here..."
+msgstr ""
+
+#: build/author-profile/index.js:1
+#: src/author-profile/edit.js:367
+msgid "Additional content editor"
 msgstr ""
 
 #: build/author-profile/block.json
