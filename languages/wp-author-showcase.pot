@@ -1,0 +1,294 @@
+# Copyright (C) 2025 Al Amin Ahamed
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Author Showcase 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-author-showcase\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-04-09T17:20:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: wp-author-showcase\n"
+
+#. Plugin Name of the plugin
+#: wp-author-showcase.php
+msgid "WP Author Showcase"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wp-author-showcase.php
+msgid "https://github.com/mralaminahamed/wp-author-showcase"
+msgstr ""
+
+#. Description of the plugin
+#: wp-author-showcase.php
+msgid "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type."
+msgstr ""
+
+#. Author of the plugin
+#: wp-author-showcase.php
+msgid "Al Amin Ahamed"
+msgstr ""
+
+#. Author URI of the plugin
+#: wp-author-showcase.php
+msgid "https://github.com/mralaminahamed"
+msgstr ""
+
+#: build/author-profile/render.php:41
+#: src/author-profile/render.php:41
+msgid "Please select an author profile to display."
+msgstr ""
+
+#: build/author-profile/render.php:52
+#: src/author-profile/render.php:52
+msgid "Author profile not found."
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:68
+msgctxt "post type general name"
+msgid "Author Profiles"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:69
+msgctxt "post type singular name"
+msgid "Author Profile"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:70
+msgctxt "admin menu"
+msgid "Author Profiles"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:71
+msgctxt "add new on admin bar"
+msgid "Author Profile"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:72
+msgctxt "author profile"
+msgid "Add New"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:73
+msgid "Add New Author Profile"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:74
+msgid "New Author Profile"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:75
+msgid "Edit Author Profile"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:76
+msgid "View Author Profile"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:77
+msgid "All Author Profiles"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:78
+msgid "Search Author Profiles"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:79
+msgid "Parent Author Profiles:"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:80
+msgid "No author profiles found."
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:81
+msgid "No author profiles found in Trash."
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:150
+msgid "Author Details"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:175
+msgid "Email Address"
+msgstr ""
+
+#: includes/PostTypes/AuthorProfile.php:180
+msgid "Description"
+msgstr ""
+
+#: build/author-profile/index.js:178
+#: src/author-profile/edit.js:156
+#: build/author-profile/index.js:156
+msgid "Author Profile"
+msgstr ""
+
+#: build/author-profile/index.js:179
+#: src/author-profile/edit.js:157
+#: build/author-profile/index.js:157
+msgid "Search and select an author profile to display."
+msgstr ""
+
+#: build/author-profile/index.js:187
+#: build/author-profile/index.js:219
+#: src/author-profile/edit.js:166
+#: src/author-profile/edit.js:203
+#: build/author-profile/index.js:166
+#: build/author-profile/index.js:203
+msgid "Search authors"
+msgstr ""
+
+#: build/author-profile/index.js:188
+#: build/author-profile/index.js:220
+#: src/author-profile/edit.js:167
+#: src/author-profile/edit.js:204
+#: build/author-profile/index.js:167
+#: build/author-profile/index.js:204
+msgid "Type to search authors..."
+msgstr ""
+
+#: build/author-profile/index.js:194
+#: build/author-profile/index.js:225
+#: src/author-profile/edit.js:175
+#: src/author-profile/edit.js:212
+#: build/author-profile/index.js:175
+#: build/author-profile/index.js:212
+msgid "Select Author"
+msgstr ""
+
+#: build/author-profile/index.js:197
+#: build/author-profile/index.js:228
+#: src/author-profile/edit.js:178
+#: src/author-profile/edit.js:215
+#: build/author-profile/index.js:178
+#: build/author-profile/index.js:215
+msgid "-- Select an author --"
+msgstr ""
+
+#: build/author-profile/index.js:204
+#: build/author-profile/index.js:235
+#: src/author-profile/edit.js:186
+#: src/author-profile/edit.js:223
+#: build/author-profile/index.js:186
+#: build/author-profile/index.js:223
+msgid "No authors found matching your search."
+msgstr ""
+
+#: build/author-profile/index.js:215
+#: src/author-profile/edit.js:199
+#: build/author-profile/index.js:199
+msgid "Author Selection"
+msgstr ""
+
+#: build/author-profile/index.js:244
+#: src/author-profile/edit.js:231
+#: build/author-profile/index.js:231
+msgid "Clear Selection"
+msgstr ""
+
+#: build/author-profile/index.js:247
+#: src/author-profile/edit.js:235
+#: build/author-profile/index.js:235
+msgid "Display Settings"
+msgstr ""
+
+#: build/author-profile/index.js:249
+#: src/author-profile/edit.js:237
+#: build/author-profile/index.js:237
+msgid "Show Image"
+msgstr ""
+
+#: build/author-profile/index.js:255
+#: src/author-profile/edit.js:243
+#: build/author-profile/index.js:243
+msgid "Show Email"
+msgstr ""
+
+#: build/author-profile/index.js:261
+#: src/author-profile/edit.js:249
+#: build/author-profile/index.js:249
+msgid "Show Description"
+msgstr ""
+
+#: build/author-profile/index.js:268
+#: src/author-profile/edit.js:255
+#: build/author-profile/index.js:255
+msgid "Style Settings"
+msgstr ""
+
+#: build/author-profile/index.js:270
+#: src/author-profile/edit.js:256
+#: build/author-profile/index.js:256
+msgid "Background Color"
+msgstr ""
+
+#: build/author-profile/index.js:278
+#: src/author-profile/edit.js:264
+#: build/author-profile/index.js:264
+msgid "Text Alignment"
+msgstr ""
+
+#: build/author-profile/index.js:281
+#: src/author-profile/edit.js:267
+#: build/author-profile/index.js:267
+msgid "Left"
+msgstr ""
+
+#: build/author-profile/index.js:284
+#: src/author-profile/edit.js:268
+#: build/author-profile/index.js:268
+msgid "Center"
+msgstr ""
+
+#: build/author-profile/index.js:287
+#: src/author-profile/edit.js:269
+#: build/author-profile/index.js:269
+msgid "Right"
+msgstr ""
+
+#: build/author-profile/index.js:294
+#: src/author-profile/edit.js:275
+#: build/author-profile/index.js:275
+msgid "Padding (px)"
+msgstr ""
+
+#: build/author-profile/index.js:304
+#: src/author-profile/edit.js:284
+#: build/author-profile/index.js:284
+msgid "Additional Content"
+msgstr ""
+
+#: build/author-profile/index.js:306
+#: src/author-profile/edit.js:286
+#: build/author-profile/index.js:286
+msgid "Show More Section"
+msgstr ""
+
+#: build/author-profile/index.js:311
+#: src/author-profile/edit.js:289
+#: build/author-profile/index.js:289
+msgid "Add a custom content section below the author profile."
+msgstr ""
+
+#: build/author-profile/index.js:350
+#: src/author-profile/edit.js:333
+#: build/author-profile/index.js:333
+msgid "Add additional content here..."
+msgstr ""
+
+#: build/author-profile/block.json
+#: src/author-profile/block.json
+msgctxt "block title"
+msgid "Author Profile"
+msgstr ""
+
+#: build/author-profile/block.json
+#: src/author-profile/block.json
+msgctxt "block description"
+msgid "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type."
+msgstr ""

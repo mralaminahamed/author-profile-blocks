@@ -52,6 +52,8 @@ export default function Edit({attributes, setAttributes}) {
 
 	// Fetch list of author profiles
 	useEffect(() => {
+		if (authorId) return;
+
 		setIsLoading(true);
 		apiFetch({path: '/wp/v2/author_profile?per_page=100'})
 			.then((posts) => {

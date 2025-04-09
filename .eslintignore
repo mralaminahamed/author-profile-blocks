@@ -4,15 +4,9 @@ vendor/
 
 # Build output
 build/
-dist/
-assets/js/build/
-
-# WordPress core files
-wp-admin/
-wp-includes/
 
 # Test files
 tests/
 
 # Config files
-bin/ 
+bin/

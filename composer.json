@@ -30,10 +30,10 @@
     "phpcs": "phpcs --standard=WordPress",
     "phpcbf": "phpcbf --standard=WordPress",
     "phpstan": "phpstan analyse",
-    "wp:make-pot": "php bin/wp.phar i18n make-pot ./ ./languages/wp-author-showcase.pot --domain=wp-author-showcase --package-name=\"WP Author Showcase\"",
-    "wp:update-po": "php bin/wp.phar i18n update-po ./languages/wp-author-showcase.pot",
-    "wp:make-php": "php bin/wp.phar i18n make-php ./languages/",
-    "wp:make-json": "php bin/wp.phar i18n make-json ./languages/"
+    "wp:make-pot": "wp i18n make-pot ./ ./languages/wp-author-showcase.pot --domain=wp-author-showcase --package-name=\"WP Author Showcase\"",
+    "wp:update-po": "wp i18n update-po ./languages/wp-author-showcase.pot",
+    "wp:make-php": "wp i18n make-php ./languages/",
+    "wp:make-json": "wp i18n make-json ./languages/"
   },
   "config": {
     "allow-plugins": {

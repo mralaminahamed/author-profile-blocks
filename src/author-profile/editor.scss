@@ -10,29 +10,31 @@
 
 .wp-block-wp-author-showcase-author-profile {
     position: relative;
-    
-    // Editor placeholder styles
+
+    /* Editor placeholder styles */
     .components-placeholder {
         min-height: 200px;
     }
-    
-    // Editor Inspector panel styles
+
+    /* Editor Inspector panel styles */
     .components-panel__body {
+
         .components-base-control {
             margin-bottom: 16px;
         }
-        
+
         .components-color-picker {
             margin-bottom: 20px;
         }
     }
-    
-    // Rich text editor styles for the "More Content" section
+
+    /* Rich text editor styles for the "More Content" section */
     .wpas-author-more-content {
+
         .block-editor-rich-text__editable {
             padding: 8px;
             border: 1px dashed #ddd;
-            
+
             &:focus {
                 border-color: #007cba;
             }
