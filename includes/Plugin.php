@@ -35,10 +35,10 @@ class Plugin {
 	 */
 	private function __construct() {
 		// Initialize modules.
-		$this->modules = [
-			new PostTypes\AuthorProfile(),
-			new Blocks\AuthorProfileBlock(),
-		];
+		$this->modules = array(
+			new Post_Types\Author_Profile(),
+			new Blocks\Author_Profile_Block(),
+		);
 	}
 
 	/**
@@ -60,20 +60,7 @@ class Plugin {
 	 * @return void
 	 */
 	public function init(): void {
-		// Register plugin hooks.
-		$this->register_hooks();
-
-		// Initialize modules.
 		$this->initialize_modules();
-	}
-
-	/**
-	 * Register plugin hooks.
-	 *
-	 * @return void
-	 */
-	private function register_hooks(): void {
-		// Nothing to do here yet.
 	}
 
 	/**

@@ -21,15 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Profile block.
  */
-class AuthorProfileBlock {
+class Author_Profile_Block {
 	/**
 	 * Initialize the class.
 	 *
 	 * @return void
 	 */
 	public function init(): void {
-		// Register block.
-		add_action( 'init', [ $this, 'register_block' ] );
+		add_action( 'init', array( $this, 'register_block' ) );
 	}
 
 	/**

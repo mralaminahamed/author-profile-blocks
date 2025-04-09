@@ -6,27 +6,35 @@
  * @subpackage PostTypes
  */
 
-namespace WPAuthorShowcase\PostTypes;
+namespace WPAuthorShowcase\Post_Types;
 
 use WP_Post;
+use WP_Query;
 use function __;
 use function _x;
 use function add_action;
+use function add_filter;
 use function add_meta_box;
 use function current_user_can;
 use function esc_attr;
+use function esc_html;
 use function esc_html_e;
 use function get_post_meta;
+use function printf;
 use function register_post_meta;
 use function register_post_type;
 use function sanitize_email;
 use function sanitize_text_field;
+use function strlen;
+use function substr;
 use function update_post_meta;
 use function wp_editor;
 use function wp_kses_post;
 use function wp_nonce_field;
+use function wp_strip_all_tags;
 use function wp_unslash;
 use function wp_verify_nonce;
+use WPAuthorShowcase\Templates\Template_Loader;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Profile custom post type.
  */
-class AuthorProfile {
+class Author_Profile {
 	/**
 	 * Post type name.
 	 *
@@ -50,12 +58,22 @@ class AuthorProfile {
 	 * @return void
 	 */
 	public function init(): void {
-		add_action( 'init', [ $this, 'register_post_type' ] );
-		add_action( 'init', [ $this, 'register_meta_fields' ] );
+		add_action( 'init', array( $this, 'register_post_type' ) );
+		add_action( 'init', array( $this, 'register_meta_fields' ) );
 
 		// Legacy code support - will be removed in future versions.
-		add_action( 'add_meta_boxes', [ $this, 'register_legacy_meta_boxes' ] );
-		add_action( 'save_post', [ $this, 'save_legacy_meta_boxes' ] );
+		add_action( 'add_meta_boxes', array( $this, 'register_legacy_meta_boxes' ) );
+		add_action( 'save_post', array( $this, 'save_legacy_meta_boxes' ) );
+
+		// Add custom columns to the admin list table
+		add_filter( 'manage_' . $this->post_type . '_posts_columns', array( $this, 'add_custom_columns' ) );
+		add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( $this, 'render_custom_columns' ), 10, 2 );
+		// Make the columns sortable
+		add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'make_custom_columns_sortable' ) );
+		// Add sorting functionality
+		add_action( 'pre_get_posts', array( $this, 'sort_custom_columns' ) );
+		// Add admin styles
+		add_action( 'admin_head', array( $this, 'add_admin_styles' ) );
 	}
 
 	/**
@@ -64,7 +82,7 @@ class AuthorProfile {
 	 * @return void
 	 */
 	public function register_post_type(): void {
-		$labels = [
+		$labels = array(
 			'name'               => _x( 'Author Profiles', 'post type general name', 'wp-author-showcase' ),
 			'singular_name'      => _x( 'Author Profile', 'post type singular name', 'wp-author-showcase' ),
 			'menu_name'          => _x( 'Author Profiles', 'admin menu', 'wp-author-showcase' ),
@@ -79,24 +97,24 @@ class AuthorProfile {
 			'parent_item_colon'  => __( 'Parent Author Profiles:', 'wp-author-showcase' ),
 			'not_found'          => __( 'No author profiles found.', 'wp-author-showcase' ),
 			'not_found_in_trash' => __( 'No author profiles found in Trash.', 'wp-author-showcase' ),
-		];
+		);
 
-		$args = [
+		$args = array(
 			'labels'             => $labels,
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'query_var'          => true,
-			'rewrite'            => [ 'slug' => 'author-profile' ],
+			'rewrite'            => array( 'slug' => 'author-profile' ),
 			'capability_type'    => 'post',
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => 20,
 			'menu_icon'          => 'dashicons-id',
-			'supports'           => [ 'title', 'editor', 'thumbnail', 'custom-fields' ],
+			'supports'           => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
 			'show_in_rest'       => true,
-		];
+		);
 
 		register_post_type( $this->post_type, $args );
 	}
@@ -111,7 +129,7 @@ class AuthorProfile {
 		register_post_meta(
 			$this->post_type,
 			'wpas_author_email',
-			[
+			array(
 				'show_in_rest'      => true,
 				'single'            => true,
 				'type'              => 'string',
@@ -119,14 +137,14 @@ class AuthorProfile {
 				'auth_callback'     => function () {
 					return current_user_can( 'edit_posts' );
 				},
-			]
+			)
 		);
 
 		// Register description field.
 		register_post_meta(
 			$this->post_type,
 			'wpas_author_description',
-			[
+			array(
 				'show_in_rest'      => true,
 				'single'            => true,
 				'type'              => 'string',
@@ -134,7 +152,7 @@ class AuthorProfile {
 				'auth_callback'     => function () {
 					return current_user_can( 'edit_posts' );
 				},
-			]
+			)
 		);
 	}
 
@@ -148,7 +166,7 @@ class AuthorProfile {
 		add_meta_box(
 			'wpas_author_details',
 			__( 'Author Details', 'wp-author-showcase' ),
-			[ $this, 'render_legacy_meta_box' ],
+			array( $this, 'render_legacy_meta_box' ),
 			'author_profile',
 			'normal',
 			'high'
@@ -170,28 +188,10 @@ class AuthorProfile {
 		// Get current values
 		$email       = get_post_meta( $post->ID, 'wpas_author_email', true );
 		$description = get_post_meta( $post->ID, 'wpas_author_description', true );
-		?>
-		<div class="wpas-meta-field">
-			<label for="wpas_author_email"><?php esc_html_e( 'Email Address', 'wp-author-showcase' ); ?>:</label>
-			<input type="email" id="wpas_author_email" name="wpas_author_email" value="<?php echo esc_attr( $email ); ?>" class="widefat">
-		</div>
 
-		<div class="wpas-meta-field" style="margin-top: 15px;">
-			<label for="wpas_author_description"><?php esc_html_e( 'Description', 'wp-author-showcase' ); ?>:</label>
-			<?php
-			wp_editor(
-				$description,
-				'wpas_author_description',
-				[
-					'media_buttons' => false,
-					'textarea_name' => 'wpas_author_description',
-					'textarea_rows' => 5,
-					'teeny'         => true,
-				]
-			);
-			?>
-		</div>
-		<?php
+		// Load the template files for each field
+		Template_Loader::load( 'admin/author-email-field', compact( 'email' ) );
+		Template_Loader::load( 'admin/author-description-field', compact( 'description' ) );
 	}
 
 	/**
@@ -243,11 +243,126 @@ class AuthorProfile {
 	}
 
 	/**
+	 * Add custom columns to the admin list table.
+	 *
+	 * @param array $columns The existing columns.
+	 * @return array The modified columns.
+	 */
+	public function add_custom_columns( array $columns ): array {
+		$new_columns = array();
+
+		// Insert columns after title, but before date
+		foreach ( $columns as $key => $value ) {
+			$new_columns[ $key ] = $value;
+
+			if ( 'title' === $key ) {
+				$new_columns['author_email']       = __( 'Email', 'wp-author-showcase' );
+				$new_columns['author_description'] = __( 'Description', 'wp-author-showcase' );
+			}
+		}
+
+		$new_columns['title'] = __( 'Name', 'wp-author-showcase' );
+
+		return $new_columns;
+	}
+
+	/**
+	 * Render the custom columns in the admin list table.
+	 *
+	 * @param string $column   The column name.
+	 * @param int    $post_id  The post ID.
+	 * @return void
+	 */
+	public function render_custom_columns( string $column, int $post_id ): void {
+		switch ( $column ) {
+			case 'author_email':
+				$email = get_post_meta( $post_id, 'wpas_author_email', true );
+				Template_Loader::load( 'admin/column-email', compact( 'email' ) );
+				break;
+
+			case 'author_description':
+				$description = get_post_meta( $post_id, 'wpas_author_description', true );
+				if ( ! empty( $description ) ) {
+					// Truncate description to 150 characters
+					$truncated = wp_strip_all_tags( $description );
+					$original_length = strlen( $truncated );
+					$is_truncated = false;
+
+					if ( $original_length > 150 ) {
+						$truncated = substr( $truncated, 0, 150 );
+						// Ensure we don't cut off in the middle of a word
+						if ( $truncated !== $description ) {
+							// Find the last space within the truncated string
+							$last_space = strrpos( $truncated, ' ' );
+							if ( $last_space !== false ) {
+								$truncated = substr( $truncated, 0, $last_space );
+							}
+							$truncated .= '...';
+							$is_truncated = true;
+						}
+					}
+
+					Template_Loader::load( 'admin/column-description', compact( 'truncated', 'original_length', 'is_truncated' ) );
+				} else {
+					Template_Loader::load( 'admin/column-description', array( 'truncated' => '' ) );
+				}
+				break;
+		}
+	}
+
+	/**
+	 * Make custom columns sortable.
+	 *
+	 * @param array $columns The sortable columns.
+	 * @return array The modified sortable columns.
+	 */
+	public function make_custom_columns_sortable( array $columns ): array {
+		$columns['author_email'] = 'author_email';
+		return $columns;
+	}
+
+	/**
+	 * Add sorting functionality for custom columns.
+	 *
+	 * @param \WP_Query $query The WordPress query object.
+	 * @return void
+	 */
+	public function sort_custom_columns( \WP_Query $query ): void {
+		if ( ! is_admin() || ! $query->is_main_query() ) {
+			return;
+		}
+
+		$orderby = $query->get( 'orderby' );
+
+		if ( 'author_email' === $orderby ) {
+			$query->set( 'meta_key', 'wpas_author_email' );
+			$query->set( 'orderby', 'meta_value' );
+		}
+	}
+
+	/**
 	 * Get post type name.
 	 *
 	 * @return string The post type name.
 	 */
 	public function get_post_type(): string {
 		return $this->post_type;
+	}
+
+	/**
+	 * Add admin styles.
+	 *
+	 * @return void
+	 */
+	public function add_admin_styles(): void {
+		global $post_type;
+
+		// Only add styles on the author profile list page
+		if ( $this->post_type !== $post_type ) {
+			return;
+		}
+
+		// Load the admin styles template
+		Template_Loader::load( 'admin/admin-styles' );
 	}
 }

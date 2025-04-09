@@ -15,15 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @var array $attributes Block attributes.
  */
-$author_id = isset( $attributes['authorId'] ) ? (int) $attributes['authorId'] : 0;
-$show_image = ! isset( $attributes['showImage'] ) || (bool) $attributes['showImage'];
-$show_email = ! isset( $attributes['showEmail'] ) || (bool) $attributes['showEmail'];
+$author_id        = isset( $attributes['authorId'] ) ? (int) $attributes['authorId'] : 0;
+$show_image       = ! isset( $attributes['showImage'] ) || (bool) $attributes['showImage'];
+$show_email       = ! isset( $attributes['showEmail'] ) || (bool) $attributes['showEmail'];
 $show_description = ! isset( $attributes['showDescription'] ) || (bool) $attributes['showDescription'];
-$show_more = isset( $attributes['showMore'] ) && (bool) $attributes['showMore'];
-$more_content = $attributes['moreContent'] ?? '';
+$show_more        = isset( $attributes['showMore'] ) && (bool) $attributes['showMore'];
+$more_content     = $attributes['moreContent'] ?? '';
 $background_color = $attributes['backgroundColor'] ?? '#ffffff';
-$text_align = $attributes['textAlign'] ?? 'left';
-$padding = isset( $attributes['padding'] ) ? (int) $attributes['padding'] : 20;
+$text_align       = $attributes['textAlign'] ?? 'left';
+$padding          = isset( $attributes['padding'] ) ? (int) $attributes['padding'] : 20;
 
 // Generate CSS styles.
 $wrapper_style = sprintf(
@@ -34,18 +34,20 @@ $wrapper_style = sprintf(
 
 // Set up classes
 $wrapper_classes = array();
-if ($text_align !== 'left') {
-    $wrapper_classes[] = 'has-text-align-' . esc_attr($text_align);
+if ( $text_align !== 'left' ) {
+	$wrapper_classes[] = 'has-text-align-' . esc_attr( $text_align );
 }
 
 // If no author is selected, show an error message.
 if ( ! $author_id ) {
 	printf(
 		'<div %s><p>%s</p></div>',
-		get_block_wrapper_attributes( array( 
-			'style' => $wrapper_style,
-			'class' => implode(' ', $wrapper_classes) 
-		) ),
+		get_block_wrapper_attributes(
+			array(
+				'style' => $wrapper_style,
+				'class' => implode( ' ', $wrapper_classes ),
+			)
+		),
 		esc_html__( 'Please select an author profile to display.', 'wp-author-showcase' )
 	);
 	return;
@@ -56,26 +58,34 @@ $author = get_post( $author_id );
 if ( ! $author || 'author_profile' !== $author->post_type ) {
 	printf(
 		'<div %s><p>%s</p></div>',
-		get_block_wrapper_attributes( array( 
-			'style' => $wrapper_style,
-			'class' => implode(' ', $wrapper_classes) 
-		) ),
+		get_block_wrapper_attributes(
+			array(
+				'style' => $wrapper_style,
+				'class' => implode( ' ', $wrapper_classes ),
+			)
+		),
 		esc_html__( 'Author profile not found.', 'wp-author-showcase' )
 	);
 	return;
 }
 
 // Get author meta.
-$email = get_post_meta( $author_id, 'wpas_author_email', true );
-$description = get_post_meta( $author_id, 'wpas_author_description', true );
+$email          = get_post_meta( $author_id, 'wpas_author_email', true );
+$description    = get_post_meta( $author_id, 'wpas_author_description', true );
 $featured_image = get_the_post_thumbnail_url( $author_id, 'medium' );
 
 // Render the block.
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 
-	'style' => $wrapper_style,
-	'class' => implode(' ', $wrapper_classes) 
-) ); ?>>
+<div 
+<?php
+echo get_block_wrapper_attributes(
+	array(
+		'style' => $wrapper_style,
+		'class' => implode( ' ', $wrapper_classes ),
+	)
+);
+?>
+>
 	<div class="wpas-author-profile-content">
 		<?php if ( $show_image && $featured_image ) : ?>
 			<div class="wpas-author-image">
