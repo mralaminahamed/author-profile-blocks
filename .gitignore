@@ -1,0 +1,41 @@
+# Operating System Files
+.DS_Store
+
+# IDE/Editor Files
+.idea/
+.vscode/
+
+# Logs and Temporary Files
+logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+.yarn/*
+.eslintcache
+.stylelintcache
+
+# Dependency Directories
+node_modules/
+vendor/*
+!vendor/composer
+!vendor/autoload.php
+
+# Build and Distribution Files
+/build/
+*.zip
+*.tgz
+
+# Environment Files
+.env
+.env.*
+!.env.example
+.wp-env.override.json
+
+# Translation Files
+languages/*.mo
+languages/*.po~
+languages/*.pot~
+
+# Compilation Source Maps
+*.css.map
+*.js.map

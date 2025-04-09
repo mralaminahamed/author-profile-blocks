@@ -1,0 +1,26 @@
+includes:
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+
+parameters:
+    level: 5
+
+    paths:
+        - wp-author-showcase.php
+        - includes
+        - templates
+
+    excludePaths:
+        - tests/*
+        - vendor/
+        - node_modules/
+        - build/
+        - bin/
+
+    ignoreErrors:
+        - identifier: class.notFound
+        - identifier: missingType.generics
+
+    treatPhpDocTypesAsCertain: false
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

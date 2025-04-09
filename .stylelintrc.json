@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-scss",
+    "stylelint-config-wordpress"
+  ],
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "indentation": "tab",
+    "no-descending-specificity": null,
+    "function-url-quotes": "always",
+    "string-quotes": "single",
+    "selector-class-pattern": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null
+  },
+  "ignoreFiles": [
+    "node_modules/**",
+    "vendor/**",
+    "build/**",
+    "dist/**"
+  ]
+} 
