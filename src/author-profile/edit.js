@@ -77,31 +77,56 @@ export default function Edit({attributes, setAttributes}) {
 		setIsLoading(true);
 		apiFetch({path: `/wp/v2/author_profile/${authorId}`})
 			.then((post) => {
+				if (!post || !post.title) {
+					// Handle case where author profile exists but has incomplete data
+					setIsLoading(false);
+					console.error('Author profile exists but has incomplete data');
+					return;
+				}
+
 				setSelectedAuthor({
-					name: post.title?.rendered,
+					name: post.title?.rendered || __('Unnamed Author', 'wp-author-showcase'),
 					email: post.meta?.wpas_author_email || '',
 					description: post.meta?.wpas_author_description || '',
-					featuredImage: post.featured_media ? post._links['wp:featuredmedia'][0].href : null
+					featuredImage: post.featured_media && post._links && post._links['wp:featuredmedia']
+						? post._links['wp:featuredmedia'][0].href
+						: null
 				});
 
 				// If there's a featured image, fetch it
-				if (post.featured_media) {
+				if (post.featured_media && post._links && post._links['wp:featuredmedia']) {
 					apiFetch({url: post._links['wp:featuredmedia'][0].href})
 						.then((media) => {
+							if (!media || !media.source_url) {
+								// Handle case where media exists but URL is missing
+								setIsLoading(false);
+								return;
+							}
+
 							setSelectedAuthor(prev => ({
 								...prev,
 								imageUrl: media.source_url
 							}));
 							setIsLoading(false);
 						})
-						.catch(() => setIsLoading(false));
+						.catch((error) => {
+							console.error('Error fetching author image:', error);
+							// Continue without the image
+							setIsLoading(false);
+						});
 				} else {
 					setIsLoading(false);
 				}
 			})
 			.catch((error) => {
+				// Handle case where author profile doesn't exist or can't be accessed
 				console.error('Error fetching author data:', error);
 				setIsLoading(false);
+
+				// If it's a 404 error (author not found), clear the author selection
+				if (error.code === 'rest_post_invalid_id') {
+					setAttributes({authorId: 0});
+				}
 			});
 	}, [authorId]);
 
@@ -109,6 +134,7 @@ export default function Edit({attributes, setAttributes}) {
 	useEffect(() => {
 		if (searchTerm.length <= 2) return;
 
+		// For 3+ character searches, use the API
 		setIsSearching(true);
 		apiFetch({path: `/wp/v2/author_profile?search=${encodeURIComponent(searchTerm)}`})
 			.then((posts) => {
@@ -138,11 +164,10 @@ export default function Edit({attributes, setAttributes}) {
 	});
 
 	// Filter authors based on search term for the dropdown
-	const filteredAuthors = searchTerm.length > 0
-		? authors.filter(author =>
-			author.name?.toLowerCase().includes(searchTerm.toLowerCase())
-		)
-		: authors;
+	const filteredAuthors = authors.filter(author =>
+		!searchTerm.length ||
+		author.name?.toLowerCase().includes(searchTerm.toLowerCase())
+	);
 
 	const authorOptions = authors.map(author => ({
 		label: author.name,
@@ -213,13 +238,13 @@ export default function Edit({attributes, setAttributes}) {
 							value={authorId}
 							options={[
 								{label: __('-- Select an author --', 'wp-author-showcase'), value: 0},
-								...filteredAuthors
+								...authorOptions
 							]}
 							onChange={(value) => setAttributes({authorId: parseInt(value, 10)})}
 						/>
 					)}
 
-					{searchTerm.length > 0 && filteredAuthors.length === 0 && !isSearching && (
+					{searchTerm.length > 0 && authorOptions.length === 0 && !isSearching && (
 						<p>{__('No authors found matching your search.', 'wp-author-showcase')}</p>
 					)}
 
@@ -250,7 +275,7 @@ export default function Edit({attributes, setAttributes}) {
 						checked={showDescription}
 						onChange={() => setAttributes({showDescription: !showDescription})}
 					/>
-					
+
 					<ToggleControl
 						label={__('Show More Section', 'wp-author-showcase')}
 						checked={showMore}
@@ -292,12 +317,13 @@ export default function Edit({attributes, setAttributes}) {
 			</InspectorControls>
 
 			<div {...blockProps}>
-				<div className="wpas-author-profile-content">
+				<div className="wpas-author-profile-content" role="region" aria-label={__('Author profile information', 'wp-author-showcase')}>
 					{showImage && selectedAuthor?.imageUrl && (
 						<div className="wpas-author-image">
 							<img
 								src={selectedAuthor.imageUrl}
 								alt={selectedAuthor.name}
+								aria-hidden="false"
 							/>
 						</div>
 					)}
@@ -309,7 +335,10 @@ export default function Edit({attributes, setAttributes}) {
 
 						{showEmail && selectedAuthor?.email && (
 							<div className="wpas-author-email">
-								<a href={`mailto:${selectedAuthor.email}`}>
+								<a
+									href={`mailto:${selectedAuthor.email}`}
+									aria-label={__('Email', 'wp-author-showcase') + ': ' + selectedAuthor.email}
+								>
 									{selectedAuthor.email}
 								</a>
 							</div>
@@ -319,18 +348,23 @@ export default function Edit({attributes, setAttributes}) {
 							<div
 								className="wpas-author-description"
 								dangerouslySetInnerHTML={{__html: selectedAuthor.description}}
+								aria-label={__('Author description', 'wp-author-showcase')}
 							/>
 						)}
 					</div>
 				</div>
 
 				{showMore && (
-					<div className="wpas-author-more-content">
+					<div
+						className="wpas-author-more-content"
+						aria-label={__('Additional content', 'wp-author-showcase')}
+					>
 						<RichText
 							tagName="div"
 							value={moreContent}
 							onChange={(content) => setAttributes({moreContent: content})}
 							placeholder={__('Add additional content here...', 'wp-author-showcase')}
+							aria-label={__('Additional content editor', 'wp-author-showcase')}
 						/>
 					</div>
 				)}
