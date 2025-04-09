@@ -27,17 +27,25 @@ $padding = isset( $attributes['padding'] ) ? (int) $attributes['padding'] : 20;
 
 // Generate CSS styles.
 $wrapper_style = sprintf(
-	'background-color: %s; text-align: %s; padding: %dpx;',
+	'background-color: %s; padding: %dpx;',
 	esc_attr( $background_color ),
-	esc_attr( $text_align ),
 	esc_attr( $padding )
 );
+
+// Set up classes
+$wrapper_classes = array();
+if ($text_align !== 'left') {
+    $wrapper_classes[] = 'has-text-align-' . esc_attr($text_align);
+}
 
 // If no author is selected, show an error message.
 if ( ! $author_id ) {
 	printf(
 		'<div %s><p>%s</p></div>',
-		get_block_wrapper_attributes( array( 'style' => $wrapper_style ) ),
+		get_block_wrapper_attributes( array( 
+			'style' => $wrapper_style,
+			'class' => implode(' ', $wrapper_classes) 
+		) ),
 		esc_html__( 'Please select an author profile to display.', 'wp-author-showcase' )
 	);
 	return;
@@ -48,7 +56,10 @@ $author = get_post( $author_id );
 if ( ! $author || 'author_profile' !== $author->post_type ) {
 	printf(
 		'<div %s><p>%s</p></div>',
-		get_block_wrapper_attributes( array( 'style' => $wrapper_style ) ),
+		get_block_wrapper_attributes( array( 
+			'style' => $wrapper_style,
+			'class' => implode(' ', $wrapper_classes) 
+		) ),
 		esc_html__( 'Author profile not found.', 'wp-author-showcase' )
 	);
 	return;
@@ -61,7 +72,10 @@ $featured_image = get_the_post_thumbnail_url( $author_id, 'medium' );
 
 // Render the block.
 ?>
-<div <?php echo get_block_wrapper_attributes( array( 'style' => $wrapper_style ) ); ?>>
+<div <?php echo get_block_wrapper_attributes( array( 
+	'style' => $wrapper_style,
+	'class' => implode(' ', $wrapper_classes) 
+) ); ?>>
 	<div class="wpas-author-profile-content">
 		<?php if ( $show_image && $featured_image ) : ?>
 			<div class="wpas-author-image">

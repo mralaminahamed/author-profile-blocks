@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 import {__} from '@wordpress/i18n';
-import {useEffect, useState, WPElement} from '@wordpress/element';
+import {useEffect, useState} from '@wordpress/element';
 import {InspectorControls, RichText, useBlockProps} from '@wordpress/block-editor';
 import {
 	Button,
@@ -59,7 +59,7 @@ export default function Edit({attributes, setAttributes}) {
 			.then((posts) => {
 				setAuthors(posts.map(post => ({
 					id: post.id,
-					label: post.title?.rendered,
+					name: post.title?.rendered,
 					value: post.id
 				})));
 				setIsLoading(false);
@@ -93,7 +93,8 @@ export default function Edit({attributes, setAttributes}) {
 								imageUrl: media.source_url
 							}));
 							setIsLoading(false);
-						});
+						})
+						.catch(() => setIsLoading(false));
 				} else {
 					setIsLoading(false);
 				}
@@ -126,9 +127,10 @@ export default function Edit({attributes, setAttributes}) {
 
 	// Block wrapper styles
 	const blockStyle = {
-		backgroundColor: backgroundColor,
-		textAlign: textAlign,
-		padding: `${padding}px`
+		backgroundColor,
+		textAlign,
+		padding: `${padding}px`,
+		borderRadius: '4px',
 	};
 
 	const blockProps = useBlockProps({
@@ -159,13 +161,12 @@ export default function Edit({attributes, setAttributes}) {
 					{isLoading ? (
 						<Spinner/>
 					) : (
-						<div style={{width: '100%'}}>
+						<div className="wpas-author-selector">
 							<SearchControl
 								value={searchTerm}
 								onChange={setSearchTerm}
 								label={__('Search authors', 'wp-author-showcase')}
 								placeholder={__('Type to search authors...', 'wp-author-showcase')}
-								style={{marginBottom: '10px', width: '100%'}}
 							/>
 
 							{isSearching ? (
@@ -183,7 +184,7 @@ export default function Edit({attributes, setAttributes}) {
 							)}
 
 							{searchTerm.length > 0 && authorOptions.length === 0 && !isSearching && (
-								<p>{__('No authors found matching your search.', 'wp-author-showcase')}</p>
+								<p className="wpas-no-results">{__('No authors found matching your search.', 'wp-author-showcase')}</p>
 							)}
 						</div>
 					)}
@@ -202,7 +203,6 @@ export default function Edit({attributes, setAttributes}) {
 						onChange={setSearchTerm}
 						label={__('Search authors', 'wp-author-showcase')}
 						placeholder={__('Type to search authors...', 'wp-author-showcase')}
-						style={{marginBottom: '10px'}}
 					/>
 
 					{isSearching ? (
@@ -226,7 +226,7 @@ export default function Edit({attributes, setAttributes}) {
 					<Button
 						isSecondary
 						onClick={() => setAttributes({authorId: 0})}
-						style={{marginTop: '10px'}}
+						className="wpas-clear-button"
 					>
 						{__('Clear Selection', 'wp-author-showcase')}
 					</Button>
@@ -250,15 +250,24 @@ export default function Edit({attributes, setAttributes}) {
 						checked={showDescription}
 						onChange={() => setAttributes({showDescription: !showDescription})}
 					/>
+					
+					<ToggleControl
+						label={__('Show More Section', 'wp-author-showcase')}
+						checked={showMore}
+						onChange={() => setAttributes({showMore: !showMore})}
+						help={__('Add a custom content section below the author profile.', 'wp-author-showcase')}
+					/>
 				</PanelBody>
 
 				<PanelBody title={__('Style Settings', 'wp-author-showcase')}>
-					<p>{__('Background Color', 'wp-author-showcase')}</p>
-					<ColorPicker
-						color={backgroundColor}
-						onChange={(color) => setAttributes({backgroundColor: color})}
-						enableAlpha
-					/>
+					<div className="wpas-color-setting">
+						<p>{__('Background Color', 'wp-author-showcase')}</p>
+						<ColorPicker
+							color={backgroundColor}
+							onChange={(color) => setAttributes({backgroundColor: color})}
+							enableAlpha
+						/>
+					</div>
 
 					<SelectControl
 						label={__('Text Alignment', 'wp-author-showcase')}
@@ -278,15 +287,6 @@ export default function Edit({attributes, setAttributes}) {
 						min={0}
 						max={100}
 						step={1}
-					/>
-				</PanelBody>
-
-				<PanelBody title={__('Additional Content', 'wp-author-showcase')}>
-					<ToggleControl
-						label={__('Show More Section', 'wp-author-showcase')}
-						checked={showMore}
-						onChange={() => setAttributes({showMore: !showMore})}
-						help={__('Add a custom content section below the author profile.', 'wp-author-showcase')}
 					/>
 				</PanelBody>
 			</InspectorControls>
