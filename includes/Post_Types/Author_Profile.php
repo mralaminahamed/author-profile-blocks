@@ -70,7 +70,9 @@ class Author_Profile {
 		add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( $this, 'render_custom_columns' ), 10, 2 );
 		add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'make_custom_columns_sortable' ) );
 		add_action( 'pre_get_posts', array( $this, 'sort_custom_columns' ) );
-		add_action( 'admin_head', array( $this, 'add_admin_styles' ) );
+
+		// Add custom styles to the admin area.
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -357,7 +359,7 @@ class Author_Profile {
 	 *
 	 * @return void
 	 */
-	public function add_admin_styles(): void {
+	public function enqueue_scripts(): void {
 		global $post_type;
 
 		// Only add styles on the author profile list page
@@ -365,7 +367,11 @@ class Author_Profile {
 			return;
 		}
 
-		// Load the admin styles template
-		Template_Loader::load( 'admin/admin-styles' );
+		wp_enqueue_style(
+			'wpas-admin-styles',
+			WPAS_PLUGIN_URL . 'build/admin/styles.css',
+			array(),
+			WPAS_VERSION
+		);
 	}
 }
