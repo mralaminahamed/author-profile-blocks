@@ -99,21 +99,6 @@ A WordPress plugin that showcases author profiles with a beautiful Gutenberg blo
   yarn build
   ```
 
-- Lint JavaScript:
-  ```
-  yarn lint:js
-  ```
-
-- Lint CSS:
-  ```
-  yarn lint:css
-  ```
-
-- Format code:
-  ```
-  yarn format
-  ```
-
 #### PHP Development
 
 - Check PHP coding standards:
