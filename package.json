@@ -26,19 +26,9 @@
 		"npm": ">=8.0.0"
 	},
 	"scripts": {
+    "start": "wp-scripts start --webpack-copy-php --blocks-manifest",
 		"build": "wp-scripts build --webpack-copy-php --blocks-manifest",
-		"check-engines": "wp-scripts check-engines",
-		"check-licenses": "wp-scripts check-licenses",
-		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
-		"lint:md:docs": "wp-scripts lint-md-docs",
-		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip --root-folder=wp-author-showcase",
-		"start": "wp-scripts start --webpack-copy-php --blocks-manifest",
-		"test:e2e": "wp-scripts test-e2e",
-		"test:unit": "wp-scripts test-unit-js"
+		"plugin-zip": "wp-scripts plugin-zip --root-folder=wp-author-showcase"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.26.10",
