@@ -25,12 +25,6 @@ vendor/*
 *.zip
 *.tgz
 
-# Environment Files
-.env
-.env.*
-!.env.example
-.wp-env.override.json
-
 # Translation Files
 languages/*.mo
 languages/*.po~
