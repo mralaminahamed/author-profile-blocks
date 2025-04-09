@@ -65,14 +65,11 @@ class Author_Profile {
 		add_action( 'add_meta_boxes', array( $this, 'register_legacy_meta_boxes' ) );
 		add_action( 'save_post', array( $this, 'save_legacy_meta_boxes' ) );
 
-		// Add custom columns to the admin list table
+		// Add custom columns to the admin list table, render them, and make them sortable.
 		add_filter( 'manage_' . $this->post_type . '_posts_columns', array( $this, 'add_custom_columns' ) );
 		add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( $this, 'render_custom_columns' ), 10, 2 );
-		// Make the columns sortable
 		add_filter( 'manage_edit-' . $this->post_type . '_sortable_columns', array( $this, 'make_custom_columns_sortable' ) );
-		// Add sorting functionality
 		add_action( 'pre_get_posts', array( $this, 'sort_custom_columns' ) );
-		// Add admin styles
 		add_action( 'admin_head', array( $this, 'add_admin_styles' ) );
 	}
 
@@ -255,13 +252,13 @@ class Author_Profile {
 		foreach ( $columns as $key => $value ) {
 			$new_columns[ $key ] = $value;
 
-			if ( 'title' === $key ) {
+			if ( 'cb' === $key ) {
+				$new_columns['author_image']       = __( 'Image', 'wp-author-showcase' );
+				$new_columns['title']              = __( 'Name', 'wp-author-showcase' );
 				$new_columns['author_email']       = __( 'Email', 'wp-author-showcase' );
 				$new_columns['author_description'] = __( 'Description', 'wp-author-showcase' );
 			}
 		}
-
-		$new_columns['title'] = __( 'Name', 'wp-author-showcase' );
 
 		return $new_columns;
 	}
@@ -275,6 +272,11 @@ class Author_Profile {
 	 */
 	public function render_custom_columns( string $column, int $post_id ): void {
 		switch ( $column ) {
+			case 'author_image':
+				$image_url = get_the_post_thumbnail_url( $post_id, 'thumbnail' );
+				Template_Loader::load( 'admin/column-image', compact( 'image_url' ) );
+				break;
+
 			case 'author_email':
 				$email = get_post_meta( $post_id, 'wpas_author_email', true );
 				Template_Loader::load( 'admin/column-email', compact( 'email' ) );
@@ -284,9 +286,9 @@ class Author_Profile {
 				$description = get_post_meta( $post_id, 'wpas_author_description', true );
 				if ( ! empty( $description ) ) {
 					// Truncate description to 150 characters
-					$truncated = wp_strip_all_tags( $description );
+					$truncated       = wp_strip_all_tags( $description );
 					$original_length = strlen( $truncated );
-					$is_truncated = false;
+					$is_truncated    = false;
 
 					if ( $original_length > 150 ) {
 						$truncated = substr( $truncated, 0, 150 );
@@ -297,7 +299,7 @@ class Author_Profile {
 							if ( $last_space !== false ) {
 								$truncated = substr( $truncated, 0, $last_space );
 							}
-							$truncated .= '...';
+							$truncated   .= '...';
 							$is_truncated = true;
 						}
 					}
@@ -324,10 +326,11 @@ class Author_Profile {
 	/**
 	 * Add sorting functionality for custom columns.
 	 *
-	 * @param \WP_Query $query The WordPress query object.
+	 * @param WP_Query $query The WordPress query object.
+	 *
 	 * @return void
 	 */
-	public function sort_custom_columns( \WP_Query $query ): void {
+	public function sort_custom_columns( WP_Query $query ): void {
 		if ( ! is_admin() || ! $query->is_main_query() ) {
 			return;
 		}

@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <style>
 	/* Column styles */
+	.column-author_image {
+		width: 80px;
+	}
 	.column-author_email {
 		width: 20%;
 	}
@@ -50,8 +53,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.no-email, .no-description {
+	.no-email, .no-description, .no-image {
 		color: #999;
+	}
+	
+	/* Image column styles */
+	.author-image-wrapper {
+		width: 60px;
+		height: 60px;
+		overflow: hidden;
+		border-radius: 4px;
+	}
+	.author-thumbnail {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 	
 	.author-description-wrapper {
