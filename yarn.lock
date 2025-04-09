@@ -2479,35 +2479,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mralaminahamed/wp-author-showcase@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@mralaminahamed/wp-author-showcase@workspace:."
-  dependencies:
-    "@babel/core": "npm:^7.26.10"
-    "@playwright/test": "npm:^1.51.1"
-    "@wordpress/api-fetch": "npm:^7.21.0"
-    "@wordpress/block-editor": "npm:^14.16.0"
-    "@wordpress/blocks": "npm:^14.10.0"
-    "@wordpress/components": "npm:^29.7.0"
-    "@wordpress/compose": "npm:^7.21.0"
-    "@wordpress/data": "npm:^10.21.0"
-    "@wordpress/element": "npm:^6.21.0"
-    "@wordpress/eslint-plugin": "npm:^22.7.0"
-    "@wordpress/i18n": "npm:^5.21.0"
-    "@wordpress/scripts": "npm:^30.14.1"
-    "@wordpress/server-side-render": "npm:^5.21.0"
-    "@wordpress/stylelint-config": "npm:^23.13.0"
-    classnames: "npm:^2.5.1"
-    eslint: "npm:^9.24.0"
-    eslint-plugin-react: "npm:^7.37.5"
-    prettier: "npm:^3.5.3"
-    react: "npm:^19.1.0"
-    react-dom: "npm:^19.1.0"
-    stylelint: "npm:^16.18.0"
-    typescript: "npm:^5.8.3"
-  languageName: unknown
-  linkType: soft
-
 "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1":
   version: 5.1.1-v1
   resolution: "@nicolo-ribaudo/eslint-scope-5-internals@npm:5.1.1-v1"
@@ -16683,6 +16654,35 @@ __metadata:
   checksum: 10/1ec6f6089f205f83037be10d0c4b34c9183b0b63fca0834a5b3cee55dd321429d73d40bb44c8fc8471b5203d6e8f8275717f49a8ff4b2b0ab41d7e1b563e0854
   languageName: node
   linkType: hard
+
+"wp-author-showcase@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "wp-author-showcase@workspace:."
+  dependencies:
+    "@babel/core": "npm:^7.26.10"
+    "@playwright/test": "npm:^1.51.1"
+    "@wordpress/api-fetch": "npm:^7.21.0"
+    "@wordpress/block-editor": "npm:^14.16.0"
+    "@wordpress/blocks": "npm:^14.10.0"
+    "@wordpress/components": "npm:^29.7.0"
+    "@wordpress/compose": "npm:^7.21.0"
+    "@wordpress/data": "npm:^10.21.0"
+    "@wordpress/element": "npm:^6.21.0"
+    "@wordpress/eslint-plugin": "npm:^22.7.0"
+    "@wordpress/i18n": "npm:^5.21.0"
+    "@wordpress/scripts": "npm:^30.14.1"
+    "@wordpress/server-side-render": "npm:^5.21.0"
+    "@wordpress/stylelint-config": "npm:^23.13.0"
+    classnames: "npm:^2.5.1"
+    eslint: "npm:^9.24.0"
+    eslint-plugin-react: "npm:^7.37.5"
+    prettier: "npm:^3.5.3"
+    react: "npm:^19.1.0"
+    react-dom: "npm:^19.1.0"
+    stylelint: "npm:^16.18.0"
+    typescript: "npm:^5.8.3"
+  languageName: unknown
+  linkType: soft
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0, wrap-ansi@npm:^7.0.0":
   version: 7.0.0

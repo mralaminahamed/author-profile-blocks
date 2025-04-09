@@ -27,10 +27,12 @@ define( 'WPAS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPAS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPAS_PLUGIN_FILE', __FILE__ );
 
-// Autoload classes.
-if ( file_exists( WPAS_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
-	require_once WPAS_PLUGIN_DIR . 'vendor/autoload.php';
+if ( ! file_exists( WPAS_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+	return;
 }
+
+// Autoload classes.
+require_once WPAS_PLUGIN_DIR . 'vendor/autoload.php';
 
 /**
  * Get the plugin instance.

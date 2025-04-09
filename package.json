@@ -1,5 +1,5 @@
 {
-	"name": "@mralaminahamed/wp-author-showcase",
+	"name": "wp-author-showcase",
 	"version": "1.0.0",
 	"description": "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type.",
 	"author": "Al Amin Ahamed <mrabir.ahamed@gmail.com>",
@@ -26,7 +26,7 @@
 		"npm": ">=8.0.0"
 	},
 	"scripts": {
-    "start": "wp-scripts start --webpack-copy-php --blocks-manifest",
+		"start": "wp-scripts start --webpack-copy-php --blocks-manifest",
 		"build": "wp-scripts build --webpack-copy-php --blocks-manifest",
 		"plugin-zip": "wp-scripts plugin-zip --root-folder=wp-author-showcase"
 	},
@@ -54,5 +54,17 @@
 		"stylelint": "^16.18.0",
 		"typescript": "^5.8.3"
 	},
+	"files": [
+		"build",
+		"includes",
+		"languages",
+		"vendor/composer",
+		"vendor/autoload.php",
+		"index.php",
+		"wp-author-showcase.php",
+		"readme.txt",
+		"readme.md",
+		"requirements.md"
+	],
 	"packageManager": "yarn@4.9.0"
 }
