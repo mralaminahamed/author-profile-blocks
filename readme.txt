@@ -1,8 +1,10 @@
 === WP Author Showcase ===
 Contributors:      mralaminahamed
-Tags:              block
+Tags:              block, author, profile, gutenberg, custom post type
 Tested up to:      6.7
 Stable tag:        0.1.0
+Requires at least: 6.7
+Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,46 +12,62 @@ Showcase author profiles with a beautiful Gutenberg block that displays author i
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
+WP Author Showcase is a modern WordPress plugin that allows you to create and display author profiles using a custom Gutenberg block.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+**Features:**
+
+* Custom post type for author profiles with essential information fields
+* Flexible Gutenberg block to display selected author information
+* Customizable display options including background color and text alignment
+* Show/hide additional information section
+* Clean, editor-friendly interface
+* Responsive design
+
+The Author Profile custom post type includes fields for:
+
+* Author Name
+* Email
+* Profile Image
+* Description
+
+The Gutenberg block lets you easily select any author from your profiles and customize how they appear on your site.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload the plugin files to the `/wp-content/plugins/wp-author-showcase` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Create author profiles by navigating to Author Profiles > Add New in your WordPress admin.
+4. Use the Author Profile block in any post or page to display your authors.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= How do I add a new author profile? =
 
-An answer to that question.
+Navigate to Author Profiles > Add New in your WordPress admin. Fill in the author's name, email, description, and add a featured image.
 
-= What about foo bar? =
+= Can I customize how the author profiles appear? =
 
-Answer to foo bar dilemma.
+Yes! The Author Profile block includes inspector controls for background color, text alignment, padding, and an option to show or hide an additional information section.
+
+= Is the block responsive? =
+
+Yes, the Author Profile block is designed to look great on all screen sizes.
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Author Profile block in the editor
+2. Author Profile settings in the block inspector
+3. Author Profiles management screen
 
 == Changelog ==
 
-= 0.1.0 =
-* Release
+= 1.0.0 =
+* Initial release
+* Added Author Profile custom post type
+* Added Author Profile Gutenberg block
+* Added block customization options
 
-== Arbitrary section ==
+== Upgrade Notice ==
 
-You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation." Arbitrary sections will be shown below the built-in sections outlined above.
+= 1.0.0 =
+Initial release of WP Author Showcase.
