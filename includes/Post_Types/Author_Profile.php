@@ -188,9 +188,30 @@ class Author_Profile {
 		$email       = get_post_meta( $post->ID, 'wpas_author_email', true );
 		$description = get_post_meta( $post->ID, 'wpas_author_description', true );
 
-		// Load the template files for each field
-		Template_Loader::load( 'admin/author-email-field', compact( 'email' ) );
-		Template_Loader::load( 'admin/author-description-field', compact( 'description' ) );
+		?>
+
+		<div class="wpas-meta-field">
+			<label for="wpas_author_email"><?php esc_html_e( 'Email Address', 'wp-author-showcase' ); ?>:</label>
+			<input type="email" id="wpas_author_email" name="wpas_author_email" value="<?php echo esc_attr( $email ); ?>" class="widefat">
+		</div>
+
+		<div class="wpas-meta-field" style="margin-top: 15px;">
+			<label for="wpas_author_description"><?php esc_html_e( 'Description', 'wp-author-showcase' ); ?>:</label>
+			<?php
+			wp_editor(
+				$description,
+				'wpas_author_description',
+				array(
+					'media_buttons' => false,
+					'textarea_name' => 'wpas_author_description',
+					'textarea_rows' => 5,
+					'teeny'         => true,
+				)
+			);
+			?>
+		</div>
+
+		<?php
 	}
 
 	/**
@@ -276,12 +297,27 @@ class Author_Profile {
 		switch ( $column ) {
 			case 'author_image':
 				$image_url = get_the_post_thumbnail_url( $post_id, 'thumbnail' );
-				Template_Loader::load( 'admin/column-image', compact( 'image_url' ) );
+				if ( ! empty( $image_url ) ) {
+					printf(
+						'<div class="author-image-wrapper"><img src="%s" alt="" class="author-thumbnail" /></div>',
+						esc_url( $image_url )
+					);
+				} else {
+					echo '<span class="no-image">—</span>';
+				}
 				break;
 
 			case 'author_email':
 				$email = get_post_meta( $post_id, 'wpas_author_email', true );
-				Template_Loader::load( 'admin/column-email', compact( 'email' ) );
+				if ( ! empty( $email ) ) {
+					printf(
+						'<div class="author-email-wrapper"><a href="mailto:%1$s">%2$s</a></div>',
+						esc_attr( $email ),
+						esc_html( $email )
+					);
+				} else {
+					echo '<span class="no-email">—</span>';
+				}
 				break;
 
 			case 'author_description':
@@ -306,9 +342,25 @@ class Author_Profile {
 						}
 					}
 
-					Template_Loader::load( 'admin/column-description', compact( 'truncated', 'original_length', 'is_truncated' ) );
+					$description_meta = '';
+					if ( $is_truncated && $original_length > 0 ) {
+						$description_meta = sprintf(
+							'<div class="description-meta"><span class="description-count">%s</span></div>',
+							sprintf(
+							/* translators: %d: number of characters */
+								esc_html__( '%d characters', 'wp-author-showcase' ),
+								$original_length
+							)
+						);
+					}
+
+					printf(
+						'<div class="author-description-wrapper"><span class="description-text">%s</span>%s</div>',
+						esc_html( $truncated ),
+						wp_kses_post( $description_meta )
+					);
 				} else {
-					Template_Loader::load( 'admin/column-description', array( 'truncated' => '' ) );
+					echo '<span class="no-description">—</span>';
 				}
 				break;
 		}
