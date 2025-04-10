@@ -271,7 +271,7 @@ class Author_Profile {
 	public function add_custom_columns( array $columns ): array {
 		$new_columns = array();
 
-		// Insert columns after title, but before date
+		// Insert columns after checkbox, but before date
 		foreach ( $columns as $key => $value ) {
 			$new_columns[ $key ] = $value;
 
