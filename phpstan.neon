@@ -8,10 +8,8 @@ parameters:
     paths:
         - wp-author-showcase.php
         - includes
-        - templates
 
     excludePaths:
-        - tests/*
         - vendor/
         - node_modules/
         - build/
