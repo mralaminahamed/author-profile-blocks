@@ -17,8 +17,6 @@ yarn-error.log*
 # Dependency Directories
 node_modules/
 vendor/*
-!vendor/composer
-!vendor/autoload.php
 
 # Build and Distribution Files
 /build/
