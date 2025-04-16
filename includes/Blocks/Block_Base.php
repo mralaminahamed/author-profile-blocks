@@ -53,7 +53,7 @@ abstract class Block_Base extends Base implements Registerable {
 	 *
 	 * @return string Block name.
 	 */
-	abstract public function get_block_name(): string;
+	abstract protected function get_block_name(): string;
 
 	/**
 	 * Additional initialization actions for the block.

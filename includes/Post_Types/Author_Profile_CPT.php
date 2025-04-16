@@ -11,30 +11,6 @@ namespace WPAuthorShowcase\Post_Types;
 use WP_Post;
 use WP_Query;
 use WPAuthorShowcase\Core\Meta_Data_Provider;
-use function __;
-use function _x;
-use function add_action;
-use function add_filter;
-use function add_meta_box;
-use function current_user_can;
-use function esc_attr;
-use function esc_html;
-use function esc_html_e;
-use function get_post_meta;
-use function printf;
-use function register_post_meta;
-use function register_post_type;
-use function sanitize_email;
-use function sanitize_text_field;
-use function strlen;
-use function substr;
-use function update_post_meta;
-use function wp_editor;
-use function wp_kses_post;
-use function wp_nonce_field;
-use function wp_strip_all_tags;
-use function wp_unslash;
-use function wp_verify_nonce;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,22 +20,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Profile custom post type.
  */
-class Author_Profile_CPT {
+class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 
 	/**
 	 * Post type name.
 	 *
 	 * @var string
 	 */
-	private string $post_type = 'author_profile';
+	protected string $post_type = 'author_profile';
 
 	/**
-	 * Initialize the class.
+	 * Additional initialization for the post type.
 	 *
 	 * @return void
 	 */
-	public function init(): void {
-		add_action( 'init', array( $this, 'register_post_type' ) );
+	protected function additional_init(): void {
+		// Register meta fields.
 		add_action( 'init', array( $this, 'register_meta_fields' ) );
 
 		// Legacy code support - will be removed in future versions.
@@ -77,11 +53,11 @@ class Author_Profile_CPT {
 	}
 
 	/**
-	 * Register the custom post type.
+	 * Register the post type.
 	 *
 	 * @return void
 	 */
-	public function register_post_type(): void {
+	public function register(): void {
 		$labels = array(
 			'name'               => _x( 'Author Profiles', 'post type general name', 'wp-author-showcase' ),
 			'singular_name'      => _x( 'Author Profile', 'post type singular name', 'wp-author-showcase' ),
@@ -426,5 +402,36 @@ class Author_Profile_CPT {
 			array(),
 			WPAS_VERSION
 		);
+	}
+
+	/**
+	 * Get author data by ID
+	 *
+	 * @param int $author_id Author ID
+	 * @return array|null Author data or null if not found
+	 */
+	public function get_author_data(int $author_id): ?array {
+		$author = get_post($author_id);
+
+		if (!$author || $author->post_type !== $this->post_type) {
+			return null;
+		}
+
+		$email = get_post_meta($author_id, 'wpas_author_email', true);
+		$description = get_post_meta($author_id, 'wpas_author_description', true);
+		$thumbnail_id = get_post_thumbnail_id($author_id);
+		$image = '';
+
+		if ($thumbnail_id) {
+			$image = wp_get_attachment_image_url($thumbnail_id, 'medium');
+		}
+
+		return [
+			'id' => $author_id,
+			'title' => get_the_title($author),
+			'email' => $email,
+			'description' => $description,
+			'image' => $image
+		];
 	}
 }

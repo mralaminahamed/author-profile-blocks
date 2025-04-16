@@ -10,11 +10,8 @@ namespace WPAuthorShowcase\Blocks;
 
 use WP_Block;
 use WP_Post;
-use function get_post;
-use function get_post_meta;
-use function get_post_thumbnail_id;
-use function get_the_title;
-use function wp_get_attachment_image_url;
+use WPAuthorShowcase\Post_Types\Author_Profile_CPT;
+use WPAuthorShowcase\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,7 +27,7 @@ class Author_Profile_Block extends Block_Base {
 	 *
 	 * @return string Block name.
 	 */
-	public function get_block_name(): string {
+	protected function get_block_name(): string {
 		return 'author-profile';
 	}
 
@@ -64,13 +61,15 @@ class Author_Profile_Block extends Block_Base {
 		$author_id = $attributes['authorId'] ?? 0;
 
 		if ( empty( $author_id ) ) {
-			return '<div class="wpas-author-profile-error">Please select an author.</div>';
+			return '<div class="wpas-author-profile-error">' . esc_html__('Please select an author.', 'wp-author-showcase') . '</div>';
 		}
 
-		$author = $this->get_author_data( $author_id );
+		// Get the Author_Profile_CPT instance to use its methods
+		$author_cpt = Plugin::get_instance()->get_author_profile_cpt();
+		$author_data = $author_cpt->get_author_data($author_id);
 
-		if ( ! $author ) {
-			return '<div class="wpas-author-profile-error">Author not found.</div>';
+		if ( ! $author_data ) {
+			return '<div class="wpas-author-profile-error">' . esc_html__('Author not found.', 'wp-author-showcase') . '</div>';
 		}
 
 		// Classes for the block wrapper.
@@ -82,7 +81,7 @@ class Author_Profile_Block extends Block_Base {
 
 		// Build the HTML.
 		$html  = '<div ' . $wrapper_attributes . '>';
-		$html .= $this->render_author_content( $author, $attributes );
+		$html .= $this->render_author_content( $author_data, $attributes );
 
 		// Add optional more content if enabled.
 		if ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) ) {
@@ -92,37 +91,6 @@ class Author_Profile_Block extends Block_Base {
 		$html .= '</div>';
 
 		return $html;
-	}
-
-	/**
-	 * Get author data from post ID.
-	 *
-	 * @param int $author_id Author post ID.
-	 * @return array|null Author data or null if not found.
-	 */
-	private function get_author_data( int $author_id ): ?array {
-		$author_post = get_post( $author_id );
-
-		if ( ! $author_post instanceof WP_Post ) {
-			return null;
-		}
-
-		$email        = get_post_meta( $author_id, 'author_email', true );
-		$description  = get_post_meta( $author_id, 'author_description', true );
-		$thumbnail_id = get_post_thumbnail_id( $author_id );
-		$image_url    = '';
-
-		if ( $thumbnail_id ) {
-			$image_url = wp_get_attachment_image_url( $thumbnail_id, 'medium' );
-		}
-
-		return array(
-			'id'          => $author_id,
-			'name'        => get_the_title( $author_post ),
-			'email'       => $email,
-			'description' => $description,
-			'image_url'   => $image_url,
-		);
 	}
 
 	/**
@@ -152,10 +120,10 @@ class Author_Profile_Block extends Block_Base {
 	private function render_author_content( array $author, array $attributes ): string {
 		$html = '<div class="wpas-author-profile-content">';
 
-		// Author image.
-		if ( ! empty( $author['image_url'] ) ) {
+		// Author image - only if image display is enabled in attributes
+		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
 			$html .= '<div class="wpas-author-image">';
-			$html .= '<img src="' . esc_url( $author['image_url'] ) . '" alt="' . esc_attr( $author['name'] ) . '" />';
+			$html .= '<img src="' . esc_url( $author['image'] ) . '" alt="' . esc_attr( $author['title'] ) . '" />';
 			$html .= '</div>';
 		}
 
@@ -163,19 +131,19 @@ class Author_Profile_Block extends Block_Base {
 		$html .= '<div class="wpas-author-info">';
 
 		// Author name.
-		if ( ! empty( $author['name'] ) ) {
-			$html .= '<h3 class="wpas-author-name">' . esc_html( $author['name'] ) . '</h3>';
+		if ( ! empty( $author['title'] ) ) {
+			$html .= '<h3 class="wpas-author-name">' . esc_html( $author['title'] ) . '</h3>';
 		}
 
-		// Author email.
-		if ( ! empty( $author['email'] ) ) {
+		// Author email - only if email display is enabled in attributes
+		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
 			$html .= '<div class="wpas-author-email">';
 			$html .= '<a href="mailto:' . esc_attr( $author['email'] ) . '">' . esc_html( $author['email'] ) . '</a>';
 			$html .= '</div>';
 		}
 
-		// Author description.
-		if ( ! empty( $author['description'] ) ) {
+		// Author description - only if description display is enabled in attributes
+		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
 			$html .= '<div class="wpas-author-description">';
 			$html .= wp_kses_post( $author['description'] );
 			$html .= '</div>';
