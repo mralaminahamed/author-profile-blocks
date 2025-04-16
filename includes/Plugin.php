@@ -8,6 +8,7 @@
 namespace WPAuthorShowcase;
 
 use WPAuthorShowcase\Blocks\Block_Registry;
+use WPAuthorShowcase\Core\Base;
 use WPAuthorShowcase\Post_Types\Author_Profile_CPT;
 
 // Exit if accessed directly.
@@ -18,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Main plugin class.
  */
-class Plugin {
+class Plugin extends Base {
 	/**
 	 * Plugin instance.
 	 *

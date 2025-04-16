@@ -8,8 +8,8 @@
 
 namespace WPAuthorShowcase\Blocks;
 
-use function add_action;
-use function register_block_type;
+use WPAuthorShowcase\Core\Base;
+use WPAuthorShowcase\Core\Registerable;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Abstract class for block registration.
  */
-abstract class Block_Base {
+abstract class Block_Base extends Base implements Registerable {
 	/**
 	 * Block name.
 	 *
@@ -40,7 +40,7 @@ abstract class Block_Base {
 	 * @return void
 	 */
 	public function init(): void {
-		add_action( 'init', array( $this, 'register_block' ) );
+		add_action( 'init', array( $this, 'register' ) );
 
 		// Allow child classes to add additional initialization.
 		$this->additional_init();
@@ -70,7 +70,7 @@ abstract class Block_Base {
 	 *
 	 * @return void
 	 */
-	public function register_block(): void {
+	public function register(): void {
 		$args = array();
 
 		// If there's a render callback, add it to the args.

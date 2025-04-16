@@ -10,6 +10,7 @@ namespace WPAuthorShowcase\Post_Types;
 
 use WP_Post;
 use WP_Query;
+use WPAuthorShowcase\Core\Meta_Data_Provider;
 use function __;
 use function _x;
 use function add_action;
@@ -44,6 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class that handles the Author Profile custom post type.
  */
 class Author_Profile_CPT {
+
 	/**
 	 * Post type name.
 	 *

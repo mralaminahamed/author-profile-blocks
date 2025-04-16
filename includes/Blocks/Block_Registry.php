@@ -8,6 +8,8 @@
 
 namespace WPAuthorShowcase\Blocks;
 
+use WPAuthorShowcase\Core\Base;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles block registration.
  */
-class Block_Registry {
+class Block_Registry extends Base {
 	/**
 	 * List of blocks to register.
 	 *
