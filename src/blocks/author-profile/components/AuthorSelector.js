@@ -5,13 +5,14 @@ import { __ } from '@wordpress/i18n';
 import {
     Placeholder,
     Spinner,
-    TextControl,
-    Button
+    SelectControl,
+    Button,
+    TextControl
 } from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 /**
- * AuthorSelector component for selecting an author from a list
+ * AuthorSelector component for selecting an author from a dropdown with search
  *
  * @param {Object}   props                Component props
  * @param {Array}    props.authors        Array of author objects
@@ -20,12 +21,39 @@ import { useState, useEffect } from '@wordpress/element';
  * @return {WPElement} Component to render
  */
 const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
+    const [selectedAuthorId, setSelectedAuthorId] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
 
     // Filter authors based on search term
     const filteredAuthors = authors.filter(author =>
         author.title.rendered.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Prepare options for select control
+    const authorOptions = [
+        { label: __('Select an author...', 'wp-author-showcase'), value: '' },
+        ...filteredAuthors.map(author => ({
+            label: author.title.rendered,
+            value: author.id.toString()
+        }))
+    ];
+
+    // Handle selection change
+    const handleAuthorChange = (authorId) => {
+        setSelectedAuthorId(authorId);
+
+        if (authorId) {
+            const selectedAuthor = authors.find(author => author.id.toString() === authorId);
+            if (selectedAuthor) {
+                onSelectAuthor(selectedAuthor);
+            }
+        }
+    };
+
+    // Handle search input change
+    const handleSearchChange = (value) => {
+        setSearchTerm(value);
+    };
 
     return (
         <Placeholder
@@ -34,31 +62,46 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
             instructions={__('Search and select an author to display their profile', 'wp-author-showcase')}
             className="wpas-author-selector"
         >
-            <TextControl
-                label={__('Search Authors', 'wp-author-showcase')}
-                value={searchTerm}
-                onChange={setSearchTerm}
-                placeholder={__('Type author name...', 'wp-author-showcase')}
-            />
-
             {isLoading ? (
                 <Spinner />
-            ) : filteredAuthors.length > 0 ? (
-                <ul className="wpas-author-list">
-                    {filteredAuthors.map((author) => (
-                        <li key={author.id} className="wpas-author-list-item">
-                            <Button
-                                variant="secondary"
-                                onClick={() => onSelectAuthor(author)}
-                            >
-                                {author.title.rendered}
-                            </Button>
-                        </li>
-                    ))}
-                </ul>
+            ) : authors.length > 0 ? (
+                <div className="wpas-author-select-container">
+                    <TextControl
+                        label={__('Search Authors', 'wp-author-showcase')}
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder={__('Type to filter authors...', 'wp-author-showcase')}
+                        className="wpas-author-search"
+                    />
+
+                    <SelectControl
+                        label={__('Choose Author', 'wp-author-showcase')}
+                        value={selectedAuthorId}
+                        options={authorOptions}
+                        onChange={handleAuthorChange}
+                        className="wpas-author-select"
+                    />
+
+                    {filteredAuthors.length === 0 && searchTerm !== '' ? (
+                        <p className="wpas-no-search-results">
+                            {__('No authors match your search. Try a different term.', 'wp-author-showcase')}
+                        </p>
+                    ) : !selectedAuthorId && (
+                        <p className="wpas-author-select-help">
+                            {__('Please select an author from the dropdown above.', 'wp-author-showcase')}
+                        </p>
+                    )}
+                </div>
             ) : (
                 <div className="wpas-no-results">
-                    {__('No authors found', 'wp-author-showcase')}
+                    <p>{__('No authors found. Please create some author profiles first.', 'wp-author-showcase')}</p>
+                    <Button
+                        variant="secondary"
+                        href={`${wpAuthorShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
+                        target="_blank"
+                    >
+                        {__('Create Author Profile', 'wp-author-showcase')}
+                    </Button>
                 </div>
             )}
         </Placeholder>

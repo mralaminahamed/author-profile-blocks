@@ -27,6 +27,11 @@ import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
 
 /**
+ * WordPress global
+ */
+const { wpAuthorShowcase = { adminUrl: '/wp-admin/' } } = window;
+
+/**
  * The edit function for the Author Profile block.
  *
  * @param {Object} props Block properties.

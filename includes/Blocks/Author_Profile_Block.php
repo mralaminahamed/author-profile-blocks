@@ -37,7 +37,23 @@ class Author_Profile_Block extends Block_Base {
 	 * @return void
 	 */
 	protected function additional_init(): void {
-		// Register any block-specific assets or actions here.
+		// Localize script with admin URL for the editor
+		add_action('enqueue_block_editor_assets', array($this, 'localize_block_script'));
+	}
+
+	/**
+	 * Localize block script with necessary data
+	 *
+	 * @return void
+	 */
+	public function localize_block_script(): void {
+		wp_localize_script(
+			'wp-author-showcase-author-profile-editor-script',
+			'wpAuthorShowcaseData',
+			array(
+				'adminUrl' => admin_url(),
+			)
+		);
 	}
 
 	/**
@@ -75,7 +91,7 @@ class Author_Profile_Block extends Block_Base {
 		// Generate styles for the block.
 		$styles = $this->get_block_styles($attributes);
 		$style_attribute = '';
-		
+
 		if (!empty($styles)) {
 			$style_strings = array();
 			foreach ($styles as $property => $value) {
@@ -83,7 +99,7 @@ class Author_Profile_Block extends Block_Base {
 			}
 			$style_attribute = 'style="' . esc_attr(implode('; ', $style_strings)) . '"';
 		}
-	
+
 		// Classes for the block wrapper.
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
@@ -122,7 +138,7 @@ class Author_Profile_Block extends Block_Base {
 
 		return implode( ' ', $classes );
 	}
-	
+
 	/**
 	 * Get block styles based on attributes.
 	 *
@@ -131,17 +147,17 @@ class Author_Profile_Block extends Block_Base {
 	 */
 	private function get_block_styles( array $attributes ): array {
 		$styles = array();
-		
+
 		// Background color
 		if ( ! empty( $attributes['backgroundColor'] ) ) {
 			$styles['background-color'] = $attributes['backgroundColor'];
 		}
-		
+
 		// Padding
 		if ( isset( $attributes['padding'] ) ) {
 			$styles['padding'] = $attributes['padding'] . 'px';
 		}
-		
+
 		return $styles;
 	}
 

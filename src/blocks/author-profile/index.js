@@ -21,6 +21,13 @@ import Edit from './edit';
 import metadata from './block.json';
 
 /**
+ * Initialize global variables
+ */
+window.wpAuthorShowcase = window.wpAuthorShowcase || {
+  adminUrl: (window.wpAuthorShowcaseData && window.wpAuthorShowcaseData.adminUrl) || '/wp-admin/'
+};
+
+/**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
