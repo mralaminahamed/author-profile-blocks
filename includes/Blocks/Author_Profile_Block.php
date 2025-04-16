@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 /**
  * Author Profile Block class
  *
@@ -9,8 +9,6 @@
 namespace WPAuthorShowcase\Blocks;
 
 use WP_Block;
-use WP_Post;
-use WPAuthorShowcase\Post_Types\Author_Profile_CPT;
 use WPAuthorShowcase\Plugin;
 
 // Exit if accessed directly.
@@ -37,7 +35,7 @@ class Author_Profile_Block extends Block_Base {
 	 * @return void
 	 */
 	protected function additional_init(): void {
-		// Localize script with admin URL for the editor
+		// Localize script with admin URL for the editor.
 		add_action( 'enqueue_block_editor_assets', array( $this, 'localize_block_script' ) );
 	}
 
@@ -148,12 +146,12 @@ class Author_Profile_Block extends Block_Base {
 	private function get_block_styles( array $attributes ): array {
 		$styles = array();
 
-		// Background color
+		// Background color.
 		if ( ! empty( $attributes['backgroundColor'] ) ) {
 			$styles['background-color'] = $attributes['backgroundColor'];
 		}
 
-		// Padding
+		// Padding.
 		if ( isset( $attributes['padding'] ) ) {
 			$styles['padding'] = $attributes['padding'] . 'px';
 		}
@@ -171,7 +169,7 @@ class Author_Profile_Block extends Block_Base {
 	private function render_author_content( array $author, array $attributes ): string {
 		$html = '<div class="wpas-author-profile-content">';
 
-		// Author image - only if image display is enabled in attributes
+		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
 			$html .= '<div class="wpas-author-image">';
 			$html .= '<img src="' . esc_url( $author['image'] ) . '" alt="' . esc_attr( $author['title'] ) . '" />';
@@ -186,22 +184,22 @@ class Author_Profile_Block extends Block_Base {
 			$html .= '<h3 class="wpas-author-name">' . esc_html( $author['title'] ) . '</h3>';
 		}
 
-		// Author email - only if email display is enabled in attributes
+		// Author email - only if email display is enabled in attributes.
 		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
 			$html .= '<div class="wpas-author-email">';
 			$html .= '<a href="mailto:' . esc_attr( $author['email'] ) . '">' . esc_html( $author['email'] ) . '</a>';
 			$html .= '</div>';
 		}
 
-		// Author description - only if description display is enabled in attributes
+		// Author description - only if description display is enabled in attributes.
 		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
 			$html .= '<div class="wpas-author-description">';
 			$html .= wp_kses_post( $author['description'] );
 			$html .= '</div>';
 		}
 
-		$html .= '</div>'; // Close .wpas-author-info
-		$html .= '</div>'; // Close .wpas-author-profile-content
+		$html .= '</div>'; // Close .wpas-author-info.
+		$html .= '</div>'; // Close .wpas-author-profile-content.
 
 		return $html;
 	}

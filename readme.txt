@@ -2,7 +2,7 @@
 Contributors:      mralaminahamed
 Tags:              block, author, profile, gutenberg, custom post type
 Tested up to:      6.7
-Stable tag:        0.1.0
+Stable tag:        1.1.0
 Requires at least: 6.7
 Requires PHP:      7.4
 License:           GPL-2.0-or-later

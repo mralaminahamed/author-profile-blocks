@@ -3,7 +3,7 @@
  * Plugin Name:       WP Author Showcase
  * Plugin URI:        https://github.com/mralaminahamed/wp-author-showcase
  * Description:       Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'WPAS_VERSION', '1.0.0' );
+define( 'WPAS_VERSION', '1.1.0' );
 define( 'WPAS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPAS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPAS_PLUGIN_FILE', __FILE__ );
