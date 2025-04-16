@@ -49,43 +49,138 @@
         margin-bottom: variables.$spacing-xl;
       }
 
-      .wpas-author-selector {
+      &.wpas-author-selector {
         width: 100%;
-        max-width: 500px;
+        max-width: 100%;
 
+        // Enhanced loading state
         .wpas-loading-container {
           display: flex;
           flex-direction: column;
           align-items: center;
-          padding: variables.$spacing-xl 0;
+          padding: 40px 0;
+          background: rgba(255, 255, 255, 0.7);
+          border-radius: 8px;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+          .components-spinner {
+            width: 30px;
+            height: 30px;
+            display: block;
+            margin: 0 auto 16px;
+
+            &::before {
+              background-color: variables.$primary-color;
+            }
+          }
 
           p {
-            margin-top: variables.$spacing-lg;
-            color: #757575;
-            font-style: italic;
+            margin: 8px 0 0 0;
+            color: #3c434a;
+            font-size: 14px;
+            text-align: center;
+            position: relative;
+
+            &::after {
+              content: '...';
+              display: inline-block;
+              animation: loadingDots 1.5s infinite;
+              margin-left: 2px;
+            }
+          }
+
+          @keyframes loadingDots {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
           }
         }
 
+        // Enhanced author card
         .wpas-author-card {
           width: 100%;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
-          border-radius: variables.$border-radius-md;
-          border: 1px solid #e0e0e0;
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+          border-radius: 10px;
+          border: 1px solid #e2e4e7;
           overflow: hidden;
+          transition: transform 0.2s ease, box-shadow 0.3s ease;
 
-          .components-card__header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
-            padding: variables.$spacing-md variables.$spacing-lg;
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          }
 
-            .wpas-card-header-content {
+          // Enhanced card header
+          .wpas-card-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #edf3fa 100%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 16px 20px;
+            position: relative;
+
+            // Subtle accent line at top
+            &::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 3px;
+              background: linear-gradient(to right, variables.$primary-color, rgba(variables.$primary-color, 0.5));
+            }
+
+            h4 {
+              margin: 0;
+              font-size: 16px;
+              font-weight: 600;
+              color: #1e1e1e;
+              position: relative;
+              padding-left: 8px;
               display: flex;
               align-items: center;
+            }
 
-              h2 {
-                margin: 0 0 0 variables.$spacing-md;
-                font-size: 16px;
+            // Style for the people icon
+            .components-icon {
+              color: variables.$primary-color;
+              margin-right: 10px;
+              flex-shrink: 0;
+              opacity: 0.9;
+            }
+
+            // Author count badge
+            .wpas-author-count {
+              display: flex;
+              align-items: center;
+              background: rgba(255, 255, 255, 0.85);
+              border: 1px solid rgba(0, 0, 0, 0.08);
+              border-radius: 20px;
+              padding: 6px 12px;
+              font-size: 13px;
+              font-weight: 500;
+              color: #50575e;
+              box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+              transition: all 0.2s ease;
+
+              &:hover {
+                background: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+              }
+
+              span {
+                margin-right: 6px;
                 font-weight: 600;
+                color: #3c434a;
+              }
+
+              .components-icon {
+                color: variables.$primary-color;
+                opacity: 0.8;
+                margin-right: 0;
+
+                &:hover {
+                  opacity: 1;
+                }
               }
             }
           }
@@ -93,88 +188,377 @@
           .components-card__body {
             padding: variables.$spacing-xl;
 
+            // Search field with enhanced styling
             .wpas-search-field {
               position: relative;
-              margin-bottom: variables.$spacing-lg;
+              margin-bottom: variables.$spacing-xl;
 
-              .components-icon {
+              // Search icon styling
+              .wpas-search-icon {
                 position: absolute;
-                left: variables.$spacing-md;
+                left: 12px;
                 top: 50%;
                 transform: translateY(-50%);
-                color: #757575;
+                color: #8c8f94;
+                transition: color 0.2s ease;
+                z-index: 2;
+
+                &:hover {
+                  color: variables.$primary-color;
+                }
               }
 
+              // Search input field
               .components-text-control__input {
-                padding-left: 36px !important;
-                height: 40px;
-                border-radius: variables.$border-radius-md;
-                border-color: #ddd;
+                padding: 10px 36px 10px 40px !important;
+                height: 44px;
+                border-radius: 6px;
+                border: 1px solid #dcdcde;
+                font-size: 14px;
+                letter-spacing: 0.01em;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+                transition: all 0.25s ease;
+                background-color: #fff;
+                width: 100%;
+
+                &::placeholder {
+                  color: #9ca3af;
+                  font-style: italic;
+                  opacity: 0.8;
+                }
+
+                &:hover {
+                  border-color: #c3c4c7;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+                }
 
                 &:focus {
                   border-color: variables.$primary-color;
-                  box-shadow: 0 0 0 1px variables.$primary-color;
+                  box-shadow: 0 0 0 1.5px variables.$primary-color, 0 2px 5px rgba(0, 0, 0, 0.07);
+                  outline: none;
+
+                  & + .wpas-search-icon {
+                    color: variables.$primary-color;
+                  }
+                }
+              }
+
+              // Clear search button
+              .wpas-clear-search {
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                min-width: 28px;
+                height: 28px;
+                padding: 0;
+                border-radius: 50%;
+                background: #f2f2f3;
+                transition: all 0.2s ease;
+                z-index: 2;
+
+                &:hover {
+                  background: #e5e7eb;
+
+                  .dashicon {
+                    color: #cc1818;
+                  }
+                }
+
+                &:focus {
+                  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px variables.$primary-color;
+                }
+
+                .dashicon {
+                  margin: 0;
+                  font-size: 17px;
+                  color: #5c5c5c;
                 }
               }
             }
 
+            // Select field with enhanced styling
             .wpas-select-field {
-              margin-bottom: variables.$spacing-lg;
+              margin-bottom: variables.$spacing-xl;
 
+              // Select label
               .components-select-control__label {
                 font-weight: 600;
-                margin-bottom: variables.$spacing-sm;
+                margin-bottom: 10px;
+                font-size: 14px;
+                color: #1e1e1e;
+                display: block;
+                position: relative;
+
+                &::after {
+                  content: '';
+                  display: inline-block;
+                  width: 4px;
+                  height: 4px;
+                  border-radius: 50%;
+                  background-color: variables.$primary-color;
+                  margin-left: 4px;
+                  position: relative;
+                  top: -8px;
+                  opacity: 0.7;
+                }
               }
 
+              // Select input container
+              .components-select-control__input-container {
+                position: relative;
+
+                &::after {
+                  content: '';
+                  position: absolute;
+                  right: 12px;
+                  top: 50%;
+                  transform: translateY(-40%) rotate(45deg);
+                  width: 8px;
+                  height: 8px;
+                  border-right: 2px solid #5c5c5c;
+                  border-bottom: 2px solid #5c5c5c;
+                  pointer-events: none;
+                  z-index: 2;
+                  transition: all 0.2s ease;
+                }
+
+                &:hover::after {
+                  border-color: #2c3338;
+                }
+              }
+
+              // Select dropdown
               select {
-                height: 40px;
-                border-radius: variables.$border-radius-md;
-                border-color: #ddd;
+                height: 44px;
+                border-radius: 6px;
+                border: 1px solid #dcdcde;
+                padding: 8px 36px 8px 12px;
+                font-size: 14px;
+                appearance: none;
+                background-color: #fff;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+                width: 100%;
+                transition: all 0.25s ease;
+                color: #2c3338;
+                cursor: pointer;
+
+                // Remove default dropdown arrow
+                &::-ms-expand {
+                  display: none;
+                }
+
+                &:hover {
+                  border-color: #c3c4c7;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+                }
 
                 &:focus {
                   border-color: variables.$primary-color;
-                  box-shadow: 0 0 0 1px variables.$primary-color;
+                  box-shadow: 0 0 0 1.5px variables.$primary-color, 0 2px 5px rgba(0, 0, 0, 0.07);
+                  outline: none;
+
+                  & + .components-select-control__input-container::after {
+                    border-color: variables.$primary-color;
+                  }
+                }
+
+                option {
+                  padding: 8px;
+                  font-size: 14px;
+
+                  &:first-child {
+                    font-style: italic;
+                    color: #757575;
+                  }
                 }
               }
             }
 
+            // Enhance notice styling
             .wpas-notice {
-              margin: variables.$spacing-md 0;
+              margin: 16px 0;
+              border-left-width: 3px;
+              border-radius: 4px;
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+              &.is-warning {
+                background-color: #fcf9e8;
+                border-left-color: #f0b849;
+              }
+
+              &.is-error {
+                background-color: #fcf0f1;
+                border-left-color: #cc1818;
+              }
+
+              .components-notice__content {
+                margin: 0;
+                font-size: 13px;
+                padding: 12px;
+              }
+            }
+
+            // Filter info display
+            .wpas-filter-info {
+              display: flex;
+              align-items: center;
+              background: #f0f5fa;
+              border-radius: 4px;
+              padding: 8px 12px;
+              margin-top: 12px;
+              font-size: 12px;
+              color: #50575e;
+
+              .components-icon {
+                margin-right: 8px;
+                color: variables.$primary-color;
+                flex-shrink: 0;
+              }
+
+              span {
+                font-style: italic;
+              }
             }
           }
 
-          .components-card__footer {
-            padding: variables.$spacing-md variables.$spacing-lg;
-            border-top: 1px solid #e0e0e0;
-            background-color: #fafafa;
+          // Card footer with enhanced styling
+          .wpas-card-footer {
+            padding: 14px 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            background: linear-gradient(to bottom, #f7f8f9, #f0f2f5);
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
 
+            // Reset button
+            .wpas-reset-btn {
+              font-size: 13px;
+              height: 32px;
+              color: #50575e;
+              padding: 0 10px;
+              border-radius: 4px;
+              position: relative;
+              transition: all 0.2s ease;
+
+              &:hover {
+                color: #d63638;
+                background-color: rgba(214, 54, 56, 0.05);
+              }
+
+              &:focus {
+                box-shadow: 0 0 0 1.5px variables.$primary-color;
+                outline: none;
+              }
+            }
+
+            // Add author button styling
             .wpas-add-author-btn {
               display: flex;
               align-items: center;
+              padding: 6px 12px;
+              height: 34px;
+              font-size: 13px;
+              font-weight: 500;
+              border-radius: 4px;
+              background-color: #f6f7f7;
+              border: 1px solid #c5c5c5;
+              box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+              transition: all 0.2s ease;
+
+              &:hover {
+                background-color: #f0f0f1;
+                border-color: #b0b5ba;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+              }
+
+              &:focus {
+                border-color: variables.$primary-color;
+                box-shadow: 0 0 0 1px variables.$primary-color;
+                outline: none;
+              }
 
               .components-icon {
-                margin-right: variables.$spacing-sm;
+                margin-right: 8px;
+                color: variables.$primary-color;
               }
             }
           }
         }
 
+        // Enhanced empty state styling
         .wpas-no-results {
           text-align: center;
-          padding: variables.$spacing-xl;
-          background-color: #f8f9fa;
-          border-radius: variables.$border-radius-md;
-          border: 1px solid #e0e0e0;
+          width: 100%;
+          max-width: 500px;
 
-          p {
-            margin-top: 0;
-            margin-bottom: variables.$spacing-lg;
-          }
+          .wpas-empty-state-card {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e2e4e7;
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 
-          .wpas-create-author-btn {
-            margin-top: variables.$spacing-md;
+            .wpas-empty-state {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding: 40px 24px;
+
+              .wpas-empty-icon {
+                width: 60px;
+                height: 60px;
+                color: #e2e4e7;
+                margin-bottom: 20px;
+                background: #f7f8f9;
+                border-radius: 50%;
+                padding: 12px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+              }
+
+              h3 {
+                margin: 0 0 10px 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: #1e1e1e;
+              }
+
+              p {
+                margin: 0 0 24px 0;
+                color: #50575e;
+                font-size: 14px;
+                line-height: 1.6;
+                max-width: 300px;
+              }
+
+              .wpas-create-author-btn {
+                background: variables.$primary-color;
+                color: #fff;
+                border: none;
+                padding: 10px 16px;
+                height: auto;
+                font-size: 14px;
+                font-weight: 500;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+                &:hover {
+                  background: darken(variables.$primary-color, 5%);
+                  transform: translateY(-1px);
+                  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+                }
+
+                &:focus {
+                  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px variables.$primary-color;
+                  outline: none;
+                }
+
+                .components-icon {
+                  margin-right: 8px;
+                }
+              }
+            }
           }
         }
       }
