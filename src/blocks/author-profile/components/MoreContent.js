@@ -2,7 +2,9 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {TextareaControl} from '@wordpress/components';
+import { RichText } from '@wordpress/block-editor';
+import { Card, CardHeader, CardBody, Icon } from '@wordpress/components';
+import { formatBold, formatItalic, formatListBullets, formatListNumbered, link } from '@wordpress/icons';
 
 /**
  * MoreContent component for additional content
@@ -15,12 +17,35 @@ import {TextareaControl} from '@wordpress/components';
 const MoreContent = ({ content, onContentChange }) => {
     return (
         <div className="wpas-author-more-content">
-            <TextareaControl
-                value={content}
-                onChange={onContentChange}
-                placeholder={__('Add additional content here...', 'wp-author-showcase')}
-                multiline="p"
-            />
+            <Card className="wpas-more-content-card" elevation={1}>
+                <CardHeader className="wpas-more-content-header">
+                    <div className="wpas-more-content-title">
+                        <h3>{__('Additional Information', 'wp-author-showcase')}</h3>
+                        <p className="wpas-more-content-description">
+                            {__('Add supplementary content about this author', 'wp-author-showcase')}
+                        </p>
+                    </div>
+                    <div className="wpas-more-content-toolbar">
+                        <div className="wpas-formatting-hint">
+                            <Icon icon={formatBold} size={16} />
+                            <Icon icon={formatItalic} size={16} />
+                            <Icon icon={formatListBullets} size={16} />
+                            <Icon icon={formatListNumbered} size={16} />
+                            <Icon icon={link} size={16} />
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardBody className="wpas-more-content-body">
+                    <RichText
+                        tagName="div"
+                        value={content}
+                        onChange={onContentChange}
+                        placeholder={__('Add additional author information such as biography, achievements, or contact details...', 'wp-author-showcase')}
+                        className="wpas-more-content-editor"
+                        allowedFormats={['core/bold', 'core/italic', 'core/link', 'core/list']}
+                    />
+                </CardBody>
+            </Card>
         </div>
     );
 };

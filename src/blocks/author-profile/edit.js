@@ -8,14 +8,19 @@ import {
     BlockControls,
     AlignmentToolbar,
     PanelColorSettings,
-    ContrastChecker
+    RichText
 } from '@wordpress/block-editor';
 import {
     PanelBody,
     ToggleControl,
     Button,
-    RangeControl
+    RangeControl,
+    Card,
+    CardHeader,
+    CardBody,
+    Icon
 } from '@wordpress/components';
+import { formatBold, formatItalic, formatListBullets, formatListNumbered, link } from '@wordpress/icons';
 
 /**
  * Internal dependencies

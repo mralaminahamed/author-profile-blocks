@@ -38,7 +38,7 @@ class Author_Profile_Block extends Block_Base {
 	 */
 	protected function additional_init(): void {
 		// Localize script with admin URL for the editor
-		add_action('enqueue_block_editor_assets', array($this, 'localize_block_script'));
+		add_action( 'enqueue_block_editor_assets', array( $this, 'localize_block_script' ) );
 	}
 
 	/**
@@ -77,27 +77,27 @@ class Author_Profile_Block extends Block_Base {
 		$author_id = $attributes['authorId'] ?? 0;
 
 		if ( empty( $author_id ) ) {
-			return '<div class="wpas-author-profile-error">' . esc_html__('Please select an author.', 'wp-author-showcase') . '</div>';
+			return '<div class="wpas-author-profile-error">' . esc_html__( 'Please select an author.', 'wp-author-showcase' ) . '</div>';
 		}
 
-		// Get the Author_Profile_CPT instance to use its methods
-		$author_cpt = Plugin::get_instance()->get_author_profile_cpt();
-		$author_data = $author_cpt->get_author_data($author_id);
+		// Get the Author_Profile_CPT instance to use its methods.
+		$author_cpt  = Plugin::get_instance()->get_author_profile_cpt();
+		$author_data = $author_cpt->get_author_data( $author_id );
 
 		if ( ! $author_data ) {
-			return '<div class="wpas-author-profile-error">' . esc_html__('Author not found.', 'wp-author-showcase') . '</div>';
+			return '<div class="wpas-author-profile-error">' . esc_html__( 'Author not found.', 'wp-author-showcase' ) . '</div>';
 		}
 
 		// Generate styles for the block.
-		$styles = $this->get_block_styles($attributes);
+		$styles          = $this->get_block_styles( $attributes );
 		$style_attribute = '';
 
-		if (!empty($styles)) {
+		if ( ! empty( $styles ) ) {
 			$style_strings = array();
-			foreach ($styles as $property => $value) {
+			foreach ( $styles as $property => $value ) {
 				$style_strings[] = $property . ': ' . $value;
 			}
-			$style_attribute = 'style="' . esc_attr(implode('; ', $style_strings)) . '"';
+			$style_attribute = esc_attr( implode( '; ', $style_strings ) );
 		}
 
 		// Classes for the block wrapper.
