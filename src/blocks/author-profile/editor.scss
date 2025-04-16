@@ -1,0 +1,165 @@
+/**
+ * Author Profile Block - Editor Styles
+ *
+ * These styles are applied only in the editor interface.
+ */
+
+// Import shared resources
+@use '../../scss/common/variables';
+@use '../../scss/common/mixins';
+
+// Legacy selector - consider removing if no longer needed
+.wp-block-wp-author-showcase-wp-author-showcase {
+  border: 1px dotted #f00;
+}
+
+// Main block container
+.wp-block-wp-author-showcase-author-profile {
+  position: relative;
+  box-sizing: border-box;
+
+  /**
+   * Editor Placeholder
+   */
+  .components-placeholder {
+    min-height: 200px;
+    border-radius: variables.$border-radius-md;
+
+    &__label {
+      // Additional placeholder label styles if needed
+    }
+
+    .components-search-control {
+      max-width: 100%;
+
+      &__input {
+        height: 36px;
+      }
+    }
+
+    .wpas-author-selector {
+      width: 100%;
+      max-width: 400px;
+
+      .wpas-no-results {
+        @include mixins.error-banner;
+        margin-top: variables.$spacing-md;
+      }
+    }
+  }
+
+  /**
+   * Author Profile Content
+   */
+  .wpas-author-profile-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$spacing-xl;
+    margin-bottom: variables.$spacing-xl;
+
+    // Author image container
+    .wpas-author-image {
+      flex: 0 0 variables.$author-image-size;
+
+      img {
+        @include mixins.responsive-image;
+        border-radius: variables.$border-radius-sm;
+      }
+    }
+
+    // Author information container
+    .wpas-author-info {
+      flex: 1;
+      min-width: 200px;
+
+      // Author name heading
+      .wpas-author-name {
+        margin-top: 0;
+        margin-bottom: variables.$spacing-md;
+        font-size: variables.$font-size-large;
+        font-weight: 600;
+        line-height: variables.$line-height-tight;
+      }
+
+      // Author email display
+      .wpas-author-email {
+        margin-bottom: variables.$spacing-md;
+
+        a {
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      // Author description
+      .wpas-author-description {
+        @include mixins.reset-paragraph-margins;
+      }
+    }
+  }
+
+  /**
+   * More Content Section
+   */
+  .wpas-author-more-content {
+    margin-top: variables.$spacing-xl;
+    border-top: 1px solid variables.$border-color-light;
+    padding-top: variables.$spacing-lg;
+
+    .block-editor-rich-text__editable {
+      padding: variables.$spacing-sm;
+      border: 1px dashed variables.$border-color;
+      border-radius: variables.$border-radius-sm;
+
+      &:focus {
+        @include mixins.focus-styles;
+      }
+    }
+  }
+
+  /**
+   * Inspector Controls
+   */
+  .components-panel__body {
+    // Base control spacing
+    .components-base-control {
+      margin-bottom: 16px;
+    }
+
+    // Color picker
+    .components-color-picker {
+      margin-bottom: variables.$spacing-xl;
+    }
+
+    // Custom color setting
+    .wpas-color-setting {
+      margin-bottom: 16px;
+    }
+
+    // Clear button
+    .wpas-clear-button {
+      margin-top: variables.$spacing-md;
+    }
+  }
+
+  /**
+   * Component Overrides
+   */
+  // Toggle control spacing
+  .components-toggle-control {
+    margin-bottom: 16px !important;
+
+    .components-base-control__field {
+      margin-bottom: 0;
+    }
+  }
+
+  // Spinner alignment
+  .components-spinner {
+    margin: 0 auto;
+    display: block;
+  }
+}

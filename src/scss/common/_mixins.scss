@@ -1,0 +1,51 @@
+/**
+ * WP Author Showcase - Common Mixins
+ *
+ * Shared mixins for reuse across the plugin styles
+ */
+
+// Import shared resources
+@use '../common/variables';
+
+// Text truncation with ellipsis
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Focus styles for form elements and controls
+@mixin focus-styles {
+  border-color: variables.$focus-color;
+  box-shadow: 0 0 0 1px variables.$focus-color;
+  outline: none;
+}
+
+// Error message banner styling
+@mixin error-banner {
+  color: variables.$error-color;
+  border-left: 3px solid variables.$error-color;
+  background-color: rgba(variables.$error-color, 0.05);
+  padding: variables.$spacing-xs variables.$spacing-md;
+  border-radius: variables.$border-radius-xs;
+}
+
+// Reset top and bottom margins on paragraph elements
+@mixin reset-paragraph-margins {
+  p {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Responsive image sizing
+@mixin responsive-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

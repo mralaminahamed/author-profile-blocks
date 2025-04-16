@@ -26,9 +26,12 @@
 		"npm": ">=8.0.0"
 	},
 	"scripts": {
-		"start": "wp-scripts start --webpack-copy-php --blocks-manifest",
-		"build": "wp-scripts build --webpack-copy-php --blocks-manifest",
-		"plugin-zip": "wp-scripts plugin-zip --root-folder=wp-author-showcase"
+		"start": "wp-scripts start --webpack-copy-php",
+		"build": "wp-scripts build --webpack-copy-php",
+		"lint": "yarn lint:js && yarn lint:css && yarn lint:md:docs && yarn lint:pkg-json",
+		"plugin-zip": "wp-scripts plugin-zip --root-folder=wp-author-showcase",
+		"wp:make-pot": "wp i18n make-pot . languages/wp-author-showcase.pot",
+		"bundle-analyze": "wp-scripts build --webpack-copy-php --webpack-bundle-analyzer"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.26.10",
@@ -64,7 +67,7 @@
 		"wp-author-showcase.php",
 		"readme.txt",
 		"readme.md",
-		"requirements.md"
+		"LICENSE"
 	],
 	"packageManager": "yarn@4.9.0"
 }

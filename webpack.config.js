@@ -1,14 +1,34 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const path = require('path');
 
 module.exports = {
 	...defaultConfig,
+
 	entry: {
 		...defaultConfig.entry,
 
-		// Author Showcase block entry
-		'author-profile/index': './src/author-profile/index.js',
+		// Individual block entries
+		'blocks/author-profile/index': './src/blocks/author-profile/index.js',
 
 		// Admin styles entry
-		'admin/styles': './src/admin/styles.scss',
+		'admin/style': './src/scss/admin/style.scss',
+	},
+
+	// Ensure output paths match our structure
+	output: {
+		...defaultConfig.output,
+		path: path.resolve(process.cwd(), 'build'),
+		filename: '[name].js',
+	},
+
+	resolve: {
+		...defaultConfig.resolve,
+		alias: {
+			...defaultConfig.resolve?.alias,
+			// Add aliases for easier imports if needed
+			'@scss': path.resolve(process.cwd(), 'src/scss'),
+			'@blocks': path.resolve(process.cwd(), 'src/blocks'),
+			'@common': path.resolve(process.cwd(), 'src/scss/common'),
+		}
 	}
 };

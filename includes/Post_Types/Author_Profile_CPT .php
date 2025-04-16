@@ -34,7 +34,6 @@ use function wp_nonce_field;
 use function wp_strip_all_tags;
 use function wp_unslash;
 use function wp_verify_nonce;
-use WPAuthorShowcase\Templates\Template_Loader;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -44,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Profile custom post type.
  */
-class Author_Profile {
+class Author_Profile_CPT {
 	/**
 	 * Post type name.
 	 *

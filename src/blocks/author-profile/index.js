@@ -26,14 +26,5 @@ import metadata from './block.json';
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType(metadata.name, {
-	/**
-	 * @see ./edit.js
-	 */
-	edit: Edit,
-	
-	/**
-	 * We're using server-side rendering for this block
-	 * So we don't need a save function
-	 */
-	save: () => null,
+  edit: Edit,
 });

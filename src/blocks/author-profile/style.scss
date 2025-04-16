@@ -1,0 +1,160 @@
+/**
+ * Author Profile Block - Front-end & Editor Shared Styles
+ *
+ * Styles applied both on the front-end and within the editor.
+ */
+
+// Import shared resources
+@use '../../scss/common/variables';
+@use '../../scss/common/mixins';
+
+// Legacy selector - consider removing if no longer used
+.wp-block-wp-author-showcase-wp-author-showcase {
+  background-color: #21759b;
+  color: #fff;
+  padding: 2px;
+}
+
+// Main block container
+.wp-block-wp-author-showcase-author-profile {
+  overflow: hidden;
+  box-sizing: border-box;
+
+  /**
+   * Author Profile Content Layout
+   */
+  .wpas-author-profile-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$spacing-xl;
+    margin-bottom: variables.$spacing-xl;
+
+    @media (max-width: variables.$breakpoint-medium) {
+      flex-direction: column;
+      gap: variables.$spacing-lg;
+    }
+
+    @media (max-width: variables.$breakpoint-small) {
+      gap: variables.$spacing-md;
+    }
+
+    // Author image container
+    .wpas-author-image {
+      flex: 0 0 variables.$author-image-size;
+
+      @media (max-width: variables.$breakpoint-medium) {
+        flex: 0 0 auto;
+        max-width: 100%;
+        margin-bottom: variables.$spacing-xs;
+      }
+
+      img {
+        @include mixins.responsive-image;
+        border-radius: variables.$border-radius-sm;
+      }
+    }
+
+    // Author information container
+    .wpas-author-info {
+      flex: 1;
+      min-width: 200px;
+
+      @media (max-width: variables.$breakpoint-small) {
+        min-width: 100%;
+      }
+
+      // Author name heading
+      .wpas-author-name {
+        margin-top: 0;
+        margin-bottom: variables.$spacing-md;
+        font-size: variables.$font-size-large;
+        font-weight: 600;
+        line-height: variables.$line-height-tight;
+
+        @media (max-width: variables.$breakpoint-small) {
+          font-size: variables.$font-size-medium;
+          margin-bottom: variables.$spacing-sm;
+        }
+      }
+
+      // Author email
+      .wpas-author-email {
+        margin-bottom: variables.$spacing-md;
+
+        @media (max-width: variables.$breakpoint-small) {
+          margin-bottom: variables.$spacing-sm;
+          word-break: break-all;
+        }
+
+        a {
+          color: variables.$primary-color;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      // Author description
+      .wpas-author-description {
+        color: variables.$text-color;
+        line-height: variables.$line-height-normal;
+
+        @media (max-width: variables.$breakpoint-small) {
+          line-height: variables.$line-height-mobile;
+          font-size: variables.$font-size-small;
+        }
+
+        @include mixins.reset-paragraph-margins;
+      }
+    }
+  }
+
+  /**
+   * Additional Content Section ("Show More")
+   */
+  .wpas-author-more-content {
+    margin-top: variables.$spacing-xl;
+    border-top: 1px solid variables.$border-color-light;
+    padding-top: variables.$spacing-lg;
+
+    @media (max-width: variables.$breakpoint-small) {
+      margin-top: variables.$spacing-lg;
+      padding-top: variables.$spacing-md;
+    }
+
+    p:first-child {
+      margin-top: 0;
+    }
+  }
+
+  /**
+   * Text Alignment Variations
+   */
+  // Center alignment
+  &.has-text-align-center {
+    .wpas-author-profile-content {
+      justify-content: center;
+      text-align: center;
+
+      .wpas-author-image {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  // Right alignment
+  &.has-text-align-right {
+    .wpas-author-profile-content {
+      justify-content: flex-end;
+      text-align: right;
+
+      @media (max-width: variables.$breakpoint-medium) {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  }
+}

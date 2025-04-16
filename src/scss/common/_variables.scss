@@ -1,0 +1,46 @@
+/**
+ * WP Author Showcase - Global Variables
+ *
+ * Shared variables for consistent styling across the plugin
+ */
+
+// Colors
+$primary-color: #2271b1;
+$primary-hover: #135e96;
+$focus-color: #007cba;
+$error-color: #cc1818;
+$text-color: #333;
+$text-color-secondary: #50575e;
+$muted-color: #999;
+$border-color: #ddd;
+$border-color-light: rgba(0, 0, 0, 0.1);
+$light-bg: #f0f0f1;
+
+// Border Radius
+$border-radius-xs: 2px;
+$border-radius-sm: 3px;
+$border-radius-md: 4px;
+
+// Spacing
+$spacing-xs: 5px;
+$spacing-sm: 8px;
+$spacing-md: 10px;
+$spacing-lg: 15px;
+$spacing-xl: 20px;
+
+// Breakpoints
+$breakpoint-small: 400px;
+$breakpoint-medium: 600px;
+
+// Typography
+$font-size-small: 0.95em;
+$font-size-normal: 1em;
+$font-size-medium: 1.3em;
+$font-size-large: 1.5em;
+$line-height-tight: 1.3;
+$line-height-normal: 1.6;
+$line-height-mobile: 1.4;
+
+// Element Sizes
+$author-image-size: 120px;
+$admin-image-size: 60px;

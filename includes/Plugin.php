@@ -1,11 +1,14 @@
 <?php
 /**
- * Main plugin class
+ * Plugin class
  *
  * @package WPAuthorShowcase
  */
 
 namespace WPAuthorShowcase;
+
+use WPAuthorShowcase\Blocks\Block_Registry;
+use WPAuthorShowcase\Post_Types\Author_Profile_CPT;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Main plugin class that initializes all functionality.
+ * Main plugin class.
  */
 class Plugin {
 	/**
@@ -21,32 +24,28 @@ class Plugin {
 	 *
 	 * @var Plugin|null
 	 */
-	private static ?Plugin $instance = null;
+	private static $instance = null;
 
 	/**
-	 * Plugin modules.
+	 * Block registry instance.
 	 *
-	 * @var array
+	 * @var Block_Registry
 	 */
-	private array $modules;
+	private Block_Registry $block_registry;
 
 	/**
-	 * Private constructor to prevent direct object creation.
+	 * Author Profile CPT instance.
+	 *
+	 * @var Author_Profile_CPT
 	 */
-	private function __construct() {
-		// Initialize modules.
-		$this->modules = array(
-			new Post_Types\Author_Profile(),
-			new Blocks\Author_Profile_Block(),
-		);
-	}
+	private Author_Profile_CPT $author_profile_cpt;
 
 	/**
 	 * Get plugin instance.
 	 *
-	 * @return Plugin The plugin instance.
+	 * @return Plugin Plugin instance.
 	 */
-	public static function get_instance(): ?Plugin {
+	public static function get_instance(): Plugin {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -55,24 +54,57 @@ class Plugin {
 	}
 
 	/**
+	 * Plugin constructor.
+	 */
+	private function __construct() {
+		$this->block_registry     = new Block_Registry();
+		$this->author_profile_cpt = new Author_Profile_CPT();
+	}
+
+	/**
 	 * Initialize the plugin.
 	 *
 	 * @return void
 	 */
 	public function init(): void {
-		$this->initialize_modules();
+		// Initialize custom post type.
+		$this->author_profile_cpt->init();
+
+		// Initialize blocks.
+		$this->block_registry->init();
+
+		// Load text domain.
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 	}
 
 	/**
-	 * Initialize plugin modules.
+	 * Load plugin textdomain.
 	 *
 	 * @return void
 	 */
-	private function initialize_modules(): void {
-		foreach ( $this->modules as $module ) {
-			if ( method_exists( $module, 'init' ) ) {
-				$module->init();
-			}
-		}
+	public function load_textdomain(): void {
+		load_plugin_textdomain(
+			'wp-author-showcase',
+			false,
+			dirname( plugin_basename( WPAS_PLUGIN_FILE ) ) . '/languages'
+		);
+	}
+
+	/**
+	 * Get the block registry.
+	 *
+	 * @return Block_Registry Block registry instance.
+	 */
+	public function get_block_registry(): Block_Registry {
+		return $this->block_registry;
+	}
+
+	/**
+	 * Get the author profile CPT.
+	 *
+	 * @return Author_Profile_CPT Author Profile CPT instance.
+	 */
+	public function get_author_profile_cpt(): Author_Profile_CPT {
+		return $this->author_profile_cpt;
 	}
 }
