@@ -24,7 +24,7 @@
       "type": "boolean",
       "default": true
     },
-    "showMore": {
+    "showMoreContent": {
       "type": "boolean",
       "default": false
     },
@@ -51,7 +51,7 @@
       "showImage": true,
       "showEmail": true,
       "showDescription": true,
-      "showMore": true,
+      "showMoreContent": true,
       "moreContent": "This is an example of the additional content section.",
       "backgroundColor": "#f8f9fa",
       "padding": 25

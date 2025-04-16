@@ -2,11 +2,19 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, BlockControls, AlignmentToolbar } from '@wordpress/block-editor';
+import {
+    useBlockProps,
+    InspectorControls,
+    BlockControls,
+    AlignmentToolbar,
+    PanelColorSettings,
+    ContrastChecker
+} from '@wordpress/block-editor';
 import {
     PanelBody,
     ToggleControl,
-    Button
+    Button,
+    RangeControl
 } from '@wordpress/components';
 
 /**
@@ -25,13 +33,27 @@ import MoreContent from './components/MoreContent';
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-    const { authorId, showMoreContent, moreContent, textAlign, showImage, showEmail, showDescription } = attributes;
+    const {
+        authorId,
+        showMoreContent,
+        moreContent,
+        textAlign,
+        showImage,
+        showEmail,
+        showDescription,
+        backgroundColor,
+        padding
+    } = attributes;
 
     // Use our custom hook to manage authors
     const { authors, selectedAuthor, setSelectedAuthor, isLoading } = useAuthors(authorId);
 
     const blockProps = useBlockProps({
         className: textAlign ? `has-text-align-${textAlign}` : '',
+        style: {
+            backgroundColor: backgroundColor || undefined,
+            padding: padding ? `${padding}px` : undefined
+        }
     });
 
     // Handle author selection
@@ -61,7 +83,7 @@ export default function Edit({ attributes, setAttributes }) {
             </BlockControls>
 
             <InspectorControls>
-                <PanelBody title={__('Author Profile Settings', 'wp-author-showcase')}>
+                <PanelBody title={__('Display Settings', 'wp-author-showcase')}>
                     <ToggleControl
                         label={__('Show Author Image', 'wp-author-showcase')}
                         checked={showImage}
@@ -81,12 +103,37 @@ export default function Edit({ attributes, setAttributes }) {
                     />
 
                     <ToggleControl
-                        label={__('Show More Content Section', 'wp-author-showcase')}
+                        label={__('Show More Section', 'wp-author-showcase')}
                         checked={showMoreContent}
                         onChange={() => setAttributes({ showMoreContent: !showMoreContent })}
                     />
+                </PanelBody>
 
-                    {authorId > 0 && (
+                <PanelBody title={__('Style Settings', 'wp-author-showcase')}>
+                    <RangeControl
+                        label={__('Padding', 'wp-author-showcase')}
+                        value={padding}
+                        onChange={(value) => setAttributes({ padding: value })}
+                        min={0}
+                        max={50}
+                        initialPosition={20}
+                    />
+                </PanelBody>
+
+                <PanelColorSettings
+                    title={__('Color Settings', 'wp-author-showcase')}
+                    initialOpen={false}
+                    colorSettings={[
+                        {
+                            value: backgroundColor,
+                            onChange: (value) => setAttributes({ backgroundColor: value }),
+                            label: __('Background Color', 'wp-author-showcase'),
+                        }
+                    ]}
+                />
+
+                {authorId > 0 && (
+                    <PanelBody title={__('Author Selection', 'wp-author-showcase')}>
                         <Button
                             isDestructive
                             variant="secondary"
@@ -95,8 +142,8 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {__('Clear Selected Author', 'wp-author-showcase')}
                         </Button>
-                    )}
-                </PanelBody>
+                    </PanelBody>
+                )}
             </InspectorControls>
 
             <div {...blockProps}>

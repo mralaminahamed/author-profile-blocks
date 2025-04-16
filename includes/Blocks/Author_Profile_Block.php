@@ -72,10 +72,23 @@ class Author_Profile_Block extends Block_Base {
 			return '<div class="wpas-author-profile-error">' . esc_html__('Author not found.', 'wp-author-showcase') . '</div>';
 		}
 
+		// Generate styles for the block.
+		$styles = $this->get_block_styles($attributes);
+		$style_attribute = '';
+		
+		if (!empty($styles)) {
+			$style_strings = array();
+			foreach ($styles as $property => $value) {
+				$style_strings[] = $property . ': ' . $value;
+			}
+			$style_attribute = 'style="' . esc_attr(implode('; ', $style_strings)) . '"';
+		}
+	
 		// Classes for the block wrapper.
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
 				'class' => $this->get_block_classes( $attributes ),
+				'style' => $style_attribute,
 			)
 		);
 
@@ -108,6 +121,28 @@ class Author_Profile_Block extends Block_Base {
 		}
 
 		return implode( ' ', $classes );
+	}
+	
+	/**
+	 * Get block styles based on attributes.
+	 *
+	 * @param array $attributes Block attributes.
+	 * @return array CSS styles.
+	 */
+	private function get_block_styles( array $attributes ): array {
+		$styles = array();
+		
+		// Background color
+		if ( ! empty( $attributes['backgroundColor'] ) ) {
+			$styles['background-color'] = $attributes['backgroundColor'];
+		}
+		
+		// Padding
+		if ( isset( $attributes['padding'] ) ) {
+			$styles['padding'] = $attributes['padding'] . 'px';
+		}
+		
+		return $styles;
 	}
 
 	/**
