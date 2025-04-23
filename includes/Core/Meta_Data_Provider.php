@@ -2,11 +2,11 @@
 /**
  * Meta Data Provider interface
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  * @subpackage Core
  */
 
-namespace WPAuthorShowcase\Core;
+namespace AuthorProfileShowcase\Core;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

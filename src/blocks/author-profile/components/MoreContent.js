@@ -20,9 +20,9 @@ const MoreContent = ({ content, onContentChange }) => {
             <Card className="wpas-more-content-card" elevation={1}>
                 <CardHeader className="wpas-more-content-header">
                     <div className="wpas-more-content-title">
-                        <h3>{__('Additional Information', 'wp-author-showcase')}</h3>
+                        <h3>{__('Additional Information', 'author-profile-showcase')}</h3>
                         <p className="wpas-more-content-description">
-                            {__('Add supplementary content about this author', 'wp-author-showcase')}
+                            {__('Add supplementary content about this author', 'author-profile-showcase')}
                         </p>
                     </div>
                     <div className="wpas-more-content-toolbar">
@@ -40,7 +40,7 @@ const MoreContent = ({ content, onContentChange }) => {
                         tagName="div"
                         value={content}
                         onChange={onContentChange}
-                        placeholder={__('Add additional author information such as biography, achievements, or contact details...', 'wp-author-showcase')}
+                        placeholder={__('Add additional author information such as biography, achievements, or contact details...', 'author-profile-showcase')}
                         className="wpas-more-content-editor"
                         allowedFormats={['core/bold', 'core/italic', 'core/link', 'core/list']}
                     />

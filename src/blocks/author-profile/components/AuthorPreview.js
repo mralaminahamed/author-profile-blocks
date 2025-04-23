@@ -13,7 +13,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 const AuthorPreview = ({ attributes }) => {
     return (
         <ServerSideRender
-            block="wp-author-showcase/author-profile"
+            block="author-profile-showcase/author-profile"
             attributes={attributes}
         />
     );

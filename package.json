@@ -1,16 +1,16 @@
 {
-	"name": "wp-author-showcase",
+	"name": "author-profile-showcase",
 	"version": "1.0.0",
 	"description": "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type.",
 	"author": "Al Amin Ahamed <mrabir.ahamed@gmail.com>",
 	"license": "GPL-3.0-only",
-	"homepage": "https://github.com/mralaminahamed/wp-author-showcase",
+	"homepage": "https://github.com/mralaminahamed/author-profile-showcase",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mralaminahamed/wp-author-showcase.git"
+		"url": "https://github.com/mralaminahamed/author-profile-showcase.git"
 	},
 	"bugs": {
-		"url": "https://github.com/mralaminahamed/wp-author-showcase/issues"
+		"url": "https://github.com/mralaminahamed/author-profile-showcase/issues"
 	},
 	"keywords": [
 		"wordpress",
@@ -29,8 +29,8 @@
 		"start": "wp-scripts start --webpack-copy-php",
 		"build": "wp-scripts build --webpack-copy-php",
 		"lint": "yarn lint:js && yarn lint:css && yarn lint:md:docs && yarn lint:pkg-json",
-		"plugin-zip": "wp-scripts plugin-zip --root-folder=wp-author-showcase",
-		"wp:make-pot": "wp i18n make-pot . languages/wp-author-showcase.pot",
+		"plugin-zip": "wp-scripts plugin-zip --root-folder=author-profile-showcase",
+		"wp:make-pot": "wp i18n make-pot . languages/author-profile-showcase.pot",
 		"bundle-analyze": "wp-scripts build --webpack-copy-php --webpack-bundle-analyzer"
 	},
 	"devDependencies": {
@@ -65,7 +65,7 @@
 		"vendor/composer",
 		"vendor/autoload.php",
 		"index.php",
-		"wp-author-showcase.php",
+		"author-profile-showcase.php",
 		"readme.txt",
 		"readme.md",
 		"LICENSE"

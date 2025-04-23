@@ -6,7 +6,7 @@ parameters:
     level: 5
 
     paths:
-        - wp-author-showcase.php
+        - author-profile-showcase.php
         - includes
 
     excludePaths:

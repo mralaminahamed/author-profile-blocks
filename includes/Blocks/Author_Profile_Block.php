@@ -2,14 +2,14 @@
 /**
  * Author Profile Block class
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  * @subpackage Blocks
  */
 
-namespace WPAuthorShowcase\Blocks;
+namespace AuthorProfileShowcase\Blocks;
 
 use WP_Block;
-use WPAuthorShowcase\Plugin;
+use AuthorProfileShowcase\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -46,8 +46,8 @@ class Author_Profile_Block extends Block_Base {
 	 */
 	public function localize_block_script(): void {
 		wp_localize_script(
-			'wp-author-showcase-author-profile-editor-script',
-			'wpAuthorShowcaseData',
+			'author-profile-showcase-author-profile-editor-script',
+			'AuthorProfileShowcaseData',
 			array(
 				'adminUrl' => admin_url(),
 			)
@@ -75,7 +75,7 @@ class Author_Profile_Block extends Block_Base {
 		$author_id = $attributes['authorId'] ?? 0;
 
 		if ( empty( $author_id ) ) {
-			return '<div class="wpas-author-profile-error">' . esc_html__( 'Please select an author.', 'wp-author-showcase' ) . '</div>';
+			return '<div class="wpas-author-profile-error">' . esc_html__( 'Please select an author.', 'author-profile-showcase' ) . '</div>';
 		}
 
 		// Get the Author_Profile_CPT instance to use its methods.
@@ -83,7 +83,7 @@ class Author_Profile_Block extends Block_Base {
 		$author_data = $author_cpt->get_author_data( $author_id );
 
 		if ( ! $author_data ) {
-			return '<div class="wpas-author-profile-error">' . esc_html__( 'Author not found.', 'wp-author-showcase' ) . '</div>';
+			return '<div class="wpas-author-profile-error">' . esc_html__( 'Author not found.', 'author-profile-showcase' ) . '</div>';
 		}
 
 		// Generate styles for the block.

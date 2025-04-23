@@ -48,7 +48,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
 
     // Prepare options for select control
     const authorOptions = [
-        { label: __('Select an author...', 'wp-author-showcase'), value: '' },
+        { label: __('Select an author...', 'author-profile-showcase'), value: '' },
         ...filteredAuthors.map(author => ({
             label: author.title.rendered,
             value: author.id.toString()
@@ -81,15 +81,15 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
         <div className="wpas-author-selector-wrapper">
             <Placeholder
                 icon={<Icon icon={people} className="wpas-author-icon" />}
-                label={__('Author Profile Block', 'wp-author-showcase')}
-                instructions={__('Select an author to display their profile in your content.', 'wp-author-showcase')}
+                label={__('Author Profile Block', 'author-profile-showcase')}
+                instructions={__('Select an author to display their profile in your content.', 'author-profile-showcase')}
                 className="wpas-author-selector"
                 isColumnLayout={true}
             >
                 {isLoading ? (
                     <div className="wpas-loading-container">
                         <Spinner />
-                        <p>{__('Loading authors...', 'wp-author-showcase')}</p>
+                        <p>{__('Loading authors...', 'author-profile-showcase')}</p>
                     </div>
                 ) : authors.length > 0 ? (
                     <Card className="wpas-author-card" elevation={2}>
@@ -98,13 +98,13 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                 <FlexItem>
                                     <Flex align="center" gap={2}>
                                         <Icon icon={people} size={24} />
-                                        <h4>{__('Author Selection', 'wp-author-showcase')}</h4>
+                                        <h4>{__('Author Selection', 'author-profile-showcase')}</h4>
                                     </Flex>
                                 </FlexItem>
                                 <FlexItem>
                                     <div className="wpas-author-count">
                                         <span>{authorCount}</span>
-                                        <Tooltip text={__('Total number of available authors', 'wp-author-showcase')}>
+                                        <Tooltip text={__('Total number of available authors', 'author-profile-showcase')}>
                                             <Icon icon={info} size={16} />
                                         </Tooltip>
                                     </div>
@@ -118,7 +118,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                 <TextControl
                                     value={searchTerm}
                                     onChange={handleSearchChange}
-                                    placeholder={__('Search authors...', 'wp-author-showcase')}
+                                    placeholder={__('Search authors...', 'author-profile-showcase')}
                                     className="wpas-author-search"
                                 />
                                 {searchTerm && (
@@ -127,7 +127,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                         isSmall
                                         isSecondary
                                         onClick={clearSearch}
-                                        aria-label={__('Clear search', 'wp-author-showcase')}
+                                        aria-label={__('Clear search', 'author-profile-showcase')}
                                     >
                                         <Dashicon icon="no-alt" />
                                     </Button>
@@ -136,7 +136,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
 
                             <div className="wpas-select-field">
                                 <SelectControl
-                                    label={__('Select Author', 'wp-author-showcase')}
+                                    label={__('Select Author', 'author-profile-showcase')}
                                     value={selectedAuthorId}
                                     options={authorOptions}
                                     onChange={handleAuthorChange}
@@ -151,7 +151,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                     status="warning"
                                     isDismissible={false}
                                 >
-                                    {__('No authors match your search criteria.', 'wp-author-showcase')}
+                                    {__('No authors match your search criteria.', 'author-profile-showcase')}
                                 </Notice>
                             ) : filteredAuthors.length < authors.length && searchTerm !== '' && (
                                 <div className="wpas-filter-info">
@@ -159,7 +159,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                     <span>
                                         {sprintf(
                                             /* translators: %1$d: filtered authors count, %2$d: total authors count */
-                                            __('Showing %1$d of %2$d authors', 'wp-author-showcase'),
+                                            __('Showing %1$d of %2$d authors', 'author-profile-showcase'),
                                             filteredAuthors.length,
                                             authors.length
                                         )}
@@ -180,19 +180,19 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                             }}
                                             className="wpas-reset-btn"
                                         >
-                                            {__('Reset', 'wp-author-showcase')}
+                                            {__('Reset', 'author-profile-showcase')}
                                         </Button>
                                     )}
                                 </FlexItem>
                                 <FlexItem>
                                     <Button
                                         variant="secondary"
-                                        href={`${wpAuthorShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
+                                        href={`${AuthorProfileShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
                                         target="_blank"
                                         className="wpas-add-author-btn"
                                         icon={plusCircle}
                                     >
-                                        {__('Add New Author', 'wp-author-showcase')}
+                                        {__('Add New Author', 'author-profile-showcase')}
                                     </Button>
                                 </FlexItem>
                             </Flex>
@@ -204,16 +204,16 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                             <CardBody>
                                 <div className="wpas-empty-state">
                                     <Icon icon={people} size={48} className="wpas-empty-icon" />
-                                    <h3>{__('No Authors Found', 'wp-author-showcase')}</h3>
-                                    <p>{__('You need to create author profiles before you can use this block.', 'wp-author-showcase')}</p>
+                                    <h3>{__('No Authors Found', 'author-profile-showcase')}</h3>
+                                    <p>{__('You need to create author profiles before you can use this block.', 'author-profile-showcase')}</p>
                                     <Button
                                         variant="primary"
-                                        href={`${wpAuthorShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
+                                        href={`${AuthorProfileShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
                                         target="_blank"
                                         className="wpas-create-author-btn"
                                         icon={plusCircle}
                                     >
-                                        {__('Create Author Profile', 'wp-author-showcase')}
+                                        {__('Create Author Profile', 'author-profile-showcase')}
                                     </Button>
                                 </div>
                             </CardBody>

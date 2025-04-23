@@ -16704,9 +16704,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wp-author-showcase@workspace:.":
+"author-profile-showcase@workspace:.":
   version: 0.0.0-use.local
-  resolution: "wp-author-showcase@workspace:."
+  resolution: "author-profile-showcase@workspace:."
   dependencies:
     "@babel/core": "npm:^7.26.10"
     "@playwright/test": "npm:^1.51.1"

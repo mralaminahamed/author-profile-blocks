@@ -34,7 +34,7 @@ import MoreContent from './components/MoreContent';
 /**
  * WordPress global
  */
-const { wpAuthorShowcase = { adminUrl: '/wp-admin/' } } = window;
+const { AuthorProfileShowcase = { adminUrl: '/wp-admin/' } } = window;
 
 /**
  * The edit function for the Author Profile block.
@@ -93,35 +93,35 @@ export default function Edit({ attributes, setAttributes }) {
             </BlockControls>
 
             <InspectorControls>
-                <PanelBody title={__('Display Settings', 'wp-author-showcase')}>
+                <PanelBody title={__('Display Settings', 'author-profile-showcase')}>
                     <ToggleControl
-                        label={__('Show Author Image', 'wp-author-showcase')}
+                        label={__('Show Author Image', 'author-profile-showcase')}
                         checked={showImage}
                         onChange={() => setAttributes({ showImage: !showImage })}
                     />
 
                     <ToggleControl
-                        label={__('Show Author Email', 'wp-author-showcase')}
+                        label={__('Show Author Email', 'author-profile-showcase')}
                         checked={showEmail}
                         onChange={() => setAttributes({ showEmail: !showEmail })}
                     />
 
                     <ToggleControl
-                        label={__('Show Author Description', 'wp-author-showcase')}
+                        label={__('Show Author Description', 'author-profile-showcase')}
                         checked={showDescription}
                         onChange={() => setAttributes({ showDescription: !showDescription })}
                     />
 
                     <ToggleControl
-                        label={__('Show More Section', 'wp-author-showcase')}
+                        label={__('Show More Section', 'author-profile-showcase')}
                         checked={showMoreContent}
                         onChange={() => setAttributes({ showMoreContent: !showMoreContent })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Style Settings', 'wp-author-showcase')}>
+                <PanelBody title={__('Style Settings', 'author-profile-showcase')}>
                     <RangeControl
-                        label={__('Padding', 'wp-author-showcase')}
+                        label={__('Padding', 'author-profile-showcase')}
                         value={padding}
                         onChange={(value) => setAttributes({ padding: value })}
                         min={0}
@@ -131,26 +131,26 @@ export default function Edit({ attributes, setAttributes }) {
                 </PanelBody>
 
                 <PanelColorSettings
-                    title={__('Color Settings', 'wp-author-showcase')}
+                    title={__('Color Settings', 'author-profile-showcase')}
                     initialOpen={false}
                     colorSettings={[
                         {
                             value: backgroundColor,
                             onChange: (value) => setAttributes({ backgroundColor: value }),
-                            label: __('Background Color', 'wp-author-showcase'),
+                            label: __('Background Color', 'author-profile-showcase'),
                         }
                     ]}
                 />
 
                 {authorId > 0 && (
-                    <PanelBody title={__('Author Selection', 'wp-author-showcase')}>
+                    <PanelBody title={__('Author Selection', 'author-profile-showcase')}>
                         <Button
                             isDestructive
                             variant="secondary"
                             className="wpas-clear-button"
                             onClick={handleClearAuthor}
                         >
-                            {__('Clear Selected Author', 'wp-author-showcase')}
+                            {__('Clear Selected Author', 'author-profile-showcase')}
                         </Button>
                     </PanelBody>
                 )}

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="WP Author Showcase Coding Standards">
-    <description>WordPress Coding Standards for WP Author Showcase plugin</description>
+<ruleset name="Author Profile Showcase Coding Standards">
+    <description>WordPress Coding Standards for Author Profile Showcase plugin</description>
 
     <!-- Scan all files in plugin -->
     <file>.</file>
@@ -31,7 +31,7 @@
     <rule ref="WordPress.WP.I18n">
         <properties>
             <property name="text_domain" type="array">
-                <element value="wp-author-showcase"/>
+                <element value="author-profile-showcase"/>
             </property>
         </properties>
     </rule>
@@ -39,9 +39,9 @@
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
-                <element value="wp_author_showcase"/>
-                <element value="wpas"/>
-                <element value="WPAuthorShowcase"/>
+                <element value="author_profile_showcase"/>
+                <element value="aps"/>
+                <element value="AuthorProfileShowcase"/>
             </property>
         </properties>
     </rule>

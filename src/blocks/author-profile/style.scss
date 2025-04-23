@@ -9,14 +9,14 @@
 @use '../../scss/common/mixins';
 
 // Legacy selector - consider removing if no longer used
-.wp-block-wp-author-showcase-wp-author-showcase {
+.wp-block-author-profile-showcase-author-profile-showcase {
   background-color: #21759b;
   color: #fff;
   padding: 2px;
 }
 
 // Main block container
-.wp-block-wp-author-showcase-author-profile {
+.wp-block-author-profile-showcase-author-profile {
   overflow: hidden;
   box-sizing: border-box;
 

@@ -1,5 +1,5 @@
 {
-  "name": "mralaminahamed/wp-author-showcase",
+  "name": "mralaminahamed/author-profile-showcase",
   "description": "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type.",
   "type": "wordpress-plugin",
   "license": "GPL-3.0-only",
@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "WPAuthorShowcase\\": "includes/"
+      "AuthorProfileShowcase\\": "includes/"
     }
   },
   "require-dev": {
@@ -31,7 +31,7 @@
     "phpcs": "phpcs --standard=phpcs.xml.dist",
     "phpcbf": "phpcbf --standard=phpcs.xml.dist",
     "phpstan": "phpstan analyse",
-    "wp:make-pot": "wp i18n make-pot ./ ./languages/wp-author-showcase.pot --domain=wp-author-showcase --package-name=\"WP Author Showcase\""
+    "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-showcase.pot --domain=author-profile-showcase --package-name=\"Author Profile Showcase\""
   },
   "config": {
     "allow-plugins": {

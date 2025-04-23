@@ -2,14 +2,14 @@
 /**
  * Base Post Type class
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  * @subpackage PostTypes
  */
 
-namespace WPAuthorShowcase\Post_Types;
+namespace AuthorProfileShowcase\Post_Types;
 
-use WPAuthorShowcase\Core\Base;
-use WPAuthorShowcase\Core\Registerable;
+use AuthorProfileShowcase\Core\Base;
+use AuthorProfileShowcase\Core\Registerable;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

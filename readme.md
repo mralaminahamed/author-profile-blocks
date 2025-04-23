@@ -1,4 +1,4 @@
-# WP Author Showcase
+# Author Profile Showcase
 
 A WordPress plugin that showcases author profiles with a beautiful Gutenberg block. Display author information from a custom post type with customizable styles and layout options.
 
@@ -28,7 +28,7 @@ A WordPress plugin that showcases author profiles with a beautiful Gutenberg blo
 
 ### Manual Installation
 
-1. Upload the plugin files to the `/wp-content/plugins/wp-author-showcase` directory
+1. Upload the plugin files to the `/wp-content/plugins/author-profile-showcase` directory
 2. Activate the plugin through the 'Plugins' screen in WordPress
 
 ## Usage
@@ -67,12 +67,12 @@ A WordPress plugin that showcases author profiles with a beautiful Gutenberg blo
 
 1. Clone the repository:
    ```
-   git clone https://github.com/mralaminahamed/wp-author-showcase.git
+   git clone https://github.com/mralaminahamed/author-profile-showcase.git
    ```
 
 2. Navigate to the plugin directory:
    ```
-   cd wp-author-showcase
+   cd author-profile-showcase
    ```
 
 3. Install JavaScript dependencies:

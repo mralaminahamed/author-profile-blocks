@@ -2,14 +2,14 @@
 /**
  * Abstract Block Base class
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  * @subpackage Blocks
  */
 
-namespace WPAuthorShowcase\Blocks;
+namespace AuthorProfileShowcase\Blocks;
 
-use WPAuthorShowcase\Core\Base;
-use WPAuthorShowcase\Core\Registerable;
+use AuthorProfileShowcase\Core\Base;
+use AuthorProfileShowcase\Core\Registerable;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

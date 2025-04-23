@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Author Showcase 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-author-showcase\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/author-profile-showcase\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,30 +12,30 @@ msgstr ""
 "POT-Creation-Date: 2025-04-09T19:52:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: wp-author-showcase\n"
+"X-Domain: author-profile-showcase\n"
 
 #. Plugin Name of the plugin
-#: wp-author-showcase.php
+#: author-profile-showcase.php
 msgid "WP Author Showcase"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: wp-author-showcase.php
-msgid "https://github.com/mralaminahamed/wp-author-showcase"
+#: author-profile-showcase.php
+msgid "https://github.com/mralaminahamed/author-profile-showcase"
 msgstr ""
 
 #. Description of the plugin
-#: wp-author-showcase.php
+#: author-profile-showcase.php
 msgid "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type."
 msgstr ""
 
 #. Author of the plugin
-#: wp-author-showcase.php
+#: author-profile-showcase.php
 msgid "Al Amin Ahamed"
 msgstr ""
 
 #. Author URI of the plugin
-#: wp-author-showcase.php
+#: author-profile-showcase.php
 msgid "https://github.com/mralaminahamed"
 msgstr ""
 

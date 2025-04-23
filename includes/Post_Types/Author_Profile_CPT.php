@@ -2,15 +2,15 @@
 /**
  * Author Profile custom post type class
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  * @subpackage PostTypes
  */
 
-namespace WPAuthorShowcase\Post_Types;
+namespace AuthorProfileShowcase\Post_Types;
 
 use WP_Post;
 use WP_Query;
-use WPAuthorShowcase\Core\Meta_Data_Provider;
+use AuthorProfileShowcase\Core\Meta_Data_Provider;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,20 +59,20 @@ class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 	 */
 	public function register(): void {
 		$labels = array(
-			'name'               => _x( 'Author Profiles', 'post type general name', 'wp-author-showcase' ),
-			'singular_name'      => _x( 'Author Profile', 'post type singular name', 'wp-author-showcase' ),
-			'menu_name'          => _x( 'Author Profiles', 'admin menu', 'wp-author-showcase' ),
-			'name_admin_bar'     => _x( 'Author Profile', 'add new on admin bar', 'wp-author-showcase' ),
-			'add_new'            => _x( 'Add New', 'author profile', 'wp-author-showcase' ),
-			'add_new_item'       => __( 'Add New Author Profile', 'wp-author-showcase' ),
-			'new_item'           => __( 'New Author Profile', 'wp-author-showcase' ),
-			'edit_item'          => __( 'Edit Author Profile', 'wp-author-showcase' ),
-			'view_item'          => __( 'View Author Profile', 'wp-author-showcase' ),
-			'all_items'          => __( 'All Author Profiles', 'wp-author-showcase' ),
-			'search_items'       => __( 'Search Author Profiles', 'wp-author-showcase' ),
-			'parent_item_colon'  => __( 'Parent Author Profiles:', 'wp-author-showcase' ),
-			'not_found'          => __( 'No author profiles found.', 'wp-author-showcase' ),
-			'not_found_in_trash' => __( 'No author profiles found in Trash.', 'wp-author-showcase' ),
+			'name'               => _x( 'Author Profiles', 'post type general name', 'author-profile-showcase' ),
+			'singular_name'      => _x( 'Author Profile', 'post type singular name', 'author-profile-showcase' ),
+			'menu_name'          => _x( 'Author Profiles', 'admin menu', 'author-profile-showcase' ),
+			'name_admin_bar'     => _x( 'Author Profile', 'add new on admin bar', 'author-profile-showcase' ),
+			'add_new'            => _x( 'Add New', 'author profile', 'author-profile-showcase' ),
+			'add_new_item'       => __( 'Add New Author Profile', 'author-profile-showcase' ),
+			'new_item'           => __( 'New Author Profile', 'author-profile-showcase' ),
+			'edit_item'          => __( 'Edit Author Profile', 'author-profile-showcase' ),
+			'view_item'          => __( 'View Author Profile', 'author-profile-showcase' ),
+			'all_items'          => __( 'All Author Profiles', 'author-profile-showcase' ),
+			'search_items'       => __( 'Search Author Profiles', 'author-profile-showcase' ),
+			'parent_item_colon'  => __( 'Parent Author Profiles:', 'author-profile-showcase' ),
+			'not_found'          => __( 'No author profiles found.', 'author-profile-showcase' ),
+			'not_found_in_trash' => __( 'No author profiles found in Trash.', 'author-profile-showcase' ),
 		);
 
 		$args = array(
@@ -141,7 +141,7 @@ class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 	public function register_legacy_meta_boxes(): void {
 		add_meta_box(
 			'wpas_author_details',
-			__( 'Author Details', 'wp-author-showcase' ),
+			__( 'Author Details', 'author-profile-showcase' ),
 			array( $this, 'render_legacy_meta_box' ),
 			'author_profile',
 			'normal',
@@ -168,12 +168,12 @@ class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 		?>
 
 		<div class="wpas-meta-field">
-			<label for="wpas_author_email"><?php esc_html_e( 'Email Address', 'wp-author-showcase' ); ?>:</label>
+			<label for="wpas_author_email"><?php esc_html_e( 'Email Address', 'author-profile-showcase' ); ?>:</label>
 			<input type="email" id="wpas_author_email" name="wpas_author_email" value="<?php echo esc_attr( $email ); ?>" class="widefat">
 		</div>
 
 		<div class="wpas-meta-field" style="margin-top: 15px;">
-			<label for="wpas_author_description"><?php esc_html_e( 'Description', 'wp-author-showcase' ); ?>:</label>
+			<label for="wpas_author_description"><?php esc_html_e( 'Description', 'author-profile-showcase' ); ?>:</label>
 			<?php
 			wp_editor(
 				$description,
@@ -253,10 +253,10 @@ class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 			$new_columns[ $key ] = $value;
 
 			if ( 'cb' === $key ) {
-				$new_columns['author_image']       = __( 'Image', 'wp-author-showcase' );
-				$new_columns['title']              = __( 'Name', 'wp-author-showcase' );
-				$new_columns['author_email']       = __( 'Email', 'wp-author-showcase' );
-				$new_columns['author_description'] = __( 'Description', 'wp-author-showcase' );
+				$new_columns['author_image']       = __( 'Image', 'author-profile-showcase' );
+				$new_columns['title']              = __( 'Name', 'author-profile-showcase' );
+				$new_columns['author_email']       = __( 'Email', 'author-profile-showcase' );
+				$new_columns['author_description'] = __( 'Description', 'author-profile-showcase' );
 			}
 		}
 
@@ -325,7 +325,7 @@ class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 							'<div class="description-meta"><span class="description-count">%s</span></div>',
 							sprintf(
 							/* translators: %d: number of characters */
-								esc_html__( '%d characters', 'wp-author-showcase' ),
+								esc_html__( '%d characters', 'author-profile-showcase' ),
 								$original_length
 							)
 						);
@@ -410,28 +410,28 @@ class Author_Profile_CPT extends Base_Post_Type implements Meta_Data_Provider {
 	 * @param int $author_id Author ID
 	 * @return array|null Author data or null if not found
 	 */
-	public function get_author_data(int $author_id): ?array {
-		$author = get_post($author_id);
+	public function get_author_data( int $author_id ): ?array {
+		$author = get_post( $author_id );
 
-		if (!$author || $author->post_type !== $this->post_type) {
+		if ( ! $author || $author->post_type !== $this->post_type ) {
 			return null;
 		}
 
-		$email = get_post_meta($author_id, 'wpas_author_email', true);
-		$description = get_post_meta($author_id, 'wpas_author_description', true);
-		$thumbnail_id = get_post_thumbnail_id($author_id);
-		$image = '';
+		$email        = get_post_meta( $author_id, 'wpas_author_email', true );
+		$description  = get_post_meta( $author_id, 'wpas_author_description', true );
+		$thumbnail_id = get_post_thumbnail_id( $author_id );
+		$image        = '';
 
-		if ($thumbnail_id) {
-			$image = wp_get_attachment_image_url($thumbnail_id, 'medium');
+		if ( $thumbnail_id ) {
+			$image = wp_get_attachment_image_url( $thumbnail_id, 'medium' );
 		}
 
-		return [
-			'id' => $author_id,
-			'title' => get_the_title($author),
-			'email' => $email,
+		return array(
+			'id'          => $author_id,
+			'title'       => get_the_title( $author ),
+			'email'       => $email,
 			'description' => $description,
-			'image' => $image
-		];
+			'image'       => $image,
+		);
 	}
 }

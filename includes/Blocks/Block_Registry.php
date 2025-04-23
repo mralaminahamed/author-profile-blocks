@@ -2,13 +2,13 @@
 /**
  * Block Registry class
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  * @subpackage Blocks
  */
 
-namespace WPAuthorShowcase\Blocks;
+namespace AuthorProfileShowcase\Blocks;
 
-use WPAuthorShowcase\Core\Base;
+use AuthorProfileShowcase\Core\Base;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

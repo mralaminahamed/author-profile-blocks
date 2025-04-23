@@ -2,14 +2,14 @@
 /**
  * Plugin class
  *
- * @package WPAuthorShowcase
+ * @package AuthorProfileShowcase
  */
 
-namespace WPAuthorShowcase;
+namespace AuthorProfileShowcase;
 
-use WPAuthorShowcase\Blocks\Block_Registry;
-use WPAuthorShowcase\Core\Base;
-use WPAuthorShowcase\Post_Types\Author_Profile_CPT;
+use AuthorProfileShowcase\Blocks\Block_Registry;
+use AuthorProfileShowcase\Core\Base;
+use AuthorProfileShowcase\Post_Types\Author_Profile_CPT;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -85,7 +85,7 @@ class Plugin extends Base {
 	 */
 	public function load_textdomain(): void {
 		load_plugin_textdomain(
-			'wp-author-showcase',
+			'author-profile-showcase',
 			false,
 			dirname( plugin_basename( WPAS_PLUGIN_FILE ) ) . '/languages'
 		);
