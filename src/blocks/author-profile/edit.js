@@ -34,7 +34,7 @@ import MoreContent from './components/MoreContent';
 /**
  * WordPress global
  */
-const { AuthorProfileShowcase = { adminUrl: '/wp-admin/' } } = window;
+const { AuthorProfileBlocks = { adminUrl: '/wp-admin/' } } = window;
 
 /**
  * The edit function for the Author Profile block.

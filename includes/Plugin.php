@@ -2,14 +2,16 @@
 /**
  * Plugin class
  *
- * @package AuthorProfileShowcase
+ * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileShowcase;
+namespace AuthorProfileBlocks;
 
-use AuthorProfileShowcase\Blocks\Block_Registry;
-use AuthorProfileShowcase\Core\Base;
-use AuthorProfileShowcase\Post_Types\Author_Profile_CPT;
+use AuthorProfileBlocks\Blocks\Block_Registry;
+use AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Services\Author_Profile_Service;
+use WP_User;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +27,7 @@ class Plugin extends Base {
 	 *
 	 * @var Plugin|null
 	 */
-	private static $instance = null;
+	private static ?Plugin $instance = null;
 
 	/**
 	 * Block registry instance.
@@ -35,11 +37,18 @@ class Plugin extends Base {
 	private Block_Registry $block_registry;
 
 	/**
-	 * Author Profile CPT instance.
+	 * User meta provider instance.
 	 *
-	 * @var Author_Profile_CPT
+	 * @var User_Meta_Provider
 	 */
-	private Author_Profile_CPT $author_profile_cpt;
+	private User_Meta_Provider $user_meta_provider;
+
+	/**
+	 * Author profile service instance.
+	 *
+	 * @var Author_Profile_Service
+	 */
+	private Author_Profile_Service $author_profile_service;
 
 	/**
 	 * Get plugin instance.
@@ -58,8 +67,50 @@ class Plugin extends Base {
 	 * Plugin constructor.
 	 */
 	private function __construct() {
-		$this->block_registry     = new Block_Registry();
-		$this->author_profile_cpt = new Author_Profile_CPT();
+		// Initialize services
+		$this->user_meta_provider = new User_Meta_Provider();
+		$this->user_meta_provider->add_meta_field(
+			'apb_author_description',
+			array(
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'string',
+				'sanitize_callback' => 'wp_kses_post',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
+			)
+		);
+
+		// Add additional user meta fields for enhanced author profiles
+		$this->user_meta_provider->add_meta_field(
+			'apb_author_position',
+			array(
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apb_social_profiles',
+			array(
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'object',
+				'sanitize_callback' => array( $this, 'sanitize_social_profiles' ),
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
+			)
+		);
+
+		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
+		$this->block_registry = new Block_Registry();
 	}
 
 	/**
@@ -68,14 +119,242 @@ class Plugin extends Base {
 	 * @return void
 	 */
 	public function init(): void {
-		// Initialize custom post type.
-		$this->author_profile_cpt->init();
-
-		// Initialize blocks.
+		// Initialize service components
+		$this->user_meta_provider->init();
+		$this->author_profile_service->init();
 		$this->block_registry->init();
+
+		// Register hooks in groups for better organization
+		$this->register_user_profile_hooks();
+		$this->register_admin_hooks();
 
 		// Load text domain.
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+
+		// Set initialized state
+		$this->set_initialized();
+
+		// Allow plugins/themes to interact with our plugin after initialization
+		do_action( 'author_profile_blocks_init', $this );
+	}
+
+	/**
+	 * Register user profile related hooks.
+	 *
+	 * @return void
+	 */
+	private function register_user_profile_hooks(): void {
+		// Add user profile fields.
+		add_action( 'show_user_profile', array( $this, 'add_author_profile_fields' ) );
+		add_action( 'edit_user_profile', array( $this, 'add_author_profile_fields' ) );
+
+		// Save user profile fields.
+		add_action( 'personal_options_update', array( $this, 'save_author_profile_fields' ) );
+		add_action( 'edit_user_profile_update', array( $this, 'save_author_profile_fields' ) );
+	}
+
+	/**
+	 * Register admin related hooks.
+	 *
+	 * @return void
+	 */
+	private function register_admin_hooks(): void {
+		// Add admin styles for the user profile fields
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
+	}
+
+	/**
+	 * Add author profile fields to user profile.
+	 *
+	 * @param WP_User $user The user object.
+	 * @return void
+	 */
+	public function add_author_profile_fields( WP_User $user ): void {
+		// Get current values.
+		$description = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_description', true );
+		$position = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_position', true );
+		$social_profiles = $this->user_meta_provider->get_meta( $user->ID, 'apb_social_profiles', true );
+
+		if ( ! is_array( $social_profiles ) ) {
+			$social_profiles = array(
+				'facebook'  => '',
+				'twitter'   => '',
+				'linkedin'  => '',
+				'instagram' => '',
+				'website'   => '',
+			);
+		}
+		?>
+
+		<h2><?php esc_html_e( 'Author Profile Information', 'author-profile-blocks' ); ?></h2>
+		<p><?php esc_html_e( 'These fields are used by the Author Profile Blocks plugin to display author information on your site.', 'author-profile-blocks' ); ?></p>
+
+		<table class="form-table" role="presentation">
+			<tr class="apb-meta-field">
+				<th><label for="apb_author_position"><?php esc_html_e( 'Position/Title', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" name="apb_author_position" id="apb_author_position" value="<?php echo esc_attr( $position ); ?>" class="regular-text" />
+					<p class="description"><?php esc_html_e( 'Enter the author\'s position or title (e.g., "Senior Editor", "Lead Developer", etc.)', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
+
+			<tr class="apb-meta-field">
+				<th><label for="apb_author_description"><?php esc_html_e( 'Author Description', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<?php
+					wp_editor(
+						$description,
+						'apb_author_description',
+						array(
+							'media_buttons' => false,
+							'textarea_name' => 'apb_author_description',
+							'textarea_rows' => 5,
+							'teeny'         => true,
+						)
+					);
+					?>
+					<p class="description"><?php esc_html_e( 'Enter a detailed description for this author.', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
+
+			<tr class="apb-meta-field">
+				<th><label><?php esc_html_e( 'Social Media Profiles', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<div class="apb-social-profiles">
+						<p>
+							<label for="apb_social_facebook"><?php esc_html_e( 'Facebook URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[facebook]" id="apb_social_facebook" value="<?php echo esc_url( $social_profiles['facebook'] ?? '' ); ?>" class="regular-text" />
+						</p>
+						<p>
+							<label for="apb_social_twitter"><?php esc_html_e( 'Twitter URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[twitter]" id="apb_social_twitter" value="<?php echo esc_url( $social_profiles['twitter'] ?? '' ); ?>" class="regular-text" />
+						</p>
+						<p>
+							<label for="apb_social_linkedin"><?php esc_html_e( 'LinkedIn URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[linkedin]" id="apb_social_linkedin" value="<?php echo esc_url( $social_profiles['linkedin'] ?? '' ); ?>" class="regular-text" />
+						</p>
+						<p>
+							<label for="apb_social_instagram"><?php esc_html_e( 'Instagram URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[instagram]" id="apb_social_instagram" value="<?php echo esc_url( $social_profiles['instagram'] ?? '' ); ?>" class="regular-text" />
+						</p>
+						<p>
+							<label for="apb_social_website"><?php esc_html_e( 'Personal Website', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[website]" id="apb_social_website" value="<?php echo esc_url( $social_profiles['website'] ?? '' ); ?>" class="regular-text" />
+						</p>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<?php
+
+		// Allow plugins/themes to add additional author profile fields
+		do_action( 'author_profile_blocks_profile_fields', $user );
+	}
+
+	/**
+	 * Save author profile fields.
+	 *
+	 * @param int $user_id The ID of the user being saved.
+	 * @return void
+	 */
+	public function save_author_profile_fields( int $user_id ): void {
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			return;
+		}
+
+		// Update description.
+		if ( isset( $_POST['apb_author_description'] ) ) {
+			$this->user_meta_provider->update_meta(
+				$user_id,
+				'apb_author_description',
+				wp_kses_post( wp_unslash( $_POST['apb_author_description'] ) )
+			);
+		}
+
+		// Update position/title
+		if ( isset( $_POST['apb_author_position'] ) ) {
+			$this->user_meta_provider->update_meta(
+				$user_id,
+				'apb_author_position',
+				sanitize_text_field( wp_unslash( $_POST['apb_author_position'] ) )
+			);
+		}
+
+		// Update social profiles
+		if ( isset( $_POST['apb_social_profiles'] ) && is_array( $_POST['apb_social_profiles'] ) ) {
+			$this->user_meta_provider->update_meta(
+				$user_id,
+				'apb_social_profiles',
+				$this->sanitize_social_profiles( wp_unslash( $_POST['apb_social_profiles'] ) )
+			);
+		}
+
+		// Clear the author cache
+		$this->author_profile_service->clear_cache( $user_id );
+
+		// Allow plugins/themes to save additional author profile fields
+		do_action( 'author_profile_blocks_save_profile_fields', $user_id, $_POST );
+	}
+
+	/**
+	 * Sanitize social profile URLs.
+	 *
+	 * @param array $profiles The social profile URLs.
+	 * @return array The sanitized social profile URLs.
+	 */
+	public function sanitize_social_profiles( $profiles ): array {
+		$sanitized = array();
+
+		if ( ! is_array( $profiles ) ) {
+			return array();
+		}
+
+		$allowed_profiles = array( 'facebook', 'twitter', 'linkedin', 'instagram', 'website' );
+
+		foreach ( $allowed_profiles as $profile ) {
+			$sanitized[$profile] = isset( $profiles[$profile] ) ? esc_url_raw( $profiles[$profile] ) : '';
+		}
+
+		return $sanitized;
+	}
+
+	/**
+	 * Enqueue admin styles for the user profile fields.
+	 *
+	 * @param string $hook The current admin page.
+	 * @return void
+	 */
+	public function enqueue_admin_styles( string $hook ): void {
+		if ( 'user-edit.php' === $hook || 'profile.php' === $hook ) {
+			wp_enqueue_style(
+				'author-profile-blocks-admin',
+				plugin_dir_url( APB_PLUGIN_FILE ) . 'build/admin/styles.css',
+				array(),
+				APB_VERSION,
+				'all'
+			);
+		}
+	}
+
+	/**
+	 * Get author data by ID
+	 *
+	 * @param int $author_id User ID.
+	 * @return array|null Author data or null if not found
+	 */
+	public function get_author_data( int $author_id ): ?array {
+		return $this->author_profile_service->get_author_data( $author_id );
+	}
+
+	/**
+	 * Get all authors with specific roles.
+	 *
+	 * @param array $roles Optional. Roles to include. Default is all author-type roles.
+	 * @param array $args Optional. Additional arguments for WP_User_Query.
+	 * @return array Array of author data.
+	 */
+	public function get_authors( array $roles = [], array $args = [] ): array {
+		return $this->author_profile_service->get_authors( $roles, $args );
 	}
 
 	/**
@@ -85,9 +364,9 @@ class Plugin extends Base {
 	 */
 	public function load_textdomain(): void {
 		load_plugin_textdomain(
-			'author-profile-showcase',
+			'author-profile-blocks',
 			false,
-			dirname( plugin_basename( WPAS_PLUGIN_FILE ) ) . '/languages'
+			dirname( plugin_basename( APB_PLUGIN_FILE ) ) . '/languages'
 		);
 	}
 
@@ -101,11 +380,20 @@ class Plugin extends Base {
 	}
 
 	/**
-	 * Get the author profile CPT.
+	 * Get the user meta provider.
 	 *
-	 * @return Author_Profile_CPT Author Profile CPT instance.
+	 * @return User_Meta_Provider The user meta provider instance.
 	 */
-	public function get_author_profile_cpt(): Author_Profile_CPT {
-		return $this->author_profile_cpt;
+	public function get_user_meta_provider(): User_Meta_Provider {
+		return $this->user_meta_provider;
+	}
+
+	/**
+	 * Get the author profile service.
+	 *
+	 * @return Author_Profile_Service The author profile service instance.
+	 */
+	public function get_author_profile_service(): Author_Profile_Service {
+		return $this->author_profile_service;
 	}
 }

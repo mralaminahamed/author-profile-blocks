@@ -2,11 +2,11 @@
 /**
  * Registerable interface
  *
- * @package AuthorProfileShowcase
+ * @package AuthorProfileBlocks
  * @subpackage Core
  */
 
-namespace AuthorProfileShowcase\Core;
+namespace AuthorProfileBlocks\Core;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

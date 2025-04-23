@@ -21,6 +21,7 @@ import {
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { search, people, plusCircle, info } from '@wordpress/icons';
+import { sprintf } from '@wordpress/i18n';
 
 /**
  * AuthorSelector component for selecting an author from a dropdown with search
@@ -43,14 +44,14 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
 
     // Filter authors based on search term
     const filteredAuthors = authors.filter(author =>
-        author.title.rendered.toLowerCase().includes(searchTerm.toLowerCase())
+        author.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Prepare options for select control
     const authorOptions = [
         { label: __('Select an author...', 'author-profile-showcase'), value: '' },
         ...filteredAuthors.map(author => ({
-            label: author.title.rendered,
+            label: author.name,
             value: author.id.toString()
         }))
     ];
@@ -187,12 +188,12 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                 <FlexItem>
                                     <Button
                                         variant="secondary"
-                                        href={`${AuthorProfileShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
+                                        href={`${AuthorProfileBlocks?.adminUrl || '/wp-admin/'}user-new.php`}
                                         target="_blank"
                                         className="wpas-add-author-btn"
                                         icon={plusCircle}
                                     >
-                                        {__('Add New Author', 'author-profile-showcase')}
+                                        {__('Add New User', 'author-profile-showcase')}
                                     </Button>
                                 </FlexItem>
                             </Flex>
@@ -204,16 +205,16 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                             <CardBody>
                                 <div className="wpas-empty-state">
                                     <Icon icon={people} size={48} className="wpas-empty-icon" />
-                                    <h3>{__('No Authors Found', 'author-profile-showcase')}</h3>
-                                    <p>{__('You need to create author profiles before you can use this block.', 'author-profile-showcase')}</p>
+                                    <h3>{__('No Users Found', 'author-profile-showcase')}</h3>
+                                    <p>{__('You need to create users with appropriate roles before you can use this block.', 'author-profile-showcase')}</p>
                                     <Button
                                         variant="primary"
-                                        href={`${AuthorProfileShowcase?.adminUrl || '/wp-admin/'}post-new.php?post_type=author_profile`}
+                                        href={`${AuthorProfileBlocks?.adminUrl || '/wp-admin/'}user-new.php`}
                                         target="_blank"
                                         className="wpas-create-author-btn"
                                         icon={plusCircle}
                                     >
-                                        {__('Create Author Profile', 'author-profile-showcase')}
+                                        {__('Create New User', 'author-profile-showcase')}
                                     </Button>
                                 </div>
                             </CardBody>

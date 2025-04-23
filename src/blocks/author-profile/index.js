@@ -23,8 +23,8 @@ import metadata from './block.json';
 /**
  * Initialize global variables
  */
-window.AuthorProfileShowcase = window.AuthorProfileShowcase || {
-  adminUrl: (window.AuthorProfileShowcaseData && window.AuthorProfileShowcaseData.adminUrl) || '/wp-admin/'
+window.AuthorProfileBlocks = window.AuthorProfileBlocks || {
+  adminUrl: (window.AuthorProfileBlocksData && window.AuthorProfileBlocksData.adminUrl) || '/wp-admin/'
 };
 
 /**

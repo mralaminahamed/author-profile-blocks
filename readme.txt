@@ -1,6 +1,6 @@
 === Author Profile Showcase ===
 Contributors:      mralaminahamed
-Tags:              block, author, profile, gutenberg, team
+Tags:              block, author, profile, gutenberg, custom post type, team, biography, staff
 Tested up to:      6.7
 Stable tag:        1.0.0
 Requires at least: 6.7
@@ -83,22 +83,12 @@ The plugin is fully internationalized and includes a .pot file in the languages 
 == Changelog ==
 
 = 1.0.0 =
-* Enhanced block editor experience with improved UI
-* Added option to toggle visibility of email and description
-* Improved responsive design for better mobile display
-* Fixed accessibility issues in author display
-* Added more comprehensive styling options
-
-= 1.0.0 =
 * Initial release
 * Added Author Profile custom post type
 * Added Author Profile Gutenberg block
 * Added block customization options
 
 == Upgrade Notice ==
-
-= 1.0.0 =
-This update adds more customization options and improves the mobile experience. Upgrade for better control over how your author profiles are displayed.
 
 = 1.0.0 =
 Initial release of Author Profile Showcase.

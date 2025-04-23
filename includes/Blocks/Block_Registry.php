@@ -2,13 +2,13 @@
 /**
  * Block Registry class
  *
- * @package AuthorProfileShowcase
+ * @package AuthorProfileBlocks
  * @subpackage Blocks
  */
 
-namespace AuthorProfileShowcase\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
-use AuthorProfileShowcase\Core\Base;
+use AuthorProfileBlocks\Core\Base;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +24,7 @@ class Block_Registry extends Base {
 	 *
 	 * @var Block_Base[]
 	 */
-	private $blocks = array();
+	private array $blocks = array();
 
 	/**
 	 * Initialize the registry.
@@ -33,6 +33,10 @@ class Block_Registry extends Base {
 	 */
 	public function init(): void {
 		$this->register_blocks();
+		$this->initialize_blocks();
+
+		// Allow other components to interact with our block registry
+		do_action( 'author_profile_showcase_blocks_registered', $this );
 	}
 
 	/**
@@ -44,6 +48,16 @@ class Block_Registry extends Base {
 		// Register all blocks here.
 		$this->register_block( new Author_Profile_Block() );
 
+		// Allow plugins/themes to register additional blocks
+		do_action( 'author_profile_showcase_register_blocks', $this );
+	}
+
+	/**
+	 * Initialize all registered blocks.
+	 *
+	 * @return void
+	 */
+	private function initialize_blocks(): void {
 		// Initialize each block.
 		foreach ( $this->blocks as $block ) {
 			$block->init();
