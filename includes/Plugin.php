@@ -69,7 +69,30 @@ class Plugin extends Base {
 	 */
 	private function __construct() {
 		// Initialize services.
-		$this->user_meta_provider = new User_Meta_Provider();
+		$this->register_services();
+
+		// Load text domain.
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'int', array( $this, 'register_meta_field' ), 0 );
+	}
+
+	/**
+	 * Register instances of services and components.
+	 *
+	 * @return void
+	 */
+	public function register_services(): void {
+		$this->user_meta_provider     = new User_Meta_Provider();
+		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
+		$this->block_registry         = new Block_Registry();
+	}
+
+	/**
+	 * Register instances of services and components.
+	 *
+	 * @return void
+	 */
+	public function register_meta_field(): void {
 		$this->user_meta_provider->add_meta_field(
 			'apb_author_description',
 			array(
@@ -82,8 +105,6 @@ class Plugin extends Base {
 				},
 			)
 		);
-
-		// Add additional user meta fields for enhanced author profiles.
 		$this->user_meta_provider->add_meta_field(
 			'apb_author_position',
 			array(
@@ -96,7 +117,6 @@ class Plugin extends Base {
 				},
 			)
 		);
-
 		$this->user_meta_provider->add_meta_field(
 			'apb_social_profiles',
 			array(
@@ -109,8 +129,6 @@ class Plugin extends Base {
 				},
 			)
 		);
-
-		// Add custom field for Member Since label.
 		$this->user_meta_provider->add_meta_field(
 			'apb_member_since_label',
 			array(
@@ -124,9 +142,6 @@ class Plugin extends Base {
 				},
 			)
 		);
-
-		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
-		$this->block_registry         = new Block_Registry();
 	}
 
 	/**
@@ -143,9 +158,6 @@ class Plugin extends Base {
 		// Register hooks in groups for better organization.
 		$this->register_user_profile_hooks();
 		$this->register_admin_hooks();
-
-		// Load text domain.
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		// Set initialized state.
 		$this->set_initialized();

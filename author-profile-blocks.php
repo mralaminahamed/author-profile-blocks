@@ -43,5 +43,5 @@ function apb(): AuthorProfileBlocks\Plugin {
 	return AuthorProfileBlocks\Plugin::get_instance();
 }
 
-// Initialize the plugin.
+// Take off.
 apb()->init();

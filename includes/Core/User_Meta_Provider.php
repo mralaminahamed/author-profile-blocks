@@ -26,14 +26,18 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	protected array $meta_fields = array();
 
 	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		add_action( 'init', array( $this, 'register_meta_fields' ) );
+	}
+
+	/**
 	 * Initialize the provider.
 	 *
 	 * @return void
 	 */
 	public function init(): void {
-		// Register meta fields.
-		add_action( 'init', array( $this, 'register_meta_fields' ) );
-
 		// Set initialized state.
 		$this->set_initialized();
 	}
