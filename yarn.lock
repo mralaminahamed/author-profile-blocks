@@ -5717,9 +5717,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"author-profile-showcase@workspace:.":
+"author-profile-blocks@workspace:.":
   version: 0.0.0-use.local
-  resolution: "author-profile-showcase@workspace:."
+  resolution: "author-profile-blocks@workspace:."
   dependencies:
     "@babel/core": "npm:^7.26.10"
     "@playwright/test": "npm:^1.52.0"
@@ -5739,10 +5739,14 @@ __metadata:
     classnames: "npm:^2.5.1"
     eslint: "npm:^9.25.1"
     eslint-plugin-react: "npm:^7.37.5"
+    jquery: "npm:^3.7.1"
     prettier: "npm:^3.5.3"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"
+    slick-carousel: "npm:^1.8.1"
     stylelint: "npm:^16.19.0"
+    stylelint-config-recess-order: "npm:^6.0.0"
+    stylelint-scss: "npm:^6.11.1"
     typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
@@ -10975,6 +10979,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jquery@npm:^3.7.1":
+  version: 3.7.1
+  resolution: "jquery@npm:3.7.1"
+  checksum: 10/17be9929f5fa37697d9848284f0d108c543318ef79ec794e130cd0c49f6c050d60c803a69e8cfa16fa19f5ff7cdb814a6905cceab0831186560c65ed113cd579
+  languageName: node
+  linkType: hard
+
 "js-library-detector@npm:^6.7.0":
   version: 6.7.0
   resolution: "js-library-detector@npm:6.7.0"
@@ -13424,6 +13435,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-sorting@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "postcss-sorting@npm:8.0.2"
+  peerDependencies:
+    postcss: ^8.4.20
+  checksum: 10/2496713e31c3d07c6d650d6ca4734489c2440fbbdd5c109ae5192178e6637e255bdd77dd52a0171f773c00df49bb8e0a7077c67aa0ab3b3c93a1934372318dff
+  languageName: node
+  linkType: hard
+
 "postcss-svgo@npm:^6.0.3":
   version: 6.0.3
   resolution: "postcss-svgo@npm:6.0.3"
@@ -13465,7 +13485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.21, postcss@npm:^8.4.33, postcss@npm:^8.4.5, postcss@npm:^8.5.3":
+"postcss@npm:^8.4.21, postcss@npm:^8.4.32, postcss@npm:^8.4.33, postcss@npm:^8.4.5, postcss@npm:^8.5.3":
   version: 8.5.3
   resolution: "postcss@npm:8.5.3"
   dependencies:
@@ -14818,6 +14838,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slick-carousel@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "slick-carousel@npm:1.8.1"
+  peerDependencies:
+    jquery: ">=1.8.0"
+  checksum: 10/b383e6f96b3bec573522467cfeeac1fce22d1cd53a68f5699cd3d62f0167777116b925dc48fbe64979a7a830777e4440036b8a7d4575c9ff8d18c3dd141b1ea2
+  languageName: node
+  linkType: hard
+
 "smart-buffer@npm:^4.2.0":
   version: 4.2.0
   resolution: "smart-buffer@npm:4.2.0"
@@ -15320,6 +15349,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stylelint-config-recess-order@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "stylelint-config-recess-order@npm:6.0.0"
+  dependencies:
+    stylelint-order: "npm:^6.0.4"
+  peerDependencies:
+    stylelint: ">=16"
+  checksum: 10/b38fbc0e79d3b40c8d049e35d71f47354167b44d6e8548e706cbe2679e23e0cf34ad1d9d74f6162f2f7e15a8422c586db175dbf2391bd7327fb2ad6593408ec9
+  languageName: node
+  linkType: hard
+
 "stylelint-config-recommended-scss@npm:^14.1.0":
   version: 14.1.0
   resolution: "stylelint-config-recommended-scss@npm:14.1.0"
@@ -15346,7 +15386,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-scss@npm:^6.4.0":
+"stylelint-order@npm:^6.0.4":
+  version: 6.0.4
+  resolution: "stylelint-order@npm:6.0.4"
+  dependencies:
+    postcss: "npm:^8.4.32"
+    postcss-sorting: "npm:^8.0.2"
+  peerDependencies:
+    stylelint: ^14.0.0 || ^15.0.0 || ^16.0.1
+  checksum: 10/a16a017bded454f78fb3ed02643e93525ee1e4a03c0303c364aa8ee908c4500238036e8df15403f9bb968136c70a32335b494a443df15bb6985bb8e1f431edcd
+  languageName: node
+  linkType: hard
+
+"stylelint-scss@npm:^6.11.1, stylelint-scss@npm:^6.4.0":
   version: 6.11.1
   resolution: "stylelint-scss@npm:6.11.1"
   dependencies:

@@ -1,6 +1,8 @@
 {
   "extends": [
-    "@wordpress/stylelint-config"
+    "@wordpress/stylelint-config",
+    "@wordpress/stylelint-config/scss",
+    "stylelint-config-recess-order"
   ],
   "plugins": [
     "stylelint-scss"
@@ -15,6 +17,7 @@
   "ignoreFiles": [
     "node_modules/**",
     "vendor/**",
-    "build/**"
+    "build/**",
+    "tests/**"
   ]
 }

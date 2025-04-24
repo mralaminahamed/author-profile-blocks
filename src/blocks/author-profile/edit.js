@@ -32,11 +32,6 @@ import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
 
 /**
- * WordPress global
- */
-const { AuthorProfileBlocks = { adminUrl: '/wp-admin/' } } = window;
-
-/**
  * The edit function for the Author Profile block.
  *
  * @param {Object} props Block properties.
@@ -51,6 +46,7 @@ export default function Edit({ attributes, setAttributes }) {
         showImage,
         showEmail,
         showDescription,
+        showRegisteredDate,
         backgroundColor,
         padding
     } = attributes;
@@ -93,35 +89,41 @@ export default function Edit({ attributes, setAttributes }) {
             </BlockControls>
 
             <InspectorControls>
-                <PanelBody title={__('Display Settings', 'author-profile-showcase')}>
+                <PanelBody title={__('Display Settings', 'author-profile-blocks')}>
                     <ToggleControl
-                        label={__('Show Author Image', 'author-profile-showcase')}
+                        label={__('Show Author Image', 'author-profile-blocks')}
                         checked={showImage}
                         onChange={() => setAttributes({ showImage: !showImage })}
                     />
 
                     <ToggleControl
-                        label={__('Show Author Email', 'author-profile-showcase')}
+                        label={__('Show Author Email', 'author-profile-blocks')}
                         checked={showEmail}
                         onChange={() => setAttributes({ showEmail: !showEmail })}
                     />
 
                     <ToggleControl
-                        label={__('Show Author Description', 'author-profile-showcase')}
+                        label={__('Show Author Description', 'author-profile-blocks')}
                         checked={showDescription}
                         onChange={() => setAttributes({ showDescription: !showDescription })}
                     />
 
                     <ToggleControl
-                        label={__('Show More Section', 'author-profile-showcase')}
+                        label={__('Show Member Since Date', 'author-profile-blocks')}
+                        checked={showRegisteredDate}
+                        onChange={() => setAttributes({ showRegisteredDate: !showRegisteredDate })}
+                    />
+
+                    <ToggleControl
+                        label={__('Show More Section', 'author-profile-blocks')}
                         checked={showMoreContent}
                         onChange={() => setAttributes({ showMoreContent: !showMoreContent })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Style Settings', 'author-profile-showcase')}>
+                <PanelBody title={__('Style Settings', 'author-profile-blocks')}>
                     <RangeControl
-                        label={__('Padding', 'author-profile-showcase')}
+                        label={__('Padding', 'author-profile-blocks')}
                         value={padding}
                         onChange={(value) => setAttributes({ padding: value })}
                         min={0}
@@ -131,26 +133,26 @@ export default function Edit({ attributes, setAttributes }) {
                 </PanelBody>
 
                 <PanelColorSettings
-                    title={__('Color Settings', 'author-profile-showcase')}
+                    title={__('Color Settings', 'author-profile-blocks')}
                     initialOpen={false}
                     colorSettings={[
                         {
                             value: backgroundColor,
                             onChange: (value) => setAttributes({ backgroundColor: value }),
-                            label: __('Background Color', 'author-profile-showcase'),
+                            label: __('Background Color', 'author-profile-blocks'),
                         }
                     ]}
                 />
 
                 {authorId > 0 && (
-                    <PanelBody title={__('Author Selection', 'author-profile-showcase')}>
+                    <PanelBody title={__('Author Selection', 'author-profile-blocks')}>
                         <Button
                             isDestructive
                             variant="secondary"
                             className="wpas-clear-button"
                             onClick={handleClearAuthor}
                         >
-                            {__('Clear Selected Author', 'author-profile-showcase')}
+                            {__('Clear Selected Author', 'author-profile-blocks')}
                         </Button>
                     </PanelBody>
                 )}

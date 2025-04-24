@@ -35,7 +35,7 @@ class Block_Registry extends Base {
 		$this->register_blocks();
 		$this->initialize_blocks();
 
-		// Allow other components to interact with our block registry
+		// Allow other components to interact with our block registry.
 		do_action( 'author_profile_showcase_blocks_registered', $this );
 	}
 
@@ -47,8 +47,11 @@ class Block_Registry extends Base {
 	private function register_blocks(): void {
 		// Register all blocks here.
 		$this->register_block( new Author_Profile_Block() );
+		$this->register_block( new Author_Grid_Block() );
+		$this->register_block( new Author_Carousel_Block() );
+		$this->register_block( new Author_List_Block() );
 
-		// Allow plugins/themes to register additional blocks
+		// Allow plugins/themes to register additional blocks.
 		do_action( 'author_profile_showcase_register_blocks', $this );
 	}
 

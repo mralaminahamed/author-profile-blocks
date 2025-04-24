@@ -32,7 +32,9 @@
 
 // Reset top and bottom margins on paragraph elements
 @mixin reset-paragraph-margins {
+
   p {
+
     &:first-child {
       margin-top: 0;
     }

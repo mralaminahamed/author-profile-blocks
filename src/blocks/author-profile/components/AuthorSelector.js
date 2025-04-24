@@ -49,7 +49,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
 
     // Prepare options for select control
     const authorOptions = [
-        { label: __('Select an author...', 'author-profile-showcase'), value: '' },
+        { label: __('Select an author...', 'author-profile-blocks'), value: '' },
         ...filteredAuthors.map(author => ({
             label: author.name,
             value: author.id.toString()
@@ -82,15 +82,15 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
         <div className="wpas-author-selector-wrapper">
             <Placeholder
                 icon={<Icon icon={people} className="wpas-author-icon" />}
-                label={__('Author Profile Block', 'author-profile-showcase')}
-                instructions={__('Select an author to display their profile in your content.', 'author-profile-showcase')}
+                label={__('Author Profile Block', 'author-profile-blocks')}
+                instructions={__('Select an author to display their profile in your content.', 'author-profile-blocks')}
                 className="wpas-author-selector"
                 isColumnLayout={true}
             >
                 {isLoading ? (
                     <div className="wpas-loading-container">
                         <Spinner />
-                        <p>{__('Loading authors...', 'author-profile-showcase')}</p>
+                        <p>{__('Loading authors...', 'author-profile-blocks')}</p>
                     </div>
                 ) : authors.length > 0 ? (
                     <Card className="wpas-author-card" elevation={2}>
@@ -99,13 +99,13 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                 <FlexItem>
                                     <Flex align="center" gap={2}>
                                         <Icon icon={people} size={24} />
-                                        <h4>{__('Author Selection', 'author-profile-showcase')}</h4>
+                                        <h4>{__('Author Selection', 'author-profile-blocks')}</h4>
                                     </Flex>
                                 </FlexItem>
                                 <FlexItem>
                                     <div className="wpas-author-count">
                                         <span>{authorCount}</span>
-                                        <Tooltip text={__('Total number of available authors', 'author-profile-showcase')}>
+                                        <Tooltip text={__('Total number of available authors', 'author-profile-blocks')}>
                                             <Icon icon={info} size={16} />
                                         </Tooltip>
                                     </div>
@@ -119,7 +119,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                 <TextControl
                                     value={searchTerm}
                                     onChange={handleSearchChange}
-                                    placeholder={__('Search authors...', 'author-profile-showcase')}
+                                    placeholder={__('Search authors...', 'author-profile-blocks')}
                                     className="wpas-author-search"
                                 />
                                 {searchTerm && (
@@ -128,7 +128,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                         isSmall
                                         isSecondary
                                         onClick={clearSearch}
-                                        aria-label={__('Clear search', 'author-profile-showcase')}
+                                        aria-label={__('Clear search', 'author-profile-blocks')}
                                     >
                                         <Dashicon icon="no-alt" />
                                     </Button>
@@ -137,7 +137,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
 
                             <div className="wpas-select-field">
                                 <SelectControl
-                                    label={__('Select Author', 'author-profile-showcase')}
+                                    label={__('Select Author', 'author-profile-blocks')}
                                     value={selectedAuthorId}
                                     options={authorOptions}
                                     onChange={handleAuthorChange}
@@ -152,7 +152,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                     status="warning"
                                     isDismissible={false}
                                 >
-                                    {__('No authors match your search criteria.', 'author-profile-showcase')}
+                                    {__('No authors match your search criteria.', 'author-profile-blocks')}
                                 </Notice>
                             ) : filteredAuthors.length < authors.length && searchTerm !== '' && (
                                 <div className="wpas-filter-info">
@@ -160,7 +160,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                     <span>
                                         {sprintf(
                                             /* translators: %1$d: filtered authors count, %2$d: total authors count */
-                                            __('Showing %1$d of %2$d authors', 'author-profile-showcase'),
+                                            __('Showing %1$d of %2$d authors', 'author-profile-blocks'),
                                             filteredAuthors.length,
                                             authors.length
                                         )}
@@ -181,7 +181,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                             }}
                                             className="wpas-reset-btn"
                                         >
-                                            {__('Reset', 'author-profile-showcase')}
+                                            {__('Reset', 'author-profile-blocks')}
                                         </Button>
                                     )}
                                 </FlexItem>
@@ -193,7 +193,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                         className="wpas-add-author-btn"
                                         icon={plusCircle}
                                     >
-                                        {__('Add New User', 'author-profile-showcase')}
+                                        {__('Add New User', 'author-profile-blocks')}
                                     </Button>
                                 </FlexItem>
                             </Flex>
@@ -205,8 +205,8 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                             <CardBody>
                                 <div className="wpas-empty-state">
                                     <Icon icon={people} size={48} className="wpas-empty-icon" />
-                                    <h3>{__('No Users Found', 'author-profile-showcase')}</h3>
-                                    <p>{__('You need to create users with appropriate roles before you can use this block.', 'author-profile-showcase')}</p>
+                                    <h3>{__('No Users Found', 'author-profile-blocks')}</h3>
+                                    <p>{__('You need to create users with appropriate roles before you can use this block.', 'author-profile-blocks')}</p>
                                     <Button
                                         variant="primary"
                                         href={`${AuthorProfileBlocks?.adminUrl || '/wp-admin/'}user-new.php`}
@@ -214,7 +214,7 @@ const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
                                         className="wpas-create-author-btn"
                                         icon={plusCircle}
                                     >
-                                        {__('Create New User', 'author-profile-showcase')}
+                                        {__('Create New User', 'author-profile-blocks')}
                                     </Button>
                                 </div>
                             </CardBody>

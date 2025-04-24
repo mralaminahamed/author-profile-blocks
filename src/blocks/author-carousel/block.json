@@ -1,0 +1,136 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "author-profile-blocks/author-carousel",
+  "version": "1.0.0",
+  "title": "Author Carousel",
+  "category": "widgets",
+  "icon": "slides",
+  "description": "Display multiple authors in an interactive carousel with customizable options.",
+  "attributes": {
+    "authorIds": {
+      "type": "array",
+      "default": []
+    },
+    "slidesToShow": {
+      "type": "number",
+      "default": 3
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoplaySpeed": {
+      "type": "number",
+      "default": 3000
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": true
+    },
+    "showArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "infinite": {
+      "type": "boolean",
+      "default": true
+    },
+    "showImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "showEmail": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDescription": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPosition": {
+      "type": "boolean",
+      "default": true
+    },
+    "showRegisteredDate": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSocial": {
+      "type": "boolean",
+      "default": true
+    },
+    "layout": {
+      "type": "string",
+      "default": "card"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "center"
+    },
+    "padding": {
+      "type": "number",
+      "default": 20
+    },
+    "slideSpacing": {
+      "type": "number",
+      "default": 20
+    },
+    "enableShadow": {
+      "type": "boolean",
+      "default": true
+    },
+    "enableBorder": {
+      "type": "boolean",
+      "default": false
+    },
+    "borderColor": {
+      "type": "string",
+      "default": "#e0e0e0"
+    },
+    "borderWidth": {
+      "type": "number",
+      "default": 1
+    },
+    "enableRounded": {
+      "type": "boolean",
+      "default": true
+    },
+    "maxAuthors": {
+      "type": "number",
+      "default": 10
+    },
+    "authorRole": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "example": {
+    "attributes": {
+      "slidesToShow": 3,
+      "autoplay": true,
+      "showImage": true,
+      "showEmail": true,
+      "showDescription": true,
+      "showPosition": true,
+      "showSocial": true,
+      "layout": "card",
+      "backgroundColor": "#f8f9fa",
+      "textAlign": "center"
+    },
+    "viewportWidth": 800
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"]
+  },
+  "textdomain": "author-profile-blocks",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

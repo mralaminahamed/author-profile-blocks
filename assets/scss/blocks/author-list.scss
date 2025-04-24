@@ -1,0 +1,224 @@
+/**
+ * Author List block front-end styles
+ */
+
+// List container
+.wp-block-author-profile-blocks-author-list {
+  padding: 1rem;
+
+  .apb-author-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &.has-dividers {
+      li:not(:last-child) {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-color: #e0e0e0;
+        padding-bottom: 15px;
+      }
+    }
+
+    // Ordered list styling
+    &[class*="is-style-"] {
+      counter-reset: author-list;
+
+      &.is-style-detailed li {
+        counter-increment: author-list;
+      }
+    }
+
+    // Hover effect
+    .has-hover-effect {
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  // List item
+  .apb-author-list-item {
+    .apb-author-list-item-content {
+      width: 100%;
+    }
+
+    &.is-rounded {
+      border-radius: 8px;
+      overflow: hidden;
+
+      .apb-author-image img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  // Compact layout
+  .apb-author-list-compact {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .apb-author-list-info {
+      flex: 1;
+    }
+
+    .apb-author-list-social {
+      flex: 0 0 auto;
+    }
+  }
+
+  // Detailed layout
+  .apb-author-list-detailed {
+    display: flex;
+    gap: 20px;
+
+    .apb-author-list-left {
+      flex: 0 0 80px;
+    }
+
+    .apb-author-list-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .apb-author-list-header {
+      margin-bottom: 5px;
+    }
+
+    .apb-author-list-footer {
+      margin-top: 5px;
+    }
+  }
+
+  // Author image
+  .apb-author-image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 1/1;
+    }
+
+    .apb-author-list-detailed & {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  // Author info
+  .apb-author-name {
+    margin: 0 0 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .apb-author-position {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 0.2rem;
+  }
+
+  .apb-author-email {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .apb-author-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0.5rem 0;
+    
+    // For compact view, limit to 2 lines
+    .apb-author-list-compact & {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  // Social profiles
+  .apb-social-profiles {
+    .apb-social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .apb-social-item {
+      display: inline-block;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        transition: all 0.2s ease;
+        text-decoration: none;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+
+    // Compact style social icons
+    .apb-author-list-compact & {
+      .apb-social-list {
+        justify-content: flex-end;
+      }
+    }
+
+    // Detailed style social icons
+    .apb-author-list-detailed & {
+      .apb-social-list {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 600px) {
+    .apb-author-list-detailed {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .apb-author-list-left {
+        flex: 0 0 auto;
+      }
+
+      .apb-author-list-right {
+        width: 100%;
+      }
+
+      .apb-social-list {
+        justify-content: center !important;
+      }
+    }
+  }
+}

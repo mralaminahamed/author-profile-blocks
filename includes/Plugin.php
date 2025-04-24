@@ -67,7 +67,7 @@ class Plugin extends Base {
 	 * Plugin constructor.
 	 */
 	private function __construct() {
-		// Initialize services
+		// Initialize services.
 		$this->user_meta_provider = new User_Meta_Provider();
 		$this->user_meta_provider->add_meta_field(
 			'apb_author_description',
@@ -82,7 +82,7 @@ class Plugin extends Base {
 			)
 		);
 
-		// Add additional user meta fields for enhanced author profiles
+		// Add additional user meta fields for enhanced author profiles.
 		$this->user_meta_provider->add_meta_field(
 			'apb_author_position',
 			array(
@@ -109,8 +109,23 @@ class Plugin extends Base {
 			)
 		);
 
+		// Add custom field for Member Since label
+		$this->user_meta_provider->add_meta_field(
+			'apb_member_since_label',
+			array(
+				'show_in_rest'      => true,
+				'single'            => true,
+				'type'              => 'string',
+				'default'           => esc_html__( 'Member since', 'author-profile-blocks' ),
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
+			)
+		);
+
 		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
-		$this->block_registry = new Block_Registry();
+		$this->block_registry         = new Block_Registry();
 	}
 
 	/**
@@ -119,22 +134,22 @@ class Plugin extends Base {
 	 * @return void
 	 */
 	public function init(): void {
-		// Initialize service components
+		// Initialize service components.
 		$this->user_meta_provider->init();
 		$this->author_profile_service->init();
 		$this->block_registry->init();
 
-		// Register hooks in groups for better organization
+		// Register hooks in groups for better organization.
 		$this->register_user_profile_hooks();
 		$this->register_admin_hooks();
 
 		// Load text domain.
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
-		// Set initialized state
+		// Set initialized state.
 		$this->set_initialized();
 
-		// Allow plugins/themes to interact with our plugin after initialization
+		// Allow plugins/themes to interact with our plugin after initialization.
 		do_action( 'author_profile_blocks_init', $this );
 	}
 
@@ -159,7 +174,7 @@ class Plugin extends Base {
 	 * @return void
 	 */
 	private function register_admin_hooks(): void {
-		// Add admin styles for the user profile fields
+		// Add admin styles for the user profile fields.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 	}
 
@@ -171,9 +186,15 @@ class Plugin extends Base {
 	 */
 	public function add_author_profile_fields( WP_User $user ): void {
 		// Get current values.
-		$description = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_description', true );
-		$position = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_position', true );
-		$social_profiles = $this->user_meta_provider->get_meta( $user->ID, 'apb_social_profiles', true );
+		$description       = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_description', true );
+		$position          = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_position', true );
+		$social_profiles   = $this->user_meta_provider->get_meta( $user->ID, 'apb_social_profiles', true );
+		$member_since_label = $this->user_meta_provider->get_meta( $user->ID, 'apb_member_since_label', true );
+
+		// Use default if empty
+		if ( empty( $member_since_label ) ) {
+			$member_since_label = __( 'Member since', 'author-profile-blocks' );
+		}
 
 		if ( ! is_array( $social_profiles ) ) {
 			$social_profiles = array(
@@ -195,6 +216,14 @@ class Plugin extends Base {
 				<td>
 					<input type="text" name="apb_author_position" id="apb_author_position" value="<?php echo esc_attr( $position ); ?>" class="regular-text" />
 					<p class="description"><?php esc_html_e( 'Enter the author\'s position or title (e.g., "Senior Editor", "Lead Developer", etc.)', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
+
+			<tr class="apb-meta-field">
+				<th><label for="apb_member_since_label"><?php esc_html_e( 'Member Since Label', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" name="apb_member_since_label" id="apb_member_since_label" value="<?php echo esc_attr( $member_since_label ); ?>" class="regular-text" />
+					<p class="description"><?php esc_html_e( 'Customize the label used for showing registration date (e.g., "Member since", "Joined on", "With us since", etc.)', 'author-profile-blocks' ); ?></p>
 				</td>
 			</tr>
 
@@ -247,7 +276,7 @@ class Plugin extends Base {
 		</table>
 		<?php
 
-		// Allow plugins/themes to add additional author profile fields
+		// Allow plugins/themes to add additional author profile fields.
 		do_action( 'author_profile_blocks_profile_fields', $user );
 	}
 
@@ -271,7 +300,7 @@ class Plugin extends Base {
 			);
 		}
 
-		// Update position/title
+		// Update position/title.
 		if ( isset( $_POST['apb_author_position'] ) ) {
 			$this->user_meta_provider->update_meta(
 				$user_id,
@@ -280,7 +309,7 @@ class Plugin extends Base {
 			);
 		}
 
-		// Update social profiles
+		// Update social profiles.
 		if ( isset( $_POST['apb_social_profiles'] ) && is_array( $_POST['apb_social_profiles'] ) ) {
 			$this->user_meta_provider->update_meta(
 				$user_id,
@@ -289,10 +318,19 @@ class Plugin extends Base {
 			);
 		}
 
-		// Clear the author cache
+		// Update member since label.
+		if ( isset( $_POST['apb_member_since_label'] ) ) {
+			$this->user_meta_provider->update_meta(
+				$user_id,
+				'apb_member_since_label',
+				sanitize_text_field( wp_unslash( $_POST['apb_member_since_label'] ) )
+			);
+		}
+
+		// Clear the author cache.
 		$this->author_profile_service->clear_cache( $user_id );
 
-		// Allow plugins/themes to save additional author profile fields
+		// Allow plugins/themes to save additional author profile fields.
 		do_action( 'author_profile_blocks_save_profile_fields', $user_id, $_POST );
 	}
 
@@ -312,7 +350,7 @@ class Plugin extends Base {
 		$allowed_profiles = array( 'facebook', 'twitter', 'linkedin', 'instagram', 'website' );
 
 		foreach ( $allowed_profiles as $profile ) {
-			$sanitized[$profile] = isset( $profiles[$profile] ) ? esc_url_raw( $profiles[$profile] ) : '';
+			$sanitized[ $profile ] = isset( $profiles[ $profile ] ) ? esc_url_raw( $profiles[ $profile ] ) : '';
 		}
 
 		return $sanitized;
@@ -353,7 +391,7 @@ class Plugin extends Base {
 	 * @param array $args Optional. Additional arguments for WP_User_Query.
 	 * @return array Array of author data.
 	 */
-	public function get_authors( array $roles = [], array $args = [] ): array {
+	public function get_authors( array $roles = array(), array $args = array() ): array {
 		return $this->author_profile_service->get_authors( $roles, $args );
 	}
 

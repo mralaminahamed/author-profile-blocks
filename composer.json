@@ -30,8 +30,13 @@
   "scripts": {
     "phpcs:check": "phpcs --standard=phpcs.xml.dist",
     "phpcs:fix": "phpcbf --standard=phpcs.xml.dist",
+    "phpcs:check:review": "phpcs --standard=phpcs.plugin-review.xml.dist",
+    "phpcs:fix:review": "phpcbf --standard=phpcs.plugin-review.xml.dist",
     "phpstan": "phpstan analyse",
-    "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-blocks.pot --domain=author-profile-blocks --package-name=\"Author Profile Blocks\""
+    "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-blocks.pot --domain=author-profile-blocks --package-name=\"Author Profile Blocks\"",
+    "wp:make-po": "cp ./languages/author-profile-blocks.pot ./languages/author-profile-blocks.po",
+    "wp:make-mo": "wp i18n make-mo ./languages/author-profile-blocks.po",
+    "wp:make-json": "wp i18n make-json ./languages/author-profile-blocks.po --no-purge"
   },
   "config": {
     "allow-plugins": {

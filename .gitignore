@@ -25,6 +25,7 @@ vendor/*
 
 # Translation Files
 languages/*.mo
+languages/*.json
 languages/*.po~
 languages/*.pot~
 

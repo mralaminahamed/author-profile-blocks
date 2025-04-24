@@ -47,13 +47,13 @@ abstract class Block_Base extends Base implements Registerable {
 	 * @return void
 	 */
 	public function init(): void {
-		// Register the block during WordPress init
+		// Register the block during WordPress init.
 		add_action( 'init', array( $this, 'register' ) );
 
 		// Allow child classes to add additional initialization.
 		$this->additional_init();
 
-		// Set initialized state
+		// Set initialized state.
 		$this->set_initialized();
 	}
 
@@ -90,7 +90,7 @@ abstract class Block_Base extends Base implements Registerable {
 			$args['render_callback'] = $callback;
 		}
 
-		// Apply custom block registration filters
+		// Apply custom block registration filters.
 		$args = apply_filters( 'author_profile_showcase_block_args', $args, $this->block_name );
 
 		// Register block using block.json metadata.
@@ -99,10 +99,10 @@ abstract class Block_Base extends Base implements Registerable {
 			$args
 		);
 
-		// Set registration state
+		// Set registration state.
 		$this->registered = true;
 
-		// Trigger action after registration
+		// Trigger action after registration.
 		do_action( 'author_profile_showcase_block_registered', $this->block_name, $this );
 	}
 

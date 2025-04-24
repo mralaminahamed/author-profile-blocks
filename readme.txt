@@ -36,7 +36,7 @@ The Author Profile custom post type includes fields for:
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/author-profile-showcase` directory, or install the plugin through the WordPress plugins screen directly.
+1. Upload the plugin files to the `/wp-content/plugins/author-profile-blocks` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Create author profiles by navigating to Author Profiles > Add New in your WordPress admin.
 4. Use the Author Profile block in any post or page to display your authors.
@@ -102,4 +102,4 @@ Initial release of Author Profile Showcase.
 
 == Support ==
 
-If you encounter any issues or have questions about the plugin, please visit the [plugin support forum](https://wordpress.org/support/plugin/author-profile-showcase/) or submit an issue on our [GitHub repository](https://github.com/mralaminahamed/author-profile-showcase/issues).
+If you encounter any issues or have questions about the plugin, please visit the [plugin support forum](https://wordpress.org/support/plugin/author-profile-blocks/) or submit an issue on our [GitHub repository](https://github.com/mralaminahamed/author-profile-blocks/issues).

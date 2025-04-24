@@ -1,0 +1,170 @@
+/**
+ * Author Carousel block editor styles
+ */
+
+.wp-block-author-profile-blocks-author-carousel {
+
+  // Author selector
+  .apb-author-selector {
+    padding: 2rem;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px dashed #c3c4c7;
+    border-radius: 4px;
+
+    .apb-authors-selected-wrapper {
+      margin-bottom: 1.5rem;
+
+      .apb-selected-authors-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 1rem;
+
+        .apb-selected-author {
+          display: flex;
+          align-items: center;
+          padding: 5px 10px 5px 5px;
+          font-size: 14px;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          border-radius: 20px;
+
+          img {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+            border-radius: 50%;
+          }
+
+          .apb-remove-author {
+            margin-left: 8px;
+            color: #cc1818;
+            cursor: pointer;
+
+            &:hover {
+              color: #aa1515;
+            }
+          }
+        }
+      }
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
+    .apb-author-selector-dropdown {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .apb-button-wrapper {
+      margin-top: 1rem;
+    }
+  }
+
+  // Carousel layout preview in editor
+  .apb-author-carousel-preview {
+
+    .apb-layout-options {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 1rem;
+
+      .apb-layout-option {
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+
+        &.is-selected {
+          background-color: #f0f7fc;
+          border-color: #007cba;
+        }
+      }
+    }
+  }
+
+  // Inspector controls
+  .components-panel__body {
+
+    .components-base-control {
+      margin-bottom: 16px;
+    }
+
+    .apb-inspector-control-label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .apb-controls-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+
+      .components-base-control {
+        flex: 1;
+      }
+    }
+  }
+
+  // Author loading state
+  .apb-loading {
+    padding: 2rem;
+    text-align: center;
+
+    .apb-spinner {
+      margin: 0 auto 1rem;
+    }
+  }
+
+  // Editor preview placeholders
+  .apb-carousel-placeholder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    .apb-carousel-slide-placeholder {
+      flex: 1;
+      min-width: calc(33.33% - 14px);
+      padding: 20px;
+      text-align: center;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+
+      .apb-placeholder-image {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 10px;
+        background-color: #ddd;
+        border-radius: 50%;
+      }
+
+      .apb-placeholder-line {
+        height: 12px;
+        margin-bottom: 8px;
+        background-color: #ddd;
+        border-radius: 2px;
+
+        &.apb-placeholder-title {
+          width: 70%;
+          margin: 0 auto 10px;
+        }
+
+        &.apb-placeholder-text {
+          width: 90%;
+          height: 8px;
+          margin: 0 auto 6px;
+
+          &:last-child {
+            width: 60%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,7 +10,6 @@ namespace AuthorProfileBlocks\Services;
 
 use AuthorProfileBlocks\Core\Base;
 use AuthorProfileBlocks\Core\User_Meta_Provider;
-use WP_User;
 use WP_User_Query;
 
 // Exit if accessed directly.
@@ -54,12 +53,12 @@ class Author_Profile_Service extends Base {
 		// Register REST API field extensions.
 		add_action( 'rest_api_init', array( $this, 'register_rest_fields' ) );
 
-		// Add hook for user updates to clear cache
+		// Add hook for user updates to clear cache.
 		add_action( 'profile_update', array( $this, 'clear_user_cache' ) );
 		add_action( 'user_register', array( $this, 'clear_user_cache' ) );
 		add_action( 'deleted_user', array( $this, 'clear_user_cache' ) );
 
-		// Set initialized state
+		// Set initialized state.
 		$this->set_initialized();
 	}
 
@@ -125,10 +124,38 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register additional fields as needed
+		// Register registered date field
+		register_rest_field(
+			'user',
+			'registered_date',
+			array(
+				'get_callback'    => array( $this, 'get_registered_date' ),
+				'update_callback' => null,
+				'schema'          => array(
+					'description' => __( 'User registration date', 'author-profile-blocks' ),
+					'type'        => 'string',
+				),
+			)
+		);
+
+		// Register member since label field
+		register_rest_field(
+			'user',
+			'member_since_label',
+			array(
+				'get_callback'    => array( $this, 'get_member_since_label' ),
+				'update_callback' => null,
+				'schema'          => array(
+					'description' => __( 'Member since label', 'author-profile-blocks' ),
+					'type'        => 'string',
+				),
+			)
+		);
+
+		// Register additional fields as needed.
 		$this->register_custom_rest_fields();
 
-		// Allow other components to register additional fields
+		// Allow other components to register additional fields.
 		do_action( 'author_profile_blocks_register_rest_fields', $this );
 	}
 
@@ -138,7 +165,7 @@ class Author_Profile_Service extends Base {
 	 * @return void
 	 */
 	protected function register_custom_rest_fields(): void {
-		// Add other custom fields here
+		// Add other custom fields here.
 	}
 
 	/**
@@ -194,6 +221,39 @@ class Author_Profile_Service extends Base {
 	}
 
 	/**
+	 * Get user registration date for REST API.
+	 *
+	 * @param array $user User data.
+	 * @return string Formatted registration date.
+	 */
+	public function get_registered_date( array $user ): string {
+		$user_obj = get_userdata( $user['id'] );
+		if ( ! $user_obj ) {
+			return '';
+		}
+
+		// Format the registration date according to the site's date format setting
+		return date_i18n( get_option( 'date_format' ), strtotime( $user_obj->user_registered ) );
+	}
+
+	/**
+	 * Get custom member since label for REST API.
+	 *
+	 * @param array $user User data.
+	 * @return string Member since label.
+	 */
+	public function get_member_since_label( array $user ): string {
+		$custom_label = $this->meta_provider->get_meta( $user['id'], 'apb_member_since_label', true );
+
+		// Use default if empty
+		if ( empty( $custom_label ) ) {
+			$custom_label = __( 'Member since', 'author-profile-blocks' );
+		}
+
+		return $custom_label;
+	}
+
+	/**
 	 * Get author data by ID
 	 *
 	 * @param int $author_id User ID.
@@ -216,14 +276,26 @@ class Author_Profile_Service extends Base {
 		$social_profiles = $this->meta_provider->get_meta( $author_id, 'apb_social_profiles', true );
 		$image           = get_avatar_url( $author_id, array( 'size' => 150 ) );
 
+		// Get member since label (use default if custom label is not set)
+		$member_since_label = $this->meta_provider->get_meta( $author_id, 'apb_member_since_label', true );
+		if ( empty( $member_since_label ) ) {
+			$member_since_label = __( 'Member since', 'author-profile-blocks' );
+		}
+
+		// Get registration date
+		$registered_date = date_i18n( get_option( 'date_format' ), strtotime( $user->user_registered ) );
+
 		$author_data = array(
-			'id'          => $author_id,
-			'title'       => $user->display_name,
-			'email'       => $user->user_email,
-			'description' => $description,
-			'position'    => $position,
-			'social'      => $social_profiles,
-			'image'       => $image,
+			'id'                => $author_id,
+			'title'             => $user->display_name,
+			'email'             => $user->user_email,
+			'description'       => $description,
+			'position'          => $position,
+			'social'            => $social_profiles,
+			'image'             => $image,
+			'registered_date'   => $registered_date,
+			'member_since_label' => $member_since_label,
+			'role'              => $user->roles[0] ?? '',
 		);
 
 		// Apply filters to allow customization of author data
@@ -327,7 +399,7 @@ class Author_Profile_Service extends Base {
 	 * @return array Array of author data matching the search.
 	 */
 	public function search_authors( string $search_term, array $args = array() ): array {
-		// Merge with default arguments for search
+		// Merge with default arguments for search.
 		$query_args = array_merge(
 			array(
 				'search'         => '*' . sanitize_text_field( $search_term ) . '*',

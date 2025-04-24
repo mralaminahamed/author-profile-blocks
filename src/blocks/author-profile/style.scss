@@ -1,224 +1,171 @@
 /**
  * Author Profile Block - Front-end & Editor Shared Styles
- *
- * Styles applied both on the front-end and within the editor.
  */
 
-// Import shared resources
-@use '../../scss/common/variables';
-@use '../../scss/common/mixins';
-
-// Legacy selector - consider removing if no longer used
-.wp-block-author-profile-showcase-author-profile-showcase {
-  background-color: #21759b;
-  color: #fff;
-  padding: 2px;
-}
-
 // Main block container
-.wp-block-author-profile-showcase-author-profile {
-  overflow: hidden;
-  box-sizing: border-box;
+.wp-block-author-profile-blocks-author-profile {
+  padding: 1rem;
 
-  /**
-   * Author Profile Content Layout
-   */
-  .wpas-author-profile-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: variables.$spacing-xl;
-    margin-bottom: variables.$spacing-xl;
+  .apb-author-profile-content {
+    overflow: hidden;
+  }
 
-    @media (max-width: variables.$breakpoint-medium) {
-      flex-direction: column;
-      gap: variables.$spacing-lg;
+  // Author image
+  .apb-author-image {
+    margin-bottom: 1rem;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  // Author name
+  .apb-author-name {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  // Author position
+  .apb-author-position {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  // Author email
+  .apb-author-email {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  // Author registered date
+  .apb-author-registered-date {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+
+    .apb-registered-date-label {
+      font-weight: 500;
     }
 
-    @media (max-width: variables.$breakpoint-small) {
-      gap: variables.$spacing-md;
+    .apb-registered-date-value {
+      opacity: 0.9;
+    }
+  }
+
+  // Author description
+  .apb-author-description {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  // Social profiles
+  .apb-social-profiles {
+    padding-top: 0.5rem;
+    margin-top: auto;
+
+    .apb-social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
     }
 
-    // Author image container
-    .wpas-author-image {
-      flex: 0 0 variables.$author-image-size;
+    .apb-social-item {
+      display: inline-block;
 
-      @media (max-width: variables.$breakpoint-medium) {
-        flex: 0 0 auto;
-        max-width: 100%;
-        margin-bottom: variables.$spacing-xs;
-      }
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        text-decoration: none;
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        transition: all 0.2s ease;
 
-      img {
-        @include mixins.responsive-image;
-        border-radius: variables.$border-radius-sm;
-      }
-    }
-
-    // Author information container
-    .wpas-author-info {
-      flex: 1;
-      min-width: 200px;
-
-      @media (max-width: variables.$breakpoint-small) {
-        min-width: 100%;
-      }
-
-      // Author name heading
-      .wpas-author-name {
-        margin-top: 0;
-        margin-bottom: variables.$spacing-md;
-        font-size: variables.$font-size-large;
-        font-weight: 600;
-        line-height: variables.$line-height-tight;
-
-        @media (max-width: variables.$breakpoint-small) {
-          font-size: variables.$font-size-medium;
-          margin-bottom: variables.$spacing-sm;
+        &:hover {
+          background-color: #e0e0e0;
         }
-      }
-
-      // Author email
-      .wpas-author-email {
-        margin-bottom: variables.$spacing-md;
-
-        @media (max-width: variables.$breakpoint-small) {
-          margin-bottom: variables.$spacing-sm;
-          word-break: break-all;
-        }
-
-        a {
-          color: variables.$primary-color;
-          text-decoration: none;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-
-      // Author description
-      .wpas-author-description {
-        color: variables.$text-color;
-        line-height: variables.$line-height-normal;
-
-        @media (max-width: variables.$breakpoint-small) {
-          line-height: variables.$line-height-mobile;
-          font-size: variables.$font-size-small;
-        }
-
-        @include mixins.reset-paragraph-margins;
       }
     }
   }
 
-  /**
-   * Additional Content Section ("Show More")
-   */
-  .wpas-author-more-content {
-    margin-top: variables.$spacing-xl;
-    position: relative;
-    border-top: 1px solid variables.$border-color-light;
-    padding-top: variables.$spacing-lg;
+  // Layout variations
+  &.is-layout-card {
 
-    // Subtle separator with accent color
-    &::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: 0;
-      width: 80px;
-      height: 3px;
-      background: linear-gradient(to right, variables.$primary-color, rgba(variables.$primary-color, 0.5));
-      border-radius: 3px;
+    .apb-author-profile-content {
+      display: flex;
+      flex-direction: column;
     }
 
-    @media (max-width: variables.$breakpoint-small) {
-      margin-top: variables.$spacing-lg;
-      padding-top: variables.$spacing-md;
+    .apb-card-header {
+      text-align: center;
     }
 
-    // Content typography improvements
-    p {
-      margin: 0 0 16px 0;
-      line-height: 1.7;
+    .apb-card-body {
+      flex: 1;
+    }
 
-      &:first-child {
-        margin-top: 0;
-      }
+    .apb-card-footer {
+      margin-top: auto;
+    }
+  }
 
-      &:last-child {
+  &.is-layout-compact {
+
+    .apb-author-header {
+      display: flex;
+      align-items: center;
+
+      .apb-author-image {
+        margin-right: 15px;
         margin-bottom: 0;
       }
-    }
 
-    // List improvements
-    ul, ol {
-      margin: 0 0 16px 20px;
-      padding: 0;
-
-      li {
-        margin-bottom: 8px;
-        line-height: 1.5;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-
-    // Link styling
-    a {
-      color: variables.$primary-color;
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: darken(variables.$primary-color, 10%);
-        text-decoration: underline;
-      }
-    }
-
-    // Blockquote styling
-    blockquote {
-      margin: 0 0 16px 0;
-      padding: 12px 20px;
-      border-left: 4px solid #e0e0e0;
-      background-color: rgba(0, 0, 0, 0.02);
-      font-style: italic;
-      color: #555;
-
-      p {
-        margin: 0;
+      .apb-author-header-info {
+        flex: 1;
       }
     }
   }
 
-  /**
-   * Text Alignment Variations
-   */
-  // Center alignment
-  &.has-text-align-center {
-    .wpas-author-profile-content {
-      justify-content: center;
-      text-align: center;
+  &.is-layout-centered {
+    text-align: center;
 
-      .wpas-author-image {
-        margin-left: auto;
-        margin-right: auto;
-      }
+    .apb-author-image {
+      margin: 0 auto 1rem;
     }
   }
 
-  // Right alignment
-  &.has-text-align-right {
-    .wpas-author-profile-content {
-      justify-content: flex-end;
-      text-align: right;
+  // Extra content section
+  .apb-author-more-content {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #eee;
+  }
 
-      @media (max-width: variables.$breakpoint-medium) {
-        justify-content: center;
-        text-align: center;
-      }
-    }
+  // Shadow effect
+  &.has-shadow {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  // Border effect
+  &.has-border {
+    border-style: solid;
+  }
+
+  // Rounded corners
+  &.is-rounded {
+    overflow: hidden;
+    border-radius: 8px;
   }
 }

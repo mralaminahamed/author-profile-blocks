@@ -2,7 +2,7 @@
  * Admin styles for WP Author Showcase
  */
 
-// Import shared resources
+/* Import shared resources */
 @use '../common/variables';
 @use '../common/mixins';
 
@@ -10,6 +10,7 @@
  * Admin Table Column Widths
  */
 .column {
+
   &-author_image {
     width: 80px;
   }
@@ -43,6 +44,7 @@
     border-radius: variables.$border-radius-md;
 
     &:focus {
+
       @include mixins.focus-styles;
     }
   }
@@ -52,6 +54,7 @@
  * Admin List Table Styles
  */
 .widefat {
+
   .column-author_email a {
     color: variables.$primary-color;
     text-decoration: none;
@@ -72,6 +75,7 @@
 
 // Email display
 .author-email-wrapper {
+
   @include mixins.truncate;
 }
 
@@ -97,6 +101,7 @@
  * Author Description Column
  */
 .author-description {
+
   &-wrapper {
     position: relative;
   }
@@ -111,6 +116,7 @@
 
 // Description metadata
 .description {
+
   &-meta {
     margin-top: 4px;
     font-size: 11px;

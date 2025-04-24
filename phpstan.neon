@@ -6,7 +6,7 @@ parameters:
     level: 5
 
     paths:
-        - author-profile-showcase.php
+        - author-profile-blocks.php
         - includes
 
     excludePaths:

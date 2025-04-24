@@ -9,9 +9,9 @@ module.exports = {
 
 		// Individual block entries
 		'blocks/author-profile/index': './src/blocks/author-profile/index.js',
-
-		// Admin styles entry
-		'admin/style': './src/scss/admin/style.scss',
+		'blocks/author-grid/index': './src/blocks/author-grid/index.js',
+		'blocks/author-carousel/index': './src/blocks/author-carousel/index.js',
+		'blocks/author-list/index': './src/blocks/author-list/index.js',
 	},
 
 	// Ensure output paths match our structure
