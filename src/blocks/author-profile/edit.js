@@ -21,7 +21,7 @@ import {
  */
 import './editor.scss';
 import { useAuthors } from '../../js/hooks';
-import AuthorSelector from './components/AuthorSelector';
+import AuthorBlockPlaceholder from '../../js/components/AuthorBlockPlaceholder';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
 
@@ -154,10 +154,15 @@ export default function Edit({ attributes, setAttributes }) {
 
             <div {...blockProps}>
                 {!authorId ? (
-                    <AuthorSelector
-                        authors={authors}
-                        onSelectAuthor={handleSelectAuthor}
-                        isLoading={isLoading}
+                    <AuthorBlockPlaceholder
+                        icon="admin-users"
+                        title={__('Select an Author', 'author-profile-blocks')}
+                        instructions={__('Choose an author to display their profile.', 'author-profile-blocks')}
+                        selectedAuthorIds={authors.map((author) => author.id)}
+                        onChange={handleSelectAuthor}
+                        buttonLabel={__('Add Author', 'author-profile-blocks')}
+                        layoutSelector={null}
+                        additionalControls={null}
                     />
                 ) : (
                     <>
@@ -175,3 +180,4 @@ export default function Edit({ attributes, setAttributes }) {
         </>
     );
 }
+

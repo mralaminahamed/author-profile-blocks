@@ -23,6 +23,8 @@ import { useState, useEffect } from '@wordpress/element';
 import { search, people, plusCircle, info } from '@wordpress/icons';
 import { sprintf } from '@wordpress/i18n';
 
+import './../../scss/components/author-picker.scss'
+
 /**
  * AuthorSelector component for selecting an author from a dropdown with search
  *
@@ -32,7 +34,7 @@ import { sprintf } from '@wordpress/i18n';
  * @param {boolean}  props.isLoading           Whether authors are currently loading
  * @param {string}   props.title               Title for the component
  * @param {string}   props.instructions        Instructions text
- * @param {string}   props.placeholderIcon     Icon to use in the placeholder, defaults to people
+ * @param {string|Element}   props.placeholderIcon     Icon to use in the placeholder, defaults to people
  * @param {boolean}  props.showAddAuthorButton Whether to show the "Add New User" button
  * @return {JSX.Element} Component to render
  */
@@ -194,19 +196,6 @@ const AuthorSelector = ({
                                             className="wpas-reset-btn"
                                         >
                                             {__('Reset', 'author-profile-blocks')}
-                                        </Button>
-                                    )}
-                                </FlexItem>
-                                <FlexItem>
-                                    {showAddAuthorButton && (
-                                        <Button
-                                            variant="secondary"
-                                            href={`${window.AuthorProfileBlocks?.adminUrl || '/wp-admin/'}user-new.php`}
-                                            target="_blank"
-                                            className="wpas-add-author-btn"
-                                            icon={plusCircle}
-                                        >
-                                            {__('Add New User', 'author-profile-blocks')}
                                         </Button>
                                     )}
                                 </FlexItem>

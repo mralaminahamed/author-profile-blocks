@@ -20,14 +20,13 @@ import {
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
-import { store as coreStore } from '@wordpress/core-data';
 import { list, grid, update } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
-import { AuthorPicker, AuthorBlockPlaceholder } from '../../components';
+import { AuthorPicker, AuthorBlockPlaceholder } from '../../js/components';
 import AuthorListPreview from './components/AuthorListPreview';
 import DisplayStyleSelector from './components/DisplayStyleSelector';
 import ListLayoutSelector from './components/ListLayoutSelector';

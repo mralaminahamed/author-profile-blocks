@@ -22,8 +22,7 @@ import { grid } from '@wordpress/icons';
  * Internal dependencies
  */
 import './editor.scss';
-import useAuthorGrid from './hooks/useAuthorGrid';
-import { AuthorPicker, AuthorBlockPlaceholder } from '../../components';
+import { AuthorPicker, AuthorBlockPlaceholder } from '../../js/components';
 import AuthorGridPreview from './components/AuthorGridPreview';
 import GridLayoutSelector from './components/GridLayoutSelector';
 

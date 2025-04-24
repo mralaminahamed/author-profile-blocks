@@ -9,7 +9,7 @@ import {PanelBody, RangeControl, SelectControl, ToggleControl,} from '@wordpress
  * Internal dependencies
  */
 import './editor.scss';
-import {AuthorBlockPlaceholder, AuthorPicker} from '../../components';
+import {AuthorBlockPlaceholder, AuthorPicker} from '../../js/components';
 import AuthorCarouselPreview from './components/AuthorCarouselPreview';
 import CarouselLayoutSelector from './components/CarouselLayoutSelector';
 import {shuffle} from '@wordpress/icons';
