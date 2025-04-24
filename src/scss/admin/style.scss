@@ -9,6 +9,7 @@
  * Admin Table Column Widths
  */
 .column {
+
   &-author_image {
     width: 80px;
   }
@@ -26,6 +27,7 @@
  * Meta Fields in Edit Screen
  */
 .wpas-meta-field {
+
   @include c.admin-meta-field();
 }
 
@@ -33,7 +35,9 @@
  * Admin List Table Styles
  */
 .widefat {
+
   .column-author_email a {
+
     @include c.admin-table-link();
   }
 }
@@ -42,18 +46,21 @@
 .no-email,
 .no-description,
 .no-image {
+
   @include c.admin-placeholder();
 }
 
 // Email display
 .author-email-wrapper {
-  @include c.m.truncate;
+
+  @include c.truncate;
 }
 
 /**
  * Author Image Column
  */
 .author-image-wrapper {
+
   @include c.admin-author-image();
 }
 
@@ -61,22 +68,27 @@
  * Author Description Column
  */
 .author-description {
+
   &-wrapper {
     position: relative;
   }
 
   &-text {
+
     @include c.admin-description-text();
   }
 }
 
 // Description metadata
 .description {
+
   &-meta {
+
     @include c.admin-description-meta();
   }
 
   &-count {
+
     @include c.admin-count-badge();
   }
 }

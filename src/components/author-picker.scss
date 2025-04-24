@@ -6,5 +6,6 @@
 @use '../scss/common' as c;
 
 .apb-author-picker-wrapper {
+
   @include c.author-picker-component();
 }

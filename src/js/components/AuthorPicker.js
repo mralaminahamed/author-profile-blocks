@@ -8,32 +8,35 @@ import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
 /**
- * Internal dependencies
- */
-import './author-picker.scss';
-
-/**
- * Author Picker component for selecting multiple authors
+ * AuthorPicker component for selecting multiple authors
  *
- * @param {Object} props              Component props
+ * @param {Object} props                 Component props
  * @param {Array}  props.selectedAuthorIds List of selected author IDs
- * @param {Function} props.onChange   Callback when authors selection changes
- * @param {string} props.buttonLabel  Optional. Custom label for the add button
+ * @param {Function} props.onChange      Callback when authors selection changes
+ * @param {string} props.buttonLabel     Optional. Custom label for the add button
+ * @param {number} props.perPage         Optional. Number of authors to fetch per page
+ * @param {boolean} props.showAvatars    Optional. Whether to show author avatars
  * @return {JSX.Element} Component to render
  */
-const AuthorPicker = ({ selectedAuthorIds = [], onChange, buttonLabel }) => {
+const AuthorPicker = ({ 
+    selectedAuthorIds = [], 
+    onChange, 
+    buttonLabel,
+    perPage = 100,
+    showAvatars = true
+}) => {
     const [authorId, setAuthorId] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
     // Get all authors from WordPress
     const { authors, loadingAuthors } = useSelect((select) => {
         const { getUsers, isResolving } = select(coreStore);
-        const query = { per_page: 100 };
+        const query = { per_page: perPage };
         return {
             authors: getUsers(query) || [],
             loadingAuthors: isResolving('getUsers', [query])
         };
-    }, []);
+    }, [perPage]);
 
     // Update loading state when data is fetched
     useEffect(() => {
@@ -90,7 +93,7 @@ const AuthorPicker = ({ selectedAuthorIds = [], onChange, buttonLabel }) => {
 
                             return (
                                 <div key={id} className="apb-selected-author">
-                                    {author.avatar_urls && (
+                                    {showAvatars && author.avatar_urls && (
                                         <img
                                             src={author.avatar_urls['24']}
                                             alt={author.name}

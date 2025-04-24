@@ -95,6 +95,7 @@
           }
 
           @keyframes loadingDots {
+
             0% {
               opacity: 0.3;
             }
@@ -591,7 +592,8 @@
       flex: 0 0 c.$author-image-size;
 
       img {
-        @include c.m.responsive-image;
+
+        @include c.responsive-image;
         border-radius: c.$border-radius-sm;
       }
     }
@@ -625,7 +627,8 @@
 
       // Author description
       .wpas-author-description {
-        @include c.m.reset-paragraph-margins;
+
+        @include c.reset-paragraph-margins;
       }
     }
   }
@@ -655,6 +658,7 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 
         .wpas-more-content-title {
+
           h3 {
             margin: 0 0 4px 0;
             font-size: 15px;
@@ -670,6 +674,7 @@
         }
 
         .wpas-more-content-toolbar {
+
           .wpas-formatting-hint {
             display: flex;
             align-items: center;

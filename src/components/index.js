@@ -1,4 +1,4 @@
 /**
  * Export components for reuse
  */
-export { default as AuthorPicker } from './author-picker';
+export { AuthorPicker } from '../js/components';

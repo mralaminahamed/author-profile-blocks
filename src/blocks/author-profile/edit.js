@@ -20,7 +20,7 @@ import {
  * Internal dependencies
  */
 import './editor.scss';
-import useAuthors from './hooks/useAuthors';
+import { useAuthors } from '../../js/hooks';
 import AuthorSelector from './components/AuthorSelector';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
