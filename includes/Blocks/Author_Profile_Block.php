@@ -84,7 +84,7 @@ class Author_Profile_Block extends Author_Block_Base {
 		}
 
 		// Check cache first.
-		$cache_key = $this->generate_cache_key( $author_id, $attributes );
+		$cache_key      = $this->generate_cache_key( $author_id, $attributes );
 		$cached_content = $this->get_cached_render( $cache_key );
 		if ( $cached_content ) {
 			return $cached_content;
@@ -98,7 +98,7 @@ class Author_Profile_Block extends Author_Block_Base {
 		}
 
 		// Generate styles for the block.
-		$styles = $this->get_block_styles( $attributes );
+		$styles          = $this->get_block_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $styles ) ) {

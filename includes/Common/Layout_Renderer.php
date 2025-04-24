@@ -52,7 +52,7 @@ trait Layout_Renderer {
 			$html .= $this->render_author_email( $author );
 		}
 
-		// Author description in compact mode might be truncated
+		// Author description in compact mode might be truncated.
 		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
 			$html .= $this->render_author_description( $author );
 		}

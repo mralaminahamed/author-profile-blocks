@@ -56,7 +56,7 @@ class Author_List_Block extends Author_Block_Base {
 		}
 
 		// Check cache first.
-		$cache_key = $this->generate_cache_key( $author_ids, $attributes );
+		$cache_key      = $this->generate_cache_key( $author_ids, $attributes );
 		$cached_content = $this->get_cached_render( $cache_key );
 		if ( $cached_content ) {
 			return $cached_content;
@@ -73,7 +73,7 @@ class Author_List_Block extends Author_Block_Base {
 
 		// Apply maximum authors limit if specified.
 		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
-		$authors = $this->apply_author_limit( $authors, $max_authors );
+		$authors     = $this->apply_author_limit( $authors, $max_authors );
 
 		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
@@ -81,7 +81,7 @@ class Author_List_Block extends Author_Block_Base {
 		}
 
 		// Generate styles for the block.
-		$wrapper_styles = $this->get_block_styles( $attributes );
+		$wrapper_styles  = $this->get_block_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $wrapper_styles ) ) {
@@ -143,7 +143,7 @@ class Author_List_Block extends Author_Block_Base {
 	 */
 	private function render_author_item( array $author, array $attributes ): string {
 		// Get item styles.
-		$item_styles = $this->get_item_styles( $attributes );
+		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $item_styles ) ) {
@@ -172,7 +172,7 @@ class Author_List_Block extends Author_Block_Base {
 		// Layout depends on display style.
 		$display_style = $attributes['displayStyle'] ?? 'compact';
 
-		if ( $display_style === 'detailed' ) {
+		if ( 'detailed' === $display_style ) {
 			$html .= $this->render_detailed_layout( $author, $attributes );
 		} else {
 			$html .= $this->render_compact_layout( $author, $attributes );

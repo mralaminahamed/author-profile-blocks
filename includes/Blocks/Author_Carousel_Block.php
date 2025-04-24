@@ -56,21 +56,21 @@ class Author_Carousel_Block extends Author_Block_Base {
 		// Register carousel scripts/styles that are enqueued by the viewScript property in block.json.
 		wp_register_style(
 			'slick-carousel',
-			APB_PLUGIN_URL . 'assets/vendor/slick/slick.css',
+			APB_PLUGIN_URL . 'build/vendor/slick/slick.css',
 			array(),
 			'1.8.1'
 		);
 
 		wp_register_style(
 			'slick-carousel-theme',
-			APB_PLUGIN_URL . 'assets/vendor/slick/slick-theme.css',
+			APB_PLUGIN_URL . 'build/vendor/slick/slick-theme.css',
 			array( 'slick-carousel' ),
 			'1.8.1'
 		);
 
 		wp_register_script(
 			'slick-carousel',
-			APB_PLUGIN_URL . 'assets/vendor/slick/slick.min.js',
+			APB_PLUGIN_URL . 'build/vendor/slick/slick.min.js',
 			array( 'jquery' ),
 			'1.8.1',
 			true
@@ -217,7 +217,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 		}
 
 		// Build the author slide.
-		$html = '<div class="apb-author-carousel-slide">';
+		$html  = '<div class="apb-author-carousel-slide">';
 		$html .= '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 
 		// Use the appropriate layout template based on the selected layout.

@@ -6,23 +6,23 @@ parameters:
     level: 5
 
     paths:
-        - author-profile-blocks.php
         - includes
+
+    bootstrapFiles:
+        - vendor/autoload.php
+        - author-profile-blocks.php
 
     excludePaths:
         - vendor/
         - node_modules/
         - build/
 
-    ignoreErrors:
-        - identifier: class.notFound
-        - identifier: missingType.generics
-        - '#^Constant [A-Z_]+ not found\.#'
-        - '#^Function [a-zA-Z0-9_]+ not found\.#'
-        - '#^Class [a-zA-Z0-9_\\]+ not found\.#'
+#    ignoreErrors:
+#        - identifier: class.notFound
+#        - identifier: missingType.generics
+#        - '#^Constant [A-Z_]+ not found\.#'
+#        - '#^Function [a-zA-Z0-9_]+ not found\.#'
+#        - '#^Class [a-zA-Z0-9_\\]+ not found\.#'
 
     treatPhpDocTypesAsCertain: false
     inferPrivatePropertyTypeFromConstructor: true
-
-    bootstrapFiles:
-        - vendor/autoload.php

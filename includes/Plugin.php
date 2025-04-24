@@ -233,29 +233,29 @@ class Plugin extends Base {
 		wp_nonce_field( 'apb_save_profile_data', 'apb_profile_nonce' );
 		?>
 
-        <h2><?php esc_html_e( 'Author Profile Information', 'author-profile-blocks' ); ?></h2>
-        <p><?php esc_html_e( 'These fields are used by the Author Profile Blocks plugin to display author information on your site.', 'author-profile-blocks' ); ?></p>
+		<h2><?php esc_html_e( 'Author Profile Information', 'author-profile-blocks' ); ?></h2>
+		<p><?php esc_html_e( 'These fields are used by the Author Profile Blocks plugin to display author information on your site.', 'author-profile-blocks' ); ?></p>
 
-        <table class="form-table" role="presentation">
-            <tr class="apb-meta-field">
-                <th><label for="apb_author_position"><?php esc_html_e( 'Position/Title', 'author-profile-blocks' ); ?></label></th>
-                <td>
-                    <input type="text" name="apb_author_position" id="apb_author_position" value="<?php echo esc_attr( $position ); ?>" class="regular-text"/>
-                    <p class="description"><?php esc_html_e( 'Enter the author\'s position or title (e.g., "Senior Editor", "Lead Developer", etc.)', 'author-profile-blocks' ); ?></p>
-                </td>
-            </tr>
+		<table class="form-table" role="presentation">
+			<tr class="apb-meta-field">
+				<th><label for="apb_author_position"><?php esc_html_e( 'Position/Title', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" name="apb_author_position" id="apb_author_position" value="<?php echo esc_attr( $position ); ?>" class="regular-text"/>
+					<p class="description"><?php esc_html_e( 'Enter the author\'s position or title (e.g., "Senior Editor", "Lead Developer", etc.)', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
 
-            <tr class="apb-meta-field">
-                <th><label for="apb_member_since_label"><?php esc_html_e( 'Member Since Label', 'author-profile-blocks' ); ?></label></th>
-                <td>
-                    <input type="text" name="apb_member_since_label" id="apb_member_since_label" value="<?php echo esc_attr( $member_since_label ); ?>" class="regular-text"/>
-                    <p class="description"><?php esc_html_e( 'Customize the label used for showing registration date (e.g., "Member since", "Joined on", "With us since", etc.)', 'author-profile-blocks' ); ?></p>
-                </td>
-            </tr>
+			<tr class="apb-meta-field">
+				<th><label for="apb_member_since_label"><?php esc_html_e( 'Member Since Label', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" name="apb_member_since_label" id="apb_member_since_label" value="<?php echo esc_attr( $member_since_label ); ?>" class="regular-text"/>
+					<p class="description"><?php esc_html_e( 'Customize the label used for showing registration date (e.g., "Member since", "Joined on", "With us since", etc.)', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
 
-            <tr class="apb-meta-field">
-                <th><label for="apb_author_description"><?php esc_html_e( 'Author Description', 'author-profile-blocks' ); ?></label></th>
-                <td>
+			<tr class="apb-meta-field">
+				<th><label for="apb_author_description"><?php esc_html_e( 'Author Description', 'author-profile-blocks' ); ?></label></th>
+				<td>
 					<?php
 					wp_editor(
 						$description,
@@ -268,38 +268,38 @@ class Plugin extends Base {
 						)
 					);
 					?>
-                    <p class="description"><?php esc_html_e( 'Enter a detailed description for this author.', 'author-profile-blocks' ); ?></p>
-                </td>
-            </tr>
+					<p class="description"><?php esc_html_e( 'Enter a detailed description for this author.', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
 
-            <tr class="apb-meta-field">
-                <th><label><?php esc_html_e( 'Social Media Profiles', 'author-profile-blocks' ); ?></label></th>
-                <td>
-                    <div class="apb-social-profiles">
-                        <p>
-                            <label for="apb_social_facebook"><?php esc_html_e( 'Facebook URL', 'author-profile-blocks' ); ?></label><br/>
-                            <input type="url" name="apb_social_profiles[facebook]" id="apb_social_facebook" value="<?php echo esc_url( $social_profiles['facebook'] ?? '' ); ?>" class="regular-text"/>
-                        </p>
-                        <p>
-                            <label for="apb_social_twitter"><?php esc_html_e( 'Twitter URL', 'author-profile-blocks' ); ?></label><br/>
-                            <input type="url" name="apb_social_profiles[twitter]" id="apb_social_twitter" value="<?php echo esc_url( $social_profiles['twitter'] ?? '' ); ?>" class="regular-text"/>
-                        </p>
-                        <p>
-                            <label for="apb_social_linkedin"><?php esc_html_e( 'LinkedIn URL', 'author-profile-blocks' ); ?></label><br/>
-                            <input type="url" name="apb_social_profiles[linkedin]" id="apb_social_linkedin" value="<?php echo esc_url( $social_profiles['linkedin'] ?? '' ); ?>" class="regular-text"/>
-                        </p>
-                        <p>
-                            <label for="apb_social_instagram"><?php esc_html_e( 'Instagram URL', 'author-profile-blocks' ); ?></label><br/>
-                            <input type="url" name="apb_social_profiles[instagram]" id="apb_social_instagram" value="<?php echo esc_url( $social_profiles['instagram'] ?? '' ); ?>" class="regular-text"/>
-                        </p>
-                        <p>
-                            <label for="apb_social_website"><?php esc_html_e( 'Personal Website', 'author-profile-blocks' ); ?></label><br/>
-                            <input type="url" name="apb_social_profiles[website]" id="apb_social_website" value="<?php echo esc_url( $social_profiles['website'] ?? '' ); ?>" class="regular-text"/>
-                        </p>
-                    </div>
-                </td>
-            </tr>
-        </table>
+			<tr class="apb-meta-field">
+				<th><label><?php esc_html_e( 'Social Media Profiles', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<div class="apb-social-profiles">
+						<p>
+							<label for="apb_social_facebook"><?php esc_html_e( 'Facebook URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[facebook]" id="apb_social_facebook" value="<?php echo esc_url( $social_profiles['facebook'] ?? '' ); ?>" class="regular-text"/>
+						</p>
+						<p>
+							<label for="apb_social_twitter"><?php esc_html_e( 'Twitter URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[twitter]" id="apb_social_twitter" value="<?php echo esc_url( $social_profiles['twitter'] ?? '' ); ?>" class="regular-text"/>
+						</p>
+						<p>
+							<label for="apb_social_linkedin"><?php esc_html_e( 'LinkedIn URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[linkedin]" id="apb_social_linkedin" value="<?php echo esc_url( $social_profiles['linkedin'] ?? '' ); ?>" class="regular-text"/>
+						</p>
+						<p>
+							<label for="apb_social_instagram"><?php esc_html_e( 'Instagram URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[instagram]" id="apb_social_instagram" value="<?php echo esc_url( $social_profiles['instagram'] ?? '' ); ?>" class="regular-text"/>
+						</p>
+						<p>
+							<label for="apb_social_website"><?php esc_html_e( 'Personal Website', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apb_social_profiles[website]" id="apb_social_website" value="<?php echo esc_url( $social_profiles['website'] ?? '' ); ?>" class="regular-text"/>
+						</p>
+					</div>
+				</td>
+			</tr>
+		</table>
 		<?php
 
 		/**

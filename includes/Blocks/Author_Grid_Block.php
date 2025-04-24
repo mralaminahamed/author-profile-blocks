@@ -56,7 +56,7 @@ class Author_Grid_Block extends Author_Block_Base {
 		}
 
 		// Check cache first.
-		$cache_key = $this->generate_cache_key( $author_ids, $attributes );
+		$cache_key      = $this->generate_cache_key( $author_ids, $attributes );
 		$cached_content = $this->get_cached_render( $cache_key );
 		if ( $cached_content ) {
 			return $cached_content;
@@ -73,7 +73,7 @@ class Author_Grid_Block extends Author_Block_Base {
 
 		// Apply maximum authors limit if specified.
 		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
-		$authors = $this->apply_author_limit( $authors, $max_authors );
+		$authors     = $this->apply_author_limit( $authors, $max_authors );
 
 		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
@@ -81,7 +81,7 @@ class Author_Grid_Block extends Author_Block_Base {
 		}
 
 		// Generate styles for the block.
-		$wrapper_styles = $this->get_block_styles( $attributes );
+		$wrapper_styles  = $this->get_block_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $wrapper_styles ) ) {
@@ -137,7 +137,7 @@ class Author_Grid_Block extends Author_Block_Base {
 	 */
 	private function render_author_item( array $author, array $attributes ): string {
 		// Get item styles.
-		$item_styles = $this->get_item_styles( $attributes );
+		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $item_styles ) ) {
@@ -148,7 +148,7 @@ class Author_Grid_Block extends Author_Block_Base {
 		$item_classes = array( 'apb-author-grid-item' );
 
 		// Add layout class.
-		$layout = $attributes['layout'] ?? 'card';
+		$layout         = $attributes['layout'] ?? 'card';
 		$item_classes[] = 'is-layout-' . $layout;
 
 		// Add shadow class if enabled.

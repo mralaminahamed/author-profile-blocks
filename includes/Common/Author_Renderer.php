@@ -32,10 +32,12 @@ trait Author_Renderer {
 			$classes .= ' ' . $wrapper_class;
 		}
 
-		return '<div class="' . esc_attr( $classes ) . '">' .
-				'<img src="' . esc_url( $author['image'] ) . '" alt="' .
-				esc_attr( $author['title'] ) . '" loading="lazy" />' .
-				'</div>';
+		return sprintf(
+			'<div class="%s"><img src="%s" alt="%s" loading="lazy" /></div>',
+			esc_attr( $classes ),
+			esc_url( $author['image'] ),
+			esc_attr( $author['title'] )
+		);
 	}
 
 	/**
@@ -68,10 +70,11 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_email( array $author ): string {
-		return '<div class="apb-author-email">' .
-				'<a href="mailto:' . esc_attr( $author['email'] ) . '">' .
-				esc_html( $author['email'] ) . '</a>' .
-				'</div>';
+		return sprintf(
+			'<div class="apb-author-email"><a href="mailto:%s">%s</a></div>',
+			esc_attr( $author['email'] ),
+			esc_html( $author['email'] )
+		);
 	}
 
 	/**
@@ -82,9 +85,10 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_description( array $author ): string {
-		return '<div class="apb-author-description">' .
-				wp_kses_post( $author['description'] ) .
-				'</div>';
+		return sprintf(
+			'<div class="apb-author-description">%s</div>',
+			wp_kses_post( $author['description'] )
+		);
 	}
 
 	/**
@@ -101,8 +105,7 @@ trait Author_Renderer {
 			$classes .= ' ' . $wrapper_class;
 		}
 
-		$html  = '<div class="' . esc_attr( $classes ) . '">';
-		$html .= '<ul class="apb-social-list">';
+		$html = '<div class="' . esc_attr( $classes ) . '"><ul class="apb-social-list">';
 
 		$social_icons = $this->get_social_icons();
 
@@ -117,8 +120,7 @@ trait Author_Renderer {
 			}
 		}
 
-		$html .= '</ul>';
-		$html .= '</div>';
+		$html .= '</ul></div>';
 
 		return $html;
 	}
@@ -134,10 +136,11 @@ trait Author_Renderer {
 		// Use the customizable label.
 		$label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
 
-		return '<div class="apb-author-registered-date">' .
-				'<span class="apb-registered-date-label">' . esc_html( $label ) . '</span> ' .
-				'<span class="apb-registered-date-value">' . esc_html( $author['registered_date'] ) . '</span>' .
-				'</div>';
+		return sprintf(
+			'<div class="apb-author-registered-date"><span class="apb-registered-date-label">%s</span> <span class="apb-registered-date-value">%s</span></div>',
+			esc_html( $label ),
+			esc_html( $author['registered_date'] )
+		);
 	}
 
 	/**
