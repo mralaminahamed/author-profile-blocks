@@ -36,7 +36,20 @@
     "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-blocks.pot --domain=author-profile-blocks --package-name=\"Author Profile Blocks\"",
     "wp:make-po": "cp ./languages/author-profile-blocks.pot ./languages/author-profile-blocks.po",
     "wp:make-mo": "wp i18n make-mo ./languages/author-profile-blocks.po",
-    "wp:make-json": "wp i18n make-json ./languages/author-profile-blocks.po --no-purge"
+    "wp:make-json": "wp i18n make-json ./languages/author-profile-blocks.po --no-purge",
+    "generate-md": "wp-readme-to-md",
+    "release": [
+      "yarn build",
+      "@phpcs:check",
+      "@phpstan",
+      "@wp:make-pot",
+      "@wp:make-po",
+      "@wp:make-mo",
+      "@wp:make-json",
+      "composer update --no-dev",
+      "wp-readme-to-md",
+      "yarn plugin-zip"
+    ]
   },
   "config": {
     "allow-plugins": {

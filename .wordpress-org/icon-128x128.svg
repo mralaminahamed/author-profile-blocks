@@ -46,11 +46,19 @@
 		  fill="none"
 		  stroke-linecap="round" />
 
-	<!-- APB abbreviation with glass effect -->
+	<!-- Block elements -->
 	<g transform="translate(64, 108)">
-		<circle cx="0" cy="0" r="18" fill="rgba(255, 255, 255, 0.2)"
-				stroke="rgba(255, 255, 255, 0.5)" stroke-width="1" />
-		<text x="0" y="5" font-family="Arial, sans-serif" font-size="14"
-			  font-weight="bold" fill="#ffffff" text-anchor="middle">APB</text>
+		<rect x="-18" y="-18" width="16" height="16" rx="3"
+			  fill="rgba(255, 255, 255, 0.8)"
+			  stroke="rgba(255, 255, 255, 0.4)"
+			  stroke-width="1" />
+		<rect x="2" y="-18" width="16" height="16" rx="3"
+			  fill="rgba(255, 255, 255, 0.9)"
+			  stroke="rgba(255, 255, 255, 0.4)"
+			  stroke-width="1" />
+		<rect x="-8" y="2" width="16" height="16" rx="3"
+			  fill="rgba(255, 255, 255, 0.7)"
+			  stroke="rgba(255, 255, 255, 0.4)"
+			  stroke-width="1" />
 	</g>
 </svg>

@@ -194,6 +194,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 
 		// Build the author slide.
 		$html = '<div class="apb-author-carousel-slide">';
+
 		$html .= '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 
 		// Use the appropriate layout template based on the selected layout.

@@ -5809,6 +5809,7 @@ __metadata:
     stylelint-config-recess-order: "npm:^6.0.0"
     stylelint-scss: "npm:^6.11.1"
     typescript: "npm:^5.8.3"
+    wp-readme-to-markdown: "npm:^1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -16870,6 +16871,17 @@ __metadata:
   version: 1.2.5
   resolution: "word-wrap@npm:1.2.5"
   checksum: 10/1ec6f6089f205f83037be10d0c4b34c9183b0b63fca0834a5b3cee55dd321429d73d40bb44c8fc8471b5203d6e8f8275717f49a8ff4b2b0ab41d7e1b563e0854
+  languageName: node
+  linkType: hard
+
+"wp-readme-to-markdown@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "wp-readme-to-markdown@npm:1.0.1"
+  dependencies:
+    minimist: "npm:^1.2.0"
+  bin:
+    wp-readme-to-md: ./bin/wp-readme-to-md
+  checksum: 10/5266c5b0588f64f7718da4ab488f220362b812e3b76d5a36d2b59bdd1070e1f205285fa19defd4e821a7f6a799be9c241b4d145e447f249feb2b625d54a06e85
   languageName: node
   linkType: hard
 
