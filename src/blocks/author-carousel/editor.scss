@@ -4,65 +4,21 @@
 
 .wp-block-author-profile-blocks-author-carousel {
 
-  // Author selector
-  .apb-author-selector {
+  // Author picker placeholder
+  .apb-author-carousel-placeholder {
     padding: 2rem;
     text-align: center;
     background-color: #f8f9fa;
     border: 1px dashed #c3c4c7;
     border-radius: 4px;
 
-    .apb-authors-selected-wrapper {
-      margin-bottom: 1.5rem;
-
-      .apb-selected-authors-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        margin-top: 1rem;
-
-        .apb-selected-author {
-          display: flex;
-          align-items: center;
-          padding: 5px 10px 5px 5px;
-          font-size: 14px;
-          background-color: #fff;
-          border: 1px solid #ddd;
-          border-radius: 20px;
-
-          img {
-            width: 30px;
-            height: 30px;
-            margin-right: 8px;
-            border-radius: 50%;
-          }
-
-          .apb-remove-author {
-            margin-left: 8px;
-            color: #cc1818;
-            cursor: pointer;
-
-            &:hover {
-              color: #aa1515;
-            }
-          }
-        }
-      }
-    }
-
     h3 {
       margin-top: 0;
+      font-size: 1.2rem;
     }
 
-    .apb-author-selector-dropdown {
-      width: 100%;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-
-    .apb-button-wrapper {
-      margin-top: 1rem;
+    p {
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -112,21 +68,12 @@
     }
   }
 
-  // Author loading state
-  .apb-loading {
-    padding: 2rem;
-    text-align: center;
-
-    .apb-spinner {
-      margin: 0 auto 1rem;
-    }
-  }
-
   // Editor preview placeholders
   .apb-carousel-placeholder {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    margin-top: 1rem;
 
     .apb-carousel-slide-placeholder {
       flex: 1;
@@ -165,6 +112,14 @@
           }
         }
       }
+    }
+
+    .apb-editor-note {
+      width: 100%;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #666;
     }
   }
 }

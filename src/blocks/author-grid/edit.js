@@ -22,7 +22,7 @@ import {
  */
 import './editor.scss';
 import useAuthorGrid from './hooks/useAuthorGrid';
-import AuthorsSelector from './components/AuthorsSelector';
+import { AuthorPicker } from '../../components';
 import AuthorGridPreview from './components/AuthorGridPreview';
 import GridLayoutSelector from './components/GridLayoutSelector';
 
@@ -56,23 +56,13 @@ export default function Edit({ attributes, setAttributes }) {
         authorRole
     } = attributes;
 
-    // Use our custom hook to manage authors
-    const {
-        authors,
-        selectedAuthorIds,
-        setSelectedAuthorIds,
-        getSelectedAuthors,
-        isLoading
-    } = useAuthorGrid(authorIds);
-
     const blockProps = useBlockProps({
         className: textAlign ? `has-text-align-${textAlign}` : '',
     });
 
     // Handle author selection
-    const handleSelectAuthors = (selectedIds) => {
+    const handleAuthorIdsChange = (selectedIds) => {
         setAttributes({ authorIds: selectedIds });
-        setSelectedAuthorIds(selectedIds);
     };
 
     // Handle layout selection
@@ -83,7 +73,6 @@ export default function Edit({ attributes, setAttributes }) {
     // Clear all selected authors
     const handleClearAuthors = () => {
         setAttributes({ authorIds: [] });
-        setSelectedAuthorIds([]);
     };
 
     return (
@@ -96,6 +85,35 @@ export default function Edit({ attributes, setAttributes }) {
             </BlockControls>
 
             <InspectorControls>
+                <PanelBody title={__('Author Selection', 'author-profile-blocks')} initialOpen={true}>
+                    <AuthorPicker
+                        selectedAuthorIds={authorIds}
+                        onChange={handleAuthorIdsChange}
+                    />
+
+                    <SelectControl
+                        label={__('Filter by Role', 'author-profile-blocks')}
+                        value={authorRole}
+                        options={[
+                            { label: __('All Roles', 'author-profile-blocks'), value: '' },
+                            { label: __('Administrator', 'author-profile-blocks'), value: 'administrator' },
+                            { label: __('Editor', 'author-profile-blocks'), value: 'editor' },
+                            { label: __('Author', 'author-profile-blocks'), value: 'author' },
+                            { label: __('Contributor', 'author-profile-blocks'), value: 'contributor' },
+                        ]}
+                        onChange={(value) => setAttributes({ authorRole: value })}
+                    />
+
+                    <RangeControl
+                        label={__('Maximum Authors', 'author-profile-blocks')}
+                        value={maxAuthors}
+                        onChange={(value) => setAttributes({ maxAuthors: value })}
+                        min={1}
+                        max={50}
+                        initialPosition={6}
+                    />
+                </PanelBody>
+
                 <PanelBody title={__('Grid Settings', 'author-profile-blocks')}>
                     <RangeControl
                         label={__('Columns', 'author-profile-blocks')}
@@ -112,26 +130,6 @@ export default function Edit({ attributes, setAttributes }) {
                         min={0}
                         max={50}
                         initialPosition={20}
-                    />
-                    <RangeControl
-                        label={__('Maximum Authors', 'author-profile-blocks')}
-                        value={maxAuthors}
-                        onChange={(value) => setAttributes({ maxAuthors: value })}
-                        min={1}
-                        max={50}
-                        initialPosition={6}
-                    />
-                    <SelectControl
-                        label={__('Filter by Role', 'author-profile-blocks')}
-                        value={authorRole}
-                        options={[
-                            { label: __('All Roles', 'author-profile-blocks'), value: '' },
-                            { label: __('Administrator', 'author-profile-blocks'), value: 'administrator' },
-                            { label: __('Editor', 'author-profile-blocks'), value: 'editor' },
-                            { label: __('Author', 'author-profile-blocks'), value: 'author' },
-                            { label: __('Contributor', 'author-profile-blocks'), value: 'contributor' },
-                        ]}
-                        onChange={(value) => setAttributes({ authorRole: value })}
                     />
                 </PanelBody>
 
@@ -229,29 +227,19 @@ export default function Edit({ attributes, setAttributes }) {
                         }
                     ]}
                 />
-
-                {authorIds.length > 0 && (
-                    <PanelBody title={__('Author Selection', 'author-profile-blocks')}>
-                        <Button
-                            isDestructive
-                            variant="secondary"
-                            className="wpas-clear-button"
-                            onClick={handleClearAuthors}
-                        >
-                            {__('Clear All Authors', 'author-profile-blocks')}
-                        </Button>
-                    </PanelBody>
-                )}
             </InspectorControls>
 
             <div {...blockProps}>
                 {!authorIds.length ? (
-                    <AuthorsSelector
-                        authors={authors}
-                        selectedIds={selectedAuthorIds}
-                        onSelectAuthors={handleSelectAuthors}
-                        isLoading={isLoading}
-                    />
+                    <div className="apb-author-grid-placeholder">
+                        <h3>{__('Author Grid', 'author-profile-blocks')}</h3>
+                        <p>{__('Select authors to display in a responsive grid layout.', 'author-profile-blocks')}</p>
+                        <AuthorPicker
+                            selectedAuthorIds={authorIds}
+                            onChange={handleAuthorIdsChange}
+                            buttonLabel={__('Add Author to Grid', 'author-profile-blocks')}
+                        />
+                    </div>
                 ) : (
                     <div className="apb-author-grid-preview">
                         <GridLayoutSelector

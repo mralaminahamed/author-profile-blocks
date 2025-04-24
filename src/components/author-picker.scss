@@ -1,0 +1,68 @@
+/**
+ * Shared author-picker component styles
+ */
+
+.apb-author-picker-wrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+
+  .apb-authors-selected-wrapper {
+    margin-bottom: 1.5rem;
+
+    .apb-selected-authors-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 1rem;
+
+      .apb-selected-author {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px 5px 5px;
+        font-size: 14px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+
+        img {
+          width: 30px;
+          height: 30px;
+          margin-right: 8px;
+          border-radius: 50%;
+        }
+
+        .apb-remove-author {
+          margin-left: 8px;
+          color: #cc1818;
+          cursor: pointer;
+
+          &:hover {
+            color: #aa1515;
+          }
+        }
+      }
+    }
+  }
+
+  .apb-author-selector-dropdown {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .apb-button-wrapper {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
+// Loading state
+.apb-loading {
+  padding: 2rem;
+  text-align: center;
+
+  .apb-spinner {
+    margin: 0 auto 1rem;
+  }
+}

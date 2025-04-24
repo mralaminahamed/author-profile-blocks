@@ -8,6 +8,11 @@ import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 
 /**
+ * Internal dependencies
+ */
+import './author-picker.scss';
+
+/**
  * Author Picker component for selecting multiple authors
  *
  * @param {Object} props              Component props
