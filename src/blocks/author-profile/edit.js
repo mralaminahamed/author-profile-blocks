@@ -57,9 +57,8 @@ export default function Edit({ attributes, setAttributes }) {
     });
 
     // Handle author selection
-    const handleSelectAuthor = (author) => {
-        setAttributes({ authorId: author.id });
-        setSelectedAuthor(author);
+    const handleSelectAuthor = ([authorId]) => {
+        setAttributes({ authorId: authorId });
     };
 
     // Handle clearing the selected author
@@ -158,7 +157,7 @@ export default function Edit({ attributes, setAttributes }) {
                         icon="admin-users"
                         title={__('Select an Author', 'author-profile-blocks')}
                         instructions={__('Choose an author to display their profile.', 'author-profile-blocks')}
-                        selectedAuthorIds={authors.map((author) => author.id)}
+                        selectedAuthorIds={authorId ? [authorId] : []}
                         onChange={handleSelectAuthor}
                         buttonLabel={__('Add Author', 'author-profile-blocks')}
                         layoutSelector={null}

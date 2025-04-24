@@ -24,6 +24,14 @@
     p {
       margin-bottom: 1.5rem;
     }
+
+    .apb-author-picker-wrapper {
+      align-items: center;
+
+      .apb-author-selector-dropdown {
+        width: 100%;
+      }
+    }
   }
 
   // Carousel layout preview in editor
