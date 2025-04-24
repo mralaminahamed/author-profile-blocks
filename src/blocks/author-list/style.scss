@@ -6,6 +6,8 @@
 @use '../../scss/common' as c;
 
 .wp-block-author-profile-blocks-author-list {
+  padding: c.$spacing-md;
+
   // List container
   .apb-author-list {
 

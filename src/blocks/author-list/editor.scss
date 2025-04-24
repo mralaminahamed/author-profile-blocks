@@ -15,6 +15,7 @@
 
   // Reset default WP list styles in editor
   .apb-author-list {
+
     @include c.reset-list-styles();
   }
 

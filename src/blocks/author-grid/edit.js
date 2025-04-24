@@ -16,13 +16,14 @@ import {
     RangeControl,
     SelectControl,
 } from '@wordpress/components';
+import { grid } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
 import useAuthorGrid from './hooks/useAuthorGrid';
-import { AuthorPicker } from '../../components';
+import { AuthorPicker, AuthorBlockPlaceholder } from '../../components';
 import AuthorGridPreview from './components/AuthorGridPreview';
 import GridLayoutSelector from './components/GridLayoutSelector';
 
@@ -244,15 +245,14 @@ export default function Edit({ attributes, setAttributes }) {
 
             <div {...blockProps}>
                 {!authorIds.length ? (
-                    <div className="apb-author-grid-placeholder">
-                        <h3>{__('Author Grid', 'author-profile-blocks')}</h3>
-                        <p>{__('Select authors to display in a responsive grid layout.', 'author-profile-blocks')}</p>
-                        <AuthorPicker
-                            selectedAuthorIds={authorIds}
-                            onChange={handleAuthorIdsChange}
-                            buttonLabel={__('Add Author to Grid', 'author-profile-blocks')}
-                        />
-                    </div>
+                    <AuthorBlockPlaceholder
+                        icon={grid}
+                        title={__('Author Grid', 'author-profile-blocks')}
+                        instructions={__('Select authors to display in a responsive grid layout.', 'author-profile-blocks')}
+                        selectedAuthorIds={authorIds}
+                        onChange={handleAuthorIdsChange}
+                        buttonLabel={__('Add Author to Grid', 'author-profile-blocks')}
+                    />
                 ) : (
                     <div className="apb-author-grid-preview">
                         <GridLayoutSelector

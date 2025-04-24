@@ -1,4 +1,4 @@
 /**
  * Export components for reuse
  */
-export { AuthorPicker } from '../js/components';
+export { AuthorPicker, AuthorBlockPlaceholder } from '../js/components';

@@ -27,7 +27,7 @@ import { list, grid, update } from '@wordpress/icons';
  * Internal dependencies
  */
 import './editor.scss';
-import { AuthorPicker } from '../../components';
+import { AuthorPicker, AuthorBlockPlaceholder } from '../../components';
 import AuthorListPreview from './components/AuthorListPreview';
 import DisplayStyleSelector from './components/DisplayStyleSelector';
 import ListLayoutSelector from './components/ListLayoutSelector';
@@ -292,20 +292,17 @@ export default function Edit({ attributes, setAttributes, clientId, insertBlocks
             </InspectorControls>
 
             {authorIds.length === 0 ? (
-                <Placeholder
+                <AuthorBlockPlaceholder
                     icon={list}
-                    label={__('Author List', 'author-profile-blocks')}
+                    title={__('Author List', 'author-profile-blocks')}
                     instructions={__(
                         'Select authors to display in a customizable list format.',
                         'author-profile-blocks'
                     )}
-                >
-                    <AuthorPicker
-                        selectedAuthorIds={authorIds}
-                        onChange={handleAuthorIdsChange}
-                        buttonLabel={__('Select Authors', 'author-profile-blocks')}
-                    />
-                </Placeholder>
+                    selectedAuthorIds={authorIds}
+                    onChange={handleAuthorIdsChange}
+                    buttonLabel={__('Select Authors', 'author-profile-blocks')}
+                />
             ) : (
                 <AuthorListPreview
                     isLoading={isLoading}

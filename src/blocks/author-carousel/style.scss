@@ -15,10 +15,12 @@
 
   // Main carousel wrapper
   .apb-author-carousel {
+
     @include c.carousel-base();
 
     // Individual slide
     .apb-author-carousel-slide {
+
       @include c.carousel-slide();
     }
   }
@@ -32,22 +34,26 @@
 
     // Card layout
     &.is-layout-card {
+
       @include c.card-layout();
     }
 
     // Compact layout
     &.is-layout-compact {
+
       @include c.compact-layout();
     }
 
     // Centered layout
     &.is-layout-centered {
+
       @include c.centered-layout();
     }
   }
 
   // Author elements
   .apb-author-image {
+
     @include c.author-image();
 
     img {
@@ -56,42 +62,51 @@
   }
 
   .apb-author-name {
+
     @include c.author-name();
   }
 
   .apb-author-position {
+
     @include c.author-position();
   }
 
   .apb-author-email {
+
     @include c.author-email();
   }
 
   // Description with text truncation
   .apb-author-description {
+
     @include c.author-description(3);
   }
 
   // Social profiles section
   .apb-social-profiles {
+
     @include c.social-profiles-center();
   }
 
   // Visual style modifiers
   .has-shadow {
+
     @include c.shadow-effect();
   }
 
   .has-border {
+
     @include c.border-effect();
   }
 
   .is-rounded {
+
     @include c.rounded-corners();
   }
 
   // Loading state
   .apb-carousel-loading {
+
     @include c.carousel-loading();
   }
 }
