@@ -1,8 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Author Profile Service class
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Services
  */
 
@@ -172,6 +173,7 @@ class Author_Profile_Service extends Base {
 	 * Get user avatar URL for REST API.
 	 *
 	 * @param array $user User data.
+	 *
 	 * @return string Avatar URL.
 	 */
 	public function get_avatar_url( array $user ): string {
@@ -182,6 +184,7 @@ class Author_Profile_Service extends Base {
 	 * Get author position for REST API.
 	 *
 	 * @param array $user User data.
+	 *
 	 * @return string Author position.
 	 */
 	public function get_author_position( array $user ): string {
@@ -192,6 +195,7 @@ class Author_Profile_Service extends Base {
 	 * Get author description for REST API.
 	 *
 	 * @param array $user User data.
+	 *
 	 * @return string Author description.
 	 */
 	public function get_author_description( array $user ): string {
@@ -202,6 +206,7 @@ class Author_Profile_Service extends Base {
 	 * Get social profiles for REST API.
 	 *
 	 * @param array $user User data.
+	 *
 	 * @return array Social profiles.
 	 */
 	public function get_social_profiles( array $user ): array {
@@ -224,6 +229,7 @@ class Author_Profile_Service extends Base {
 	 * Get user registration date for REST API.
 	 *
 	 * @param array $user User data.
+	 *
 	 * @return string Formatted registration date.
 	 */
 	public function get_registered_date( array $user ): string {
@@ -240,6 +246,7 @@ class Author_Profile_Service extends Base {
 	 * Get custom member since label for REST API.
 	 *
 	 * @param array $user User data.
+	 *
 	 * @return string Member since label.
 	 */
 	public function get_member_since_label( array $user ): string {
@@ -257,6 +264,7 @@ class Author_Profile_Service extends Base {
 	 * Get author data by ID
 	 *
 	 * @param int $author_id User ID.
+	 *
 	 * @return array|null Author data or null if not found
 	 */
 	public function get_author_data( int $author_id ): ?array {
@@ -311,7 +319,8 @@ class Author_Profile_Service extends Base {
 	 * Get all authors with specific roles.
 	 *
 	 * @param array $roles Optional. Roles to include. Default is all author-type roles.
-	 * @param array $args Optional. Additional arguments for WP_User_Query.
+	 * @param array $args  Optional. Additional arguments for WP_User_Query.
+	 *
 	 * @return array Array of author data.
 	 */
 	public function get_authors( array $roles = array(), array $args = array() ): array {
@@ -343,7 +352,7 @@ class Author_Profile_Service extends Base {
 				'orderby'     => 'display_name',
 				'order'       => 'ASC',
 				'count_total' => false,
-				'number'      => -1, // Get all users.
+				'number'      => - 1, // Get all users.
 			),
 			$args
 		);
@@ -377,9 +386,10 @@ class Author_Profile_Service extends Base {
 	 * Get featured authors based on a meta flag.
 	 *
 	 * @param int $number Optional. Number of authors to get. Default is -1 (all).
+	 *
 	 * @return array Array of featured author data.
 	 */
-	public function get_featured_authors( int $number = -1 ): array {
+	public function get_featured_authors( int $number = - 1 ): array {
 		// Query for users with the featured meta flag.
 		$args = array(
 			'meta_key'     => 'apb_is_featured', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
@@ -395,7 +405,8 @@ class Author_Profile_Service extends Base {
 	 * Search authors by name or metadata.
 	 *
 	 * @param string $search_term The search term.
-	 * @param array  $args Optional. Additional arguments for WP_User_Query.
+	 * @param array  $args        Optional. Additional arguments for WP_User_Query.
+	 *
 	 * @return array Array of author data matching the search.
 	 */
 	public function search_authors( string $search_term, array $args = array() ): array {
@@ -415,6 +426,7 @@ class Author_Profile_Service extends Base {
 	 * Clear the author cache when a user is updated.
 	 *
 	 * @param int $user_id The user ID that was updated.
+	 *
 	 * @return void
 	 */
 	public function clear_user_cache( int $user_id ): void {
@@ -426,6 +438,7 @@ class Author_Profile_Service extends Base {
 	 * Clear the author cache.
 	 *
 	 * @param int|null $author_id Optional. The author ID to clear from cache.
+	 *
 	 * @return void
 	 */
 	public function clear_cache( ?int $author_id = null ): void {

@@ -6,9 +6,8 @@
 
 @use "sass:color";
 
-// Import shared resources
-@use '../../scss/common/variables';
-@use '../../scss/common/mixins';
+// Import common styles
+@use '../../scss/common' as c;
 
 // Legacy selector - consider removing if no longer needed
 .wp-block-author-profile-blocks-author-profile-blocks {
@@ -20,6 +19,9 @@
   position: relative;
   box-sizing: border-box;
 
+  // Visual indicator in editor
+  @include c.editor-border();
+
   /**
    * Editor Placeholder
    */
@@ -28,8 +30,8 @@
 
     .components-placeholder {
       min-height: 200px;
-      padding: variables.$spacing-xl;
-      border-radius: variables.$border-radius-md;
+      padding: c.$spacing-xl;
+      border-radius: c.$border-radius-md;
 
       &.is-column {
         align-items: center;
@@ -46,7 +48,7 @@
       }
 
       &__instructions {
-        margin-bottom: variables.$spacing-xl;
+        margin-bottom: c.$spacing-xl;
         font-size: 14px;
         color: #1e1e1e;
       }
@@ -73,7 +75,7 @@
             margin: 0 auto 16px;
 
             &::before {
-              background-color: variables.$primary-color;
+              background-color: c.$primary-color;
             }
           }
 
@@ -136,7 +138,7 @@
               left: 0;
               height: 3px;
               content: '';
-              background: linear-gradient(to right, variables.$primary-color, rgba(variables.$primary-color, 0.5));
+              background: linear-gradient(to right, c.$primary-color, rgba(c.$primary-color, 0.5));
             }
 
             h4 {
@@ -154,7 +156,7 @@
             .components-icon {
               flex-shrink: 0;
               margin-right: 10px;
-              color: variables.$primary-color;
+              color: c.$primary-color;
               opacity: 0.9;
             }
 
@@ -185,7 +187,7 @@
 
               .components-icon {
                 margin-right: 0;
-                color: variables.$primary-color;
+                color: c.$primary-color;
                 opacity: 0.8;
 
                 &:hover {
@@ -196,12 +198,12 @@
           }
 
           .components-card__body {
-            padding: variables.$spacing-xl;
+            padding: c.$spacing-xl;
 
             // Search field with enhanced styling
             .wpas-search-field {
               position: relative;
-              margin-bottom: variables.$spacing-xl;
+              margin-bottom: c.$spacing-xl;
 
               // Search icon styling
               .wpas-search-icon {
@@ -214,7 +216,7 @@
                 transition: color 0.2s ease;
 
                 &:hover {
-                  color: variables.$primary-color;
+                  color: c.$primary-color;
                 }
               }
 
@@ -244,11 +246,11 @@
 
                 &:focus {
                   outline: none;
-                  border-color: variables.$primary-color;
-                  box-shadow: 0 0 0 1.5px variables.$primary-color, 0 2px 5px rgba(0, 0, 0, 0.07);
+                  border-color: c.$primary-color;
+                  box-shadow: 0 0 0 1.5px c.$primary-color, 0 2px 5px rgba(0, 0, 0, 0.07);
 
                   & + .wpas-search-icon {
-                    color: variables.$primary-color;
+                    color: c.$primary-color;
                   }
                 }
               }
@@ -276,7 +278,7 @@
                 }
 
                 &:focus {
-                  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px variables.$primary-color;
+                  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px c.$primary-color;
                 }
 
                 .dashicon {
@@ -289,7 +291,7 @@
 
             // Select field with enhanced styling
             .wpas-select-field {
-              margin-bottom: variables.$spacing-xl;
+              margin-bottom: c.$spacing-xl;
 
               // Select label
               .components-select-control__label {
@@ -308,7 +310,7 @@
                   height: 4px;
                   margin-left: 4px;
                   content: '';
-                  background-color: variables.$primary-color;
+                  background-color: c.$primary-color;
                   border-radius: 50%;
                   opacity: 0.7;
                 }
@@ -365,11 +367,11 @@
 
                 &:focus {
                   outline: none;
-                  border-color: variables.$primary-color;
-                  box-shadow: 0 0 0 1.5px variables.$primary-color, 0 2px 5px rgba(0, 0, 0, 0.07);
+                  border-color: c.$primary-color;
+                  box-shadow: 0 0 0 1.5px c.$primary-color, 0 2px 5px rgba(0, 0, 0, 0.07);
 
                   & + .components-select-control__input-container::after {
-                    border-color: variables.$primary-color;
+                    border-color: c.$primary-color;
                   }
                 }
 
@@ -423,7 +425,7 @@
               .components-icon {
                 flex-shrink: 0;
                 margin-right: 8px;
-                color: variables.$primary-color;
+                color: c.$primary-color;
               }
 
               span {
@@ -458,7 +460,7 @@
 
               &:focus {
                 outline: none;
-                box-shadow: 0 0 0 1.5px variables.$primary-color;
+                box-shadow: 0 0 0 1.5px c.$primary-color;
               }
             }
 
@@ -484,13 +486,13 @@
 
               &:focus {
                 outline: none;
-                border-color: variables.$primary-color;
-                box-shadow: 0 0 0 1px variables.$primary-color;
+                border-color: c.$primary-color;
+                box-shadow: 0 0 0 1px c.$primary-color;
               }
 
               .components-icon {
                 margin-right: 8px;
-                color: variables.$primary-color;
+                color: c.$primary-color;
               }
             }
           }
@@ -547,21 +549,21 @@
                 font-size: 14px;
                 font-weight: 500;
                 color: #fff;
-                background: variables.$primary-color;
+                background: c.$primary-color;
                 border: none;
                 border-radius: 4px;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 transition: all 0.2s ease;
 
                 &:hover {
-                  background: color.adjust(variables.$primary-color, $lightness: -5%);
+                  background: color.adjust(c.$primary-color, $lightness: -5%);
                   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
                   transform: translateY(-1px);
                 }
 
                 &:focus {
                   outline: none;
-                  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px variables.$primary-color;
+                  box-shadow: 0 0 0 1.5px #fff, 0 0 0 3px c.$primary-color;
                 }
 
                 .components-icon {
@@ -581,16 +583,16 @@
   .wpas-author-profile-content {
     display: flex;
     flex-wrap: wrap;
-    gap: variables.$spacing-xl;
-    margin-bottom: variables.$spacing-xl;
+    gap: c.$spacing-xl;
+    margin-bottom: c.$spacing-xl;
 
     // Author image container
     .wpas-author-image {
-      flex: 0 0 variables.$author-image-size;
+      flex: 0 0 c.$author-image-size;
 
       img {
-        @include mixins.responsive-image;
-        border-radius: variables.$border-radius-sm;
+        @include c.m.responsive-image;
+        border-radius: c.$border-radius-sm;
       }
     }
 
@@ -602,15 +604,15 @@
       // Author name heading
       .wpas-author-name {
         margin-top: 0;
-        margin-bottom: variables.$spacing-md;
-        font-size: variables.$font-size-large;
+        margin-bottom: c.$spacing-md;
+        font-size: c.$font-size-large;
         font-weight: 600;
-        line-height: variables.$line-height-tight;
+        line-height: c.$line-height-tight;
       }
 
       // Author email display
       .wpas-author-email {
-        margin-bottom: variables.$spacing-md;
+        margin-bottom: c.$spacing-md;
 
         a {
           text-decoration: none;
@@ -623,7 +625,7 @@
 
       // Author description
       .wpas-author-description {
-        @include mixins.reset-paragraph-margins;
+        @include c.m.reset-paragraph-margins;
       }
     }
   }
@@ -632,7 +634,7 @@
    * More Content Section
    */
   .wpas-author-more-content {
-    margin-top: variables.$spacing-xl;
+    margin-top: c.$spacing-xl;
 
     .wpas-more-content-card {
       overflow: hidden;
@@ -706,8 +708,8 @@
           &:focus {
             outline: none;
             background-color: #fff;
-            border-color: variables.$primary-color;
-            box-shadow: 0 0 0 1px variables.$primary-color;
+            border-color: c.$primary-color;
+            box-shadow: 0 0 0 1px c.$primary-color;
           }
 
           &.is-empty::before {
@@ -734,7 +736,7 @@
           }
 
           a {
-            color: variables.$primary-color;
+            color: c.$primary-color;
             text-decoration: none;
 
             &:hover {
@@ -757,7 +759,7 @@
 
     // Color picker
     .components-color-picker {
-      margin-bottom: variables.$spacing-xl;
+      margin-bottom: c.$spacing-xl;
     }
 
     // Custom color setting
@@ -767,7 +769,7 @@
 
     // Clear button
     .wpas-clear-button {
-      margin-top: variables.$spacing-md;
+      margin-top: c.$spacing-md;
     }
   }
 

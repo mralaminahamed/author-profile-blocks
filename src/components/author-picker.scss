@@ -2,80 +2,9 @@
  * Shared author-picker component styles
  */
 
-// Variables
-$border-color: #ddd;
-$error-color: #cc1818;
-$error-color-hover: #aa1515;
-$avatar-size: 30px;
-$border-radius-rounded: 20px;
+// Import common styles
+@use '../scss/common' as c;
 
 .apb-author-picker-wrapper {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-
-  // Selected authors section
-  .apb-authors-selected-wrapper {
-    margin-bottom: 1.5rem;
-
-    .apb-selected-authors-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 1rem;
-
-      // Individual author tag
-      .apb-selected-author {
-        display: flex;
-        align-items: center;
-        padding: 5px 10px 5px 5px;
-        font-size: 14px;
-        background-color: #fff;
-        border: 1px solid $border-color;
-        border-radius: $border-radius-rounded;
-
-        // Author avatar
-        img {
-          width: $avatar-size;
-          height: $avatar-size;
-          margin-right: 8px;
-          border-radius: 50%;
-        }
-
-        // Remove button
-        .apb-remove-author {
-          margin-left: 8px;
-          color: $error-color;
-          cursor: pointer;
-
-          &:hover {
-            color: $error-color-hover;
-          }
-        }
-      }
-    }
-  }
-
-  // Dropdown for selecting authors
-  .apb-author-selector-dropdown {
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  // Button container
-  .apb-button-wrapper {
-    margin-top: 1rem;
-    text-align: center;
-  }
-}
-
-// Loading state
-.apb-loading {
-  padding: 2rem;
-  text-align: center;
-
-  .apb-spinner {
-    margin: 0 auto 1rem;
-  }
+  @include c.author-picker-component();
 }

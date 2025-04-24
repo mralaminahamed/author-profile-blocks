@@ -1,0 +1,77 @@
+/**
+ * Author Components - Common styling for author elements
+ */
+
+@use 'variables' as v;
+@use 'mixins' as m;
+
+// Author Image
+@mixin author-image($size: v.$author-image-size) {
+  margin-bottom: v.$spacing-md;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+// Author Name
+@mixin author-name {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: v.$font-size-medium;
+  font-weight: 600;
+  line-height: v.$line-height-tight;
+  color: v.$text-color;
+}
+
+// Author Position
+@mixin author-position {
+  margin-bottom: 0.5rem;
+  font-size: v.$font-size-xs;
+  opacity: 0.8;
+}
+
+// Author Email
+@mixin author-email {
+  margin-bottom: 0.5rem;
+  font-size: v.$font-size-xs;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Author Description
+@mixin author-description($truncate-lines: null) {
+  margin-bottom: v.$spacing-md;
+  font-size: v.$font-size-small;
+  line-height: v.$line-height-normal;
+  color: v.$text-color;
+
+  @if $truncate-lines {
+
+    @include m.truncate-lines($truncate-lines);
+  }
+}
+
+// Author Registered Date
+@mixin author-registered-date {
+  margin-bottom: 0.5rem;
+  font-size: v.$font-size-xs;
+
+  .apb-registered-date-label {
+    font-weight: 500;
+  }
+
+  .apb-registered-date-value {
+    opacity: 0.9;
+  }
+}

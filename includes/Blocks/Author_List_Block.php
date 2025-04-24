@@ -1,15 +1,16 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Author List Block class
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Blocks
  */
 
 namespace AuthorProfileBlocks\Blocks;
 
-use WP_Block;
 use AuthorProfileBlocks\Plugin;
+use WP_Block;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -65,6 +66,7 @@ class Author_List_Block extends Block_Base {
 		 *
 		 * @param string $block_content The rendered HTML output of the block.
 		 * @param array  $block         The block attributes and content.
+		 *
 		 * @return string               The filtered block content.
 		 */
 		return apply_filters( 'author_profile_blocks_rendered_list', $block_content, $block );
@@ -85,6 +87,7 @@ class Author_List_Block extends Block_Base {
 	 * @param array    $attributes Block attributes.
 	 * @param string   $content    Block content.
 	 * @param WP_Block $block      Block instance.
+	 *
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
@@ -92,8 +95,8 @@ class Author_List_Block extends Block_Base {
 
 		if ( empty( $author_ids ) ) {
 			return '<div class="apb-author-list-error">' .
-				esc_html__( 'Please select authors for the list.', 'author-profile-blocks' ) .
-				'</div>';
+			       esc_html__( 'Please select authors for the list.', 'author-profile-blocks' ) .
+			       '</div>';
 		}
 
 		// Check cache first.
@@ -133,8 +136,8 @@ class Author_List_Block extends Block_Base {
 		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
 			return '<div class="apb-author-list-error">' .
-				esc_html__( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) .
-				'</div>';
+			       esc_html__( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) .
+			       '</div>';
 		}
 
 		// Generate styles for the block.
@@ -199,6 +202,7 @@ class Author_List_Block extends Block_Base {
 	 *
 	 * @param array $author     Author data.
 	 * @param array $attributes Block attributes.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_item( array $author, array $attributes ): string {
@@ -258,11 +262,13 @@ class Author_List_Block extends Block_Base {
 	 *
 	 * @param array $author_ids The author IDs.
 	 * @param array $attributes The block attributes.
+	 *
 	 * @return string The cache key.
 	 */
 	private function generate_cache_key( array $author_ids, array $attributes ): string {
 		// Sort author IDs to ensure consistent cache key regardless of order.
 		sort( $author_ids );
+
 		return md5( implode( ',', $author_ids ) . maybe_serialize( $attributes ) );
 	}
 
@@ -270,6 +276,7 @@ class Author_List_Block extends Block_Base {
 	 * Get block classes based on attributes.
 	 *
 	 * @param array $attributes Block attributes.
+	 *
 	 * @return string CSS classes.
 	 */
 	private function get_block_classes( array $attributes ): string {
@@ -291,6 +298,7 @@ class Author_List_Block extends Block_Base {
 	 * Get block styles based on attributes.
 	 *
 	 * @param array $attributes Block attributes.
+	 *
 	 * @return array CSS styles.
 	 */
 	private function get_block_styles( array $attributes ): array {
@@ -313,6 +321,7 @@ class Author_List_Block extends Block_Base {
 	 * Get styles for individual list items.
 	 *
 	 * @param array $attributes Block attributes.
+	 *
 	 * @return array CSS styles.
 	 */
 	private function get_item_styles( array $attributes ): array {
@@ -339,8 +348,9 @@ class Author_List_Block extends Block_Base {
 	/**
 	 * Render compact author list item layout.
 	 *
-	 * @param array $author Author data.
+	 * @param array $author     Author data.
 	 * @param array $attributes Block attributes.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_compact_layout( array $author, array $attributes ): string {
@@ -381,8 +391,9 @@ class Author_List_Block extends Block_Base {
 	/**
 	 * Render detailed author list item layout.
 	 *
-	 * @param array $author Author data.
+	 * @param array $author     Author data.
 	 * @param array $attributes Block attributes.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_detailed_layout( array $author, array $attributes ): string {
@@ -442,8 +453,9 @@ class Author_List_Block extends Block_Base {
 	/**
 	 * Render author image section.
 	 *
-	 * @param array  $author Author data.
+	 * @param array  $author        Author data.
 	 * @param string $wrapper_class Optional. Additional CSS class for the image container.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_image( array $author, string $wrapper_class = '' ): string {
@@ -453,15 +465,16 @@ class Author_List_Block extends Block_Base {
 		}
 
 		return '<div class="' . esc_attr( $classes ) . '">' .
-			'<img src="' . esc_url( $author['image'] ) . '" alt="' .
-			esc_attr( $author['title'] ) . '" loading="lazy" />' .
-			'</div>';
+		       '<img src="' . esc_url( $author['image'] ) . '" alt="' .
+		       esc_attr( $author['title'] ) . '" loading="lazy" />' .
+		       '</div>';
 	}
 
 	/**
 	 * Render author name section.
 	 *
 	 * @param array $author Author data.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_name( array $author ): string {
@@ -472,6 +485,7 @@ class Author_List_Block extends Block_Base {
 	 * Render author position section.
 	 *
 	 * @param array $author Author data.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_position( array $author ): string {
@@ -482,32 +496,35 @@ class Author_List_Block extends Block_Base {
 	 * Render author email section.
 	 *
 	 * @param array $author Author data.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_email( array $author ): string {
 		return '<div class="apb-author-email">' .
-			'<a href="mailto:' . esc_attr( $author['email'] ) . '">' .
-			esc_html( $author['email'] ) . '</a>' .
-			'</div>';
+		       '<a href="mailto:' . esc_attr( $author['email'] ) . '">' .
+		       esc_html( $author['email'] ) . '</a>' .
+		       '</div>';
 	}
 
 	/**
 	 * Render author description section.
 	 *
 	 * @param array $author Author data.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_description( array $author ): string {
 		return '<div class="apb-author-description">' .
-			wp_kses_post( $author['description'] ) .
-			'</div>';
+		       wp_kses_post( $author['description'] ) .
+		       '</div>';
 	}
 
 	/**
 	 * Render social profiles section.
 	 *
-	 * @param array  $profiles Social profile URLs.
+	 * @param array  $profiles      Social profile URLs.
 	 * @param string $wrapper_class Optional. Additional CSS class for the social profiles container.
+	 *
 	 * @return string Rendered HTML.
 	 */
 	private function render_social_profiles( array $profiles, string $wrapper_class = '' ): string {
@@ -516,7 +533,7 @@ class Author_List_Block extends Block_Base {
 			$classes .= ' ' . $wrapper_class;
 		}
 
-		$html  = '<div class="' . esc_attr( $classes ) . '">';
+		$html = '<div class="' . esc_attr( $classes ) . '">';
 		$html .= '<ul class="apb-social-list">';
 
 		$social_icons = array(

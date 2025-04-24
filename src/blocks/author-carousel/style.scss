@@ -2,55 +2,24 @@
  * Author Carousel block front-end styles
  */
 
+// Import common styles
+@use '../../scss/common' as c;
+
 // Import Slick slider base styles
 @import 'slick-carousel/slick/slick.css';
 @import 'slick-carousel/slick/slick-theme.css';
 
 // Carousel container
 .wp-block-author-profile-blocks-author-carousel {
-  padding: 1rem;
+  padding: c.$spacing-md;
 
+  // Main carousel wrapper
   .apb-author-carousel {
-    position: relative;
-    width: 100%;
+    @include c.carousel-base();
 
-    // Fix for dots position
-    .slick-dots {
-      position: relative;
-      bottom: 0;
-      padding-top: 20px;
-
-      li {
-
-        button::before {
-          font-size: 10px;
-        }
-      }
-    }
-
-    // Arrows
-    .slick-prev,
-    .slick-next {
-      z-index: 10;
-
-      &::before {
-        font-size: 24px;
-        opacity: 0.75;
-      }
-    }
-
-    .slick-prev {
-      left: -25px;
-    }
-
-    .slick-next {
-      right: -25px;
-    }
-
-    // Slide
+    // Individual slide
     .apb-author-carousel-slide {
-      box-sizing: border-box;
-      padding: 10px;
+      @include c.carousel-slide();
     }
   }
 
@@ -59,158 +28,70 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: all 0.3s ease;
+    transition: c.$transition-standard;
 
-    // Card styling
+    // Card layout
     &.is-layout-card {
-      overflow: hidden;
-
-      .apb-author-profile-content {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-
-      .apb-card-header {
-        text-align: center;
-      }
-
-      .apb-card-body {
-        flex: 1 1 auto;
-      }
-
-      .apb-card-footer {
-        margin-top: auto;
-      }
+      @include c.card-layout();
     }
 
-    // Compact styling
+    // Compact layout
     &.is-layout-compact {
-
-      .apb-author-header {
-        display: flex;
-        align-items: center;
-
-        .apb-author-image {
-          margin-right: 15px;
-        }
-
-        .apb-author-header-info {
-          flex: 1;
-        }
-      }
+      @include c.compact-layout();
     }
 
-    // Centered styling
+    // Centered layout
     &.is-layout-centered {
-      text-align: center;
-
-      .apb-author-image {
-        margin: 0 auto;
-      }
+      @include c.centered-layout();
     }
   }
 
-  // Common elements
+  // Author elements
   .apb-author-image {
-    margin-bottom: 1rem;
+    @include c.author-image();
 
     img {
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 1/1;
       margin: 0 auto;
-      object-fit: cover;
-      border-radius: 50%;
     }
   }
 
   .apb-author-name {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: 600;
+    @include c.author-name();
   }
 
   .apb-author-position {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    opacity: 0.8;
+    @include c.author-position();
   }
 
   .apb-author-email {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-
-    a {
-      text-decoration: none;
-    }
+    @include c.author-email();
   }
 
+  // Description with text truncation
   .apb-author-description {
-    display: -webkit-box;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    -webkit-line-clamp: 3;
-    font-size: 0.95rem;
-    -webkit-box-orient: vertical;
+    @include c.author-description(3);
   }
 
-  /* Social profiles */
+  // Social profiles section
   .apb-social-profiles {
-    padding-top: 0.5rem;
-    margin-top: auto;
-
-    .apb-social-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-
-    .apb-social-item {
-      display: inline-block;
-
-      a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        text-decoration: none;
-        background-color: #f0f0f0;
-        border-radius: 50%;
-        transition: all 0.2s ease;
-
-        &:hover {
-          background-color: #e0e0e0;
-        }
-      }
-    }
+    @include c.social-profiles-center();
   }
 
-  // Shadow effect
+  // Visual style modifiers
   .has-shadow {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    @include c.shadow-effect();
   }
 
-  // Border effect
   .has-border {
-    border-style: solid;
+    @include c.border-effect();
   }
 
-  // Rounded corners
   .is-rounded {
-    overflow: hidden;
-    border-radius: 8px;
+    @include c.rounded-corners();
   }
 
   // Loading state
   .apb-carousel-loading {
-    padding: 2rem;
-    text-align: center;
+    @include c.carousel-loading();
   }
 }

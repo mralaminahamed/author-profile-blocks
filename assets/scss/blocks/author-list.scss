@@ -1,26 +1,21 @@
 /**
  * Author List block front-end styles
+ * 
+ * This file is a duplicate of src/blocks/author-list/style.scss
+ * for compatibility with the theme structure.
  */
 
-// List container
+// Import common styles
+@use '../../src/scss/common' as c;
+
 .wp-block-author-profile-blocks-author-list {
-  padding: 1rem;
-
+  // List container
   .apb-author-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    @include c.list-layout();
 
+    // Dividers between items
     &.has-dividers {
-      li:not(:last-child) {
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        border-color: #e0e0e0;
-        padding-bottom: 15px;
-      }
+      @include c.list-dividers();
     }
 
     // Ordered list styling
@@ -34,12 +29,7 @@
 
     // Hover effect
     .has-hover-effect {
-      transition: all 0.2s ease;
-
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      }
+      @include c.hover-transition();
     }
   }
 
@@ -49,9 +39,9 @@
       width: 100%;
     }
 
+    // Rounded corners variant
     &.is-rounded {
-      border-radius: 8px;
-      overflow: hidden;
+      @include c.rounded-corners();
 
       .apb-author-image img {
         border-radius: 50%;
@@ -62,8 +52,8 @@
   // Compact layout
   .apb-author-list-compact {
     display: flex;
+    gap: c.$spacing-lg;
     align-items: center;
-    gap: 15px;
 
     .apb-author-list-info {
       flex: 1;
@@ -77,17 +67,17 @@
   // Detailed layout
   .apb-author-list-detailed {
     display: flex;
-    gap: 20px;
+    gap: c.$spacing-xl;
 
     .apb-author-list-left {
       flex: 0 0 80px;
     }
 
     .apb-author-list-right {
-      flex: 1;
       display: flex;
+      flex: 1;
       flex-direction: column;
-      gap: 8px;
+      gap: c.$spacing-sm;
     }
 
     .apb-author-list-header {
@@ -101,124 +91,69 @@
 
   // Author image
   .apb-author-image {
+    flex-shrink: 0;
     width: 60px;
     height: 60px;
-    flex-shrink: 0;
 
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       aspect-ratio: 1/1;
+      object-fit: cover;
     }
 
+    // Larger image for detailed layout
     .apb-author-list-detailed & {
       width: 80px;
       height: 80px;
     }
   }
 
-  // Author info
+  // Author information elements
   .apb-author-name {
-    margin: 0 0 0.2rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    line-height: 1.3;
+    @include c.author-name();
   }
 
   .apb-author-position {
-    font-size: 0.85rem;
-    opacity: 0.8;
-    margin-bottom: 0.2rem;
+    @include c.author-position();
   }
 
   .apb-author-email {
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-
-    a {
-      text-decoration: none;
-    }
+    @include c.author-email();
   }
 
   .apb-author-description {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin: 0.5rem 0;
-    
-    // For compact view, limit to 2 lines
+    @include c.author-description();
+
+    // Truncate text for compact layout
     .apb-author-list-compact & {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      @include c.m.truncate-lines(2);
     }
   }
 
   // Social profiles
   .apb-social-profiles {
-    .apb-social-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+    @include c.social-profiles-start();
 
-    .apb-social-item {
-      display: inline-block;
-
-      a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background-color: #f0f0f0;
-        transition: all 0.2s ease;
-        text-decoration: none;
-
-        &:hover {
-          background-color: #e0e0e0;
-        }
-      }
-    }
-
-    // Compact style social icons
+    // Social icons alignment for different layouts
     .apb-author-list-compact & {
-      .apb-social-list {
-        justify-content: flex-end;
-      }
+      @include c.social-profiles-end();
     }
 
-    // Detailed style social icons
     .apb-author-list-detailed & {
-      .apb-social-list {
-        justify-content: flex-start;
-      }
+      @include c.social-profiles-start();
     }
   }
 
+  // Error message
+  .apb-author-list-error {
+    @include c.error-message();
+  }
+
   // Responsive adjustments
-  @media (max-width: 600px) {
+  @media (max-width: c.$breakpoint-medium) {
     .apb-author-list-detailed {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-
-      .apb-author-list-left {
-        flex: 0 0 auto;
-      }
-
-      .apb-author-list-right {
-        width: 100%;
-      }
-
-      .apb-social-list {
-        justify-content: center !important;
-      }
+      @include c.mobile-stack();
     }
   }
 }

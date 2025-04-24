@@ -1,8 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Abstract Block Base class
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Blocks
  */
 
@@ -129,7 +130,8 @@ abstract class Block_Base extends Base implements Registerable {
 	 * Get the asset path for the current block.
 	 *
 	 * @param string $asset_name The asset name.
-	 * @param string $extension The file extension.
+	 * @param string $extension  The file extension.
+	 *
 	 * @return string The asset path.
 	 */
 	protected function get_asset_path( string $asset_name, string $extension = 'js' ): string {

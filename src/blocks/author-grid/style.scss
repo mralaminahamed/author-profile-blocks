@@ -2,33 +2,21 @@
  * Author Grid block front-end styles
  */
 
-// Variables
-$spacing-standard: 1rem;
-$gap-standard: 20px;
-$border-radius: 8px;
-$transition-standard: all 0.3s ease;
-$social-bg: #f0f0f0;
-$social-bg-hover: #e0e0e0;
-$shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+// Import common styles
+@use '../../scss/common' as c;
 
 // Grid container
 .wp-block-author-profile-blocks-author-grid {
-  padding: $spacing-standard;
+  padding: c.$spacing-md;
 
   // Grid layout with responsive columns
   .apb-author-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: $gap-standard;
-    width: 100%;
 
-    // Responsive breakpoints
-    @media (min-width: 576px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    @include c.responsive-grid();
 
-    @media (min-width: 992px) {
-      // Column variants
+    // Column variants
+    @include c.respond-to(large) {
+
       &.apb-columns-2 {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -47,152 +35,73 @@ $shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   .apb-author-grid-item {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    transition: $transition-standard;
+    // height: 100%;
+    transition: c.$transition-standard;
 
     // Card layout
     &.is-layout-card {
-      overflow: hidden;
 
-      .apb-author-profile-content {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-
-      .apb-card-header {
-        text-align: center;
-      }
-
-      .apb-card-body {
-        flex: 1 1 auto;
-      }
-
-      .apb-card-footer {
-        margin-top: auto;
-      }
+      @include c.card-layout();
     }
 
     // Compact layout
     &.is-layout-compact {
-      .apb-author-header {
-        display: flex;
-        align-items: center;
 
-        .apb-author-image {
-          margin-right: 15px;
-        }
-
-        .apb-author-header-info {
-          flex: 1;
-        }
-      }
+      @include c.compact-layout();
     }
 
     // Centered layout
     &.is-layout-centered {
-      text-align: center;
 
-      .apb-author-image {
-        margin: 0 auto;
-      }
+      @include c.centered-layout();
     }
   }
 
   // Author elements
   .apb-author-image {
-    margin-bottom: $spacing-standard;
 
-    img {
-      max-width: 100%;
-      height: auto;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      border-radius: 50%;
-    }
+    @include c.author-image();
   }
 
   .apb-author-name {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: 600;
+
+    @include c.author-name();
   }
 
   .apb-author-position {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    opacity: 0.8;
+
+    @include c.author-position();
   }
 
   .apb-author-email {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
 
-    a {
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+    @include c.author-email();
   }
 
   .apb-author-description {
-    margin-bottom: $spacing-standard;
-    font-size: 0.95rem;
-    line-height: 1.5;
+
+    @include c.author-description();
   }
 
   // Social profiles section
   .apb-social-profiles {
-    padding-top: 0.5rem;
-    margin-top: auto;
 
-    // Social icons list
-    .apb-social-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-
-    // Individual social icon
-    .apb-social-item {
-      display: inline-block;
-
-      a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        text-decoration: none;
-        background-color: $social-bg;
-        border-radius: 50%;
-        transition: $transition-standard;
-
-        &:hover {
-          background-color: $social-bg-hover;
-        }
-      }
-    }
+    @include c.social-profiles-center();
   }
 
   // Visual style modifiers
   .has-shadow {
-    box-shadow: $shadow;
+
+    @include c.shadow-effect();
   }
 
   .has-border {
-    border-style: solid;
+
+    @include c.border-effect();
   }
 
   .is-rounded {
-    overflow: hidden;
-    border-radius: $border-radius;
+
+    @include c.rounded-corners();
   }
 }

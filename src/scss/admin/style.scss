@@ -2,15 +2,13 @@
  * Admin styles for WP Author Showcase
  */
 
-/* Import shared resources */
-@use '../common/variables';
-@use '../common/mixins';
+/* Import common styles */
+@use '../common' as c;
 
 /**
  * Admin Table Column Widths
  */
 .column {
-
   &-author_image {
     width: 80px;
   }
@@ -28,41 +26,15 @@
  * Meta Fields in Edit Screen
  */
 .wpas-meta-field {
-  margin-bottom: variables.$spacing-lg;
-
-  label {
-    display: block;
-    margin-bottom: variables.$spacing-sm;
-    font-weight: 600;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    padding: variables.$spacing-md;
-    border: 1px solid variables.$border-color;
-    border-radius: variables.$border-radius-md;
-
-    &:focus {
-
-      @include mixins.focus-styles;
-    }
-  }
+  @include c.admin-meta-field();
 }
 
 /**
  * Admin List Table Styles
  */
 .widefat {
-
   .column-author_email a {
-    color: variables.$primary-color;
-    text-decoration: none;
-
-    &:hover {
-      color: variables.$primary-hover;
-      text-decoration: underline;
-    }
+    @include c.admin-table-link();
   }
 }
 
@@ -70,64 +42,41 @@
 .no-email,
 .no-description,
 .no-image {
-  color: variables.$muted-color;
+  @include c.admin-placeholder();
 }
 
 // Email display
 .author-email-wrapper {
-
-  @include mixins.truncate;
+  @include c.m.truncate;
 }
 
 /**
  * Author Image Column
  */
 .author-image-wrapper {
-  width: variables.$admin-image-size;
-  height: variables.$admin-image-size;
-  overflow: hidden;
-  border-radius: variables.$border-radius-sm;
-
-  // Image inside wrapper
-  .author-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  @include c.admin-author-image();
 }
 
 /**
  * Author Description Column
  */
 .author-description {
-
   &-wrapper {
     position: relative;
   }
 
   &-text {
-    color: variables.$text-color-secondary;
-    font-size: 13px;
-    line-height: 1.5;
-    display: block;
+    @include c.admin-description-text();
   }
 }
 
 // Description metadata
 .description {
-
   &-meta {
-    margin-top: 4px;
-    font-size: 11px;
-    color: variables.$muted-color;
+    @include c.admin-description-meta();
   }
 
   &-count {
-    background: variables.$light-bg;
-    padding: 1px variables.$spacing-sm;
-    border-radius: variables.$border-radius-xs;
-    font-size: 11px;
-    display: inline-block;
+    @include c.admin-count-badge();
   }
 }

@@ -5,7 +5,7 @@
  */
 
 // Import shared resources
-@use '../common/variables';
+@use 'variables' as v;
 
 // Text truncation with ellipsis
 @mixin truncate {
@@ -14,20 +14,37 @@
   white-space: nowrap;
 }
 
+// Multi-line text truncation
+@mixin truncate-lines($lines: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}
+
 // Focus styles for form elements and controls
 @mixin focus-styles {
-  border-color: variables.$focus-color;
-  box-shadow: 0 0 0 1px variables.$focus-color;
   outline: none;
+  border-color: v.$focus-color;
+  box-shadow: 0 0 0 1px v.$focus-color;
 }
 
 // Error message banner styling
 @mixin error-banner {
-  color: variables.$error-color;
-  border-left: 3px solid variables.$error-color;
-  background-color: rgba(variables.$error-color, 0.05);
-  padding: variables.$spacing-xs variables.$spacing-md;
-  border-radius: variables.$border-radius-xs;
+  padding: v.$spacing-xs v.$spacing-md;
+  color: v.$error-color;
+  background-color: rgba(v.$error-color, 0.05);
+  border-left: 3px solid v.$error-color;
+  border-radius: v.$border-radius-xs;
+}
+
+// Success message banner styling
+@mixin success-banner {
+  padding: v.$spacing-xs v.$spacing-md;
+  color: darken(#4CAF50, 10%);
+  background-color: rgba(#4CAF50, 0.05);
+  border-left: 3px solid #4CAF50;
+  border-radius: v.$border-radius-xs;
 }
 
 // Reset top and bottom margins on paragraph elements
@@ -47,7 +64,51 @@
 
 // Responsive image sizing
 @mixin responsive-image {
+  display: block;
   max-width: 100%;
   height: auto;
-  display: block;
+}
+
+// Flexbox center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Box sizing reset
+@mixin box-sizing {
+  box-sizing: border-box;
+
+  * {
+    box-sizing: inherit;
+  }
+}
+
+// Hover effect with shadow and slight transform
+@mixin hover-effect {
+  transition: v.$transition-standard;
+
+  &:hover {
+    box-shadow: v.$shadow-md;
+    transform: translateY(-3px);
+  }
+}
+
+// Media query mixins
+@mixin respond-to($breakpoint) {
+
+  @if $breakpoint == small {
+
+    @media (min-width: v.$breakpoint-small) { @content; }
+  } @else if $breakpoint == medium {
+
+    @media (min-width: v.$breakpoint-medium) { @content; }
+  } @else if $breakpoint == large {
+
+    @media (min-width: v.$breakpoint-large) { @content; }
+  } @else if $breakpoint == xlarge {
+
+    @media (min-width: v.$breakpoint-xlarge) { @content; }
+  }
 }

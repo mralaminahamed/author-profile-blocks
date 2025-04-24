@@ -1,0 +1,149 @@
+/**
+ * Author Picker - Common author picker component styling
+ */
+
+@use 'variables' as v;
+
+// Author picker component
+@mixin author-picker-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  // Author selector
+  .apb-author-selector {
+    width: 100%;
+    margin-bottom: v.$spacing-lg;
+    
+    // Selector header
+    .apb-selector-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: v.$spacing-md;
+      
+      h3 {
+        margin: 0;
+        font-size: v.$font-size-medium;
+        font-weight: 600;
+      }
+    }
+    
+    // Search field
+    .apb-search-field {
+      position: relative;
+      margin-bottom: v.$spacing-md;
+      
+      input {
+        width: 100%;
+        height: 40px;
+        padding: 8px 12px 8px 36px;
+        font-size: v.$font-size-small;
+        border: 1px solid v.$border-color;
+        border-radius: v.$border-radius-md;
+        transition: v.$transition-fast;
+        
+        &:focus {
+          border-color: v.$primary-color;
+          outline: none;
+          box-shadow: 0 0 0 1px v.$primary-color;
+        }
+      }
+      
+      .apb-search-icon {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        color: v.$text-color-secondary;
+        transform: translateY(-50%);
+      }
+    }
+    
+    // Author list
+    .apb-author-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid v.$border-color;
+      border-radius: v.$border-radius-md;
+      
+      .apb-author-item {
+        display: flex;
+        align-items: center;
+        padding: v.$spacing-md;
+        cursor: pointer;
+        border-bottom: 1px solid v.$border-color-light;
+        transition: v.$transition-fast;
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        &:hover {
+          background-color: rgba(v.$primary-color, 0.05);
+        }
+        
+        &.is-selected {
+          background-color: rgba(v.$primary-color, 0.1);
+        }
+        
+        .apb-author-avatar {
+          flex: 0 0 40px;
+          width: 40px;
+          height: 40px;
+          margin-right: v.$spacing-md;
+          overflow: hidden;
+          border-radius: 50%;
+          
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        
+        .apb-author-info {
+          flex: 1;
+          
+          .apb-author-name {
+            margin: 0 0 4px;
+            font-weight: 600;
+          }
+          
+          .apb-author-email {
+            margin: 0;
+            font-size: v.$font-size-xs;
+            color: v.$text-color-secondary;
+          }
+        }
+      }
+    }
+    
+    // Empty state
+    .apb-empty-state {
+      padding: v.$spacing-xl;
+      text-align: center;
+      background-color: v.$light-bg;
+      border-radius: v.$border-radius-md;
+      
+      p {
+        margin: 0 0 v.$spacing-md;
+        color: v.$text-color-secondary;
+      }
+    }
+  }
+  
+  // Author picker actions
+  .apb-picker-actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: v.$spacing-md;
+    
+    .components-button {
+      margin-left: v.$spacing-sm;
+    }
+  }
+}

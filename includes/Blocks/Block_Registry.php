@@ -1,15 +1,15 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Block Registry class
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Blocks
  */
 
 namespace AuthorProfileBlocks\Blocks;
 
 use AuthorProfileBlocks\Core\Base;
-use AuthorProfileBlocks\Blocks\Author_List_Block;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -72,6 +72,7 @@ class Block_Registry extends Base {
 	 * Register a block instance.
 	 *
 	 * @param Block_Base $block Block instance.
+	 *
 	 * @return void
 	 */
 	public function register_block( Block_Base $block ): void {
@@ -91,6 +92,7 @@ class Block_Registry extends Base {
 	 * Get a specific block by name.
 	 *
 	 * @param string $name Block name.
+	 *
 	 * @return Block_Base|null Block instance or null if not found.
 	 */
 	public function get_block( string $name ): ?Block_Base {

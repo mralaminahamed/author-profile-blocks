@@ -1,8 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Meta Data Provider interface
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Core
  */
 
@@ -28,8 +29,9 @@ interface Meta_Data_Provider {
 	 * Get meta data for a specific item.
 	 *
 	 * @param int    $item_id The ID of the item.
-	 * @param string $key The meta key.
-	 * @param bool   $single Whether to return a single value.
+	 * @param string $key     The meta key.
+	 * @param bool   $single  Whether to return a single value.
+	 *
 	 * @return mixed The meta value(s).
 	 */
 	public function get_meta( int $item_id, string $key, bool $single = true );
@@ -38,8 +40,9 @@ interface Meta_Data_Provider {
 	 * Update meta data for a specific item.
 	 *
 	 * @param int    $item_id The ID of the item.
-	 * @param string $key The meta key.
-	 * @param mixed  $value The meta value.
+	 * @param string $key     The meta key.
+	 * @param mixed  $value   The meta value.
+	 *
 	 * @return bool|int Meta ID if the key didn't exist, true on successful update, false on failure.
 	 */
 	public function update_meta( int $item_id, string $key, $value );

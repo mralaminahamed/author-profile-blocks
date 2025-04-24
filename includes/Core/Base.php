@@ -1,8 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Base class for common functionality
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Core
  */
 
@@ -44,6 +45,7 @@ abstract class Base {
 	 * Set the initialized state.
 	 *
 	 * @param bool $state The initialization state.
+	 *
 	 * @return void
 	 */
 	protected function set_initialized( bool $state = true ): void {
@@ -60,6 +62,7 @@ abstract class Base {
 		if ( preg_match( '/\\\\([^\\\\]+)$/', $class_name, $matches ) ) {
 			return $matches[1];
 		}
+
 		return $class_name;
 	}
 }

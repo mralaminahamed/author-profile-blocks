@@ -1,0 +1,127 @@
+/**
+ * Author Profile Block - Editor Styles (Simplified)
+ */
+
+// Import common styles
+@use '../../scss/common' as c;
+
+// Main block container
+.wp-block-author-profile-blocks-author-profile {
+  // Visual indicator in editor
+  @include c.editor-border();
+
+  // Editor placeholder
+  @include c.editor-placeholder();
+
+  // Author picker button in editor
+  @include c.author-picker-wrapper();
+
+  // Editor toolbar styles
+  @include c.editor-toolbar();
+
+  // Inspector controls
+  .components-panel__body {
+    // Base control spacing
+    .components-base-control {
+      margin-bottom: 16px;
+    }
+
+    // Color picker
+    .components-color-picker {
+      margin-bottom: c.$spacing-xl;
+    }
+
+    // Custom color setting
+    .wpas-color-setting {
+      margin-bottom: 16px;
+    }
+
+    // Clear button
+    .wpas-clear-button {
+      margin-top: c.$spacing-md;
+    }
+  }
+
+  // Toggle control spacing
+  .components-toggle-control {
+    margin-bottom: 16px !important;
+
+    .components-base-control__field {
+      margin-bottom: 0;
+    }
+  }
+
+  // Spinner alignment
+  .components-spinner {
+    display: block;
+    margin: 0 auto;
+  }
+
+  // Extra content section
+  .wpas-author-more-content {
+    margin-top: c.$spacing-xl;
+
+    .wpas-more-content-card {
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .wpas-more-content-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 16px 20px;
+        background: linear-gradient(to right, #f8f9fa, #f0f5fa);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+        .wpas-more-content-title {
+          h3 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1e1e1e;
+          }
+
+          .wpas-more-content-description {
+            margin: 0;
+            font-size: 12px;
+            color: #757575;
+          }
+        }
+      }
+
+      .wpas-more-content-body {
+        padding: 20px;
+        background-color: #fff;
+
+        .wpas-more-content-editor {
+          min-height: 120px;
+          padding: 12px 16px;
+          font-size: 14px;
+          line-height: 1.6;
+          background-color: #fcfcfc;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #fff;
+            border-color: #b0b5ba;
+          }
+
+          &:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: c.$primary-color;
+            box-shadow: 0 0 0 1px c.$primary-color;
+          }
+        }
+      }
+    }
+  }
+}

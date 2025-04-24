@@ -1,82 +1,75 @@
 /**
- * Author Grid block editor styles
+ * Author Grid Block - Editor Styles
  */
 
-// Variables
-$border-color: #ddd;
-$placeholder-bg: #f8f9fa;
-$selected-bg: #f0f7fc;
-$selected-border: #007cba;
-$spacing-standard: 1rem;
-$border-radius: 4px;
+// Import common styles
+@use '../../scss/common' as c;
 
 .wp-block-author-profile-blocks-author-grid {
-  // Author picker placeholder
-  .apb-author-grid-placeholder {
-    padding: 2 * $spacing-standard;
-    text-align: center;
-    background-color: $placeholder-bg;
-    border: 1px dashed #c3c4c7;
-    border-radius: $border-radius;
+  // Visual indicator in editor
+  @include c.editor-border();
 
-    h3 {
-      margin-top: 0;
-      font-size: 1.2rem;
-    }
+  // Editor placeholder
+  @include c.editor-placeholder();
 
-    p {
-      margin-bottom: 1.5rem;
-    }
-  }
+  // Author picker button in editor
+  @include c.author-picker-wrapper();
 
-  // Grid layout preview in editor
-  .apb-author-grid-preview {
-    // Layout options
-    .apb-grid-layout-options {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: $spacing-standard;
+  // Editor toolbar styles
+  @include c.editor-toolbar();
 
-      .apb-layout-option {
-        padding: 10px;
-        cursor: pointer;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        transition: all 0.2s ease;
+  // Color picker section
+  @include c.color-picker-section();
 
-        &:hover:not(.is-selected) {
-          background-color: rgba($selected-bg, 0.5);
-        }
-
-        &.is-selected {
-          background-color: $selected-bg;
-          border-color: $selected-border;
-        }
-      }
-    }
+  // Grid preview in editor
+  .apb-author-grid {
+    // Add some basic styling for the editor preview
+    margin: c.$spacing-md 0;
   }
 
   // Inspector controls
   .components-panel__body {
+    // Column selection controls
+    .apb-columns-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: c.$spacing-md;
+
+      button {
+        flex: 1 0 30%;
+        padding: 8px 0;
+        text-align: center;
+        background: #f0f0f0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #e5e5e5;
+        }
+
+        &.is-active {
+          background: #fff;
+          border-color: c.$primary-color;
+          box-shadow: 0 0 0 1px c.$primary-color;
+        }
+      }
+    }
+
+    // Base control spacing
     .components-base-control {
       margin-bottom: 16px;
     }
+  }
 
-    .apb-inspector-control-label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
+  // Loading state
+  .apb-grid-loading {
+    padding: c.$spacing-xl;
+    text-align: center;
 
-    .apb-controls-row {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-
-      .components-base-control {
-        flex: 1;
-      }
+    .components-spinner {
+      margin: 0 auto c.$spacing-md;
     }
   }
 }

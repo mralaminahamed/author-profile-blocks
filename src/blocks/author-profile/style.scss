@@ -2,9 +2,12 @@
  * Author Profile Block - Front-end & Editor Shared Styles
  */
 
+// Import common styles
+@use '../../scss/common' as c;
+
 // Main block container
 .wp-block-author-profile-blocks-author-profile {
-  padding: 1rem;
+  padding: c.$spacing-md;
 
   .apb-author-profile-content {
     overflow: hidden;
@@ -12,160 +15,84 @@
 
   // Author image
   .apb-author-image {
-    margin-bottom: 1rem;
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+    @include c.author-image();
   }
 
   // Author name
   .apb-author-name {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: 600;
+
+    @include c.author-name();
   }
 
   // Author position
   .apb-author-position {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    opacity: 0.8;
+
+    @include c.author-position();
   }
 
   // Author email
   .apb-author-email {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
 
-    a {
-      text-decoration: none;
-    }
+    @include c.author-email();
   }
 
   // Author registered date
   .apb-author-registered-date {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
 
-    .apb-registered-date-label {
-      font-weight: 500;
-    }
-
-    .apb-registered-date-value {
-      opacity: 0.9;
-    }
+    @include c.author-registered-date();
   }
 
   // Author description
   .apb-author-description {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
+
+    @include c.author-description();
   }
 
   // Social profiles
   .apb-social-profiles {
-    padding-top: 0.5rem;
-    margin-top: auto;
 
-    .apb-social-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-
-    .apb-social-item {
-      display: inline-block;
-
-      a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        text-decoration: none;
-        background-color: #f0f0f0;
-        border-radius: 50%;
-        transition: all 0.2s ease;
-
-        &:hover {
-          background-color: #e0e0e0;
-        }
-      }
-    }
+    @include c.social-profiles-center();
   }
 
   // Layout variations
   &.is-layout-card {
 
-    .apb-author-profile-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .apb-card-header {
-      text-align: center;
-    }
-
-    .apb-card-body {
-      flex: 1;
-    }
-
-    .apb-card-footer {
-      margin-top: auto;
-    }
+    @include c.card-layout();
   }
 
   &.is-layout-compact {
 
-    .apb-author-header {
-      display: flex;
-      align-items: center;
-
-      .apb-author-image {
-        margin-right: 15px;
-        margin-bottom: 0;
-      }
-
-      .apb-author-header-info {
-        flex: 1;
-      }
-    }
+    @include c.compact-layout();
   }
 
   &.is-layout-centered {
-    text-align: center;
 
-    .apb-author-image {
-      margin: 0 auto 1rem;
-    }
+    @include c.centered-layout();
   }
 
   // Extra content section
   .apb-author-more-content {
-    padding-top: 1rem;
-    margin-top: 1rem;
+    padding-top: c.$spacing-md;
+    margin-top: c.$spacing-md;
     border-top: 1px solid #eee;
   }
 
   // Shadow effect
   &.has-shadow {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+    @include c.shadow-effect();
   }
 
   // Border effect
   &.has-border {
-    border-style: solid;
+
+    @include c.border-effect();
   }
 
   // Rounded corners
   &.is-rounded {
-    overflow: hidden;
-    border-radius: 8px;
+
+    @include c.rounded-corners();
   }
 }

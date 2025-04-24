@@ -1,8 +1,9 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * User Meta Provider class
  *
- * @package AuthorProfileBlocks
+ * @package    AuthorProfileBlocks
  * @subpackage Core
  */
 
@@ -56,21 +57,24 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	/**
 	 * Add a meta field configuration.
 	 *
-	 * @param string $key      The meta key.
-	 * @param array  $config   The meta configuration.
+	 * @param string $key    The meta key.
+	 * @param array  $config The meta configuration.
+	 *
 	 * @return User_Meta_Provider This instance for method chaining.
 	 */
 	public function add_meta_field( string $key, array $config ): User_Meta_Provider {
 		$this->meta_fields[ $key ] = $config;
+
 		return $this;
 	}
 
 	/**
 	 * Get meta data for a specific user.
 	 *
-	 * @param int    $item_id  The user ID.
-	 * @param string $key      The meta key.
-	 * @param bool   $single   Whether to return a single value.
+	 * @param int    $item_id The user ID.
+	 * @param string $key     The meta key.
+	 * @param bool   $single  Whether to return a single value.
+	 *
 	 * @return mixed The meta value(s).
 	 */
 	public function get_meta( int $item_id, string $key, bool $single = true ) {
@@ -80,9 +84,10 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	/**
 	 * Update meta data for a specific user.
 	 *
-	 * @param int    $item_id  The user ID.
-	 * @param string $key      The meta key.
-	 * @param mixed  $value    The meta value.
+	 * @param int    $item_id The user ID.
+	 * @param string $key     The meta key.
+	 * @param mixed  $value   The meta value.
+	 *
 	 * @return bool|int Meta ID if the key didn't exist, true on successful update, false on failure.
 	 */
 	public function update_meta( int $item_id, string $key, $value ) {
@@ -92,9 +97,10 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	/**
 	 * Delete meta data for a specific user.
 	 *
-	 * @param int    $item_id  The user ID.
-	 * @param string $key      The meta key.
-	 * @param mixed  $value    Optional. The meta value to delete.
+	 * @param int    $item_id The user ID.
+	 * @param string $key     The meta key.
+	 * @param mixed  $value   Optional. The meta value to delete.
+	 *
 	 * @return bool True on success, false on failure.
 	 */
 	public function delete_meta( int $item_id, string $key, $value = '' ): bool {
@@ -105,6 +111,7 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 * Check if a meta field exists.
 	 *
 	 * @param string $key The meta key.
+	 *
 	 * @return bool True if the meta field exists, false otherwise.
 	 */
 	public function has_meta_field( string $key ): bool {
