@@ -30,8 +30,8 @@
   "scripts": {
     "phpcs:check": "phpcs --standard=phpcs.xml.dist",
     "phpcs:fix": "phpcbf --standard=phpcs.xml.dist",
-    "phpcs:check:review": "phpcs --standard=phpcs.plugin-review.xml.dist",
-    "phpcs:fix:review": "phpcbf --standard=phpcs.plugin-review.xml.dist",
+    "phpcs:check:review": "phpcs ./includes --standard=phpcs.plugin-review.xml.dist",
+    "phpcs:fix:review": "phpcbf ./includes --standard=phpcs.plugin-review.xml.dist",
     "phpstan": "phpstan analyse --memory-limit=2G --no-progress",
     "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-blocks.pot --domain=author-profile-blocks --package-name=\"Author Profile Blocks\"",
     "wp:make-po": "cp ./languages/author-profile-blocks.pot ./languages/author-profile-blocks.po",

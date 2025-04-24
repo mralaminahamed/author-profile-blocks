@@ -48,31 +48,8 @@ class Author_Carousel_Block extends Author_Block_Base {
 		wp_register_script(
 			'author-carousel-view',
 			APB_PLUGIN_URL . 'build/blocks/author-carousel/view.js',
-			array( 'slick-carousel' ),
-			APB_VERSION,
-			true
-		);
-
-		// Register carousel scripts/styles that are enqueued by the viewScript property in block.json.
-		wp_register_style(
-			'slick-carousel',
-			APB_PLUGIN_URL . 'build/vendor/slick/slick.css',
 			array(),
-			'1.8.1'
-		);
-
-		wp_register_style(
-			'slick-carousel-theme',
-			APB_PLUGIN_URL . 'build/vendor/slick/slick-theme.css',
-			array( 'slick-carousel' ),
-			'1.8.1'
-		);
-
-		wp_register_script(
-			'slick-carousel',
-			APB_PLUGIN_URL . 'build/vendor/slick/slick.min.js',
-			array( 'jquery' ),
-			'1.8.1',
+			APB_VERSION,
 			true
 		);
 	}
@@ -103,7 +80,6 @@ class Author_Carousel_Block extends Author_Block_Base {
 		}
 
 		wp_enqueue_script( 'author-carousel-view' );
-		wp_enqueue_style( 'slick-carousel-theme' );
 
 		// Check cache first.
 		$cache_key      = $this->generate_cache_key( $author_ids, $attributes );
@@ -217,7 +193,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 		}
 
 		// Build the author slide.
-		$html  = '<div class="apb-author-carousel-slide">';
+		$html = '<div class="apb-author-carousel-slide">';
 		$html .= '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 
 		// Use the appropriate layout template based on the selected layout.
