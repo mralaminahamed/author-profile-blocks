@@ -1,92 +1,106 @@
 /**
- * Styles for the unified author block placeholder
+ * Author Block Placeholder - Styles for the placeholder component
  */
 
-.apb-author-block-placeholder {
-    //padding: 24px;
-    text-align: center;
-    background-color: #f8f9fa;
-    border: 1px dashed #ddd;
-    border-radius: 6px;
-    
-    .components-placeholder__label {
-        margin-bottom: 16px;
-    }
-    
-    .components-placeholder__instructions {
-        margin-bottom: 20px;
-    }
-    
-    .apb-layout-selector-wrapper {
-        width: 100%;
-        margin-top: 16px;
-    }
-    
-    .apb-additional-controls {
-        width: 100%;
-        margin-top: 16px;
-    }
-}
+@use 'sass:math';
+@use 'variables' as v;
 
-// Layout selector styles
-.apb-block-layout-selector {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 16px;
-    
-    .apb-layout-selector-label {
-        margin-bottom: 8px;
-        font-weight: 500;
-    }
-    
-    .components-button-group {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .apb-layout-selector-button {
-        min-width: 60px;
-        margin: 4px;
-    }
-}
+// Mixins for the placeholder component
+@mixin author-block-placeholder {
+    width: 100%;
+    margin-bottom: v.$spacing-xxl;
+    overflow: hidden;
+    background-color: v.$white;
+    border: none;
+    border-radius: v.$border-radius-lg;
+    box-shadow: v.$shadow-lg;
+    transition: all v.$transition-slow;
 
-// State display styles
-.apb-block-state-display {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 150px;
-    padding: 24px;
-    text-align: center;
-    
-    &.is-loading {
-
-        .components-spinner {
-            margin-bottom: 8px;
-        }
+    &:hover {
+        box-shadow: v.$shadow-xl;
     }
-    
-    &.has-error {
 
-        .apb-error-message {
-            color: #cc1818;
-        }
-    }
-    
-    &.is-empty {
+    // Header styling
+    .apb-placeholder-header {
+        padding: v.$spacing-lg v.$spacing-xl;
+        background-color: v.$off-white;
 
-        .apb-state-icon {
-            margin-bottom: 12px;
-            
+        .apb-placeholder-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: math.div(v.$spacing-xxl * 5, 3) or calc(v.$spacing-xxl * 5 / 3); // 40px
+            height: math.div(v.$spacing-xxl * 5, 3) or calc(v.$spacing-xxl * 5 / 3); // 40px
+            color: v.$white;
+            background-color: v.$primary-color;
+            border-radius: v.$border-radius-lg;
+
             svg {
-                width: 24px;
-                height: 24px;
-                fill: #757575;
+                fill: currentcolor;
+            }
+        }
+
+        .apb-placeholder-title {
+            margin: 0;
+            font-size: v.$font-size-xl;
+            font-weight: v.$font-weight-semibold;
+            line-height: v.$line-height-tight;
+            color: v.$black;
+        }
+    }
+
+    // Body styling
+    .apb-placeholder-body {
+        padding: v.$spacing-xxl v.$spacing-xl;
+
+        .apb-placeholder-instructions-wrapper {
+            margin-bottom: v.$spacing-xxl;
+
+            .apb-placeholder-instructions {
+                margin: 0;
+                font-size: v.$font-size-md;
+                line-height: v.$line-height-base;
+                color: v.$dark-gray-200;
+            }
+        }
+
+        .apb-placeholder-content {
+            margin-bottom: v.$spacing-xxl;
+        }
+
+        .apb-layout-selector-wrapper {
+            padding-top: v.$spacing-xl;
+            margin-top: v.$spacing-xxl;
+            border-top: v.$border-width-thin solid v.$border-color;
+
+            .apb-layout-selector-title {
+                margin: 0 0 v.$spacing-lg;
+                font-size: v.$font-size-lg;
+                font-weight: v.$font-weight-semibold;
+                color: v.$black;
             }
         }
     }
+
+    // Footer styling
+    .apb-placeholder-footer {
+        padding: v.$spacing-lg v.$spacing-xl;
+        background-color: v.$off-white;
+
+        .apb-additional-controls {
+            width: 100%;
+        }
+
+        .apb-continue-button {
+            padding: v.$spacing-sm v.$spacing-xl;
+            font-weight: v.$font-weight-medium;
+            text-transform: uppercase;
+        }
+    }
+}
+
+// Apply the placeholder styles to the class
+.apb-author-block-placeholder {
+
+    @include author-block-placeholder();
 }

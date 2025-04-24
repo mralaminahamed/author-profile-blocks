@@ -2,7 +2,18 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Card, CardHeader, CardBody, CardFooter, Flex, FlexItem, Icon, Tooltip } from '@wordpress/components';
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Flex,
+    FlexItem,
+    Icon,
+    Tooltip,
+    CardDivider,
+    Button
+} from '@wordpress/components';
 import { info } from '@wordpress/icons';
 
 /**
@@ -12,7 +23,7 @@ import { AuthorPicker } from '../index';
 import './../../scss/common/_placeholder.scss';
 
 /**
- * Unified placeholder component for author blocks (list, grid, carousel)
+ * Enhanced placeholder component for author blocks (list, grid, carousel)
  *
  * @param {Object} props Component props
  * @param {string} props.icon The icon to display in the placeholder
@@ -27,60 +38,83 @@ import './../../scss/common/_placeholder.scss';
  * @return {JSX.Element} Element to render
  */
 export default function AuthorBlockPlaceholder({
-    icon,
-    title,
-    instructions,
-    selectedAuthorIds = [],
-    onChange,
-    buttonLabel,
-    layoutSelector = null,
-    additionalControls = null,
-    className = '',
-}) {
+                                                   icon,
+                                                   title,
+                                                   instructions,
+                                                   selectedAuthorIds = [],
+                                                   onChange,
+                                                   buttonLabel,
+                                                   layoutSelector = null,
+                                                   additionalControls = null,
+                                                   className = '',
+                                               }) {
     const placeholderClass = `apb-author-block-placeholder ${className}`.trim();
 
     return (
-        <Card className={placeholderClass} elevation={2}>
+        <Card className={placeholderClass} elevation={3}>
             <CardHeader className="apb-placeholder-header">
                 <Flex justify="space-between" align="center">
                     <FlexItem>
                         <Flex align="center" gap={2}>
-                            <Icon icon={icon} size={24} />
-                            <h4>{title}</h4>
+                            <div className="apb-placeholder-icon">
+                                <Icon icon={icon} size={24} />
+                            </div>
+                            <h3 className="apb-placeholder-title">{title}</h3>
                         </Flex>
                     </FlexItem>
                     <FlexItem>
-                        <Tooltip text={__('Placeholder for author block', 'author-profile-blocks')}>
+                        <Tooltip text={__('Configure this author block', 'author-profile-blocks')}>
                             <Icon icon={info} size={16} />
                         </Tooltip>
                     </FlexItem>
                 </Flex>
             </CardHeader>
 
-            <CardBody>
-                <p className="apb-placeholder-instructions">{instructions}</p>
-                <AuthorPicker
-                    selectedAuthorIds={selectedAuthorIds}
-                    onChange={onChange}
-                    buttonLabel={buttonLabel}
-                />
+            <CardDivider />
+
+            <CardBody className="apb-placeholder-body">
+                <div className="apb-placeholder-instructions-wrapper">
+                    <p className="apb-placeholder-instructions">{instructions}</p>
+                </div>
+
+                <div className="apb-placeholder-content">
+                    <AuthorPicker
+                        selectedAuthorIds={selectedAuthorIds}
+                        onChange={onChange}
+                        buttonLabel={buttonLabel}
+                    />
+                </div>
+
                 {layoutSelector && (
                     <div className="apb-layout-selector-wrapper">
+                        <h4 className="apb-layout-selector-title">{__('Layout Options', 'author-profile-blocks')}</h4>
                         {layoutSelector}
                     </div>
                 )}
             </CardBody>
 
             {(additionalControls || layoutSelector) && (
-                <CardFooter className="apb-placeholder-footer">
-                    {additionalControls && (
-                        <div className="apb-additional-controls">
-                            {additionalControls}
-                        </div>
-                    )}
-                </CardFooter>
+                <>
+                    <CardDivider />
+                    <CardFooter className="apb-placeholder-footer">
+                        {additionalControls && (
+                            <div className="apb-additional-controls">
+                                {additionalControls}
+                            </div>
+                        )}
+                        {!additionalControls && layoutSelector && (
+                            <Flex justify="flex-end">
+                                <Button
+                                    variant="primary"
+                                    className="apb-continue-button"
+                                >
+                                    {__('Continue', 'author-profile-blocks')}
+                                </Button>
+                            </Flex>
+                        )}
+                    </CardFooter>
+                </>
             )}
         </Card>
     );
 }
-

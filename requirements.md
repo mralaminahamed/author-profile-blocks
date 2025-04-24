@@ -1,4 +1,4 @@
-# WP Author Showcase - Project Requirements
+# Author Profile Blocks - Project Requirements
 
 ## 🧪 Core Requirements
 
