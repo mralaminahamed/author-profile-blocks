@@ -9,6 +9,7 @@
 namespace AuthorProfileBlocks\Blocks;
 
 use AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Blocks\Author_List_Block;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +37,7 @@ class Block_Registry extends Base {
 		$this->initialize_blocks();
 
 		// Allow other components to interact with our block registry.
-		do_action( 'author_profile_showcase_blocks_registered', $this );
+		do_action( 'author_profile_blocks_blocks_registered', $this );
 	}
 
 	/**
@@ -52,7 +53,7 @@ class Block_Registry extends Base {
 		$this->register_block( new Author_List_Block() );
 
 		// Allow plugins/themes to register additional blocks.
-		do_action( 'author_profile_showcase_register_blocks', $this );
+		do_action( 'author_profile_blocks_register_blocks', $this );
 	}
 
 	/**

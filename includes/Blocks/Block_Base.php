@@ -91,7 +91,7 @@ abstract class Block_Base extends Base implements Registerable {
 		}
 
 		// Apply custom block registration filters.
-		$args = apply_filters( 'author_profile_showcase_block_args', $args, $this->block_name );
+		$args = apply_filters( 'author_profile_blocks_block_args', $args, $this->block_name );
 
 		// Register block using block.json metadata.
 		register_block_type(
@@ -103,7 +103,7 @@ abstract class Block_Base extends Base implements Registerable {
 		$this->registered = true;
 
 		// Trigger action after registration.
-		do_action( 'author_profile_showcase_block_registered', $this->block_name, $this );
+		do_action( 'author_profile_blocks_block_registered', $this->block_name, $this );
 	}
 
 	/**

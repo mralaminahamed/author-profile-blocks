@@ -27,7 +27,7 @@ import { list, grid, update } from '@wordpress/icons';
  * Internal dependencies
  */
 import './editor.scss';
-import AuthorPicker from '../../components/author-picker';
+import { AuthorPicker } from '../../components';
 import AuthorListPreview from './components/AuthorListPreview';
 import DisplayStyleSelector from './components/DisplayStyleSelector';
 import ListLayoutSelector from './components/ListLayoutSelector';
