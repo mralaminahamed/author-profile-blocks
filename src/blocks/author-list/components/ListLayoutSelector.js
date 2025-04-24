@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Button, ButtonGroup, Flex, FlexItem } from '@wordpress/components';
-import { list, formatListBullets, formatListNumbered } from '@wordpress/icons';
+import { formatListBullets, formatListNumbered } from '@wordpress/icons';
 
 /**
  * Layout selector component for the Author List block.

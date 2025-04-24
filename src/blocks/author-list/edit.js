@@ -14,7 +14,6 @@ import {
     RangeControl,
     SelectControl,
     ColorPicker,
-    Placeholder,
     ToolbarGroup,
     ToolbarButton,
 } from '@wordpress/components';
@@ -139,7 +138,7 @@ export default function Edit({ attributes, setAttributes, clientId, insertBlocks
                     initialOpen={true}
                 >
                     <AuthorPicker
-                        selectedAuthorIds={authorIds}
+                        selectedAuthorIds={authorIds ?? []}
                         onChange={handleAuthorIdsChange}
                     />
 

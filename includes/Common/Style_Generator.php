@@ -38,6 +38,21 @@ trait Style_Generator {
 			$classes[] = 'is-layout-' . $attributes['layout'];
 		}
 
+		// Add block style if specified
+		if ( ! empty( $attributes['blockStyle'] ) ) {
+			$classes[] = $attributes['blockStyle'];
+		}
+
+		// Add content order class
+		if ( ! empty( $attributes['contentOrder'] ) ) {
+			$classes[] = 'content-order-' . $attributes['contentOrder'];
+		}
+
+		// Add custom CSS class if specified
+		if ( ! empty( $attributes['customCssClass'] ) ) {
+			$classes[] = esc_attr( $attributes['customCssClass'] );
+		}
+
 		// Add display style for list/grid blocks.
 		if ( ! empty( $attributes['displayStyle'] ) ) {
 			$classes[] = 'is-style-' . $attributes['displayStyle'];
@@ -64,12 +79,22 @@ trait Style_Generator {
 			$classes[] = 'has-registered-date';
 		}
 
-		if ( ! empty( $attributes['showSocial'] ) ) {
+		if ( ! empty( $attributes['showSocialLinks'] ) ) {
 			$classes[] = 'has-social-profiles';
 		}
 
 		if ( ! empty( $attributes['showMoreContent'] ) ) {
 			$classes[] = 'has-more-content';
+		}
+
+		// Add avatar shape class if specified
+		if ( ! empty( $attributes['avatarShape'] ) ) {
+			$classes[] = 'avatar-shape-' . $attributes['avatarShape'];
+		}
+
+		// Add box shadow class if enabled
+		if ( ! empty( $attributes['boxShadow'] ) ) {
+			$classes[] = 'has-box-shadow';
 		}
 
 		// Add shadow class if enabled.
@@ -120,6 +145,202 @@ trait Style_Generator {
 			$styles['padding'] = $attributes['padding'] . 'px';
 		} elseif ( isset( $attributes['blockPadding'] ) ) {
 			$styles['padding'] = $attributes['blockPadding'] . 'px';
+		}
+
+		// Margin
+		if ( isset( $attributes['margin'] ) && !empty( $attributes['margin'] ) ) {
+			$styles['margin'] = $attributes['margin'];
+		}
+		
+		// Width
+		if ( isset( $attributes['containerWidth'] ) && !empty( $attributes['containerWidth'] ) ) {
+			$styles['width'] = $attributes['containerWidth'];
+		}
+
+		// Border styles
+		if ( isset( $attributes['borderWidth'] ) && $attributes['borderWidth'] > 0 ) {
+			$styles['border-width'] = $attributes['borderWidth'] . 'px';
+			$styles['border-style'] = 'solid';
+			
+			if ( !empty( $attributes['borderColor'] ) ) {
+				$styles['border-color'] = $attributes['borderColor'];
+			}
+		}
+		
+		if ( isset( $attributes['borderRadius'] ) && $attributes['borderRadius'] > 0 ) {
+			$styles['border-radius'] = $attributes['borderRadius'] . 'px';
+		}
+
+		// Box shadow
+		if ( !empty( $attributes['boxShadow'] ) ) {
+			$h_offset = isset( $attributes['boxShadowHorizontal'] ) ? $attributes['boxShadowHorizontal'] : 0;
+			$v_offset = isset( $attributes['boxShadowVertical'] ) ? $attributes['boxShadowVertical'] : 4;
+			$blur = isset( $attributes['boxShadowBlur'] ) ? $attributes['boxShadowBlur'] : 8;
+			$spread = isset( $attributes['boxShadowSpread'] ) ? $attributes['boxShadowSpread'] : 0;
+			$color = !empty( $attributes['boxShadowColor'] ) ? $attributes['boxShadowColor'] : 'rgba(0,0,0,0.2)';
+			
+			$styles['box-shadow'] = $h_offset . 'px ' . $v_offset . 'px ' . $blur . 'px ' . $spread . 'px ' . $color;
+		}
+
+		// Section spacing custom property
+		if ( isset( $attributes['sectionSpacing'] ) ) {
+			$styles['--author-section-spacing'] = $attributes['sectionSpacing'] . 'px';
+		}
+
+		// Avatar custom properties
+		if ( isset( $attributes['avatarSize'] ) ) {
+			$styles['--author-avatar-size'] = $attributes['avatarSize'] . 'px';
+		}
+		
+		if ( isset( $attributes['avatarBorderWidth'] ) ) {
+			$styles['--author-avatar-border-width'] = $attributes['avatarBorderWidth'] . 'px';
+		}
+		
+		if ( !empty( $attributes['avatarBorderColor'] ) ) {
+			$styles['--author-avatar-border-color'] = $attributes['avatarBorderColor'];
+		}
+		
+		if ( !empty( $attributes['avatarShape'] ) && $attributes['avatarShape'] === 'custom' && isset( $attributes['avatarBorderRadius'] ) ) {
+			$styles['--author-avatar-border-radius'] = $attributes['avatarBorderRadius'] . 'px';
+		}
+		
+		if ( !empty( $attributes['avatarAlignment'] ) ) {
+			$styles['--author-avatar-align'] = $attributes['avatarAlignment'];
+		}
+		
+		if ( isset( $attributes['avatarMargin'] ) ) {
+			$styles['--author-avatar-margin'] = $attributes['avatarMargin'] . 'px';
+		}
+
+		// Name custom properties
+		if ( isset( $attributes['nameSize'] ) ) {
+			$styles['--author-name-size'] = $attributes['nameSize'] . 'px';
+		}
+		
+		if ( !empty( $attributes['nameWeight'] ) ) {
+			$styles['--author-name-weight'] = $attributes['nameWeight'];
+		}
+		
+		if ( !empty( $attributes['nameColor'] ) ) {
+			$styles['--author-name-color'] = $attributes['nameColor'];
+		}
+		
+		if ( !empty( $attributes['nameTransform'] ) ) {
+			$styles['--author-name-transform'] = $attributes['nameTransform'];
+		}
+		
+		if ( !empty( $attributes['nameAlignment'] ) ) {
+			$styles['--author-name-align'] = $attributes['nameAlignment'];
+		}
+		
+		if ( isset( $attributes['nameMargin'] ) ) {
+			$styles['--author-name-margin'] = $attributes['nameMargin'] . 'px';
+		}
+
+		// Description custom properties
+		if ( isset( $attributes['descriptionSize'] ) ) {
+			$styles['--author-description-size'] = $attributes['descriptionSize'] . 'px';
+		}
+		
+		if ( isset( $attributes['descriptionLineHeight'] ) ) {
+			$styles['--author-description-line-height'] = $attributes['descriptionLineHeight'];
+		}
+		
+		if ( !empty( $attributes['descriptionColor'] ) ) {
+			$styles['--author-description-color'] = $attributes['descriptionColor'];
+		}
+		
+		if ( !empty( $attributes['descriptionStyle'] ) ) {
+			$styles['--author-description-style'] = $attributes['descriptionStyle'];
+		}
+		
+		if ( !empty( $attributes['descriptionAlignment'] ) ) {
+			$styles['--author-description-align'] = $attributes['descriptionAlignment'];
+		}
+		
+		if ( isset( $attributes['descriptionMargin'] ) ) {
+			$styles['--author-description-margin'] = $attributes['descriptionMargin'] . 'px';
+		}
+		
+		// Meta custom properties
+		if ( isset( $attributes['metaSize'] ) ) {
+			$styles['--author-meta-size'] = $attributes['metaSize'] . 'px';
+		}
+		
+		if ( !empty( $attributes['metaColor'] ) ) {
+			$styles['--author-meta-color'] = $attributes['metaColor'];
+		}
+		
+		if ( !empty( $attributes['metaStyle'] ) ) {
+			$styles['--author-meta-style'] = $attributes['metaStyle'];
+		}
+		
+		if ( isset( $attributes['metaBold'] ) && $attributes['metaBold'] ) {
+			$styles['--author-meta-weight'] = 'bold';
+		}
+		
+		if ( !empty( $attributes['metaAlignment'] ) ) {
+			$styles['--author-meta-align'] = $attributes['metaAlignment'];
+		}
+		
+		if ( isset( $attributes['metaMargin'] ) ) {
+			$styles['--author-meta-margin'] = $attributes['metaMargin'] . 'px';
+		}
+		
+		// Email link custom properties
+		if ( !empty( $attributes['emailLinkColor'] ) ) {
+			$styles['--author-email-link-color'] = $attributes['emailLinkColor'];
+		}
+		
+		if ( !empty( $attributes['emailHoverColor'] ) ) {
+			$styles['--author-email-link-hover-color'] = $attributes['emailHoverColor'];
+		}
+		
+		// Social icon custom properties
+		if ( isset( $attributes['socialIconSize'] ) ) {
+			$styles['--author-social-icon-size'] = $attributes['socialIconSize'] . 'px';
+		}
+		
+		if ( !empty( $attributes['socialIconColor'] ) ) {
+			$styles['--author-social-icon-color'] = $attributes['socialIconColor'];
+		}
+		
+		if ( !empty( $attributes['socialIconHoverColor'] ) ) {
+			$styles['--author-social-icon-hover-color'] = $attributes['socialIconHoverColor'];
+		}
+		
+		if ( !empty( $attributes['socialIconBackground'] ) ) {
+			$styles['--author-social-icon-bg'] = $attributes['socialIconBackground'];
+		}
+		
+		if ( !empty( $attributes['socialIconBackgroundHover'] ) ) {
+			$styles['--author-social-icon-bg-hover'] = $attributes['socialIconBackgroundHover'];
+		}
+		
+		if ( isset( $attributes['socialIconSpacing'] ) ) {
+			$styles['--author-social-icon-spacing'] = $attributes['socialIconSpacing'] . 'px';
+		}
+		
+		if ( !empty( $attributes['socialIconAlignment'] ) ) {
+			$styles['--author-social-icon-align'] = $attributes['socialIconAlignment'];
+		}
+		
+		// More content custom properties
+		if ( !empty( $attributes['moreContentBorderColor'] ) ) {
+			$styles['--author-more-content-border-color'] = $attributes['moreContentBorderColor'];
+		}
+		
+		if ( isset( $attributes['moreContentPadding'] ) ) {
+			$styles['--author-more-content-padding'] = $attributes['moreContentPadding'] . 'px';
+		}
+		
+		// Custom CSS variables
+		if ( !empty( $attributes['customVar1'] ) ) {
+			$styles['--author-profile-custom-var-1'] = $attributes['customVar1'];
+		}
+		
+		if ( !empty( $attributes['customVar2'] ) ) {
+			$styles['--author-profile-custom-var-2'] = $attributes['customVar2'];
 		}
 
 		// Border color if enabled.

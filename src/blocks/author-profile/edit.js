@@ -3,17 +3,13 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
-    useBlockProps,
-    InspectorControls,
-    BlockControls,
     AlignmentToolbar,
-    PanelColorSettings,
+    BlockControls,
+    InspectorControls,
+    useBlockProps,
 } from '@wordpress/block-editor';
 import {
-    PanelBody,
-    ToggleControl,
-    Button,
-    RangeControl,
+    TabPanel,
 } from '@wordpress/components';
 
 /**
@@ -24,6 +20,12 @@ import { useAuthors } from '../../js/hooks';
 import AuthorBlockPlaceholder from '../../js/components/AuthorBlockPlaceholder';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
+import {
+    ContentPanel,
+    StylePanel,
+    LayoutPanel,
+    AdvancedPanel,
+} from './components/inspector';
 
 /**
  * The edit function for the Author Profile block.
@@ -42,18 +44,152 @@ export default function Edit({ attributes, setAttributes }) {
         showDescription,
         showRegisteredDate,
         backgroundColor,
-        padding
+        padding,
+        // Extended attributes
+        avatarSize,
+        avatarShape,
+        avatarBorderWidth,
+        avatarBorderColor,
+        avatarBorderRadius,
+        avatarAlignment,
+        avatarMargin,
+        nameColor,
+        nameSize,
+        nameWeight,
+        nameTransform,
+        nameAlignment,
+        nameMargin,
+        descriptionColor,
+        descriptionSize,
+        descriptionLineHeight,
+        descriptionStyle,
+        descriptionAlignment,
+        descriptionMargin,
+        metaColor,
+        metaSize,
+        metaStyle,
+        metaBold,
+        metaAlignment,
+        metaMargin,
+        emailLinkColor,
+        emailHoverColor,
+        showSocialLinks,
+        socialLinksToShow,
+        socialIconColor,
+        socialIconHoverColor,
+        socialIconBackground,
+        socialIconBackgroundHover,
+        socialIconSize,
+        socialIconSpacing,
+        socialIconAlignment,
+        moreContentBorderColor,
+        moreContentPadding,
+        blockStyle,
+        contentOrder,
+        customCssClass,
+        margin,
+        sectionSpacing,
+        borderWidth,
+        borderColor,
+        borderRadius,
+        boxShadow,
+        boxShadowColor,
+        boxShadowHorizontal,
+        boxShadowVertical,
+        boxShadowBlur,
+        boxShadowSpread,
+        containerWidth,
+        customVar1,
+        customVar2,
     } = attributes;
 
     // Use our custom hook to manage authors
     const { authors, selectedAuthor, setSelectedAuthor, isLoading } = useAuthors(authorId);
 
+    // Create advanced shadow style
+    const getShadowStyle = () => {
+        if (!boxShadow) return undefined;
+
+        const hOffset = boxShadowHorizontal || 0;
+        const vOffset = boxShadowVertical || 4;
+        const blur = boxShadowBlur || 8;
+        const spread = boxShadowSpread || 0;
+        const color = boxShadowColor || 'rgba(0,0,0,0.2)';
+
+        return `${hOffset}px ${vOffset}px ${blur}px ${spread}px ${color}`;
+    };
+
+    // Create style object for the block
+    const blockStyles = {
+        backgroundColor: backgroundColor || undefined,
+        padding: padding ? `${padding}px` : undefined,
+        margin: margin || undefined,
+        boxShadow: boxShadow ? getShadowStyle() : undefined,
+        borderWidth: borderWidth ? `${borderWidth}px` : undefined,
+        borderStyle: borderWidth ? 'solid' : undefined,
+        borderColor: borderWidth ? borderColor : undefined,
+        borderRadius: borderRadius ? `${borderRadius}px` : undefined,
+        width: containerWidth || undefined,
+        // Element-specific custom properties
+        '--author-section-spacing': sectionSpacing ? `${sectionSpacing}px` : undefined,
+        // Avatar styles
+        '--author-avatar-size': avatarSize ? `${avatarSize}px` : undefined,
+        '--author-avatar-border-width': avatarBorderWidth ? `${avatarBorderWidth}px` : undefined,
+        '--author-avatar-border-color': avatarBorderColor || undefined,
+        '--author-avatar-border-radius': avatarShape === 'custom' && avatarBorderRadius ? `${avatarBorderRadius}px` : undefined,
+        '--author-avatar-align': avatarAlignment || undefined,
+        '--author-avatar-margin': avatarMargin ? `${avatarMargin}px` : undefined,
+        // Name styles
+        '--author-name-size': nameSize ? `${nameSize}px` : undefined,
+        '--author-name-weight': nameWeight || undefined,
+        '--author-name-color': nameColor || undefined,
+        '--author-name-transform': nameTransform || undefined,
+        '--author-name-align': nameAlignment || undefined,
+        '--author-name-margin': nameMargin ? `${nameMargin}px` : undefined,
+        // Description styles
+        '--author-description-size': descriptionSize ? `${descriptionSize}px` : undefined,
+        '--author-description-line-height': descriptionLineHeight || undefined,
+        '--author-description-color': descriptionColor || undefined,
+        '--author-description-style': descriptionStyle || undefined,
+        '--author-description-align': descriptionAlignment || undefined,
+        '--author-description-margin': descriptionMargin ? `${descriptionMargin}px` : undefined,
+        // Meta styles
+        '--author-meta-size': metaSize ? `${metaSize}px` : undefined,
+        '--author-meta-color': metaColor || undefined,
+        '--author-meta-style': metaStyle || undefined,
+        '--author-meta-weight': metaBold ? 'bold' : undefined,
+        '--author-meta-align': metaAlignment || undefined,
+        '--author-meta-margin': metaMargin ? `${metaMargin}px` : undefined,
+        // Email link styles
+        '--author-email-link-color': emailLinkColor || undefined,
+        '--author-email-link-hover-color': emailHoverColor || undefined,
+        // Social icon styles
+        '--author-social-icon-size': socialIconSize ? `${socialIconSize}px` : undefined,
+        '--author-social-icon-color': socialIconColor || undefined,
+        '--author-social-icon-hover-color': socialIconHoverColor || undefined,
+        '--author-social-icon-bg': socialIconBackground || undefined,
+        '--author-social-icon-bg-hover': socialIconBackgroundHover || undefined,
+        '--author-social-icon-spacing': socialIconSpacing ? `${socialIconSpacing}px` : undefined,
+        '--author-social-icon-align': socialIconAlignment || undefined,
+        // More content section styles
+        '--author-more-content-border-color': moreContentBorderColor || undefined,
+        '--author-more-content-padding': moreContentPadding ? `${moreContentPadding}px` : undefined,
+        // Custom variables
+        '--author-profile-custom-var-1': customVar1 || undefined,
+        '--author-profile-custom-var-2': customVar2 || undefined,
+    };
+
+    // Create className string
+    const blockClassName = [
+        textAlign ? `has-text-align-${textAlign}` : '',
+        blockStyle || '',
+        customCssClass || '',
+        contentOrder ? `content-order-${contentOrder}` : '',
+    ].filter(Boolean).join(' ');
+
     const blockProps = useBlockProps({
-        className: textAlign ? `has-text-align-${textAlign}` : '',
-        style: {
-            backgroundColor: backgroundColor || undefined,
-            padding: padding ? `${padding}px` : undefined
-        }
+        className: blockClassName,
+        style: blockStyles
     });
 
     // Handle author selection
@@ -82,73 +218,65 @@ export default function Edit({ attributes, setAttributes }) {
             </BlockControls>
 
             <InspectorControls>
-                <PanelBody title={__('Display Settings', 'author-profile-blocks')}>
-                    <ToggleControl
-                        label={__('Show Author Image', 'author-profile-blocks')}
-                        checked={showImage}
-                        onChange={() => setAttributes({ showImage: !showImage })}
-                    />
-
-                    <ToggleControl
-                        label={__('Show Author Email', 'author-profile-blocks')}
-                        checked={showEmail}
-                        onChange={() => setAttributes({ showEmail: !showEmail })}
-                    />
-
-                    <ToggleControl
-                        label={__('Show Author Description', 'author-profile-blocks')}
-                        checked={showDescription}
-                        onChange={() => setAttributes({ showDescription: !showDescription })}
-                    />
-
-                    <ToggleControl
-                        label={__('Show Member Since Date', 'author-profile-blocks')}
-                        checked={showRegisteredDate}
-                        onChange={() => setAttributes({ showRegisteredDate: !showRegisteredDate })}
-                    />
-
-                    <ToggleControl
-                        label={__('Show More Section', 'author-profile-blocks')}
-                        checked={showMoreContent}
-                        onChange={() => setAttributes({ showMoreContent: !showMoreContent })}
-                    />
-                </PanelBody>
-
-                <PanelBody title={__('Style Settings', 'author-profile-blocks')}>
-                    <RangeControl
-                        label={__('Padding', 'author-profile-blocks')}
-                        value={padding}
-                        onChange={(value) => setAttributes({ padding: value })}
-                        min={0}
-                        max={50}
-                        initialPosition={20}
-                    />
-                </PanelBody>
-
-                <PanelColorSettings
-                    title={__('Color Settings', 'author-profile-blocks')}
-                    initialOpen={false}
-                    colorSettings={[
+                <TabPanel
+                    className="author-profile-inspector-tabs"
+                    activeClass="is-active"
+                    tabs={[
                         {
-                            value: backgroundColor,
-                            onChange: (value) => setAttributes({ backgroundColor: value }),
-                            label: __('Background Color', 'author-profile-blocks'),
-                        }
+                            name: 'content',
+                            title: __('Content', 'author-profile-blocks'),
+                            className: 'author-profile-tab-content',
+                        },
+                        {
+                            name: 'style',
+                            title: __('Style', 'author-profile-blocks'),
+                            className: 'author-profile-tab-style',
+                        },
+                        {
+                            name: 'layout',
+                            title: __('Layout', 'author-profile-blocks'),
+                            className: 'author-profile-tab-layout',
+                        },
+                        {
+                            name: 'advanced',
+                            title: __('Advanced', 'author-profile-blocks'),
+                            className: 'author-profile-tab-advanced',
+                        },
                     ]}
-                />
-
-                {authorId > 0 && (
-                    <PanelBody title={__('Author Selection', 'author-profile-blocks')}>
-                        <Button
-                            isDestructive
-                            variant="secondary"
-                            className="wpas-clear-button"
-                            onClick={handleClearAuthor}
-                        >
-                            {__('Clear Selected Author', 'author-profile-blocks')}
-                        </Button>
-                    </PanelBody>
-                )}
+                >
+                    {(tab) => {
+                        if (tab.name === 'content') {
+                            return (
+                                <ContentPanel 
+                                    attributes={attributes}
+                                    setAttributes={setAttributes}
+                                    handleClearAuthor={handleClearAuthor}
+                                />
+                            );
+                        } else if (tab.name === 'style') {
+                            return (
+                                <StylePanel 
+                                    attributes={attributes}
+                                    setAttributes={setAttributes}
+                                />
+                            );
+                        } else if (tab.name === 'layout') {
+                            return (
+                                <LayoutPanel 
+                                    attributes={attributes}
+                                    setAttributes={setAttributes}
+                                />
+                            );
+                        } else if (tab.name === 'advanced') {
+                            return (
+                                <AdvancedPanel 
+                                    attributes={attributes}
+                                    setAttributes={setAttributes}
+                                />
+                            );
+                        }
+                    }}
+                </TabPanel>
             </InspectorControls>
 
             <div {...blockProps}>
@@ -179,4 +307,3 @@ export default function Edit({ attributes, setAttributes }) {
         </>
     );
 }
-

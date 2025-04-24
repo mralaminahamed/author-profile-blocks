@@ -6,7 +6,7 @@ import { useState, useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { fetchAuthors } from '../../author-profile/services/api';
+import { fetchAuthors } from '../../../js';
 
 /**
  * Custom hook for managing authors data in a grid
