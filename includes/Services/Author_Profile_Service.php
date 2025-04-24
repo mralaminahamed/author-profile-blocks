@@ -3,8 +3,7 @@
 /**
  * Author Profile Service class
  *
- * @package    AuthorProfileBlocks
- * @subpackage Services
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Services;

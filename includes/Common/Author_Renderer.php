@@ -3,8 +3,7 @@
 /**
  * Author Renderer Trait
  *
- * @package    AuthorProfileBlocks
- * @subpackage Common
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Common;
@@ -32,11 +31,15 @@ trait Author_Renderer {
 			$classes .= ' ' . $wrapper_class;
 		}
 
-		return sprintf(
-			'<div class="%s"><img src="%s" alt="%s" loading="lazy" /></div>',
-			esc_attr( $classes ),
-			esc_url( $author['image'] ),
-			esc_attr( $author['title'] )
+		return wp_get_attachment_image(
+			$author['image'],
+			'full',
+			false,
+			array(
+				'class'   => esc_attr( $classes ),
+				'alt'     => esc_attr( $author['title'] ),
+				'loading' => 'lazy',
+			)
 		);
 	}
 
@@ -48,7 +51,18 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_name( array $author ): string {
-		return '<h3 class="apb-author-name">' . esc_html( $author['title'] ) . '</h3>';
+		if ( isset( $author['url'] ) && '' !== $author['url'] ) {
+			return sprintf(
+				'<h3 class="apb-author-name"><a href="%s">%s</a></h3>',
+				esc_url( $author['url'] ),
+				esc_html( $author['title'] )
+			);
+		}
+
+		return sprintf(
+			'<h3 class="apb-author-name">%s</h3>',
+			esc_html( $author['title'] )
+		);
 	}
 
 	/**
@@ -59,7 +73,10 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_position( array $author ): string {
-		return '<div class="apb-author-position">' . esc_html( $author['position'] ) . '</div>';
+		return sprintf(
+			'<div class="apb-author-position">%s</div>',
+			esc_html( $author['position'] )
+		);
 	}
 
 	/**
@@ -151,7 +168,14 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_more_content( string $content ): string {
-		return '<div class="apb-author-more-content">' . wp_kses_post( $content ) . '</div>';
+		if ( '' === $content ) {
+			return '';
+		}
+
+		return sprintf(
+			'<div class="apb-author-more-content">%s</div>',
+			wp_kses_post( $content )
+		);
 	}
 
 	/**
@@ -177,23 +201,23 @@ trait Author_Renderer {
 	protected function get_social_icon_data(): array {
 		return array(
 			'facebook'  => array(
-				'name' => 'Facebook',
+				'name' => esc_html__( 'Facebook', 'author-profile-blocks' ),
 				'icon' => 'facebook',
 			),
 			'twitter'   => array(
-				'name' => 'Twitter',
+				'name' => esc_html__( 'Twitter', 'author-profile-blocks' ),
 				'icon' => 'twitter',
 			),
 			'linkedin'  => array(
-				'name' => 'LinkedIn',
+				'name' => esc_html__( 'LinkedIn', 'author-profile-blocks' ),
 				'icon' => 'linkedin',
 			),
 			'instagram' => array(
-				'name' => 'Instagram',
+				'name' => esc_html__( 'Instagram', 'author-profile-blocks' ),
 				'icon' => 'instagram',
 			),
 			'website'   => array(
-				'name' => 'Website',
+				'name' => esc_html__( 'Website', 'author-profile-blocks' ),
 				'icon' => 'admin-site',
 			),
 		);

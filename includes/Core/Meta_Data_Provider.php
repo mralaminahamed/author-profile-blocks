@@ -3,8 +3,7 @@
 /**
  * Meta Data Provider interface
  *
- * @package    AuthorProfileBlocks
- * @subpackage Core
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Core;

@@ -3,8 +3,7 @@
 /**
  * Author List Block class
  *
- * @package    AuthorProfileBlocks
- * @subpackage Blocks
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Blocks;

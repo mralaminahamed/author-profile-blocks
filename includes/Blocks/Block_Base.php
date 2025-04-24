@@ -3,8 +3,7 @@
 /**
  * Abstract Block Base class
  *
- * @package    AuthorProfileBlocks
- * @subpackage Blocks
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Blocks;

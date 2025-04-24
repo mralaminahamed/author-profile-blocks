@@ -3,8 +3,7 @@
 /**
  * User Meta Provider class
  *
- * @package    AuthorProfileBlocks
- * @subpackage Core
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Core;

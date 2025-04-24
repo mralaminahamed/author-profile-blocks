@@ -3,8 +3,7 @@
 /**
  * Layout Renderer Trait
  *
- * @package    AuthorProfileBlocks
- * @subpackage Common
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Common;

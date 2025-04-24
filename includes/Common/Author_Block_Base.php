@@ -3,8 +3,7 @@
 /**
  * Author Block Base
  *
- * @package    AuthorProfileBlocks
- * @subpackage Common
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Common;

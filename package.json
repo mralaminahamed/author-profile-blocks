@@ -70,6 +70,7 @@
 		"languages",
 		"vendor/composer",
 		"vendor/autoload.php",
+		"composer.json",
 		"index.php",
 		"author-profile-blocks.php",
 		"readme.txt",

@@ -3,8 +3,7 @@
 /**
  * Base class for common functionality
  *
- * @package    AuthorProfileBlocks
- * @subpackage Core
+ * @package AuthorProfileBlocks
  */
 
 namespace AuthorProfileBlocks\Core;
