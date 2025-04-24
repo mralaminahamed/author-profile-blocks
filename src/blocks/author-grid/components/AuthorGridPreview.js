@@ -8,7 +8,7 @@ import ServerSideRender from '@wordpress/server-side-render';
  *
  * @param {Object} props             Component props
  * @param {Object} props.attributes  Block attributes
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const AuthorGridPreview = ({ attributes }) => {
     return (

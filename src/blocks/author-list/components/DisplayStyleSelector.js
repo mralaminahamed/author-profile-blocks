@@ -8,10 +8,12 @@ import { columns, tablet } from '@wordpress/icons';
 /**
  * Display style selector component for the Author List block.
  *
+ * @param value
+ * @param onChange
  * @param {Object} props Component props.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
-export default function DisplayStyleSelector({ value, onChange }) {
+export default function DisplayStyleSelector({ value, onChange, ...props }) {
     const styles = [
         {
             name: 'compact',
@@ -26,7 +28,7 @@ export default function DisplayStyleSelector({ value, onChange }) {
     ];
 
     return (
-        <div className="apb-display-style-selector">
+        <div className="apb-display-style-selector" { ...props}>
             <Flex gap={2} direction="column">
                 <FlexItem>
                     <span className="components-base-control__label">

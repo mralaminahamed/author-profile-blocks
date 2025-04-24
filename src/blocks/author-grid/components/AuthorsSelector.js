@@ -13,7 +13,7 @@ import { useState } from '@wordpress/element';
  * @param {Array}  props.selectedIds List of selected author IDs
  * @param {Function} props.onSelectAuthors Callback when authors are selected
  * @param {boolean} props.isLoading  Loading state
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const AuthorsSelector = ({ authors, selectedIds, onSelectAuthors, isLoading }) => {
     const [authorId, setAuthorId] = useState('');

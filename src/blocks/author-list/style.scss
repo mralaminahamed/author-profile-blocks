@@ -1,230 +1,251 @@
 /**
  * The following styles get applied both on the front of your site
- * and in the editor.
+ * and in the editor for the Author List block.
  */
 
+// Variables
+$border-color: #e0e0e0;
+$gap-small: 8px;
+$gap-medium: 15px;
+$gap-large: 20px;
+$transition-standard: all 0.2s ease;
+$text-color: #333;
+$text-muted: #666;
+$box-shadow-hover: 0 5px 15px rgba(0, 0, 0, 0.08);
+$border-radius: 8px;
+$social-bg: #f0f0f0;
+$social-bg-hover: #e0e0e0;
+
 .wp-block-author-profile-blocks-author-list {
-    // List container
-    .apb-author-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        padding: 0;
-        margin: 0;
-        list-style: none;
+  // List container
+  .apb-author-list {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-medium;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
-        &.has-dividers {
+    // Dividers between items
+    &.has-dividers {
 
-            li:not(:last-child) {
-                padding-bottom: 15px;
-                border-color: #e0e0e0;
-                border-bottom-style: solid;
-                border-bottom-width: 1px;
-            }
-        }
-
-        // Hover effect
-        .has-hover-effect {
-            transition: all 0.2s ease;
-
-            &:hover {
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-                transform: translateY(-3px);
-            }
-        }
+      li:not(:last-child) {
+        padding-bottom: $gap-medium;
+        border-color: $border-color;
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+      }
     }
 
-    // List item
-    .apb-author-list-item {
+    // Hover effect
+    .has-hover-effect {
+      transition: $transition-standard;
 
-        .apb-author-list-item-content {
-            width: 100%;
-        }
+      &:hover {
+        box-shadow: $box-shadow-hover;
+        transform: translateY(-3px);
+      }
+    }
+  }
 
-        &.is-rounded {
-            overflow: hidden;
-            border-radius: 8px;
+  // List item
+  .apb-author-list-item {
 
-            .apb-author-image img {
-                border-radius: 50%;
-            }
-        }
+    .apb-author-list-item-content {
+      width: 100%;
     }
 
-    // Compact layout
-    .apb-author-list-compact {
+    // Rounded corners variant
+    &.is-rounded {
+      overflow: hidden;
+      border-radius: $border-radius;
+
+      .apb-author-image img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  // Compact layout
+  .apb-author-list-compact {
+    display: flex;
+    gap: $gap-medium;
+    align-items: center;
+
+    .apb-author-list-info {
+      flex: 1;
+    }
+
+    .apb-author-list-social {
+      flex: 0 0 auto;
+    }
+  }
+
+  // Detailed layout
+  .apb-author-list-detailed {
+    display: flex;
+    gap: $gap-large;
+
+    .apb-author-list-left {
+      flex: 0 0 80px;
+    }
+
+    .apb-author-list-right {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: $gap-small;
+    }
+
+    .apb-author-list-header {
+      margin-bottom: 5px;
+    }
+
+    .apb-author-list-footer {
+      margin-top: 5px;
+    }
+  }
+
+  // Author image
+  .apb-author-image {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    // Larger image for detailed layout
+    .apb-author-list-detailed & {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  // Author information elements
+  .apb-author-name {
+    margin: 0 0 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: $text-color;
+  }
+
+  .apb-author-position {
+    margin-bottom: 0.2rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+
+  .apb-author-email {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .apb-author-description {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: $text-color;
+
+    // Truncate text for compact layout
+    .apb-author-list-compact & {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  // Social profiles
+  .apb-social-profiles {
+
+    .apb-social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $gap-small;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .apb-social-item {
+      display: inline-block;
+
+      a {
         display: flex;
-        gap: 15px;
         align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        text-decoration: none;
+        background-color: $social-bg;
+        border-radius: 50%;
+        transition: $transition-standard;
 
-        .apb-author-list-info {
-            flex: 1;
+        &:hover {
+          background-color: $social-bg-hover;
         }
-
-        .apb-author-list-social {
-            flex: 0 0 auto;
-        }
+      }
     }
 
-    // Detailed layout
+    // Social icons alignment for different layouts
+    .apb-author-list-compact & {
+
+      .apb-social-list {
+        justify-content: flex-end;
+      }
+    }
+
+    .apb-author-list-detailed & {
+
+      .apb-social-list {
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  // Error message
+  .apb-author-list-error {
+    padding: 20px;
+    color: $text-muted;
+    text-align: center;
+    background-color: #f8f8f8;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+  }
+
+  // Responsive adjustments
+  @media (max-width: 600px) {
+
     .apb-author-list-detailed {
-        display: flex;
-        gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
 
-        .apb-author-list-left {
-            flex: 0 0 80px;
-        }
+      .apb-author-list-left {
+        flex: 0 0 auto;
+      }
 
-        .apb-author-list-right {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            gap: 8px;
-        }
+      .apb-author-list-right {
+        width: 100%;
+      }
 
-        .apb-author-list-header {
-            margin-bottom: 5px;
-        }
-
-        .apb-author-list-footer {
-            margin-top: 5px;
-        }
+      .apb-social-list {
+        justify-content: center !important;
+      }
     }
-
-    // Author image
-    .apb-author-image {
-        flex-shrink: 0;
-        width: 60px;
-        height: 60px;
-
-        img {
-            width: 100%;
-            height: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-        }
-
-        .apb-author-list-detailed & {
-            width: 80px;
-            height: 80px;
-        }
-    }
-
-    // Author info
-    .apb-author-name {
-        margin: 0 0 0.2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        line-height: 1.3;
-    }
-
-    .apb-author-position {
-        margin-bottom: 0.2rem;
-        font-size: 0.85rem;
-        opacity: 0.8;
-    }
-
-    .apb-author-email {
-        margin-bottom: 0.5rem;
-        font-size: 0.85rem;
-
-        a {
-            text-decoration: none;
-        }
-    }
-
-    .apb-author-description {
-        margin: 0.5rem 0;
-        font-size: 0.9rem;
-        line-height: 1.5;
-
-        // For compact view, limit to 2 lines
-        .apb-author-list-compact & {
-            display: -webkit-box;
-            overflow: hidden;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-    }
-
-    // Social profiles
-    .apb-social-profiles {
-
-        .apb-social-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-        .apb-social-item {
-            display: inline-block;
-
-            a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 32px;
-                height: 32px;
-                text-decoration: none;
-                background-color: #f0f0f0;
-                border-radius: 50%;
-                transition: all 0.2s ease;
-
-                &:hover {
-                    background-color: #e0e0e0;
-                }
-            }
-        }
-
-        // Compact style social icons
-        .apb-author-list-compact & {
-
-            .apb-social-list {
-                justify-content: flex-end;
-            }
-        }
-
-        // Detailed style social icons
-        .apb-author-list-detailed & {
-
-            .apb-social-list {
-                justify-content: flex-start;
-            }
-        }
-    }
-
-    // Error message
-    .apb-author-list-error {
-        padding: 20px;
-        color: #666;
-        text-align: center;
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
-    // Responsive adjustments
-    @media (max-width: 600px) {
-
-        .apb-author-list-detailed {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-
-            .apb-author-list-left {
-                flex: 0 0 auto;
-            }
-
-            .apb-author-list-right {
-                width: 100%;
-            }
-
-            .apb-social-list {
-                justify-content: center !important;
-            }
-        }
-    }
+  }
 }

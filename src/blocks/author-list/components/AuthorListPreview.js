@@ -7,15 +7,15 @@ import { list as listIcon } from '@wordpress/icons';
 
 /**
  * Author list preview component for the editor.
- * 
+ *
  * @param {Object} props Component props.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
-export default function AuthorListPreview({ 
-    isLoading, 
-    authors, 
-    attributes, 
-    error 
+export default function AuthorListPreview({
+    isLoading,
+    authors,
+    attributes,
+    error
 }) {
     if (isLoading) {
         return (

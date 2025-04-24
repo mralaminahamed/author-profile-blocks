@@ -29,7 +29,7 @@ import MoreContent from './components/MoreContent';
  * The edit function for the Author Profile block.
  *
  * @param {Object} props Block properties.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
     const {

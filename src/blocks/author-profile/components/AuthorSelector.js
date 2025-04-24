@@ -30,7 +30,7 @@ import { sprintf } from '@wordpress/i18n';
  * @param {Array}    props.authors        Array of author objects
  * @param {Function} props.onSelectAuthor Callback for when an author is selected
  * @param {boolean}  props.isLoading      Whether authors are currently loading
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const AuthorSelector = ({ authors, onSelectAuthor, isLoading }) => {
     const [selectedAuthorId, setSelectedAuthorId] = useState('');

@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @param {Object} props             Component props
  * @param {Object} props.attributes  Block attributes
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const AuthorCarouselPreview = ({ attributes }) => {
     // Generate a simple placeholder in the editor instead of trying to initialize Slick

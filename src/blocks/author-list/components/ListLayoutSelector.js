@@ -8,10 +8,12 @@ import { list, formatListBullets, formatListNumbered } from '@wordpress/icons';
 /**
  * Layout selector component for the Author List block.
  *
+ * @param value
+ * @param onChange
  * @param {Object} props Component props.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
-export default function ListLayoutSelector({ value, onChange }) {
+export default function ListLayoutSelector({ value, onChange, ...props }) {
     const layouts = [
         {
             name: 'ul',
@@ -26,7 +28,7 @@ export default function ListLayoutSelector({ value, onChange }) {
     ];
 
     return (
-        <div className="apb-list-layout-selector">
+        <div className="apb-list-layout-selector" {...props}>
             <Flex gap={2} direction="column">
                 <FlexItem>
                     <span className="components-base-control__label">

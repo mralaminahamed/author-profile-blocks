@@ -12,7 +12,7 @@ import { formatBold, formatItalic, formatListBullets, formatListNumbered, link }
  * @param {Object}   props                  Component props
  * @param {string}   props.content          The current content
  * @param {Function} props.onContentChange  Callback for when content changes
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const MoreContent = ({ content, onContentChange }) => {
     return (

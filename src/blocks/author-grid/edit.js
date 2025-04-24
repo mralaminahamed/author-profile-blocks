@@ -30,7 +30,7 @@ import GridLayoutSelector from './components/GridLayoutSelector';
  * The edit function for the Author Grid block.
  *
  * @param {Object} props Block properties.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
     const {

@@ -2,15 +2,22 @@
  * Author Grid block editor styles
  */
 
-.wp-block-author-profile-blocks-author-grid {
+// Variables
+$border-color: #ddd;
+$placeholder-bg: #f8f9fa;
+$selected-bg: #f0f7fc;
+$selected-border: #007cba;
+$spacing-standard: 1rem;
+$border-radius: 4px;
 
+.wp-block-author-profile-blocks-author-grid {
   // Author picker placeholder
   .apb-author-grid-placeholder {
-    padding: 2rem;
+    padding: 2 * $spacing-standard;
     text-align: center;
-    background-color: #f8f9fa;
+    background-color: $placeholder-bg;
     border: 1px dashed #c3c4c7;
-    border-radius: 4px;
+    border-radius: $border-radius;
 
     h3 {
       margin-top: 0;
@@ -24,22 +31,27 @@
 
   // Grid layout preview in editor
   .apb-author-grid-preview {
-
+    // Layout options
     .apb-grid-layout-options {
       display: flex;
       gap: 10px;
       justify-content: center;
-      margin-bottom: 1rem;
+      margin-bottom: $spacing-standard;
 
       .apb-layout-option {
         padding: 10px;
         cursor: pointer;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        transition: all 0.2s ease;
+
+        &:hover:not(.is-selected) {
+          background-color: rgba($selected-bg, 0.5);
+        }
 
         &.is-selected {
-          background-color: #f0f7fc;
-          border-color: #007cba;
+          background-color: $selected-bg;
+          border-color: $selected-border;
         }
       }
     }
@@ -47,7 +59,6 @@
 
   // Inspector controls
   .components-panel__body {
-
     .components-base-control {
       margin-bottom: 16px;
     }
@@ -55,6 +66,7 @@
     .apb-inspector-control-label {
       display: block;
       margin-bottom: 8px;
+      font-weight: 500;
     }
 
     .apb-controls-row {

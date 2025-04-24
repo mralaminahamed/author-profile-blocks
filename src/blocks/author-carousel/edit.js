@@ -29,7 +29,7 @@ import CarouselLayoutSelector from './components/CarouselLayoutSelector';
  * The edit function for the Author Carousel block.
  *
  * @param {Object} props Block properties.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
     const {

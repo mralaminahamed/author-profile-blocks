@@ -15,7 +15,7 @@ const { AuthorProfileBlocks = { adminUrl: '/wp-admin/' } } = window;
  * @param {Object} props             Component props
  * @param {string} props.selectedLayout Current selected layout
  * @param {Function} props.onSelectLayout Callback for layout selection
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const GridLayoutSelector = ({ selectedLayout, onSelectLayout }) => {
     // Layout options

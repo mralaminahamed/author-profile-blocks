@@ -37,7 +37,7 @@ import useAuthors from './hooks/useAuthors';
  * Edit function for the Author List block.
  *
  * @param {Object} props Block properties.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes, clientId, insertBlocks }) {
     const {
@@ -172,11 +172,13 @@ export default function Edit({ attributes, setAttributes, clientId, insertBlocks
                     <DisplayStyleSelector
                         value={displayStyle}
                         onChange={(value) => setAttributes({ displayStyle: value })}
+						style={{ marginBottom: '1rem' }}
                     />
 
                     <ListLayoutSelector
                         value={listStyle}
                         onChange={(value) => setAttributes({ listStyle: value })}
+						style={{ marginBottom: '1rem' }}
                     />
 
                     <ToggleControl

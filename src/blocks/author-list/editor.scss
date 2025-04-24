@@ -1,45 +1,61 @@
 /**
  * The following styles get applied inside the editor only.
+ * Author List block editor styles
  */
 
+// Variables
+$border-color: #ddd;
+$spacing-standard: 16px;
+
 .wp-block-author-profile-blocks-author-list {
-    border: 1px dashed #ddd;
+  // Visual indicator in editor
+  border: 1px dashed $border-color;
 
-    .apb-color-picker-label-wrapper {
-        margin-bottom: 16px;
+  // Color picker section
+  .apb-color-picker-label-wrapper {
+    margin-bottom: $spacing-standard;
 
-        span {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
+    span {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
     }
+  }
 
-    // Reset default WP list styles in editor
-    .apb-author-list {
-        padding: 0 !important;
-        margin: 0 !important;
-        list-style: none !important;
+  // Reset default WP list styles in editor
+  .apb-author-list {
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+  }
+
+  // Placeholder styling
+  .components-placeholder {
+    min-height: 200px;
+
+    &__fieldset {
+      max-width: 100%;
     }
+  }
 
-    // Placeholder styling
-    .components-placeholder {
-        min-height: 200px;
+  // Author picker button styling (additional styles for editor)
+  .apb-author-picker-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 
-        &__fieldset {
-            max-width: 100%;
-        }
+    .components-button {
+      margin-top: 10px;
     }
+  }
 
-    // Author picker button styling
-    .apb-author-picker-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
+  // Editor toolbar styles
+  .block-editor-block-toolbar {
 
-        .components-button {
-            margin-top: 10px;
-        }
+    .components-toolbar-group,
+    .components-toolbar {
+      border-right-color: $border-color;
     }
+  }
 }

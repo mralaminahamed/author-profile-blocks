@@ -2,23 +2,33 @@
  * Author Grid block front-end styles
  */
 
+// Variables
+$spacing-standard: 1rem;
+$gap-standard: 20px;
+$border-radius: 8px;
+$transition-standard: all 0.3s ease;
+$social-bg: #f0f0f0;
+$social-bg-hover: #e0e0e0;
+$shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
 // Grid container
 .wp-block-author-profile-blocks-author-grid {
-  padding: 1rem;
+  padding: $spacing-standard;
 
+  // Grid layout with responsive columns
   .apb-author-grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 20px;
+    gap: $gap-standard;
     width: 100%;
 
-    // Responsive grid
+    // Responsive breakpoints
     @media (min-width: 576px) {
       grid-template-columns: repeat(2, 1fr);
     }
 
     @media (min-width: 992px) {
-
+      // Column variants
       &.apb-columns-2 {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -38,9 +48,9 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: all 0.3s ease;
+    transition: $transition-standard;
 
-    // Card styling
+    // Card layout
     &.is-layout-card {
       overflow: hidden;
 
@@ -63,9 +73,8 @@
       }
     }
 
-    // Compact styling
+    // Compact layout
     &.is-layout-compact {
-
       .apb-author-header {
         display: flex;
         align-items: center;
@@ -80,7 +89,7 @@
       }
     }
 
-    // Centered styling
+    // Centered layout
     &.is-layout-centered {
       text-align: center;
 
@@ -90,9 +99,9 @@
     }
   }
 
-  // Common elements
+  // Author elements
   .apb-author-image {
-    margin-bottom: 1rem;
+    margin-bottom: $spacing-standard;
 
     img {
       max-width: 100%;
@@ -122,19 +131,25 @@
 
     a {
       text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
   .apb-author-description {
-    margin-bottom: 1rem;
+    margin-bottom: $spacing-standard;
     font-size: 0.95rem;
+    line-height: 1.5;
   }
 
-  // Social profiles
+  // Social profiles section
   .apb-social-profiles {
     padding-top: 0.5rem;
     margin-top: auto;
 
+    // Social icons list
     .apb-social-list {
       display: flex;
       flex-wrap: wrap;
@@ -145,6 +160,7 @@
       list-style: none;
     }
 
+    // Individual social icon
     .apb-social-item {
       display: inline-block;
 
@@ -155,30 +171,28 @@
         width: 32px;
         height: 32px;
         text-decoration: none;
-        background-color: #f0f0f0;
+        background-color: $social-bg;
         border-radius: 50%;
-        transition: all 0.2s ease;
+        transition: $transition-standard;
 
         &:hover {
-          background-color: #e0e0e0;
+          background-color: $social-bg-hover;
         }
       }
     }
   }
 
-  // Shadow effect
+  // Visual style modifiers
   .has-shadow {
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: $shadow;
   }
 
-  // Border effect
   .has-border {
     border-style: solid;
   }
 
-  // Rounded corners
   .is-rounded {
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: $border-radius;
   }
 }
