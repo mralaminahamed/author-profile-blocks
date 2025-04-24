@@ -42,10 +42,7 @@ class Author_Profile_Block extends Block_Base {
 	 * @return void
 	 */
 	protected function additional_init(): void {
-		// Localize script with admin URL for the editor.
 		add_action( 'enqueue_block_editor_assets', array( $this, 'localize_block_script' ) );
-
-		// Add filter for block content
 		add_filter( 'render_block_author-profile-blocks/author-profile', array( $this, 'filter_rendered_output' ), 10, 2 );
 	}
 
@@ -218,7 +215,7 @@ class Author_Profile_Block extends Block_Base {
 	 * @return string The cache key.
 	 */
 	private function generate_cache_key( int $author_id, array $attributes ): string {
-		return md5( $author_id . serialize( $attributes ) );
+		return md5( $author_id . maybe_serialize( $attributes ) );
 	}
 
 	/**
@@ -557,13 +554,13 @@ class Author_Profile_Block extends Block_Base {
 	 * Render author image section.
 	 *
 	 * @param array  $author Author data.
-	 * @param string $class Optional. Additional CSS class for the image container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the image container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_image( array $author, string $class = '' ): string {
+	private function render_author_image( array $author, string $wrapper_class = '' ): string {
 		$classes = 'apb-author-image';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		return '<div class="' . esc_attr( $classes ) . '">' .
@@ -621,13 +618,13 @@ class Author_Profile_Block extends Block_Base {
 	 * Render social profiles section.
 	 *
 	 * @param array  $profiles Social profile URLs.
-	 * @param string $class Optional. Additional CSS class for the social profiles container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the social profiles container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_social_profiles( array $profiles, string $class = '' ): string {
+	private function render_social_profiles( array $profiles, string $wrapper_class = '' ): string {
 		$classes = 'apb-social-profiles';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		$html  = '<div class="' . esc_attr( $classes ) . '">';
@@ -665,7 +662,7 @@ class Author_Profile_Block extends Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	private function render_registered_date( array $author ): string {
-		// Use the customizable label
+		// Use the customizable label.
 		$label = isset( $author['member_since_label'] ) ? $author['member_since_label'] : __( 'Member since', 'author-profile-blocks' );
 
 		return '<div class="apb-author-registered-date">' .

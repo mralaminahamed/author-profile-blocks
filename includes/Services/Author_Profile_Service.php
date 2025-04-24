@@ -68,7 +68,7 @@ class Author_Profile_Service extends Base {
 	 * @return void
 	 */
 	public function register_rest_fields(): void {
-		// Register avatar URL field
+		// Register avatar URL field.
 		register_rest_field(
 			'user',
 			'avatar_url',
@@ -82,7 +82,7 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register position field
+		// Register position field.
 		register_rest_field(
 			'user',
 			'author_position',
@@ -96,7 +96,7 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register description field
+		// Register description field.
 		register_rest_field(
 			'user',
 			'author_description',
@@ -110,7 +110,7 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register social profiles field
+		// Register social profiles field.
 		register_rest_field(
 			'user',
 			'social_profiles',
@@ -124,7 +124,7 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register registered date field
+		// Register registered date field.
 		register_rest_field(
 			'user',
 			'registered_date',
@@ -138,7 +138,7 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register member since label field
+		// Register member since label field.
 		register_rest_field(
 			'user',
 			'member_since_label',
@@ -232,7 +232,7 @@ class Author_Profile_Service extends Base {
 			return '';
 		}
 
-		// Format the registration date according to the site's date format setting
+		// Format the registration date according to the site's date format setting.
 		return date_i18n( get_option( 'date_format' ), strtotime( $user_obj->user_registered ) );
 	}
 
@@ -245,7 +245,7 @@ class Author_Profile_Service extends Base {
 	public function get_member_since_label( array $user ): string {
 		$custom_label = $this->meta_provider->get_meta( $user['id'], 'apb_member_since_label', true );
 
-		// Use default if empty
+		// Use default if empty.
 		if ( empty( $custom_label ) ) {
 			$custom_label = __( 'Member since', 'author-profile-blocks' );
 		}
@@ -260,7 +260,7 @@ class Author_Profile_Service extends Base {
 	 * @return array|null Author data or null if not found
 	 */
 	public function get_author_data( int $author_id ): ?array {
-		// Check cache first
+		// Check cache first.
 		if ( isset( $this->author_cache[ $author_id ] ) ) {
 			return $this->author_cache[ $author_id ];
 		}
@@ -276,32 +276,32 @@ class Author_Profile_Service extends Base {
 		$social_profiles = $this->meta_provider->get_meta( $author_id, 'apb_social_profiles', true );
 		$image           = get_avatar_url( $author_id, array( 'size' => 150 ) );
 
-		// Get member since label (use default if custom label is not set)
+		// Get member since label (use default if custom label is not set).
 		$member_since_label = $this->meta_provider->get_meta( $author_id, 'apb_member_since_label', true );
 		if ( empty( $member_since_label ) ) {
 			$member_since_label = __( 'Member since', 'author-profile-blocks' );
 		}
 
-		// Get registration date
+		// Get registration date.
 		$registered_date = date_i18n( get_option( 'date_format' ), strtotime( $user->user_registered ) );
 
 		$author_data = array(
-			'id'                => $author_id,
-			'title'             => $user->display_name,
-			'email'             => $user->user_email,
-			'description'       => $description,
-			'position'          => $position,
-			'social'            => $social_profiles,
-			'image'             => $image,
-			'registered_date'   => $registered_date,
+			'id'                 => $author_id,
+			'title'              => $user->display_name,
+			'email'              => $user->user_email,
+			'description'        => $description,
+			'position'           => $position,
+			'social'             => $social_profiles,
+			'image'              => $image,
+			'registered_date'    => $registered_date,
 			'member_since_label' => $member_since_label,
-			'role'              => $user->roles[0] ?? '',
+			'role'               => $user->roles[0] ?? '',
 		);
 
-		// Apply filters to allow customization of author data
+		// Apply filters to allow customization of author data.
 		$author_data = apply_filters( 'author_profile_blocks_author_data', $author_data, $user );
 
-		// Cache the result
+		// Cache the result.
 		$this->author_cache[ $author_id ] = $author_data;
 
 		return $author_data;
@@ -315,14 +315,14 @@ class Author_Profile_Service extends Base {
 	 * @return array Array of author data.
 	 */
 	public function get_authors( array $roles = array(), array $args = array() ): array {
-		// Set default roles if none provided
+		// Set default roles if none provided.
 		if ( empty( $roles ) ) {
 			$roles = array( 'administrator', 'editor', 'author', 'contributor' );
 		}
 
-		// Create a cache key for this query
+		// Create a cache key for this query.
 		$cache_key = md5(
-			serialize(
+			maybe_serialize(
 				array(
 					'roles' => $roles,
 					'args'  => $args,
@@ -330,33 +330,33 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Check for cached results
+		// Check for cached results.
 		$cached_results = wp_cache_get( $cache_key, 'author_profile_blocks_authors' );
 		if ( false !== $cached_results ) {
 			return $cached_results;
 		}
 
-		// Merge with default arguments
+		// Merge with default arguments.
 		$query_args = array_merge(
 			array(
 				'role__in'    => $roles,
 				'orderby'     => 'display_name',
 				'order'       => 'ASC',
 				'count_total' => false,
-				'number'      => -1, // Get all users
+				'number'      => -1, // Get all users.
 			),
 			$args
 		);
 
-		// Allow filtering of query args
+		// Allow filtering of query args.
 		$query_args = apply_filters( 'author_profile_blocks_author_query_args', $query_args );
 
-		// Get users
+		// Get users.
 		$user_query = new WP_User_Query( $query_args );
 		$users      = $user_query->get_results();
 		$authors    = array();
 
-		// Build author data
+		// Build author data.
 		foreach ( $users as $user ) {
 			$author_data = $this->get_author_data( $user->ID );
 			if ( $author_data ) {
@@ -364,10 +364,10 @@ class Author_Profile_Service extends Base {
 			}
 		}
 
-		// Allow filtering of authors
+		// Allow filtering of authors.
 		$authors = apply_filters( 'author_profile_blocks_authors', $authors, $query_args );
 
-		// Cache the results
+		// Cache the results.
 		wp_cache_set( $cache_key, $authors, 'author_profile_blocks_authors', HOUR_IN_SECONDS );
 
 		return $authors;
@@ -380,10 +380,10 @@ class Author_Profile_Service extends Base {
 	 * @return array Array of featured author data.
 	 */
 	public function get_featured_authors( int $number = -1 ): array {
-		// Query for users with the featured meta flag
+		// Query for users with the featured meta flag.
 		$args = array(
-			'meta_key'     => 'apb_is_featured',
-			'meta_value'   => '1',
+			'meta_key'     => 'apb_is_featured', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			'meta_value'   => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 			'meta_compare' => '=',
 			'number'       => $number,
 		);

@@ -109,7 +109,7 @@ class Plugin extends Base {
 			)
 		);
 
-		// Add custom field for Member Since label
+		// Add custom field for Member Since label.
 		$this->user_meta_provider->add_meta_field(
 			'apb_member_since_label',
 			array(
@@ -149,7 +149,17 @@ class Plugin extends Base {
 		// Set initialized state.
 		$this->set_initialized();
 
-		// Allow plugins/themes to interact with our plugin after initialization.
+		/**
+		 * Fires after the Author Profile Blocks plugin has been fully initialized.
+		 *
+		 * This action allows plugins and themes to interact with the Author Profile Blocks
+		 * plugin after it has been initialized. The Plugin instance is passed as a parameter,
+		 * providing access to all plugin functionality.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param \AuthorProfileBlocks\Plugin $plugin The Plugin instance.
+		 */
 		do_action( 'author_profile_blocks_init', $this );
 	}
 
@@ -186,12 +196,12 @@ class Plugin extends Base {
 	 */
 	public function add_author_profile_fields( WP_User $user ): void {
 		// Get current values.
-		$description       = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_description', true );
-		$position          = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_position', true );
-		$social_profiles   = $this->user_meta_provider->get_meta( $user->ID, 'apb_social_profiles', true );
+		$description        = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_description', true );
+		$position           = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_position', true );
+		$social_profiles    = $this->user_meta_provider->get_meta( $user->ID, 'apb_social_profiles', true );
 		$member_since_label = $this->user_meta_provider->get_meta( $user->ID, 'apb_member_since_label', true );
 
-		// Use default if empty
+		// Use default if empty.
 		if ( empty( $member_since_label ) ) {
 			$member_since_label = __( 'Member since', 'author-profile-blocks' );
 		}
@@ -205,6 +215,8 @@ class Plugin extends Base {
 				'website'   => '',
 			);
 		}
+
+		wp_nonce_field( 'apb_save_profile_data', 'apb_profile_nonce' );
 		?>
 
 		<h2><?php esc_html_e( 'Author Profile Information', 'author-profile-blocks' ); ?></h2>
@@ -276,7 +288,16 @@ class Plugin extends Base {
 		</table>
 		<?php
 
-		// Allow plugins/themes to add additional author profile fields.
+		/**
+		 * Fires after displaying the built-in author profile fields.
+		 *
+		 * This action allows plugins and themes to add their own custom fields
+		 * to the user profile page within the Author Profile Blocks section.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param WP_User $user The user object for the user being edited.
+		 */
 		do_action( 'author_profile_blocks_profile_fields', $user );
 	}
 
@@ -288,6 +309,11 @@ class Plugin extends Base {
 	 */
 	public function save_author_profile_fields( int $user_id ): void {
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			return;
+		}
+
+		// Verify nonce before processing form data.
+		if ( ! isset( $_POST['apb_profile_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['apb_profile_nonce'] ), 'apb_save_profile_data' ) ) {
 			return;
 		}
 
@@ -314,7 +340,7 @@ class Plugin extends Base {
 			$this->user_meta_provider->update_meta(
 				$user_id,
 				'apb_social_profiles',
-				$this->sanitize_social_profiles( wp_unslash( $_POST['apb_social_profiles'] ) )
+				$this->sanitize_social_profiles( wp_unslash( $_POST['apb_social_profiles'] ) ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			);
 		}
 
@@ -330,7 +356,17 @@ class Plugin extends Base {
 		// Clear the author cache.
 		$this->author_profile_service->clear_cache( $user_id );
 
-		// Allow plugins/themes to save additional author profile fields.
+		/**
+		 * Fires after the author profile fields are saved.
+		 *
+		 * This action allows plugins and themes to save additional author profile fields
+		 * or perform operations after the built-in fields have been saved.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param int   $user_id  The ID of the user being saved.
+		 * @param array $_POST    The raw POST data containing all submitted form values.
+		 */
 		do_action( 'author_profile_blocks_save_profile_fields', $user_id, $_POST );
 	}
 

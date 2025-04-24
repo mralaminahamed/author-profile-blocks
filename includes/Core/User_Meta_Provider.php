@@ -30,10 +30,10 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 * @return void
 	 */
 	public function init(): void {
-		// Register meta fields
+		// Register meta fields.
 		add_action( 'init', array( $this, 'register_meta_fields' ) );
 
-		// Set initialized state
+		// Set initialized state.
 		$this->set_initialized();
 	}
 
@@ -43,7 +43,7 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 * @return void
 	 */
 	public function register_meta_fields(): void {
-		// Register each configured meta field
+		// Register each configured meta field.
 		foreach ( $this->meta_fields as $key => $config ) {
 			register_meta(
 				'user',
@@ -97,7 +97,7 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 * @param mixed  $value    Optional. The meta value to delete.
 	 * @return bool True on success, false on failure.
 	 */
-	public function delete_meta( int $item_id, string $key, $value = '' ) {
+	public function delete_meta( int $item_id, string $key, $value = '' ): bool {
 		return delete_user_meta( $item_id, $key, $value );
 	}
 

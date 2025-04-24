@@ -42,7 +42,6 @@ class Author_List_Block extends Block_Base {
 	 * @return void
 	 */
 	protected function additional_init(): void {
-		// Add filter for block content
 		add_filter( 'render_block_author-profile-blocks/author-list', array( $this, 'filter_rendered_output' ), 10, 2 );
 	}
 
@@ -56,7 +55,18 @@ class Author_List_Block extends Block_Base {
 	 * @return string The filtered content.
 	 */
 	public function filter_rendered_output( string $block_content, array $block ): string {
-		// Allow themes/plugins to modify the final output.
+		/**
+		 * Filters the rendered output of the author list block.
+		 *
+		 * This filter allows themes and plugins to modify the final HTML output
+		 * of the Author List block before it's displayed on the frontend.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $block_content The rendered HTML output of the block.
+		 * @param array  $block         The block attributes and content.
+		 * @return string               The filtered block content.
+		 */
 		return apply_filters( 'author_profile_blocks_rendered_list', $block_content, $block );
 	}
 
@@ -78,7 +88,7 @@ class Author_List_Block extends Block_Base {
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
-		$author_ids = $attributes['authorIds'] ?? [];
+		$author_ids = $attributes['authorIds'] ?? array();
 
 		if ( empty( $author_ids ) ) {
 			return '<div class="apb-author-list-error">' .
@@ -92,21 +102,21 @@ class Author_List_Block extends Block_Base {
 			return $this->list_cache[ $cache_key ];
 		}
 
-		// Apply author role filter if specified
-		$roles = [];
+		// Apply author role filter if specified.
+		$roles = array();
 		if ( ! empty( $attributes['authorRole'] ) ) {
-			$roles = [ $attributes['authorRole'] ];
+			$roles = array( $attributes['authorRole'] );
 		}
 
-		// Get authors data using Plugin instance with role filtering
-		$authors = [];
-		$plugin = Plugin::get_instance();
+		// Get authors data using Plugin instance with role filtering.
+		$authors = array();
+		$plugin  = Plugin::get_instance();
 
-		// Handle individual author IDs
+		// Handle individual author IDs.
 		foreach ( $author_ids as $author_id ) {
 			$author_data = $plugin->get_author_data( $author_id );
 			if ( $author_data ) {
-				// Apply role filter if specified
+				// Apply role filter if specified.
 				if ( ! empty( $roles ) && ! in_array( $author_data['role'], $roles, true ) ) {
 					continue;
 				}
@@ -114,13 +124,13 @@ class Author_List_Block extends Block_Base {
 			}
 		}
 
-		// Apply maximum authors limit if specified
-		$max_authors = isset( $attributes['maxAuthors'] ) ? intval( $attributes['maxAuthors'] ) : 0;
+		// Apply maximum authors limit if specified.
+		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
 		if ( $max_authors > 0 && count( $authors ) > $max_authors ) {
 			$authors = array_slice( $authors, 0, $max_authors );
 		}
 
-		// If no authors found after filtering
+		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
 			return '<div class="apb-author-list-error">' .
 				esc_html__( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) .
@@ -128,7 +138,7 @@ class Author_List_Block extends Block_Base {
 		}
 
 		// Generate styles for the block.
-		$wrapper_styles = $this->get_block_styles( $attributes );
+		$wrapper_styles  = $this->get_block_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $wrapper_styles ) ) {
@@ -150,33 +160,33 @@ class Author_List_Block extends Block_Base {
 		// Build the HTML.
 		$html = '<div ' . $wrapper_attributes . '>';
 
-		// Determine list style
+		// Determine list style.
 		$list_style = $attributes['listStyle'] ?? 'ul';
-		$list_tag = ($list_style === 'ol') ? 'ol' : 'ul';
-		
-		// Create list container with appropriate class
+		$list_tag   = ( 'ol' === $list_style ) ? 'ol' : 'ul';
+
+		// Create list container with appropriate class.
 		$list_class = 'apb-author-list';
-		
-		// Add divider class if enabled
+
+		// Add divider class if enabled.
 		if ( ! empty( $attributes['enableDividers'] ) ) {
 			$list_class .= ' has-dividers';
 		}
-		
-		// Add spacing style
+
+		// Add spacing style.
 		$list_style_attr = '';
 		if ( isset( $attributes['itemSpacing'] ) ) {
-			$list_style_attr = ' style="gap: ' . intval( $attributes['itemSpacing'] ) . 'px;"';
+			$list_style_attr = ' style="gap: ' . (int) $attributes['itemSpacing'] . 'px;"';
 		}
 
 		$html .= '<' . $list_tag . ' class="' . esc_attr( $list_class ) . '"' . $list_style_attr . '>';
 
-		// Add each author profile
+		// Add each author profile.
 		foreach ( $authors as $author ) {
 			$html .= $this->render_author_item( $author, $attributes );
 		}
 
-		$html .= '</' . $list_tag . '>'; // Close list container
-		$html .= '</div>'; // Close block wrapper
+		$html .= '</' . $list_tag . '>'; // Close list container.
+		$html .= '</div>'; // Close block wrapper.
 
 		// Cache the result.
 		$this->list_cache[ $cache_key ] = $html;
@@ -192,8 +202,8 @@ class Author_List_Block extends Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_item( array $author, array $attributes ): string {
-		// Get item styles
-		$item_styles = $this->get_item_styles( $attributes );
+		// Get item styles.
+		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $item_styles ) ) {
@@ -204,41 +214,41 @@ class Author_List_Block extends Block_Base {
 			$style_attribute = ' style="' . esc_attr( implode( '; ', $style_strings ) ) . '"';
 		}
 
-		// Item classes based on layout and options
-		$item_classes = ['apb-author-list-item'];
+		// Item classes based on layout and options.
+		$item_classes = array( 'apb-author-list-item' );
 
-		// Add rounded class if enabled
+		// Add rounded class if enabled.
 		if ( ! empty( $attributes['enableRounded'] ) ) {
 			$item_classes[] = 'is-rounded';
 		}
 
-		// Add hover effect if enabled
+		// Add hover effect if enabled.
 		if ( ! empty( $attributes['enableHoverEffect'] ) ) {
 			$item_classes[] = 'has-hover-effect';
 		}
 
-		// Create list item
+		// Create list item.
 		$html = '<li class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
-		
-		// Inner content container
+
+		// Inner content container.
 		$html .= '<div class="apb-author-list-item-content">';
 
-		// Layout depends on display style
+		// Layout depends on display style.
 		$display_style = $attributes['displayStyle'] ?? 'compact';
-		
+
 		switch ( $display_style ) {
 			case 'detailed':
 				$html .= $this->render_detailed_layout( $author, $attributes );
 				break;
-				
+
 			case 'compact':
 			default:
 				$html .= $this->render_compact_layout( $author, $attributes );
 				break;
 		}
-		
-		$html .= '</div>'; // Close .apb-author-list-item-content
-		$html .= '</li>'; // Close list item
+
+		$html .= '</div>'; // Close .apb-author-list-item-content.
+		$html .= '</li>'; // Close list item.
 
 		return $html;
 	}
@@ -251,9 +261,9 @@ class Author_List_Block extends Block_Base {
 	 * @return string The cache key.
 	 */
 	private function generate_cache_key( array $author_ids, array $attributes ): string {
-		// Sort author IDs to ensure consistent cache key regardless of order
+		// Sort author IDs to ensure consistent cache key regardless of order.
 		sort( $author_ids );
-		return md5( implode( ',', $author_ids ) . serialize( $attributes ) );
+		return md5( implode( ',', $author_ids ) . maybe_serialize( $attributes ) );
 	}
 
 	/**
@@ -269,10 +279,10 @@ class Author_List_Block extends Block_Base {
 		if ( ! empty( $attributes['textAlign'] ) ) {
 			$classes[] = 'has-text-align-' . $attributes['textAlign'];
 		}
-		
-		// Display style
+
+		// Display style.
 		$display_style = $attributes['displayStyle'] ?? 'compact';
-		$classes[] = 'is-style-' . $display_style;
+		$classes[]     = 'is-style-' . $display_style;
 
 		return implode( ' ', $classes );
 	}
@@ -290,7 +300,7 @@ class Author_List_Block extends Block_Base {
 		if ( ! empty( $attributes['backgroundColor'] ) ) {
 			$styles['background-color'] = $attributes['backgroundColor'];
 		}
-		
+
 		// Padding.
 		if ( isset( $attributes['blockPadding'] ) ) {
 			$styles['padding'] = $attributes['blockPadding'] . 'px';
@@ -308,7 +318,7 @@ class Author_List_Block extends Block_Base {
 	private function get_item_styles( array $attributes ): array {
 		$styles = array();
 
-		// Item background color
+		// Item background color.
 		if ( ! empty( $attributes['itemBackgroundColor'] ) ) {
 			$styles['background-color'] = $attributes['itemBackgroundColor'];
 		}
@@ -317,8 +327,8 @@ class Author_List_Block extends Block_Base {
 		if ( isset( $attributes['itemPadding'] ) ) {
 			$styles['padding'] = $attributes['itemPadding'] . 'px';
 		}
-		
-		// Border color if dividers enabled
+
+		// Border color if dividers enabled.
 		if ( ! empty( $attributes['enableDividers'] ) && ! empty( $attributes['dividerColor'] ) ) {
 			$styles['border-color'] = $attributes['dividerColor'];
 		}
@@ -341,10 +351,10 @@ class Author_List_Block extends Block_Base {
 			$html .= $this->render_author_image( $author );
 		}
 
-		// Author info container
+		// Author info container.
 		$html .= '<div class="apb-author-list-info">';
 
-		// Author name
+		// Author name.
 		if ( ! empty( $author['title'] ) ) {
 			$html .= $this->render_author_name( $author );
 		}
@@ -354,16 +364,16 @@ class Author_List_Block extends Block_Base {
 			$html .= $this->render_author_position( $author );
 		}
 
-		$html .= '</div>'; // Close .apb-author-list-info
-		
-		// Social icons if enabled
+		$html .= '</div>'; // Close .apb-author-list-info.
+
+		// Social icons if enabled.
 		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
 			$html .= '<div class="apb-author-list-social">';
 			$html .= $this->render_social_profiles( $author['social'], 'apb-list-social' );
 			$html .= '</div>';
 		}
 
-		$html .= '</div>'; // Close .apb-author-list-compact
+		$html .= '</div>'; // Close .apb-author-list-compact.
 
 		return $html;
 	}
@@ -378,23 +388,23 @@ class Author_List_Block extends Block_Base {
 	private function render_detailed_layout( array $author, array $attributes ): string {
 		$html = '<div class="apb-author-list-detailed">';
 
-		// Left column with image
+		// Left column with image.
 		$html .= '<div class="apb-author-list-left">';
-		
+
 		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
 			$html .= $this->render_author_image( $author );
 		}
-		
-		$html .= '</div>'; // Close .apb-author-list-left
 
-		// Right column with author details
+		$html .= '</div>'; // Close .apb-author-list-left.
+
+		// Right column with author details.
 		$html .= '<div class="apb-author-list-right">';
-		
-		// Author info header
+
+		// Author info header.
 		$html .= '<div class="apb-author-list-header">';
 
-		// Author name
+		// Author name.
 		if ( ! empty( $author['title'] ) ) {
 			$html .= $this->render_author_name( $author );
 		}
@@ -403,9 +413,9 @@ class Author_List_Block extends Block_Base {
 		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
 			$html .= $this->render_author_position( $author );
 		}
-		
-		$html .= '</div>'; // Close .apb-author-list-header
-		
+
+		$html .= '</div>'; // Close .apb-author-list-header.
+
 		// Author email - only if email display is enabled in attributes.
 		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
 			$html .= $this->render_author_email( $author );
@@ -415,16 +425,16 @@ class Author_List_Block extends Block_Base {
 		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
 			$html .= $this->render_author_description( $author );
 		}
-		
-		// Social profiles in footer if enabled
+
+		// Social profiles in footer if enabled.
 		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
 			$html .= '<div class="apb-author-list-footer">';
 			$html .= $this->render_social_profiles( $author['social'], 'apb-list-social' );
 			$html .= '</div>';
 		}
-		
-		$html .= '</div>'; // Close .apb-author-list-right
-		$html .= '</div>'; // Close .apb-author-list-detailed
+
+		$html .= '</div>'; // Close .apb-author-list-right.
+		$html .= '</div>'; // Close .apb-author-list-detailed.
 
 		return $html;
 	}
@@ -433,13 +443,13 @@ class Author_List_Block extends Block_Base {
 	 * Render author image section.
 	 *
 	 * @param array  $author Author data.
-	 * @param string $class Optional. Additional CSS class for the image container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the image container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_image( array $author, string $class = '' ): string {
+	private function render_author_image( array $author, string $wrapper_class = '' ): string {
 		$classes = 'apb-author-image';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		return '<div class="' . esc_attr( $classes ) . '">' .
@@ -497,13 +507,13 @@ class Author_List_Block extends Block_Base {
 	 * Render social profiles section.
 	 *
 	 * @param array  $profiles Social profile URLs.
-	 * @param string $class Optional. Additional CSS class for the social profiles container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the social profiles container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_social_profiles( array $profiles, string $class = '' ): string {
+	private function render_social_profiles( array $profiles, string $wrapper_class = '' ): string {
 		$classes = 'apb-social-profiles';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		$html  = '<div class="' . esc_attr( $classes ) . '">';

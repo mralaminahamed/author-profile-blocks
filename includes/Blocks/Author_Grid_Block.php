@@ -42,7 +42,6 @@ class Author_Grid_Block extends Block_Base {
 	 * @return void
 	 */
 	protected function additional_init(): void {
-		// Add filter for block content
 		add_filter( 'render_block_author-profile-blocks/author-grid', array( $this, 'filter_rendered_output' ), 10, 2 );
 	}
 
@@ -56,7 +55,16 @@ class Author_Grid_Block extends Block_Base {
 	 * @return string The filtered content.
 	 */
 	public function filter_rendered_output( string $block_content, array $block ): string {
-		// Allow themes/plugins to modify the final output.
+		/** Filters the rendered HTML output of the author grid block.
+		 *
+		 * This filter allows themes and plugins to modify the final HTML output
+		 * of the author grid block before it is displayed on the page.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $block_content The rendered HTML content of the block.
+		 * @param array  $block         The full block data including attributes and inner blocks.
+		 */
 		return apply_filters( 'author_profile_blocks_rendered_grid', $block_content, $block );
 	}
 
@@ -78,7 +86,7 @@ class Author_Grid_Block extends Block_Base {
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
-		$author_ids = $attributes['authorIds'] ?? [];
+		$author_ids = $attributes['authorIds'] ?? array();
 
 		if ( empty( $author_ids ) ) {
 			return '<div class="apb-author-grid-error">' .
@@ -92,21 +100,21 @@ class Author_Grid_Block extends Block_Base {
 			return $this->grid_cache[ $cache_key ];
 		}
 
-		// Apply author role filter if specified
-		$roles = [];
+		// Apply author role filter if specified.
+		$roles = array();
 		if ( ! empty( $attributes['authorRole'] ) ) {
-			$roles = [ $attributes['authorRole'] ];
+			$roles = array( $attributes['authorRole'] );
 		}
 
-		// Get authors data using Plugin instance with role filtering
-		$authors = [];
-		$plugin = Plugin::get_instance();
+		// Get authors data using Plugin instance with role filtering.
+		$authors = array();
+		$plugin  = Plugin::get_instance();
 
-		// Handle individual author IDs
+		// Handle individual author IDs.
 		foreach ( $author_ids as $author_id ) {
 			$author_data = $plugin->get_author_data( $author_id );
 			if ( $author_data ) {
-				// Apply role filter if specified
+				// Apply role filter if specified.
 				if ( ! empty( $roles ) && ! in_array( $author_data['role'], $roles, true ) ) {
 					continue;
 				}
@@ -114,13 +122,13 @@ class Author_Grid_Block extends Block_Base {
 			}
 		}
 
-		// Apply maximum authors limit if specified
-		$max_authors = isset( $attributes['maxAuthors'] ) ? intval( $attributes['maxAuthors'] ) : 0;
+		// Apply maximum authors limit if specified.
+		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
 		if ( $max_authors > 0 && count( $authors ) > $max_authors ) {
 			$authors = array_slice( $authors, 0, $max_authors );
 		}
 
-		// If no authors found after filtering
+		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
 			return '<div class="apb-author-grid-error">' .
 				esc_html__( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) .
@@ -128,7 +136,7 @@ class Author_Grid_Block extends Block_Base {
 		}
 
 		// Generate styles for the block.
-		$wrapper_styles = $this->get_block_styles( $attributes );
+		$wrapper_styles  = $this->get_block_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $wrapper_styles ) ) {
@@ -150,27 +158,27 @@ class Author_Grid_Block extends Block_Base {
 		// Build the HTML.
 		$html = '<div ' . $wrapper_attributes . '>';
 
-		// Create grid container with column class
+		// Create grid container with column class.
 		$grid_class = 'apb-author-grid';
 		if ( isset( $attributes['columns'] ) ) {
-			$grid_class .= ' apb-columns-' . intval( $attributes['columns'] );
+			$grid_class .= ' apb-columns-' . (int) $attributes['columns'];
 		}
 
-		// Add item spacing as inline style
+		// Add item spacing as inline style.
 		$grid_style = '';
 		if ( isset( $attributes['itemSpacing'] ) ) {
-			$grid_style = 'gap: ' . intval( $attributes['itemSpacing'] ) . 'px;';
+			$grid_style = 'gap: ' . (int) $attributes['itemSpacing'] . 'px;';
 		}
 
 		$html .= '<div class="' . esc_attr( $grid_class ) . '" style="' . esc_attr( $grid_style ) . '">';
 
-		// Add each author profile
+		// Add each author profile.
 		foreach ( $authors as $author ) {
 			$html .= $this->render_author_item( $author, $attributes );
 		}
 
-		$html .= '</div>'; // Close grid container
-		$html .= '</div>'; // Close block wrapper
+		$html .= '</div>'; // Close grid container.
+		$html .= '</div>'; // Close block wrapper.
 
 		// Cache the result.
 		$this->grid_cache[ $cache_key ] = $html;
@@ -186,8 +194,8 @@ class Author_Grid_Block extends Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_item( array $author, array $attributes ): string {
-		// Get item styles
-		$item_styles = $this->get_item_styles( $attributes );
+		// Get item styles.
+		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
 
 		if ( ! empty( $item_styles ) ) {
@@ -198,32 +206,32 @@ class Author_Grid_Block extends Block_Base {
 			$style_attribute = ' style="' . esc_attr( implode( '; ', $style_strings ) ) . '"';
 		}
 
-		// Item classes based on layout and options
-		$item_classes = ['apb-author-grid-item'];
+		// Item classes based on layout and options.
+		$item_classes = array( 'apb-author-grid-item' );
 
-		// Add layout class
-		$layout = $attributes['layout'] ?? 'card';
+		// Add layout class.
+		$layout         = $attributes['layout'] ?? 'card';
 		$item_classes[] = 'is-layout-' . $layout;
 
-		// Add shadow class if enabled
+		// Add shadow class if enabled.
 		if ( ! empty( $attributes['enableShadow'] ) ) {
 			$item_classes[] = 'has-shadow';
 		}
 
-		// Add border class if enabled
+		// Add border class if enabled.
 		if ( ! empty( $attributes['enableBorder'] ) ) {
 			$item_classes[] = 'has-border';
 		}
 
-		// Add rounded class if enabled
+		// Add rounded class if enabled.
 		if ( ! empty( $attributes['enableRounded'] ) ) {
 			$item_classes[] = 'is-rounded';
 		}
 
-		// Build the author item
+		// Build the author item.
 		$html = '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 
-		// Use the appropriate layout template based on the selected layout
+		// Use the appropriate layout template based on the selected layout.
 		switch ( $layout ) {
 			case 'compact':
 				$html .= $this->render_compact_layout( $author, $attributes );
@@ -239,7 +247,7 @@ class Author_Grid_Block extends Block_Base {
 				break;
 		}
 
-		$html .= '</div>'; // Close grid item
+		$html .= '</div>'; // Close grid item.
 
 		return $html;
 	}
@@ -252,9 +260,9 @@ class Author_Grid_Block extends Block_Base {
 	 * @return string The cache key.
 	 */
 	private function generate_cache_key( array $author_ids, array $attributes ): string {
-		// Sort author IDs to ensure consistent cache key regardless of order
+		// Sort author IDs to ensure consistent cache key regardless of order.
 		sort( $author_ids );
-		return md5( implode( ',', $author_ids ) . serialize( $attributes ) );
+		return md5( implode( ',', $author_ids ) . maybe_serialize( $attributes ) );
 	}
 
 	/**
@@ -310,7 +318,7 @@ class Author_Grid_Block extends Block_Base {
 			$styles['padding'] = $attributes['padding'] . 'px';
 		}
 
-		// Border color if enabled
+		// Border color if enabled.
 		if ( ! empty( $attributes['enableBorder'] ) && ! empty( $attributes['borderColor'] ) ) {
 			$styles['border-color'] = $attributes['borderColor'];
 		}
@@ -505,13 +513,13 @@ class Author_Grid_Block extends Block_Base {
 	 * Render author image section.
 	 *
 	 * @param array  $author Author data.
-	 * @param string $class Optional. Additional CSS class for the image container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the image container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_image( array $author, string $class = '' ): string {
+	private function render_author_image( array $author, string $wrapper_class = '' ): string {
 		$classes = 'apb-author-image';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		return '<div class="' . esc_attr( $classes ) . '">' .
@@ -572,8 +580,8 @@ class Author_Grid_Block extends Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	private function render_registered_date( array $author ): string {
-		// Use the customizable label
-		$label = isset( $author['member_since_label'] ) ? $author['member_since_label'] : __( 'Member since', 'author-profile-blocks' );
+		// Use the customizable label.
+		$label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
 
 		return '<div class="apb-author-registered-date">' .
 			'<span class="apb-registered-date-label">' . esc_html( $label ) . '</span> ' .
@@ -585,13 +593,13 @@ class Author_Grid_Block extends Block_Base {
 	 * Render social profiles section.
 	 *
 	 * @param array  $profiles Social profile URLs.
-	 * @param string $class Optional. Additional CSS class for the social profiles container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the social profiles container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_social_profiles( array $profiles, string $class = '' ): string {
+	private function render_social_profiles( array $profiles, string $wrapper_class = '' ): string {
 		$classes = 'apb-social-profiles';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		$html  = '<div class="' . esc_attr( $classes ) . '">';

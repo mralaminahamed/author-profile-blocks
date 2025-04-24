@@ -42,10 +42,7 @@ class Author_Carousel_Block extends Block_Base {
 	 * @return void
 	 */
 	protected function additional_init(): void {
-		// Register script dependencies
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_carousel_dependencies' ) );
-
-		// Add filter for block content
 		add_filter( 'render_block_author-profile-blocks/author-carousel', array( $this, 'filter_rendered_output' ), 10, 2 );
 	}
 
@@ -55,9 +52,7 @@ class Author_Carousel_Block extends Block_Base {
 	 * @return void
 	 */
 	public function register_carousel_dependencies(): void {
-		// jQuery is a dependency of Slick so no need to register it separately
-
-		// Register carousel scripts/styles that are enqueued by the viewScript property in block.json
+		// Register carousel scripts/styles that are enqueued by the viewScript property in block.json.
 		wp_register_style(
 			'slick-carousel-css',
 			APB_PLUGIN_URL . 'assets/vendor/slick/slick.css',
@@ -91,7 +86,18 @@ class Author_Carousel_Block extends Block_Base {
 	 * @return string The filtered content.
 	 */
 	public function filter_rendered_output( string $block_content, array $block ): string {
-		// Allow themes/plugins to modify the final output.
+		/**
+		 * Filters the rendered output of the author carousel block.
+		 *
+		 * This filter allows themes and plugins to modify the final HTML output
+		 * of the Author Carousel block before it's displayed to the user.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $block_content The rendered HTML of the author carousel.
+		 * @param array  $block         The block data and attributes.
+		 * @return string Modified HTML output for the author carousel.
+		 */
 		return apply_filters( 'author_profile_blocks_rendered_carousel', $block_content, $block );
 	}
 
@@ -127,21 +133,21 @@ class Author_Carousel_Block extends Block_Base {
 			return $this->carousel_cache[ $cache_key ];
 		}
 
-		// Apply author role filter if specified
+		// Apply author role filter if specified.
 		$roles = array();
 		if ( ! empty( $attributes['authorRole'] ) ) {
 			$roles = array( $attributes['authorRole'] );
 		}
 
-		// Get authors data using Plugin instance with role filtering
+		// Get authors data using Plugin instance with role filtering.
 		$authors = array();
 		$plugin  = Plugin::get_instance();
 
-		// Handle individual author IDs
+		// Handle individual author IDs.
 		foreach ( $author_ids as $author_id ) {
 			$author_data = $plugin->get_author_data( $author_id );
 			if ( $author_data ) {
-				// Apply role filter if specified
+				// Apply role filter if specified.
 				if ( ! empty( $roles ) && ! in_array( $author_data['role'], $roles, true ) ) {
 					continue;
 				}
@@ -149,13 +155,13 @@ class Author_Carousel_Block extends Block_Base {
 			}
 		}
 
-		// Apply maximum authors limit if specified
-		$max_authors = isset( $attributes['maxAuthors'] ) ? intval( $attributes['maxAuthors'] ) : 0;
+		// Apply maximum authors limit if specified.
+		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
 		if ( $max_authors > 0 && count( $authors ) > $max_authors ) {
 			$authors = array_slice( $authors, 0, $max_authors );
 		}
 
-		// If no authors found after filtering
+		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
 			return '<div class="apb-author-carousel-error">' .
 				esc_html__( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) .
@@ -185,27 +191,27 @@ class Author_Carousel_Block extends Block_Base {
 		// Build the HTML.
 		$html = '<div ' . $wrapper_attributes . '>';
 
-		// Create carousel container and prepare JSON settings for Slick initialization
+		// Create carousel container and prepare JSON settings for Slick initialization.
 		$carousel_settings = array(
-			'slidesToShow'   => isset( $attributes['slidesToShow'] ) ? intval( $attributes['slidesToShow'] ) : 3,
+			'slidesToShow'   => isset( $attributes['slidesToShow'] ) ? (int) $attributes['slidesToShow'] : 3,
 			'slidesToScroll' => 1,
-			'autoplay'       => isset( $attributes['autoplay'] ) ? (bool) $attributes['autoplay'] : true,
-			'autoplaySpeed'  => isset( $attributes['autoplaySpeed'] ) ? intval( $attributes['autoplaySpeed'] ) : 3000,
-			'dots'           => isset( $attributes['showDots'] ) ? (bool) $attributes['showDots'] : true,
-			'arrows'         => isset( $attributes['showArrows'] ) ? (bool) $attributes['showArrows'] : true,
-			'infinite'       => isset( $attributes['infinite'] ) ? (bool) $attributes['infinite'] : true,
+			'autoplay'       => ! isset( $attributes['autoplay'] ) || (bool) $attributes['autoplay'],
+			'autoplaySpeed'  => isset( $attributes['autoplaySpeed'] ) ? (int) $attributes['autoplaySpeed'] : 3000,
+			'dots'           => ! isset( $attributes['showDots'] ) || (bool) $attributes['showDots'],
+			'arrows'         => ! isset( $attributes['showArrows'] ) || (bool) $attributes['showArrows'],
+			'infinite'       => ! isset( $attributes['infinite'] ) || (bool) $attributes['infinite'],
 		);
 
-		// Add carousel container
+		// Add carousel container.
 		$html .= '<div class="apb-author-carousel" data-settings="' . esc_attr( wp_json_encode( $carousel_settings ) ) . '">';
 
-		// Add each author slide
+		// Add each author slide.
 		foreach ( $authors as $author ) {
 			$html .= $this->render_author_slide( $author, $attributes );
 		}
 
-		$html .= '</div>'; // Close carousel container
-		$html .= '</div>'; // Close block wrapper
+		$html .= '</div>'; // Close carousel container.
+		$html .= '</div>'; // Close block wrapper.
 
 		// Cache the result.
 		$this->carousel_cache[ $cache_key ] = $html;
@@ -221,7 +227,7 @@ class Author_Carousel_Block extends Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	private function render_author_slide( array $author, array $attributes ): string {
-		// Get item styles
+		// Get item styles.
 		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
 
@@ -233,33 +239,33 @@ class Author_Carousel_Block extends Block_Base {
 			$style_attribute = ' style="' . esc_attr( implode( '; ', $style_strings ) ) . '"';
 		}
 
-		// Item classes based on layout and options
+		// Item classes based on layout and options.
 		$item_classes = array( 'apb-author-carousel-item' );
 
-		// Add layout class
+		// Add layout class.
 		$layout         = $attributes['layout'] ?? 'card';
 		$item_classes[] = 'is-layout-' . $layout;
 
-		// Add shadow class if enabled
+		// Add shadow class if enabled.
 		if ( ! empty( $attributes['enableShadow'] ) ) {
 			$item_classes[] = 'has-shadow';
 		}
 
-		// Add border class if enabled
+		// Add border class if enabled.
 		if ( ! empty( $attributes['enableBorder'] ) ) {
 			$item_classes[] = 'has-border';
 		}
 
-		// Add rounded class if enabled
+		// Add rounded class if enabled.
 		if ( ! empty( $attributes['enableRounded'] ) ) {
 			$item_classes[] = 'is-rounded';
 		}
 
-		// Build the author slide
+		// Build the author slide.
 		$html  = '<div class="apb-author-carousel-slide">';
 		$html .= '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 
-		// Use the appropriate layout template based on the selected layout
+		// Use the appropriate layout template based on the selected layout.
 		switch ( $layout ) {
 			case 'compact':
 				$html .= $this->render_compact_layout( $author, $attributes );
@@ -275,8 +281,8 @@ class Author_Carousel_Block extends Block_Base {
 				break;
 		}
 
-		$html .= '</div>'; // Close carousel item
-		$html .= '</div>'; // Close carousel slide
+		$html .= '</div>'; // Close carousel item.
+		$html .= '</div>'; // Close carousel slide.
 
 		return $html;
 	}
@@ -289,9 +295,9 @@ class Author_Carousel_Block extends Block_Base {
 	 * @return string The cache key.
 	 */
 	private function generate_cache_key( array $author_ids, array $attributes ): string {
-		// Sort author IDs to ensure consistent cache key regardless of order
+		// Sort author IDs to ensure consistent cache key regardless of order.
 		sort( $author_ids );
-		return md5( 'carousel_' . implode( ',', $author_ids ) . serialize( $attributes ) );
+		return md5( 'carousel_' . implode( ',', $author_ids ) . maybe_serialize( $attributes ) );
 	}
 
 	/**
@@ -347,7 +353,7 @@ class Author_Carousel_Block extends Block_Base {
 			$styles['padding'] = $attributes['padding'] . 'px';
 		}
 
-		// Border color if enabled
+		// Border color if enabled.
 		if ( ! empty( $attributes['enableBorder'] ) && ! empty( $attributes['borderColor'] ) ) {
 			$styles['border-color'] = $attributes['borderColor'];
 		}
@@ -542,13 +548,13 @@ class Author_Carousel_Block extends Block_Base {
 	 * Render author image section.
 	 *
 	 * @param array  $author Author data.
-	 * @param string $class Optional. Additional CSS class for the image container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the image container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_image( array $author, string $class = '' ): string {
+	private function render_author_image( array $author, string $wrapper_class = '' ): string {
 		$classes = 'apb-author-image';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		return '<div class="' . esc_attr( $classes ) . '">' .
@@ -609,8 +615,8 @@ class Author_Carousel_Block extends Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	private function render_registered_date( array $author ): string {
-		// Use the customizable label
-		$label = isset( $author['member_since_label'] ) ? $author['member_since_label'] : __( 'Member since', 'author-profile-blocks' );
+		// Use the customizable label.
+		$label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
 
 		return '<div class="apb-author-registered-date">' .
 			'<span class="apb-registered-date-label">' . esc_html( $label ) . '</span> ' .
@@ -622,13 +628,13 @@ class Author_Carousel_Block extends Block_Base {
 	 * Render social profiles section.
 	 *
 	 * @param array  $profiles Social profile URLs.
-	 * @param string $class Optional. Additional CSS class for the social profiles container.
+	 * @param string $wrapper_class Optional. Additional CSS class for the social profiles container.
 	 * @return string Rendered HTML.
 	 */
-	private function render_social_profiles( array $profiles, string $class = '' ): string {
+	private function render_social_profiles( array $profiles, string $wrapper_class = '' ): string {
 		$classes = 'apb-social-profiles';
-		if ( ! empty( $class ) ) {
-			$classes .= ' ' . $class;
+		if ( ! empty( $wrapper_class ) ) {
+			$classes .= ' ' . $wrapper_class;
 		}
 
 		$html  = '<div class="' . esc_attr( $classes ) . '">';
