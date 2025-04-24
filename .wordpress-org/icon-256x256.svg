@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+    <!-- Gradient background -->
+    <defs>
+        <linearGradient id="icon-gradient-256" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e4d92" />
+            <stop offset="100%" stop-color="#2271b1" />
+        </linearGradient>
+
+        <!-- Frosted glass effect -->
+        <filter id="icon-blur-256" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="6" />
+        </filter>
+
+        <!-- Inner shadow -->
+        <filter id="icon-inner-shadow-256" x="-50%" y="-50%" width="200%" height="200%">
+            <feOffset dx="0" dy="2" />
+            <feGaussianBlur stdDeviation="2" result="offset-blur" />
+            <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+            <feFlood flood-color="black" flood-opacity="0.3" result="color" />
+            <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+            <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+        </filter>
+    </defs>
+
+    <!-- Main background with rounded corners -->
+    <rect width="256" height="256" rx="48" fill="url(#icon-gradient-256)" />
+
+    <!-- Decorative blurred shapes -->
+    <circle cx="60" cy="60" r="100" fill="#4d8ac8" opacity="0.2" filter="url(#icon-blur-256)" />
+    <circle cx="200" cy="200" r="80" fill="#90c2ef" opacity="0.15" filter="url(#icon-blur-256)" />
+
+    <!-- Glassmorphism overlay -->
+    <rect x="28" y="28" width="200" height="200" rx="40"
+          fill="rgba(255, 255, 255, 0.1)"
+          stroke="rgba(255, 255, 255, 0.3)"
+          stroke-width="2"
+          filter="url(#icon-inner-shadow-256)" />
+
+    <!-- Stylized author profile icon -->
+    <circle cx="128" cy="100" r="44" fill="rgba(255, 255, 255, 0.95)"
+            stroke="rgba(255, 255, 255, 0.6)" stroke-width="3" />
+
+    <path d="M76,190 Q128,150 180,190"
+          stroke="rgba(255, 255, 255, 0.95)"
+          stroke-width="14"
+          fill="none"
+          stroke-linecap="round" />
+
+    <!-- Block elements -->
+    <g transform="translate(128, 216)">
+        <rect x="-36" y="-36" width="32" height="32" rx="6"
+              fill="rgba(255, 255, 255, 0.8)"
+              stroke="rgba(255, 255, 255, 0.4)"
+              stroke-width="1.5" />
+        <rect x="4" y="-36" width="32" height="32" rx="6"
+              fill="rgba(255, 255, 255, 0.9)"
+              stroke="rgba(255, 255, 255, 0.4)"
+              stroke-width="1.5" />
+        <rect x="-16" y="4" width="32" height="32" rx="6"
+              fill="rgba(255, 255, 255, 0.7)"
+              stroke="rgba(255, 255, 255, 0.4)"
+              stroke-width="1.5" />
+    </g>
+</svg>

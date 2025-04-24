@@ -1,15 +1,15 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Author Profile Block class
  *
- * @package WPAuthorShowcase
- * @subpackage Blocks
+ * @package AuthorProfileBlocks
  */
 
-namespace WPAuthorShowcase\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
+use AuthorProfileBlocks\Common\Author_Block_Base;
 use WP_Block;
-use WPAuthorShowcase\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,23 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Profile block.
  */
-class Author_Profile_Block extends Block_Base {
+class Author_Profile_Block extends Author_Block_Base {
 	/**
 	 * Get the block name.
 	 *
 	 * @return string Block name.
 	 */
-	protected function get_block_name(): string {
+	public function get_block_name(): string {
 		return 'author-profile';
 	}
 
 	/**
-	 * Additional initialization actions for the block.
+	 * Block-specific initialization.
 	 *
 	 * @return void
 	 */
-	protected function additional_init(): void {
-		// Localize script with admin URL for the editor.
+	protected function block_specific_init(): void {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'localize_block_script' ) );
 	}
 
@@ -46,10 +45,14 @@ class Author_Profile_Block extends Block_Base {
 	 */
 	public function localize_block_script(): void {
 		wp_localize_script(
-			'wp-author-showcase-author-profile-editor-script',
-			'wpAuthorShowcaseData',
+			'author-profile-blocks-author-profile-editor-script',
+			'AuthorProfileBlocksData',
 			array(
-				'adminUrl' => admin_url(),
+				'adminUrl'    => admin_url(),
+				'restNonce'   => wp_create_nonce( 'wp_rest' ),
+				'restUrl'     => rest_url(),
+				'pluginUrl'   => APB_PLUGIN_URL,
+				'socialIcons' => $this->get_social_icon_data(),
 			)
 		);
 	}
@@ -69,21 +72,28 @@ class Author_Profile_Block extends Block_Base {
 	 * @param array    $attributes Block attributes.
 	 * @param string   $content    Block content.
 	 * @param WP_Block $block      Block instance.
+	 *
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
 		$author_id = $attributes['authorId'] ?? 0;
 
 		if ( empty( $author_id ) ) {
-			return '<div class="wpas-author-profile-error">' . esc_html__( 'Please select an author.', 'wp-author-showcase' ) . '</div>';
+			return $this->render_error_message( __( 'Please select an author.', 'author-profile-blocks' ) );
 		}
 
-		// Get the Author_Profile_CPT instance to use its methods.
-		$author_cpt  = Plugin::get_instance()->get_author_profile_cpt();
-		$author_data = $author_cpt->get_author_data( $author_id );
+		// Check cache first.
+		$cache_key      = $this->generate_cache_key( $author_id, $attributes );
+		$cached_content = $this->get_cached_render( $cache_key );
+		if ( $cached_content ) {
+			return $cached_content;
+		}
+
+		// Get author data.
+		$author_data = $this->get_author_data( $author_id );
 
 		if ( ! $author_data ) {
-			return '<div class="wpas-author-profile-error">' . esc_html__( 'Author not found.', 'wp-author-showcase' ) . '</div>';
+			return $this->render_error_message( __( 'Author not found.', 'author-profile-blocks' ) );
 		}
 
 		// Generate styles for the block.
@@ -91,24 +101,40 @@ class Author_Profile_Block extends Block_Base {
 		$style_attribute = '';
 
 		if ( ! empty( $styles ) ) {
-			$style_strings = array();
-			foreach ( $styles as $property => $value ) {
-				$style_strings[] = $property . ': ' . $value;
-			}
-			$style_attribute = esc_attr( implode( '; ', $style_strings ) );
+			$style_attribute = $this->get_styles_string( $styles );
 		}
 
 		// Classes for the block wrapper.
 		$wrapper_attributes = get_block_wrapper_attributes(
 			array(
-				'class' => $this->get_block_classes( $attributes ),
+				'class' => $this->get_block_classes( $attributes, 'profile' ),
 				'style' => $style_attribute,
 			)
 		);
 
 		// Build the HTML.
-		$html  = '<div ' . $wrapper_attributes . '>';
-		$html .= $this->render_author_content( $author_data, $attributes );
+		$html = '<div ' . $wrapper_attributes . '>';
+
+		// Add profile layout based on selected template.
+		$layout = $attributes['layout'] ?? 'default';
+		switch ( $layout ) {
+			case 'compact':
+				$html .= $this->render_compact_layout( $author_data, $attributes );
+				break;
+
+			case 'card':
+				$html .= $this->render_card_layout( $author_data, $attributes );
+				break;
+
+			case 'centered':
+				$html .= $this->render_centered_layout( $author_data, $attributes );
+				break;
+
+			case 'default':
+			default:
+				$html .= $this->render_default_layout( $author_data, $attributes );
+				break;
+		}
 
 		// Add optional more content if enabled.
 		if ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) ) {
@@ -117,100 +143,64 @@ class Author_Profile_Block extends Block_Base {
 
 		$html .= '</div>';
 
+		// Cache the result.
+		$this->set_cached_render( $cache_key, $html );
+
 		return $html;
 	}
 
 	/**
-	 * Get block classes based on attributes.
+	 * Render default author profile layout.
 	 *
+	 * @param array $author     Author data.
 	 * @param array $attributes Block attributes.
-	 * @return string CSS classes.
-	 */
-	private function get_block_classes( array $attributes ): string {
-		$classes = array();
-
-		// Text alignment.
-		if ( ! empty( $attributes['textAlign'] ) ) {
-			$classes[] = 'has-text-align-' . $attributes['textAlign'];
-		}
-
-		return implode( ' ', $classes );
-	}
-
-	/**
-	 * Get block styles based on attributes.
 	 *
-	 * @param array $attributes Block attributes.
-	 * @return array CSS styles.
-	 */
-	private function get_block_styles( array $attributes ): array {
-		$styles = array();
-
-		// Background color.
-		if ( ! empty( $attributes['backgroundColor'] ) ) {
-			$styles['background-color'] = $attributes['backgroundColor'];
-		}
-
-		// Padding.
-		if ( isset( $attributes['padding'] ) ) {
-			$styles['padding'] = $attributes['padding'] . 'px';
-		}
-
-		return $styles;
-	}
-
-	/**
-	 * Render author content.
-	 *
-	 * @param array $author Author data.
-	 * @param array $attributes Block attributes.
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_content( array $author, array $attributes ): string {
-		$html = '<div class="wpas-author-profile-content">';
+	private function render_default_layout( array $author, array $attributes ): string {
+		$html = '<div class="apb-author-profile-content">';
 
 		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= '<div class="wpas-author-image">';
-			$html .= '<img src="' . esc_url( $author['image'] ) . '" alt="' . esc_attr( $author['title'] ) . '" />';
-			$html .= '</div>';
+			$html .= $this->render_author_image( $author );
 		}
 
 		// Author info.
-		$html .= '<div class="wpas-author-info">';
+		$html .= '<div class="apb-author-info">';
 
 		// Author name.
 		if ( ! empty( $author['title'] ) ) {
-			$html .= '<h3 class="wpas-author-name">' . esc_html( $author['title'] ) . '</h3>';
+			$html .= $this->render_author_name( $author );
+		}
+
+		// Author position if available and display is enabled.
+		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
+			$html .= $this->render_author_position( $author );
 		}
 
 		// Author email - only if email display is enabled in attributes.
 		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= '<div class="wpas-author-email">';
-			$html .= '<a href="mailto:' . esc_attr( $author['email'] ) . '">' . esc_html( $author['email'] ) . '</a>';
-			$html .= '</div>';
+			$html .= $this->render_author_email( $author );
+		}
+
+		// Registration date - only if registered date display is enabled in attributes.
+		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
+			$html .= $this->render_registered_date( $author );
 		}
 
 		// Author description - only if description display is enabled in attributes.
 		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= '<div class="wpas-author-description">';
-			$html .= wp_kses_post( $author['description'] );
-			$html .= '</div>';
+			$html .= $this->render_author_description( $author );
 		}
 
-		$html .= '</div>'; // Close .wpas-author-info.
-		$html .= '</div>'; // Close .wpas-author-profile-content.
+		// Social profiles - only if display is enabled in attributes.
+		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
+			$html .= $this->render_social_profiles( $author['social'] );
+		}
+
+		$html .= '</div>'; // Close .apb-author-info.
+		$html .= '</div>'; // Close .apb-author-profile-content.
 
 		return $html;
-	}
-
-	/**
-	 * Render more content section.
-	 *
-	 * @param string $content The content.
-	 * @return string Rendered HTML.
-	 */
-	private function render_more_content( string $content ): string {
-		return '<div class="wpas-author-more-content">' . wp_kses_post( $content ) . '</div>';
 	}
 }

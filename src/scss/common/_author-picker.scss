@@ -1,0 +1,239 @@
+/**
+ * Author Picker - Common author picker component styling
+ */
+
+@use 'variables' as v;
+
+// Author picker component
+@mixin author-picker-component {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  // Header styling
+  .apb-author-header {
+    padding: 12px 16px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+    
+    h4 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .apb-author-count {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      
+      span {
+        padding: 2px 8px;
+        font-size: 14px;
+        font-weight: 600;
+        background: #f0f0f0;
+        border-radius: 12px;
+      }
+    }
+  }
+  
+  // Content area
+  .apb-author-content {
+    padding: 16px;
+  }
+  
+  // Footer styling
+  .apb-author-footer {
+    padding: 12px 16px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #e0e0e0;
+    
+    .components-button {
+
+      &.apb-add-author-btn {
+        color: #fff;
+        background-color: #007cba;
+        
+        &:hover:not(:disabled) {
+          background-color: #006ba1;
+        }
+        
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+      }
+      
+      &.apb-reset-btn {
+        color: #cc1818;
+        
+        &:hover {
+          color: #a00;
+        }
+      }
+    }
+  }
+
+  // Selected authors section
+  .apb-authors-selected-wrapper {
+    margin-bottom: 16px;
+
+    p {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e1e1e;
+    }
+
+    .apb-selected-authors-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .apb-selected-author {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 10px;
+        font-size: 13px;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: #e8e8e8;
+          border-color: #ccc;
+        }
+
+        img {
+          width: 24px;
+          height: 24px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        span {
+          color: #1e1e1e;
+        }
+
+        .apb-remove-author {
+          color: #cc1818;
+          cursor: pointer;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #a00;
+          }
+        }
+      }
+    }
+  }
+
+  // Search field styling
+  .apb-search-field {
+    position: relative;
+    margin-bottom: 16px;
+    
+    .apb-search-icon {
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      z-index: 1;
+      color: #757575;
+      transform: translateY(-50%);
+    }
+    
+    .apb-author-search {
+
+      input {
+        width: 100%;
+        height: 36px;
+        padding-left: 36px;
+        border-color: #ddd;
+        border-radius: 4px;
+        
+        &:focus {
+          border-color: #007cba;
+          box-shadow: 0 0 0 1px #007cba;
+        }
+      }
+    }
+    
+    .apb-clear-search {
+      position: absolute;
+      top: 50%;
+      right: 4px;
+      z-index: 1;
+      min-width: auto;
+      padding: 0 6px;
+      transform: translateY(-50%);
+    }
+  }
+
+  // Select field styling
+  .apb-select-field {
+    margin-bottom: 16px;
+    
+    .components-base-control__label {
+      margin-bottom: 6px !important;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .components-select-control__input {
+      width: 100%;
+      height: 36px;
+      border-color: #ddd;
+      border-radius: 4px;
+      
+      &:focus {
+        border-color: #007cba;
+        box-shadow: 0 0 0 1px #007cba;
+      }
+    }
+  }
+
+  // Filter information
+  .apb-filter-info {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #555;
+    background-color: #f8f9fa;
+    border-left: 3px solid #007cba;
+    border-radius: 4px;
+  }
+
+  // Notice styling
+  .apb-notice {
+    margin: 8px 0;
+  }
+
+  // Loading state
+  .apb-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+
+    .apb-spinner {
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "author-profile-blocks/author-list",
+  "version": "1.0.0",
+  "title": "Author List",
+  "category": "widgets",
+  "description": "Display a list of authors with customizable layouts.",
+  "textdomain": "author-profile-blocks",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "authorIds": {
+      "type": "array",
+      "default": []
+    },
+    "authorRole": {
+      "type": "string",
+      "default": ""
+    },
+    "maxAuthors": {
+      "type": "number",
+      "default": 0
+    },
+    "displayStyle": {
+      "type": "string",
+      "default": "compact",
+      "enum": ["compact", "detailed"]
+    },
+    "listStyle": {
+      "type": "string",
+      "default": "ul",
+      "enum": ["ul", "ol"]
+    },
+    "enableDividers": {
+      "type": "boolean",
+      "default": true
+    },
+    "dividerColor": {
+      "type": "string",
+      "default": "#e0e0e0"
+    },
+    "enableRounded": {
+      "type": "boolean",
+      "default": false
+    },
+    "enableHoverEffect": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "left"
+    },
+    "blockPadding": {
+      "type": "number",
+      "default": 16
+    },
+    "itemPadding": {
+      "type": "number",
+      "default": 15
+    },
+    "itemSpacing": {
+      "type": "number",
+      "default": 15
+    },
+    "showImage": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPosition": {
+      "type": "boolean",
+      "default": true
+    },
+    "showEmail": {
+      "type": "boolean",
+      "default": false
+    },
+    "showDescription": {
+      "type": "boolean",
+      "default": false
+    },
+    "showSocial": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true
+    }
+  },
+  "example": {
+    "attributes": {
+      "displayStyle": "compact",
+      "enableDividers": true,
+      "showImage": true,
+      "showPosition": true,
+      "showSocial": true
+    }
+  }
+}

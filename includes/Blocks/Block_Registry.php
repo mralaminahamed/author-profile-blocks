@@ -1,14 +1,14 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Block Registry class
  *
- * @package WPAuthorShowcase
- * @subpackage Blocks
+ * @package AuthorProfileBlocks
  */
 
-namespace WPAuthorShowcase\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
-use WPAuthorShowcase\Core\Base;
+use AuthorProfileBlocks\Core\Base;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +24,7 @@ class Block_Registry extends Base {
 	 *
 	 * @var Block_Base[]
 	 */
-	private $blocks = array();
+	private array $blocks = array();
 
 	/**
 	 * Initialize the registry.
@@ -33,6 +33,10 @@ class Block_Registry extends Base {
 	 */
 	public function init(): void {
 		$this->register_blocks();
+		$this->initialize_blocks();
+
+		// Allow other components to interact with our block registry.
+		do_action( 'author_profile_blocks_blocks_registered', $this );
 	}
 
 	/**
@@ -43,7 +47,20 @@ class Block_Registry extends Base {
 	private function register_blocks(): void {
 		// Register all blocks here.
 		$this->register_block( new Author_Profile_Block() );
+		$this->register_block( new Author_Grid_Block() );
+		$this->register_block( new Author_Carousel_Block() );
+		$this->register_block( new Author_List_Block() );
 
+		// Allow plugins/themes to register additional blocks.
+		do_action( 'author_profile_blocks_register_blocks', $this );
+	}
+
+	/**
+	 * Initialize all registered blocks.
+	 *
+	 * @return void
+	 */
+	private function initialize_blocks(): void {
 		// Initialize each block.
 		foreach ( $this->blocks as $block ) {
 			$block->init();
@@ -54,6 +71,7 @@ class Block_Registry extends Base {
 	 * Register a block instance.
 	 *
 	 * @param Block_Base $block Block instance.
+	 *
 	 * @return void
 	 */
 	public function register_block( Block_Base $block ): void {
@@ -73,6 +91,7 @@ class Block_Registry extends Base {
 	 * Get a specific block by name.
 	 *
 	 * @param string $name Block name.
+	 *
 	 * @return Block_Base|null Block instance or null if not found.
 	 */
 	public function get_block( string $name ): ?Block_Base {

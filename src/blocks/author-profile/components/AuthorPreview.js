@@ -8,12 +8,12 @@ import ServerSideRender from '@wordpress/server-side-render';
  *
  * @param {Object} props             Component props
  * @param {Object} props.attributes  Block attributes
- * @return {WPElement} Component to render
+ * @return {JSX.Element} Component to render
  */
 const AuthorPreview = ({ attributes }) => {
     return (
         <ServerSideRender
-            block="wp-author-showcase/author-profile"
+            block="author-profile-blocks/author-profile"
             attributes={attributes}
         />
     );

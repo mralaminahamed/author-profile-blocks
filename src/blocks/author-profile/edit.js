@@ -8,39 +8,28 @@ import {
     BlockControls,
     AlignmentToolbar,
     PanelColorSettings,
-    RichText
 } from '@wordpress/block-editor';
 import {
     PanelBody,
     ToggleControl,
     Button,
     RangeControl,
-    Card,
-    CardHeader,
-    CardBody,
-    Icon
 } from '@wordpress/components';
-import { formatBold, formatItalic, formatListBullets, formatListNumbered, link } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
-import useAuthors from './hooks/useAuthors';
-import AuthorSelector from './components/AuthorSelector';
+import { useAuthors } from '../../js/hooks';
+import AuthorBlockPlaceholder from '../../js/components/AuthorBlockPlaceholder';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
-
-/**
- * WordPress global
- */
-const { wpAuthorShowcase = { adminUrl: '/wp-admin/' } } = window;
 
 /**
  * The edit function for the Author Profile block.
  *
  * @param {Object} props Block properties.
- * @return {WPElement} Element to render.
+ * @return {JSX.Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
     const {
@@ -51,6 +40,7 @@ export default function Edit({ attributes, setAttributes }) {
         showImage,
         showEmail,
         showDescription,
+        showRegisteredDate,
         backgroundColor,
         padding
     } = attributes;
@@ -67,9 +57,8 @@ export default function Edit({ attributes, setAttributes }) {
     });
 
     // Handle author selection
-    const handleSelectAuthor = (author) => {
-        setAttributes({ authorId: author.id });
-        setSelectedAuthor(author);
+    const handleSelectAuthor = ([authorId]) => {
+        setAttributes({ authorId: authorId });
     };
 
     // Handle clearing the selected author
@@ -93,35 +82,41 @@ export default function Edit({ attributes, setAttributes }) {
             </BlockControls>
 
             <InspectorControls>
-                <PanelBody title={__('Display Settings', 'wp-author-showcase')}>
+                <PanelBody title={__('Display Settings', 'author-profile-blocks')}>
                     <ToggleControl
-                        label={__('Show Author Image', 'wp-author-showcase')}
+                        label={__('Show Author Image', 'author-profile-blocks')}
                         checked={showImage}
                         onChange={() => setAttributes({ showImage: !showImage })}
                     />
 
                     <ToggleControl
-                        label={__('Show Author Email', 'wp-author-showcase')}
+                        label={__('Show Author Email', 'author-profile-blocks')}
                         checked={showEmail}
                         onChange={() => setAttributes({ showEmail: !showEmail })}
                     />
 
                     <ToggleControl
-                        label={__('Show Author Description', 'wp-author-showcase')}
+                        label={__('Show Author Description', 'author-profile-blocks')}
                         checked={showDescription}
                         onChange={() => setAttributes({ showDescription: !showDescription })}
                     />
 
                     <ToggleControl
-                        label={__('Show More Section', 'wp-author-showcase')}
+                        label={__('Show Member Since Date', 'author-profile-blocks')}
+                        checked={showRegisteredDate}
+                        onChange={() => setAttributes({ showRegisteredDate: !showRegisteredDate })}
+                    />
+
+                    <ToggleControl
+                        label={__('Show More Section', 'author-profile-blocks')}
                         checked={showMoreContent}
                         onChange={() => setAttributes({ showMoreContent: !showMoreContent })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Style Settings', 'wp-author-showcase')}>
+                <PanelBody title={__('Style Settings', 'author-profile-blocks')}>
                     <RangeControl
-                        label={__('Padding', 'wp-author-showcase')}
+                        label={__('Padding', 'author-profile-blocks')}
                         value={padding}
                         onChange={(value) => setAttributes({ padding: value })}
                         min={0}
@@ -131,26 +126,26 @@ export default function Edit({ attributes, setAttributes }) {
                 </PanelBody>
 
                 <PanelColorSettings
-                    title={__('Color Settings', 'wp-author-showcase')}
+                    title={__('Color Settings', 'author-profile-blocks')}
                     initialOpen={false}
                     colorSettings={[
                         {
                             value: backgroundColor,
                             onChange: (value) => setAttributes({ backgroundColor: value }),
-                            label: __('Background Color', 'wp-author-showcase'),
+                            label: __('Background Color', 'author-profile-blocks'),
                         }
                     ]}
                 />
 
                 {authorId > 0 && (
-                    <PanelBody title={__('Author Selection', 'wp-author-showcase')}>
+                    <PanelBody title={__('Author Selection', 'author-profile-blocks')}>
                         <Button
                             isDestructive
                             variant="secondary"
                             className="wpas-clear-button"
                             onClick={handleClearAuthor}
                         >
-                            {__('Clear Selected Author', 'wp-author-showcase')}
+                            {__('Clear Selected Author', 'author-profile-blocks')}
                         </Button>
                     </PanelBody>
                 )}
@@ -158,10 +153,15 @@ export default function Edit({ attributes, setAttributes }) {
 
             <div {...blockProps}>
                 {!authorId ? (
-                    <AuthorSelector
-                        authors={authors}
-                        onSelectAuthor={handleSelectAuthor}
-                        isLoading={isLoading}
+                    <AuthorBlockPlaceholder
+                        icon="admin-users"
+                        title={__('Select an Author', 'author-profile-blocks')}
+                        instructions={__('Choose an author to display their profile.', 'author-profile-blocks')}
+                        selectedAuthorIds={authorId ? [authorId] : []}
+                        onChange={handleSelectAuthor}
+                        buttonLabel={__('Add Author', 'author-profile-blocks')}
+                        layoutSelector={null}
+                        additionalControls={null}
                     />
                 ) : (
                     <>
@@ -179,3 +179,4 @@ export default function Edit({ attributes, setAttributes }) {
         </>
     );
 }
+

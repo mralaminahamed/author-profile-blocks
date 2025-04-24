@@ -1,0 +1,30 @@
+/**
+ * The following styles get applied inside the editor only.
+ * Author List block editor styles
+ */
+
+// Import common styles
+@use '../../scss/common' as c;
+
+.wp-block-author-profile-blocks-author-list {
+  // Visual indicator in editor
+  @include c.editor-border();
+
+  // Color picker section
+  @include c.color-picker-section();
+
+  // Reset default WP list styles in editor
+  .apb-author-list {
+
+    @include c.reset-list-styles();
+  }
+
+  // Placeholder styling
+  @include c.editor-placeholder();
+
+  // Author picker button styling (additional styles for editor)
+  @include c.author-picker-wrapper();
+
+  // Editor toolbar styles
+  @include c.editor-toolbar();
+}

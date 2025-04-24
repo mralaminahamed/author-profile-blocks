@@ -1,0 +1,63 @@
+/**
+ * Visual Modifiers - Common styling modifiers
+ */
+
+@use 'sass:color';
+@use 'variables' as v;
+
+// Shadow Effect
+@mixin shadow-effect($level: 'md') {
+
+  @if $level == 'sm' {
+    box-shadow: v.$shadow-sm;
+  } @else if $level == 'md' {
+    box-shadow: v.$shadow-md;
+  } @else if $level == 'lg' {
+    box-shadow: v.$shadow-lg;
+  }
+}
+
+// Border Effect
+@mixin border-effect($color: v.$border-color) {
+  border-color: $color;
+  border-style: solid;
+  border-width: 1px;
+}
+
+// Rounded Corners
+@mixin rounded-corners($size: 'lg') {
+  overflow: hidden;
+  
+  @if $size == 'sm' {
+    border-radius: v.$border-radius-sm;
+  } @else if $size == 'md' {
+    border-radius: v.$border-radius-md;
+  } @else if $size == 'lg' {
+    border-radius: v.$border-radius-lg;
+  } @else if $size == 'pill' {
+    border-radius: v.$border-radius-pill;
+  }
+}
+
+// Hover Effect
+@mixin hover-transition {
+  transition: v.$transition-standard;
+
+  &:hover {
+    transform: translateY(-3px);
+
+    @include shadow-effect('md');
+  }
+}
+
+// Error Message
+@mixin error-message {
+  padding: v.$spacing-xl;
+  color: v.$text-color-secondary;
+  text-align: center;
+
+  background-color: color.adjust(v.$light-bg, $lightness: 2%);
+  border: 1px solid v.$border-color;
+
+  @include rounded-corners('md');
+}

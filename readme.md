@@ -1,146 +1,141 @@
-# WP Author Showcase
+# Author Profile Blocks #
+**Contributors:** [mralaminahamed](https://profiles.wordpress.org/mralaminahamed/)  
+**Tags:**              block, author, profile, gutenberg, team  
+**Tested up to:**      6.8  
+**Stable tag:**        1.0.0  
+**Requires at least:** 6.0  
+**Requires PHP:**      7.4  
+**License:**           GPL-2.0-or-later  
+**License URI:**       https://www.gnu.org/licenses/gpl-2.0.html  
 
-A WordPress plugin that showcases author profiles with a beautiful Gutenberg block. Display author information from a custom post type with customizable styles and layout options.
+A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.
 
-## Features
+## Description ##
 
-- Custom Post Type for author profiles (`author_profile`)
-- Gutenberg block for displaying author information
-- Customizable display options (background color, text alignment, padding)
-- Optional "Show More" section for additional content
-- Responsive design
-- Follows WordPress coding standards
+Author Profile Blocks is a modern WordPress plugin that allows you to display user profiles in various layouts using Gutenberg blocks. It's perfect for showcasing team members, contributors, authors, or any WordPress users you want to feature on your website.
 
-## Requirements
+Unlike other plugins, Author Profile Blocks leverages your existing WordPress users rather than creating a separate custom post type. This means you can showcase all your site contributors without duplicating content.
 
-- WordPress 6.7+
-- PHP 7.4+
-- Node.js and Yarn for development
+**Key Features:**
 
-## Installation
+* **Four versatile block types**:
+  * **Author Profile**: Display a single author profile with detailed information
+  * **Author Grid**: Arrange multiple authors in a responsive grid layout
+  * **Author Carousel**: Present authors in an interactive slider/carousel
+  * **Author List**: Show authors in a clean, organized list format
 
-### From ZIP File
+* **Multiple layout options**:
+  * Card layout
+  * Compact layout
+  * Centered layout
+  * Detailed layout (for lists)
 
-1. Download the plugin ZIP file
-2. Navigate to WordPress Admin → Plugins → Add New → Upload Plugin
-3. Choose the ZIP file and click "Install Now"
-4. Activate the plugin through the 'Plugins' screen in WordPress
+* **Rich display options**:
+  * Author avatar/image
+  * Name and position/title
+  * Email address
+  * Biographical description
+  * Member since date (registration date)
+  * Social media profiles (Facebook, Twitter, LinkedIn, Instagram, website)
+  * Additional custom content
 
-### Manual Installation
+* **Extensive customization**:
+  * Show/hide specific elements
+  * Background colors
+  * Border options (with/without, color, width)
+  * Shadow effects
+  * Rounded corners
+  * Text alignment
+  * Spacing/padding options
+  * Hover effects
 
-1. Upload the plugin files to the `/wp-content/plugins/wp-author-showcase` directory
-2. Activate the plugin through the 'Plugins' screen in WordPress
+* **Advanced features**:
+  * Filter authors by role
+  * Limit number of displayed authors
+  * Performance optimization with caching
+  * Responsive design for all screen sizes
+  * Full accessibility compliance
+  * Translation-ready
 
-## Usage
+* **User profile extensions**:
+  * Adds custom fields to WordPress user profiles
+  * Author position/title field
+  * Extended author description (with rich text editor)
+  * Social media profile links
+  * Custom "Member since" label
 
-### Creating Author Profiles
+## Installation ##
 
-1. Navigate to "Author Profiles" in the WordPress admin menu
-2. Click "Add New" to create a new author profile
-3. Fill in the author details:
-   - Name (title)
-   - Email (custom field)
-   - Image (featured image)
-   - Description (custom field)
-4. Publish the author profile
+1. Upload the plugin files to the `/wp-content/plugins/author-profile-blocks` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Edit user profiles to add additional author information (optional).
+4. Add any of the author blocks to your pages or posts using the Gutenberg editor.
 
-### Using the Author Profile Block
+## Frequently Asked Questions ##
 
-1. Create or edit a page/post
-2. Add the "Author Profile" block
-3. Select an author from the dropdown
-4. Customize the display options in the block settings sidebar:
-   - Toggle "Show More Section" to add additional content
-   - Adjust background color
-   - Change text alignment
-   - Modify padding
+### Does this plugin create a custom post type? ###
 
-## Development Setup
+No. Author Profile Blocks uses your existing WordPress users instead of creating a separate custom post type. This prevents duplicate content and leverages the built-in user management system.
 
-### Prerequisites
+### How do I add author information? ###
 
-- Node.js and Yarn
-- Composer
-- WordPress development environment
+The plugin adds extra fields to the standard WordPress user profile. You can edit any user and add their position/title, extended description, social media links, and more.
 
-### Setup
+### Can I customize how the author profiles appear? ###
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/mralaminahamed/wp-author-showcase.git
-   ```
+Yes! Each block includes many customization options in the block sidebar:
+* Choose from multiple layouts (card, compact, centered, etc.)
+* Toggle visibility of image, email, description, social links, etc.
+* Change background and border colors
+* Add shadows and rounded corners
+* Adjust text alignment and spacing
+* And much more!
 
-2. Navigate to the plugin directory:
-   ```
-   cd wp-author-showcase
-   ```
+### Can I filter which authors are displayed? ###
 
-3. Install JavaScript dependencies:
-   ```
-   yarn install
-   ```
+Yes. You can select specific authors to display, filter by user role, and limit the maximum number of displayed authors.
 
-4. Install PHP dependencies:
-   ```
-   composer install
-   ```
+### How do social media profiles work? ###
 
-### Development Commands
+The plugin adds fields for Facebook, Twitter, LinkedIn, Instagram, and personal website URLs to each user profile. When enabled in the blocks, these appear as social icons that visitors can click to view the author's profiles.
 
-#### JavaScript/CSS Development
+### Is the plugin responsive? ###
 
-- Start development mode with watch:
-  ```
-  yarn start
-  ```
+Yes, all blocks are designed to look great on all screen sizes from mobile devices to desktop computers. Layouts automatically adjust based on the available screen space.
 
-- Build for production:
-  ```
-  yarn build
-  ```
+### Does this plugin work with my theme? ###
 
-#### PHP Development
+The plugin is designed to work with any WordPress theme that supports Gutenberg blocks. The styling is contained within the blocks to ensure compatibility.
 
-- Check PHP coding standards:
-  ```
-  composer phpcs
-  ```
+### Is the plugin translation-ready? ###
 
-- Auto-fix PHP coding standards:
-  ```
-  composer phpcbf
-  ```
+Yes, Author Profile Blocks is fully internationalized and translation-ready. All text strings can be translated using standard WordPress translation tools.
 
-- Run PHPStan static analysis:
-  ```
-  composer phpstan
-  ```
+## Screenshots ##
 
-- Generate .pot file for translations:
-  ```
-  composer wp:make-pot
-  ```
+1. Author Profile block in the Gutenberg editor
+2. Author Grid block displaying team members
+3. Author Carousel block with card layout
+4. Author List block with compact layout
+5. Block settings and customization options
+6. Enhanced user profile fields
 
-### Creating a Distribution Package
+## Changelog ##
 
-To create a distribution package of the plugin:
+### 1.0.0 ###
+* Initial release
+* Added Author Profile block
+* Added Author Grid block
+* Added Author Carousel block
+* Added Author List block
+* Added enhanced user profile fields
+* Added block customization options
 
-```
-yarn plugin-zip
-```
+## Upgrade Notice ##
 
-This will create a ZIP file in the project root that can be used to install the plugin.
+### 1.0.0 ###
+Initial release of Author Profile Blocks.
 
-## Contributing
+## Support ##
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the GPL-2.0 License - see the LICENSE file for details. 
+If you encounter any issues or have questions about the plugin, please visit the [plugin support forum](https://wordpress.org/support/plugin/author-profile-blocks/) or submit an issue on our [GitHub repository](https://github.com/mralaminahamed/author-profile-blocks/issues).

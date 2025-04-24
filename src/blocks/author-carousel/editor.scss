@@ -1,0 +1,152 @@
+/**
+ * Author Carousel block editor styles
+ */
+
+// Import common styles
+@use '../../scss/common' as c;
+
+.wp-block-author-profile-blocks-author-carousel {
+  // Visual indicator in editor
+  @include c.editor-border();
+
+  // Author picker placeholder
+  .apb-author-carousel-placeholder {
+    padding: 2 * c.$spacing-md;
+    text-align: center;
+    border: 1px dashed #c3c4c7;
+    border-radius: c.$border-radius-md;
+
+    h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    .apb-author-picker-wrapper {
+      align-items: center;
+
+      .apb-author-selector-dropdown {
+        width: 100%;
+      }
+    }
+  }
+
+  // Carousel layout preview in editor
+  .apb-author-carousel-preview {
+    // Layout options
+    .apb-layout-options {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: c.$spacing-md;
+
+      .apb-layout-option {
+        padding: 10px;
+        cursor: pointer;
+        border: 1px solid c.$border-color;
+        border-radius: c.$border-radius-md;
+        transition: c.$transition-fast;
+
+        &:hover:not(.is-selected) {
+          background-color: rgba(#f0f7fc, 0.5);
+        }
+
+        &.is-selected {
+          background-color: #f0f7fc;
+          border-color: c.$primary-color;
+        }
+      }
+    }
+  }
+
+  // Inspector controls
+  .components-panel__body {
+
+    .components-base-control {
+      margin-bottom: 16px;
+    }
+
+    .apb-inspector-control-label {
+      display: block;
+      margin-bottom: c.$spacing-sm;
+      font-weight: 500;
+    }
+
+    .apb-controls-row {
+      display: flex;
+      gap: c.$spacing-sm;
+      align-items: flex-start;
+
+      .components-base-control {
+        flex: 1;
+      }
+    }
+  }
+
+  // Editor preview placeholders
+  .apb-carousel-placeholder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: c.$spacing-md;
+
+    // Individual slide placeholders
+    .apb-carousel-slide-placeholder {
+      flex: 1;
+      min-width: calc(33.33% - 14px);
+      padding: 20px;
+      text-align: center;
+      background-color: #f0f0f0;
+      border-radius: c.$border-radius-md;
+      box-shadow: c.$shadow-sm;
+
+      // Placeholder avatar
+      .apb-placeholder-image {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 10px;
+        background-color: #ddd;
+        border-radius: 50%;
+      }
+
+      // Placeholder text lines
+      .apb-placeholder-line {
+        height: 12px;
+        margin-bottom: 8px;
+        background-color: #ddd;
+        border-radius: 2px;
+
+        // Title line
+        &.apb-placeholder-title {
+          width: 70%;
+          height: 16px;
+          margin: 0 auto 10px;
+        }
+
+        // Content lines
+        &.apb-placeholder-text {
+          width: 90%;
+          height: 8px;
+          margin: 0 auto 6px;
+
+          &:last-child {
+            width: 60%;
+          }
+        }
+      }
+    }
+
+    // Preview note
+    .apb-editor-note {
+      width: 100%;
+      margin-top: c.$spacing-md;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: c.$muted-color;
+      text-align: center;
+    }
+  }
+}

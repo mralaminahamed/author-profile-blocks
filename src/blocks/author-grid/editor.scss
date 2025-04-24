@@ -1,0 +1,75 @@
+/**
+ * Author Grid Block - Editor Styles
+ */
+
+// Import common styles
+@use '../../scss/common' as c;
+
+.wp-block-author-profile-blocks-author-grid {
+  // Visual indicator in editor
+  @include c.editor-border();
+
+  // Editor placeholder
+  @include c.editor-placeholder();
+
+  // Author picker button in editor
+  @include c.author-picker-wrapper();
+
+  // Editor toolbar styles
+  @include c.editor-toolbar();
+
+  // Color picker section
+  @include c.color-picker-section();
+
+  // Grid preview in editor
+  .apb-author-grid {
+    // Add some basic styling for the editor preview
+    margin: c.$spacing-md 0;
+  }
+
+  // Inspector controls
+  .components-panel__body {
+    // Column selection controls
+    .apb-columns-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: c.$spacing-md;
+
+      button {
+        flex: 1 0 30%;
+        padding: 8px 0;
+        text-align: center;
+        background: #f0f0f0;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #e5e5e5;
+        }
+
+        &.is-active {
+          background: #fff;
+          border-color: c.$primary-color;
+          box-shadow: 0 0 0 1px c.$primary-color;
+        }
+      }
+    }
+
+    // Base control spacing
+    .components-base-control {
+      margin-bottom: 16px;
+    }
+  }
+
+  // Loading state
+  .apb-grid-loading {
+    padding: c.$spacing-xl;
+    text-align: center;
+
+    .components-spinner {
+      margin: 0 auto c.$spacing-md;
+    }
+  }
+}

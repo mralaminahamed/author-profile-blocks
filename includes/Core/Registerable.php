@@ -1,12 +1,12 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+
 /**
  * Registerable interface
  *
- * @package WPAuthorShowcase
- * @subpackage Core
+ * @package AuthorProfileBlocks
  */
 
-namespace WPAuthorShowcase\Core;
+namespace AuthorProfileBlocks\Core;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

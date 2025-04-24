@@ -1,0 +1,165 @@
+/**
+ * Author List Block - Front-end & Editor Shared Styles
+ */
+
+// Import common styles
+@use '../../scss/common' as c;
+
+.wp-block-author-profile-blocks-author-list {
+  padding: c.$spacing-md;
+
+  // List container
+  .apb-author-list {
+
+    @include c.list-layout();
+
+    // Dividers between items
+    &.has-dividers {
+
+      @include c.list-dividers();
+    }
+
+    // Hover effect
+    .has-hover-effect {
+
+      @include c.hover-transition();
+    }
+  }
+
+  // List item
+  .apb-author-list-item {
+
+    .apb-author-list-item-content {
+      width: 100%;
+    }
+
+    // Rounded corners variant
+    &.is-rounded {
+
+      @include c.rounded-corners();
+
+      .apb-author-image img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  // Compact layout
+  .apb-author-list-compact {
+    display: flex;
+    gap: c.$spacing-lg;
+    align-items: center;
+
+    .apb-author-list-info {
+      flex: 1;
+    }
+
+    .apb-author-list-social {
+      flex: 0 0 auto;
+    }
+  }
+
+  // Detailed layout
+  .apb-author-list-detailed {
+    display: flex;
+    gap: c.$spacing-xl;
+
+    .apb-author-list-left {
+      flex: 0 0 80px;
+    }
+
+    .apb-author-list-right {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: c.$spacing-sm;
+    }
+
+    .apb-author-list-header {
+      margin-bottom: 5px;
+    }
+
+    .apb-author-list-footer {
+      margin-top: 5px;
+    }
+  }
+
+  // Author image
+  .apb-author-image {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    // Larger image for detailed layout
+    .apb-author-list-detailed & {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  // Author information elements
+  .apb-author-name {
+
+    @include c.author-name();
+  }
+
+  .apb-author-position {
+
+    @include c.author-position();
+  }
+
+  .apb-author-email {
+
+    @include c.author-email();
+  }
+
+  .apb-author-description {
+
+    @include c.author-description();
+
+    // Truncate text for compact layout
+    .apb-author-list-compact & {
+
+      @include c.truncate-lines(2);
+    }
+  }
+
+  // Social profiles
+  .apb-social-profiles {
+
+    @include c.social-profiles-start();
+
+    // Social icons alignment for different layouts
+    .apb-author-list-compact & {
+
+      @include c.social-profiles-end();
+    }
+
+    .apb-author-list-detailed & {
+
+      @include c.social-profiles-start();
+    }
+  }
+
+  // Error message
+  .apb-author-list-error {
+
+    @include c.error-message();
+  }
+
+  // Responsive adjustments
+  @media (max-width: c.$breakpoint-medium) {
+
+    .apb-author-list-detailed {
+
+      @include c.mobile-stack();
+    }
+  }
+}

@@ -11,7 +11,7 @@ import apiFetch from '@wordpress/api-fetch';
 export const fetchAuthors = async () => {
     try {
         return await apiFetch({
-            path: '/wp/v2/author_profile',
+            path: '/wp/v2/users?roles=administrator,editor,author,contributor',
             method: 'GET',
         });
     } catch (error) {
@@ -31,7 +31,7 @@ export const fetchAuthorById = async (id) => {
 
     try {
         return await apiFetch({
-            path: `/wp/v2/author_profile/${id}`,
+            path: `/wp/v2/users/${id}`,
             method: 'GET',
         });
     } catch (error) {

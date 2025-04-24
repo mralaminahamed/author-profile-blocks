@@ -1,6 +1,6 @@
 {
-  "name": "mralaminahamed/wp-author-showcase",
-  "description": "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type.",
+  "name": "mralaminahamed/author-profile-blocks",
+  "description": "A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.",
   "type": "wordpress-plugin",
   "license": "GPL-3.0-only",
   "version": "1.0.0",
@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "WPAuthorShowcase\\": "includes/"
+      "AuthorProfileBlocks\\": "includes/"
     }
   },
   "require-dev": {
@@ -28,10 +28,28 @@
     "phpcompatibility/php-compatibility": "^9.3"
   },
   "scripts": {
-    "phpcs": "phpcs --standard=phpcs.xml.dist",
-    "phpcbf": "phpcbf --standard=phpcs.xml.dist",
-    "phpstan": "phpstan analyse",
-    "wp:make-pot": "wp i18n make-pot ./ ./languages/wp-author-showcase.pot --domain=wp-author-showcase --package-name=\"WP Author Showcase\""
+    "phpcs:check": "phpcs --standard=phpcs.xml.dist",
+    "phpcs:fix": "phpcbf --standard=phpcs.xml.dist",
+    "phpcs:check:review": "phpcs ./includes --standard=phpcs.plugin-review.xml.dist",
+    "phpcs:fix:review": "phpcbf ./includes --standard=phpcs.plugin-review.xml.dist",
+    "phpstan": "phpstan analyse --memory-limit=2G --no-progress",
+    "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-blocks.pot --domain=author-profile-blocks --package-name=\"Author Profile Blocks\"",
+    "wp:make-po": "cp ./languages/author-profile-blocks.pot ./languages/author-profile-blocks.po",
+    "wp:make-mo": "wp i18n make-mo ./languages/author-profile-blocks.po",
+    "wp:make-json": "wp i18n make-json ./languages/author-profile-blocks.po --no-purge",
+    "generate-md": "wp-readme-to-md",
+    "release": [
+      "yarn build",
+      "@phpcs:check",
+      "@phpstan",
+      "@wp:make-pot",
+      "@wp:make-po",
+      "@wp:make-mo",
+      "@wp:make-json",
+      "composer update --no-dev",
+      "wp-readme-to-md",
+      "yarn plugin-zip"
+    ]
   },
   "config": {
     "allow-plugins": {
