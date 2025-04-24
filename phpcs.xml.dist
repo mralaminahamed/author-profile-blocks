@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Author Profile Showcase Coding Standards">
-    <description>WordPress Coding Standards for Author Profile Showcase plugin</description>
+<ruleset name="Author Profile Blocks Coding Standards">
+    <description>WordPress Coding Standards for Author Profile Blocks plugin</description>
 
     <!-- Scan all files in plugin -->
     <file>.</file>

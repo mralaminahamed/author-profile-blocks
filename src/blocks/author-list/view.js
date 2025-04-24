@@ -62,19 +62,16 @@ function initInteractiveElements(block) {
     const socialLinks = block.querySelectorAll('.apb-social-item a');
     if (socialLinks.length) {
         socialLinks.forEach((link) => {
+            // Open in new window
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+
             link.addEventListener('click', (e) => {
-                // Prevent default if needed
-                // e.preventDefault();
-                
                 // Track social clicks if analytics is available
                 if (typeof window.apbTrackEvent === 'function') {
                     const network = link.closest('.apb-social-item').className.split('apb-social-')[1];
                     window.apbTrackEvent('social_click', { network });
                 }
-                
-                // Open in new window
-                link.setAttribute('target', '_blank');
-                link.setAttribute('rel', 'noopener noreferrer');
             });
         });
     }
