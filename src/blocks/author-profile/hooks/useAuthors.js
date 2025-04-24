@@ -37,7 +37,7 @@ const useAuthors = (initialAuthorId = 0) => {
             }
         };
 
-        loadAuthors();
+        void loadAuthors();
     }, [initialAuthorId]);
 
     return {

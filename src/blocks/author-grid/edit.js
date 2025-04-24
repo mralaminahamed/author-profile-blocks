@@ -227,6 +227,19 @@ export default function Edit({ attributes, setAttributes }) {
                         }
                     ]}
                 />
+
+				{authorIds > 0 && (
+					<PanelBody title={__('Author Selection', 'author-profile-blocks')}>
+						<Button
+							isDestructive
+							variant="secondary"
+							className="wpas-clear-button"
+							onClick={handleClearAuthors}
+						>
+							{__('Clear Authors', 'author-profile-blocks')}
+						</Button>
+					</PanelBody>
+				)}
             </InspectorControls>
 
             <div {...blockProps}>
