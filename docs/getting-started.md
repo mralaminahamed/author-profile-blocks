@@ -60,7 +60,7 @@ Before using the blocks, you may want to enhance the author profiles with additi
    - Member Since Label (customizable text for the registration date)
 5. Click "Update User" to save the changes.
 
-![Author Profile Fields](../assets/images/author-profile-fields.png)
+![Author Profile Fields]({{ site.baseurl }}/assets/images/author-profile-fields.png)
 
 ### Adding Blocks to Your Content
 
@@ -85,25 +85,25 @@ Here's a brief overview of each block:
 
 Displays a single author with comprehensive information. Perfect for author bio pages, about pages, or contact information.
 
-![Author Profile Block](../assets/images/author-profile-block.png)
+![Author Profile Block]({{ site.baseurl }}/assets/images/author-profile-block.png)
 
 ### Author Grid Block
 
 Presents multiple authors in a responsive grid layout. Ideal for team pages, contributor listings, or showcasing multiple authors.
 
-![Author Grid Block](../assets/images/author-grid-block.png)
+![Author Grid Block]({{ site.baseurl }}/assets/images/author-grid-block.png)
 
 ### Author Carousel Block
 
 Showcases multiple authors in an interactive sliding carousel. Great for featuring team members or contributors in a space-efficient manner.
 
-![Author Carousel Block](../assets/images/author-carousel-block.png)
+![Author Carousel Block]({{ site.baseurl }}/assets/images/author-carousel-block.png)
 
 ### Author List Block
 
 Displays multiple authors in a customizable list format. Perfect for vertical author listings or team directories.
 
-![Author List Block](../assets/images/author-list-block.png)
+![Author List Block]({{ site.baseurl }}/assets/images/author-list-block.png)
 
 ## Next Steps
 

@@ -29,7 +29,7 @@ The Author Profile Blocks plugin extends WordPress user profiles with additional
 2. Click on a user to edit their profile.
 3. Scroll down to the "Author Profile Information" section.
 
-![Author Profile Fields](../assets/images/author-profile-fields.png)
+![Author Profile Fields]({{ site.baseurl }}/assets/images/author-profile-fields.png)
 
 ## Available Profile Fields
 
@@ -41,7 +41,7 @@ This field allows you to specify the author's role, job title, or position withi
 - Content Manager
 - Marketing Specialist
 
-![Position Field](../assets/images/position-field.png)
+![Position Field]({{ site.baseurl }}/assets/images/position-field.png)
 
 ### Author Description
 
@@ -54,7 +54,7 @@ While WordPress has a built-in biographical info field, this separate descriptio
 
 The field includes a simple WYSIWYG editor for basic formatting.
 
-![Description Field](../assets/images/description-field.png)
+![Description Field]({{ site.baseurl }}/assets/images/description-field.png)
 
 ### Member Since Label
 
@@ -65,7 +65,7 @@ This field allows you to customize how the author's registration date is display
 - "With us since"
 - Any other phrasing that fits your site's tone
 
-![Member Since Label Field](../assets/images/member-since-label-field.png)
+![Member Since Label Field]({{ site.baseurl }}/assets/images/member-since-label-field.png)
 
 ### Social Media Profiles
 
@@ -78,7 +78,7 @@ The plugin supports linking to the following social platforms:
 
 Enter the full URL for each platform (e.g., `https://twitter.com/username`).
 
-![Social Media Fields](../assets/images/social-media-fields.png)
+![Social Media Fields]({{ site.baseurl }}/assets/images/social-media-fields.png)
 
 ## Best Practices
 

@@ -20,7 +20,7 @@ The Author Carousel Block allows you to showcase multiple authors in an interact
 
 ---
 
-![Author Carousel Block](../../assets/images/author-carousel-block.png)
+![Author Carousel Block]({{ site.baseurl }}/assets/images/author-carousel-block.png)
 
 ## Overview
 
@@ -82,7 +82,7 @@ The Card layout presents each author in a card format with:
 
 Ideal for formal presentation.
 
-![Card Layout](../../assets/images/author-carousel-card-layout.png)
+![Card Layout]({{ site.baseurl }}/assets/images/author-carousel-card-layout.png)
 
 ### Compact Layout
 
@@ -94,7 +94,7 @@ The Compact layout provides a more space-efficient presentation:
 
 Ideal when space is limited.
 
-![Compact Layout](../../assets/images/author-carousel-compact-layout.png)
+![Compact Layout]({{ site.baseurl }}/assets/images/author-carousel-compact-layout.png)
 
 ### Centered Layout
 
@@ -105,7 +105,7 @@ The Centered layout focuses on symmetry and balance:
 
 Ideal for highlighting featured authors.
 
-![Centered Layout](../../assets/images/author-carousel-centered-layout.png)
+![Centered Layout]({{ site.baseurl }}/assets/images/author-carousel-centered-layout.png)
 
 ## Responsive Behavior
 

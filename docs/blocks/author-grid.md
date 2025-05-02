@@ -20,7 +20,7 @@ The Author Grid Block allows you to display multiple authors in a responsive gri
 
 ---
 
-![Author Grid Block](../../assets/images/author-grid-block.png)
+![Author Grid Block]({{ site.baseurl }}/assets/images/author-grid-block.png)
 
 ## Overview
 
@@ -77,7 +77,7 @@ The Card layout presents each author in a card format with:
 
 Ideal for formal team pages.
 
-![Card Layout](../../assets/images/author-grid-card-layout.png)
+![Card Layout]({{ site.baseurl }}/assets/images/author-grid-card-layout.png)
 
 ### Compact Layout
 
@@ -89,7 +89,7 @@ The Compact layout provides a more space-efficient presentation:
 
 Ideal when displaying many authors.
 
-![Compact Layout](../../assets/images/author-grid-compact-layout.png)
+![Compact Layout]({{ site.baseurl }}/assets/images/author-grid-compact-layout.png)
 
 ### Centered Layout
 
@@ -100,7 +100,7 @@ The Centered layout focuses on symmetry and balance:
 
 Ideal for highlighting featured team members.
 
-![Centered Layout](../../assets/images/author-grid-centered-layout.png)
+![Centered Layout]({{ site.baseurl }}/assets/images/author-grid-centered-layout.png)
 
 ## Responsive Behavior
 
@@ -186,7 +186,7 @@ The Author Grid Block includes an intuitive author picker that allows you to:
 4. Reorder selected authors by dragging
 5. Remove authors from the selection
 
-![Author Picker](../../assets/images/author-picker.png)
+![Author Picker]({{ site.baseurl }}/assets/images/author-picker.png)
 
 ### Setting a Maximum Display Limit
 

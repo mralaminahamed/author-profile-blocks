@@ -20,7 +20,7 @@ The Author Profile Block allows you to showcase detailed information about a sin
 
 ---
 
-![Author Profile Block]({{ site.baseurl }}/assets/images/author-profile-block-thumb.svg)
+![Author Profile Block]({{ site.baseurl }}/assets/images/author-profile-block.png)
 
 ## Overview
 
@@ -73,7 +73,7 @@ The Card layout presents the author information in a card format with:
 
 Ideal for formal presentation of authors.
 
-![Card Layout](../../assets/images/author-profile-card-layout.png)
+![Card Layout]({{ site.baseurl }}/assets/images/author-profile-card-layout.png)
 
 ### Compact Layout
 
@@ -85,7 +85,7 @@ The Compact layout provides a more space-efficient presentation:
 
 Ideal for sidebar widgets or when space is limited.
 
-![Compact Layout](../../assets/images/author-profile-compact-layout.png)
+![Compact Layout]({{ site.baseurl }}/assets/images/author-profile-compact-layout.png)
 
 ### Centered Layout
 
@@ -96,7 +96,7 @@ The Centered layout focuses on symmetry and balance:
 
 Ideal for author spotlights or featured authors.
 
-![Centered Layout](../../assets/images/author-profile-centered-layout.png)
+![Centered Layout]({{ site.baseurl }}/assets/images/author-profile-centered-layout.png)
 
 ## Usage Examples
 

@@ -20,7 +20,7 @@ The Author List Block allows you to display multiple authors in a customizable l
 
 ---
 
-![Author List Block](../../assets/images/author-list-block.png)
+![Author List Block]({{ site.baseurl }}/assets/images/author-list-block.png)
 
 ## Overview
 
@@ -84,7 +84,7 @@ The Compact style presents each author in a streamlined format:
 
 This style is ideal for creating concise lists with many authors, minimizing vertical space while providing essential information.
 
-![Compact Style](../../assets/images/author-list-compact-style.png)
+![Compact Style]({{ site.baseurl }}/assets/images/author-list-compact-style.png)
 
 ### Detailed Style
 
@@ -95,7 +95,7 @@ The Detailed style provides a more comprehensive presentation:
 
 This style is perfect for more in-depth team directories where you want to showcase more information about each author.
 
-![Detailed Style](../../assets/images/author-list-detailed-style.png)
+![Detailed Style]({{ site.baseurl }}/assets/images/author-list-detailed-style.png)
 
 ## List Style Options
 
