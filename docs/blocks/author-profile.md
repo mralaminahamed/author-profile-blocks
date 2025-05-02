@@ -20,7 +20,7 @@ The Author Profile Block allows you to showcase detailed information about a sin
 
 ---
 
-![Author Profile Block](../../assets/images/author-profile-block.png)
+![Author Profile Block]({{ site.baseurl }}/assets/images/author-profile-block-thumb.svg)
 
 ## Overview
 
