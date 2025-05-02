@@ -187,7 +187,7 @@ export default function Edit({ attributes, setAttributes, clientId, insertBlocks
                     />
 
                     {enableDividers && (
-                        <div className="apb-color-picker-label-wrapper">
+                        <div className="apbl-color-picker-label-wrapper">
                             <span>{__('Divider Color', 'author-profile-blocks')}</span>
                             <ColorPicker
                                 color={dividerColor}

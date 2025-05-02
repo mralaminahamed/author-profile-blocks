@@ -37,11 +37,11 @@ export default function AuthorBlockPlaceholder({
     additionalControls = null,
     className = '',
 }) {
-    const placeholderClass = `apb-author-block-placeholder ${className}`.trim();
+    const placeholderClass = `apbl-author-block-placeholder ${className}`.trim();
 
     return (
         <Card className={placeholderClass} elevation={2}>
-            <CardHeader className="apb-placeholder-header">
+            <CardHeader className="apbl-placeholder-header">
                 <Flex justify="space-between" align="center">
                     <FlexItem>
                         <Flex align="center" gap={2}>
@@ -58,7 +58,7 @@ export default function AuthorBlockPlaceholder({
             </CardHeader>
 
             <CardBody>
-                <p className="apb-placeholder-instructions">{instructions}</p>
+                <p className="apbl-placeholder-instructions">{instructions}</p>
                 <AuthorPicker
                     selectedAuthorIds={selectedAuthorIds}
                     onChange={onChange}

@@ -2,7 +2,7 @@
  * Styles for the unified author block placeholder
  */
 
-.apb-author-block-placeholder {
+.apbl-author-block-placeholder {
     //padding: 24px;
     text-align: center;
     background-color: #f8f9fa;
@@ -17,26 +17,26 @@
         margin-bottom: 20px;
     }
     
-    .apb-layout-selector-wrapper {
+    .apbl-layout-selector-wrapper {
         width: 100%;
         margin-top: 16px;
     }
     
-    .apb-additional-controls {
+    .apbl-additional-controls {
         width: 100%;
         margin-top: 16px;
     }
 }
 
 // Layout selector styles
-.apb-block-layout-selector {
+.apbl-block-layout-selector {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 16px;
     
-    .apb-layout-selector-label {
+    .apbl-layout-selector-label {
         margin-bottom: 8px;
         font-weight: 500;
     }
@@ -47,14 +47,14 @@
         justify-content: center;
     }
     
-    .apb-layout-selector-button {
+    .apbl-layout-selector-button {
         min-width: 60px;
         margin: 4px;
     }
 }
 
 // State display styles
-.apb-block-state-display {
+.apbl-block-state-display {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,14 +72,14 @@
     
     &.has-error {
 
-        .apb-error-message {
+        .apbl-error-message {
             color: #cc1818;
         }
     }
     
     &.is-empty {
 
-        .apb-state-icon {
+        .apbl-state-icon {
             margin-bottom: 12px;
             
             svg {

@@ -6,10 +6,10 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Services;
+namespace APBL\AuthorProfileBlocks\Services;
 
-use AuthorProfileBlocks\Core\Base;
-use AuthorProfileBlocks\Core\User_Meta_Provider;
+use APBL\AuthorProfileBlocks\Core\Base;
+use APBL\AuthorProfileBlocks\Core\User_Meta_Provider;
 use WP_User_Query;
 
 // Exit if accessed directly.
@@ -187,7 +187,7 @@ class Author_Profile_Service extends Base {
 	 * @return string Author position.
 	 */
 	public function get_author_position( array $user ): string {
-		return $this->meta_provider->get_meta( $user['id'], 'apb_author_position', true ) ?? '';
+		return $this->meta_provider->get_meta( $user['id'], 'apbl_author_position', true ) ?? '';
 	}
 
 	/**
@@ -198,7 +198,7 @@ class Author_Profile_Service extends Base {
 	 * @return string Author description.
 	 */
 	public function get_author_description( array $user ): string {
-		return $this->meta_provider->get_meta( $user['id'], 'apb_author_description', true ) ?? '';
+		return $this->meta_provider->get_meta( $user['id'], 'apbl_author_description', true ) ?? '';
 	}
 
 	/**
@@ -209,7 +209,7 @@ class Author_Profile_Service extends Base {
 	 * @return array Social profiles.
 	 */
 	public function get_social_profiles( array $user ): array {
-		$profiles = $this->meta_provider->get_meta( $user['id'], 'apb_social_profiles', true );
+		$profiles = $this->meta_provider->get_meta( $user['id'], 'apbl_social_profiles', true );
 
 		if ( ! is_array( $profiles ) ) {
 			$profiles = array(
@@ -249,7 +249,7 @@ class Author_Profile_Service extends Base {
 	 * @return string Member since label.
 	 */
 	public function get_member_since_label( array $user ): string {
-		$custom_label = $this->meta_provider->get_meta( $user['id'], 'apb_member_since_label', true );
+		$custom_label = $this->meta_provider->get_meta( $user['id'], 'apbl_member_since_label', true );
 
 		// Use default if empty.
 		if ( empty( $custom_label ) ) {
@@ -278,13 +278,13 @@ class Author_Profile_Service extends Base {
 			return null;
 		}
 
-		$description     = $this->meta_provider->get_meta( $author_id, 'apb_author_description', true );
-		$position        = $this->meta_provider->get_meta( $author_id, 'apb_author_position', true );
-		$social_profiles = $this->meta_provider->get_meta( $author_id, 'apb_social_profiles', true );
+		$description     = $this->meta_provider->get_meta( $author_id, 'apbl_author_description', true );
+		$position        = $this->meta_provider->get_meta( $author_id, 'apbl_author_position', true );
+		$social_profiles = $this->meta_provider->get_meta( $author_id, 'apbl_social_profiles', true );
 		$image           = get_avatar_url( $author_id, array( 'size' => 150 ) );
 
 		// Get member since label (use default if custom label is not set).
-		$member_since_label = $this->meta_provider->get_meta( $author_id, 'apb_member_since_label', true );
+		$member_since_label = $this->meta_provider->get_meta( $author_id, 'apbl_member_since_label', true );
 		if ( empty( $member_since_label ) ) {
 			$member_since_label = __( 'Member since', 'author-profile-blocks' );
 		}
@@ -391,7 +391,7 @@ class Author_Profile_Service extends Base {
 	public function get_featured_authors( int $number = - 1 ): array {
 		// Query for users with the featured meta flag.
 		$args = array(
-			'meta_key'     => 'apb_is_featured', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			'meta_key'     => 'apbl_is_featured', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 			'meta_value'   => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 			'meta_compare' => '=',
 			'number'       => $number,

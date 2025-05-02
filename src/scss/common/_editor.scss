@@ -12,7 +12,7 @@
 // Color picker section
 @mixin color-picker-section {
 
-  .apb-color-picker-label-wrapper {
+  .apbl-color-picker-label-wrapper {
     margin-bottom: v.$spacing-lg;
 
     span {
@@ -38,7 +38,7 @@
 // Author picker button in editor
 @mixin author-picker-wrapper {
 
-  .apb-author-picker-wrapper {
+  .apbl-author-picker-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;

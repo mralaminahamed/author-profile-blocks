@@ -6,9 +6,9 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Blocks;
+namespace APBL\AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Common\Author_Block_Base;
+use APBL\AuthorProfileBlocks\Common\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.

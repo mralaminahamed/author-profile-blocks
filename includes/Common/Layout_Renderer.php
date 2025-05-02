@@ -6,7 +6,7 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Common;
+namespace APBL\AuthorProfileBlocks\Common;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,7 @@ trait Layout_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_compact_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-compact">';
+		$html = '<div class="apbl-author-compact">';
 
 		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
@@ -34,7 +34,7 @@ trait Layout_Renderer {
 		}
 
 		// Author info container.
-		$html .= '<div class="apb-author-info">';
+		$html .= '<div class="apbl-author-info">';
 
 		// Author name.
 		if ( ! empty( $author['title'] ) ) {
@@ -56,16 +56,16 @@ trait Layout_Renderer {
 			$html .= $this->render_author_description( $author );
 		}
 
-		$html .= '</div>'; // Close .apb-author-info.
+		$html .= '</div>'; // Close .apbl-author-info.
 
 		// Social icons if enabled.
 		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= '<div class="apb-author-social">';
-			$html .= $this->render_social_profiles( $author['social'], 'apb-compact-social' );
+			$html .= '<div class="apbl-author-social">';
+			$html .= $this->render_social_profiles( $author['social'], 'apbl-compact-social' );
 			$html .= '</div>';
 		}
 
-		$html .= '</div>'; // Close .apb-author-compact.
+		$html .= '</div>'; // Close .apbl-author-compact.
 
 		return $html;
 	}
@@ -79,23 +79,23 @@ trait Layout_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_detailed_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-detailed">';
+		$html = '<div class="apbl-author-detailed">';
 
 		// Left column with image.
-		$html .= '<div class="apb-author-left">';
+		$html .= '<div class="apbl-author-left">';
 
 		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
 			$html .= $this->render_author_image( $author );
 		}
 
-		$html .= '</div>'; // Close .apb-author-left.
+		$html .= '</div>'; // Close .apbl-author-left.
 
 		// Right column with author details.
-		$html .= '<div class="apb-author-right">';
+		$html .= '<div class="apbl-author-right">';
 
 		// Author info header.
-		$html .= '<div class="apb-author-header">';
+		$html .= '<div class="apbl-author-header">';
 
 		// Author name.
 		if ( ! empty( $author['title'] ) ) {
@@ -107,7 +107,7 @@ trait Layout_Renderer {
 			$html .= $this->render_author_position( $author );
 		}
 
-		$html .= '</div>'; // Close .apb-author-header.
+		$html .= '</div>'; // Close .apbl-author-header.
 
 		// Author email - only if email display is enabled in attributes.
 		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
@@ -126,13 +126,13 @@ trait Layout_Renderer {
 
 		// Social profiles in footer if enabled.
 		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= '<div class="apb-author-footer">';
-			$html .= $this->render_social_profiles( $author['social'], 'apb-detailed-social' );
+			$html .= '<div class="apbl-author-footer">';
+			$html .= $this->render_social_profiles( $author['social'], 'apbl-detailed-social' );
 			$html .= '</div>';
 		}
 
-		$html .= '</div>'; // Close .apb-author-right.
-		$html .= '</div>'; // Close .apb-author-detailed.
+		$html .= '</div>'; // Close .apbl-author-right.
+		$html .= '</div>'; // Close .apbl-author-detailed.
 
 		return $html;
 	}
@@ -146,17 +146,17 @@ trait Layout_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_card_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-card">';
+		$html = '<div class="apbl-author-card">';
 
 		// Card header.
-		$html .= '<div class="apb-card-header">';
+		$html .= '<div class="apbl-card-header">';
 
 		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author, 'apb-card-image' );
+			$html .= $this->render_author_image( $author, 'apbl-card-image' );
 		}
 
-		$html .= '</div>'; // Close .apb-card-header.
+		$html .= '</div>'; // Close .apbl-card-header.
 
 		// Card body.
 		$html .= '<div class="apb-card-body">';

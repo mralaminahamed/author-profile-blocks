@@ -24,11 +24,11 @@ export default function BlockLayoutSelector({
         return null;
     }
 
-    const selectorClass = `apb-block-layout-selector ${className}`.trim();
+    const selectorClass = `apbl-block-layout-selector ${className}`.trim();
 
     return (
         <div className={selectorClass}>
-            <span className="apb-layout-selector-label">
+            <span className="apbl-layout-selector-label">
                 {__('Select Layout:', 'author-profile-blocks')}
             </span>
             <ButtonGroup>
@@ -37,7 +37,7 @@ export default function BlockLayoutSelector({
                         key={layout.value}
                         variant={selectedLayout === layout.value ? 'primary' : 'secondary'}
                         onClick={() => onSelectLayout(layout.value)}
-                        className="apb-layout-selector-button"
+                        className="apbl-layout-selector-button"
                         aria-label={layout.label}
                         label={layout.label}
                         showTooltip

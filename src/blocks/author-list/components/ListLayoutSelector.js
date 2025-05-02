@@ -28,7 +28,7 @@ export default function ListLayoutSelector({ value, onChange, ...props }) {
     ];
 
     return (
-        <div className="apb-list-layout-selector" {...props}>
+        <div className="apbl-list-layout-selector" {...props}>
             <Flex gap={2} direction="column">
                 <FlexItem>
                     <span className="components-base-control__label">

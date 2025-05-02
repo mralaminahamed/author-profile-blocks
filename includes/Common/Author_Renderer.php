@@ -6,7 +6,7 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Common;
+namespace APBL\AuthorProfileBlocks\Common;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -26,7 +26,7 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_image( array $author, string $wrapper_class = '' ): string {
-		$classes = 'apb-author-image';
+		$classes = 'apbl-author-image';
 		if ( ! empty( $wrapper_class ) ) {
 			$classes .= ' ' . $wrapper_class;
 		}
@@ -53,14 +53,14 @@ trait Author_Renderer {
 	protected function render_author_name( array $author ): string {
 		if ( isset( $author['url'] ) && '' !== $author['url'] ) {
 			return sprintf(
-				'<h3 class="apb-author-name"><a href="%s">%s</a></h3>',
+				'<h3 class="apbl-author-name"><a href="%s">%s</a></h3>',
 				esc_url( $author['url'] ),
 				esc_html( $author['title'] )
 			);
 		}
 
 		return sprintf(
-			'<h3 class="apb-author-name">%s</h3>',
+			'<h3 class="apbl-author-name">%s</h3>',
 			esc_html( $author['title'] )
 		);
 	}
@@ -74,7 +74,7 @@ trait Author_Renderer {
 	 */
 	protected function render_author_position( array $author ): string {
 		return sprintf(
-			'<div class="apb-author-position">%s</div>',
+			'<div class="apbl-author-position">%s</div>',
 			esc_html( $author['position'] )
 		);
 	}
@@ -88,7 +88,7 @@ trait Author_Renderer {
 	 */
 	protected function render_author_email( array $author ): string {
 		return sprintf(
-			'<div class="apb-author-email"><a href="mailto:%s">%s</a></div>',
+			'<div class="apbl-author-email"><a href="mailto:%s">%s</a></div>',
 			esc_attr( $author['email'] ),
 			esc_html( $author['email'] )
 		);
@@ -103,7 +103,7 @@ trait Author_Renderer {
 	 */
 	protected function render_author_description( array $author ): string {
 		return sprintf(
-			'<div class="apb-author-description">%s</div>',
+			'<div class="apbl-author-description">%s</div>',
 			wp_kses_post( $author['description'] )
 		);
 	}
@@ -117,18 +117,18 @@ trait Author_Renderer {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_social_profiles( array $profiles, string $wrapper_class = '' ): string {
-		$classes = 'apb-social-profiles';
+		$classes = 'apbl-social-profiles';
 		if ( ! empty( $wrapper_class ) ) {
 			$classes .= ' ' . $wrapper_class;
 		}
 
-		$html = '<div class="' . esc_attr( $classes ) . '"><ul class="apb-social-list">';
+		$html = '<div class="' . esc_attr( $classes ) . '"><ul class="apbl-social-list">';
 
 		$social_icons = $this->get_social_icons();
 
 		foreach ( $profiles as $network => $url ) {
 			if ( ! empty( $url ) && isset( $social_icons[ $network ] ) ) {
-				$html .= '<li class="apb-social-item apb-social-' . esc_attr( $network ) . '">';
+				$html .= '<li class="apbl-social-item apbl-social-' . esc_attr( $network ) . '">';
 				$html .= '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">';
 				$html .= '<span class="dashicons ' . esc_attr( $social_icons[ $network ] ) . '" aria-hidden="true"></span>';
 				$html .= '<span class="screen-reader-text">' . esc_html( ucfirst( $network ) ) . '</span>';
@@ -154,7 +154,7 @@ trait Author_Renderer {
 		$label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
 
 		return sprintf(
-			'<div class="apb-author-registered-date"><span class="apb-registered-date-label">%s</span> <span class="apb-registered-date-value">%s</span></div>',
+			'<div class="apbl-author-registered-date"><span class="apbl-registered-date-label">%s</span> <span class="apbl-registered-date-value">%s</span></div>',
 			esc_html( $label ),
 			esc_html( $author['registered_date'] )
 		);
@@ -173,7 +173,7 @@ trait Author_Renderer {
 		}
 
 		return sprintf(
-			'<div class="apb-author-more-content">%s</div>',
+			'<div class="apbl-author-more-content">%s</div>',
 			wp_kses_post( $content )
 		);
 	}

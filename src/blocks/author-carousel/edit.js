@@ -269,10 +269,10 @@ export default function Edit({attributes, setAttributes}) {
                                 onSelectLayout={handleSelectLayout}
                             />
                         }
-                        className="apb-author-carousel-placeholder"
+                        className="apbl-author-carousel-placeholder"
                     />
                 ) : (
-                    <div className="apb-author-carousel-preview">
+                    <div className="apbl-author-carousel-preview">
                         <CarouselLayoutSelector
                             selectedLayout={layout}
                             onSelectLayout={handleSelectLayout}

@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AuthorProfileBlocks\\": "includes/"
+      "APBL\\AuthorProfileBlocks\\": "includes/"
     }
   },
   "require-dev": {
