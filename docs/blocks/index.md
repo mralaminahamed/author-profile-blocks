@@ -1,15 +1,25 @@
-# Author Blocks
+---
+layout: default
+title: Blocks
+nav_order: 3
+has_children: true
+permalink: /blocks/
+---
+
+# Author Profile Blocks
+{: .no_toc }
 
 Detailed documentation for each of the Author Profile Blocks.
+{: .fs-6 .fw-300 }
 
 ## Available Blocks
 
 The plugin includes four main blocks for showcasing author information:
 
-1. [Author Profile Block](./author-profile.md) - Display a single author with detailed information
-2. [Author Grid Block](./author-grid.md) - Present multiple authors in a responsive grid layout
-3. [Author Carousel Block](./author-carousel.md) - Showcase multiple authors in an interactive carousel
-4. [Author List Block](./author-list.md) - Display multiple authors in a customizable list format
+1. [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %}) - Display a single author with detailed information
+2. [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %}) - Present multiple authors in a responsive grid layout
+3. [Author Carousel Block]({{ site.baseurl }}{% link blocks/author-carousel.md %}) - Showcase multiple authors in an interactive carousel
+4. [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %}) - Display multiple authors in a customizable list format
 
 ## Common Features
 
@@ -54,7 +64,7 @@ All blocks offer multiple layout options:
 
 For detailed information on each block, please refer to the individual documentation pages:
 
-- [Author Profile Block](./author-profile.md)
-- [Author Grid Block](./author-grid.md)
-- [Author Carousel Block](./author-carousel.md)
-- [Author List Block](./author-list.md)
+- [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %})
+- [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %})
+- [Author Carousel Block]({{ site.baseurl }}{% link blocks/author-carousel.md %})
+- [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %})

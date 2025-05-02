@@ -1,19 +1,40 @@
+---
+layout: default
+title: Author Carousel Block
+parent: Blocks
+nav_order: 3
+permalink: /blocks/author-carousel/
+---
+
 # Author Carousel Block
+{: .no_toc }
 
-The Author Carousel Block allows you to showcase multiple authors in an interactive, sliding carousel format. This block is perfect for featuring team members or contributors in a space-efficient, engaging way.
+The Author Carousel Block allows you to showcase multiple authors in an interactive, sliding carousel format.
+{: .fs-6 .fw-300 }
 
-![Author Carousel Block](../images/author-carousel-block.png)
+## Table of contents
+{: .no_toc .text-delta }
 
-## Features
+1. TOC
+   {:toc}
 
-- Display authors in an interactive, sliding carousel
-- Autoplay functionality with adjustable speed
-- Customizable navigation options (dots and arrows)
-- Multiple layout options for each author slide
-- Responsive design that adapts to different screen sizes
-- Filter authors by role
+---
+
+![Author Carousel Block](../../assets/images/author-carousel-block.png)
+
+## Overview
+
+The Author Carousel Block is designed to showcase multiple authors in an interactive, sliding carousel. It's perfect for:
+
+- Featured team members on home pages
+- Highlighting contributors in a space-efficient way
+- Showcasing speakers or panelists
+- Creating an engaging team presentation
+- Sidebar widgets for author spotlights
 
 ## Block Settings
+
+The Author Carousel Block offers a variety of settings to customize both the content and appearance.
 
 ### Carousel Settings
 
@@ -61,6 +82,8 @@ The Card layout presents each author in a card format with:
 
 Ideal for formal presentation.
 
+![Card Layout](../../assets/images/author-carousel-card-layout.png)
+
 ### Compact Layout
 
 The Compact layout provides a more space-efficient presentation:
@@ -71,6 +94,8 @@ The Compact layout provides a more space-efficient presentation:
 
 Ideal when space is limited.
 
+![Compact Layout](../../assets/images/author-carousel-compact-layout.png)
+
 ### Centered Layout
 
 The Centered layout focuses on symmetry and balance:
@@ -79,6 +104,8 @@ The Centered layout focuses on symmetry and balance:
 - Description at the bottom
 
 Ideal for highlighting featured authors.
+
+![Centered Layout](../../assets/images/author-carousel-centered-layout.png)
 
 ## Responsive Behavior
 
@@ -162,6 +189,28 @@ The Author Carousel automatically adjusts based on screen size:
 - 3 slides works well for standard width content areas
 - 1-2 slides is ideal for sidebar or narrower areas
 
+## Carousel Navigation
+
+The Author Carousel Block provides two navigation options for users to browse through authors:
+
+### Navigation Arrows
+
+Navigation arrows appear on the left and right sides of the carousel, allowing users to move to the previous or next slide. These can be:
+
+- Enabled/disabled in the block settings
+- Styled using custom CSS
+- Hidden on mobile devices automatically
+
+### Navigation Dots
+
+Navigation dots appear below the carousel, indicating:
+
+1. The total number of slides
+2. The current active slide
+3. Clickable navigation to any specific slide
+
+These dots can be enabled/disabled in the block settings.
+
 ## Technical Notes
 
 - The carousel uses the Slick Carousel jQuery plugin for smooth, responsive functionality
@@ -170,5 +219,6 @@ The Author Carousel automatically adjusts based on screen size:
 
 ## Related Blocks
 
-- [Author Profile Block](./author-profile.md) - For displaying a single author in detail
-- [Author Grid Block](./author-grid.md) - For displaying multiple authors in a grid layout
+- [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %}) - For displaying a single author in detail
+- [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %}) - For displaying multiple authors in a grid layout
+- [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %}) - For displaying multiple authors in a list format

@@ -1,19 +1,40 @@
+---
+layout: default
+title: Author Grid Block
+parent: Blocks
+nav_order: 2
+permalink: /blocks/author-grid/
+---
+
 # Author Grid Block
+{: .no_toc }
 
 The Author Grid Block allows you to display multiple authors in a responsive grid layout, perfect for team pages or contributor listings.
+{: .fs-6 .fw-300 }
 
-![Author Grid Block](../images/author-grid-block.png)
+## Table of contents
+{: .no_toc .text-delta }
 
-## Features
+1. TOC
+   {:toc}
 
-- Display multiple authors in a clean, responsive grid
-- Select specific authors to include
-- Filter authors by role
-- Multiple layout options for each author card
-- Customizable column count and spacing
-- Limit the maximum number of authors to display
+---
+
+![Author Grid Block](../../assets/images/author-grid-block.png)
+
+## Overview
+
+The Author Grid Block is designed to showcase multiple authors in a clean, responsive grid layout. It's perfect for:
+
+- Team pages
+- Contributor listings
+- Faculty directories
+- Speaker showcases
+- Expert panels
 
 ## Block Settings
+
+The Author Grid Block offers a variety of settings to customize both the content and appearance.
 
 ### Grid Settings
 
@@ -44,7 +65,7 @@ The Author Grid Block allows you to display multiple authors in a responsive gri
 
 ## Layout Options
 
-Each author in the grid can be displayed in one of three layouts:
+The Author Grid Block offers multiple layout options to fit your design needs:
 
 ### Card Layout
 
@@ -56,6 +77,8 @@ The Card layout presents each author in a card format with:
 
 Ideal for formal team pages.
 
+![Card Layout](../../assets/images/author-grid-card-layout.png)
+
 ### Compact Layout
 
 The Compact layout provides a more space-efficient presentation:
@@ -66,6 +89,8 @@ The Compact layout provides a more space-efficient presentation:
 
 Ideal when displaying many authors.
 
+![Compact Layout](../../assets/images/author-grid-compact-layout.png)
+
 ### Centered Layout
 
 The Centered layout focuses on symmetry and balance:
@@ -74,6 +99,8 @@ The Centered layout focuses on symmetry and balance:
 - Description at the bottom
 
 Ideal for highlighting featured team members.
+
+![Centered Layout](../../assets/images/author-grid-centered-layout.png)
 
 ## Responsive Behavior
 
@@ -147,7 +174,32 @@ The Author Grid automatically adjusts based on screen size:
 - 2 columns is ideal for featured authors with longer descriptions
 - 4 columns works well for larger screens when showing minimal information
 
+## Author Selection
+
+### Using the Author Picker
+
+The Author Grid Block includes an intuitive author picker that allows you to:
+
+1. Search for specific authors by name
+2. Filter authors by role
+3. Select multiple authors
+4. Reorder selected authors by dragging
+5. Remove authors from the selection
+
+![Author Picker](../../assets/images/author-picker.png)
+
+### Setting a Maximum Display Limit
+
+You can set a maximum number of authors to display using the "Maximum Authors" setting. This is useful when:
+
+- You want to show only the most recent team members
+- You need to limit the number of authors for performance reasons
+- You're creating a "Featured Team Members" section
+
+If the Maximum Authors setting is less than the number of selected authors, only the first X authors will be displayed.
+
 ## Related Blocks
 
-- [Author Profile Block](./author-profile.md) - For displaying a single author in detail
-- [Author Carousel Block](./author-carousel.md) - For showcasing authors in an interactive carousel
+- [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %}) - For displaying a single author in detail
+- [Author Carousel Block]({{ site.baseurl }}{% link blocks/author-carousel.md %}) - For showcasing authors in an interactive carousel
+- [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %}) - For displaying authors in a list format

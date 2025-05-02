@@ -1,0 +1,58 @@
+title: Author Profile Blocks
+description: Documentation for Author Profile Blocks WordPress plugin
+remote_theme: pmarsceill/just-the-docs
+
+# Enable or disable the site search
+search_enabled: true
+
+# Aux links for the upper right navigation
+aux_links:
+  "Author Profile Blocks on GitHub":
+    - "https://github.com/mralaminahamed/author-profile-blocks"
+
+# Makes Aux links open in a new tab
+aux_links_new_tab: true
+
+# Sort order for navigation links
+nav_sort: case_insensitive # default, equivalent to nil
+# alternatively you can specify a sort order
+# nav_sort: case_sensitive # Capital letters sorted before lowercase
+
+# Footer content
+footer_content: "Copyright &copy; 2023-2025 Al Amin Ahamed. Distributed by an <a href=\"https://github.com/mralaminahamed/author-profile-blocks/blob/master/LICENSE\">GPL-2.0 license.</a>"
+
+# Back to top link
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# Color scheme
+color_scheme: light
+
+# Google Analytics tracking
+ga_tracking: UA-XXXXXXXXX-X
+ga_tracking_anonymize_ip: true
+
+# Enable collapsible navigation
+collapse_navigation: true
+
+# Heading anchor links
+heading_anchors: true
+
+# Compress CSS
+compress_css: true
+
+# Compress HTML
+compress_html: true
+
+# Compress JS
+compress_js: true
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

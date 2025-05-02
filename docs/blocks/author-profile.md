@@ -1,18 +1,40 @@
+---
+layout: default
+title: Author Profile Block
+parent: Blocks
+nav_order: 1
+permalink: /blocks/author-profile/
+---
+
 # Author Profile Block
+{: .no_toc }
 
 The Author Profile Block allows you to showcase detailed information about a single author.
+{: .fs-6 .fw-300 }
 
-![Author Profile Block](../images/author-profile-block.png)
+## Table of contents
+{: .no_toc .text-delta }
 
-## Features
+1. TOC
+   {:toc}
 
-- Display comprehensive information about a single author
-- Multiple layout options (Card, Compact, Centered)
-- Customizable display options
-- Optional "More Content" section for additional information
-- Support for various styling options
+---
+
+![Author Profile Block](../../assets/images/author-profile-block.png)
+
+## Overview
+
+The Author Profile Block is designed to display comprehensive information about a single author. It's perfect for:
+
+- Author bio pages
+- Team member profiles
+- About pages
+- Sidebar author information
+- Post signature blocks
 
 ## Block Settings
+
+The Author Profile Block offers a variety of settings to customize both the content and appearance.
 
 ### Content Settings
 
@@ -39,6 +61,8 @@ The Author Profile Block allows you to showcase detailed information about a sin
 
 ## Layout Options
 
+The Author Profile Block offers multiple layout options to fit your design needs:
+
 ### Card Layout
 
 The Card layout presents the author information in a card format with:
@@ -48,6 +72,8 @@ The Card layout presents the author information in a card format with:
 - Social links at the bottom
 
 Ideal for formal presentation of authors.
+
+![Card Layout](../../assets/images/author-profile-card-layout.png)
 
 ### Compact Layout
 
@@ -59,6 +85,8 @@ The Compact layout provides a more space-efficient presentation:
 
 Ideal for sidebar widgets or when space is limited.
 
+![Compact Layout](../../assets/images/author-profile-compact-layout.png)
+
 ### Centered Layout
 
 The Centered layout focuses on symmetry and balance:
@@ -67,6 +95,8 @@ The Centered layout focuses on symmetry and balance:
 - Description at the bottom
 
 Ideal for author spotlights or featured authors.
+
+![Centered Layout](../../assets/images/author-profile-centered-layout.png)
 
 ## Usage Examples
 
@@ -127,7 +157,21 @@ Ideal for author spotlights or featured authors.
 - Use the same layout for all authors on the same page for visual consistency
 - Add the "More Content" section for additional information like recent posts or achievements
 
+## Using the More Content Section
+
+The More Content section provides a space for adding additional information about the author that might not fit in the standard description field. This can include:
+
+1. Recent posts by the author
+2. Awards and achievements
+3. Current projects
+4. Contact information
+5. Availability for speaking engagements
+6. Office hours or scheduling information
+
+This section supports rich text formatting including bold, italic, links, and lists.
+
 ## Related Blocks
 
-- [Author Grid Block](./author-grid.md) - For displaying multiple authors in a grid
-- [Author Carousel Block](./author-carousel.md) - For showcasing multiple authors in a carousel
+- [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %}) - For displaying multiple authors in a grid
+- [Author Carousel Block]({{ site.baseurl }}{% link blocks/author-carousel.md %}) - For showcasing multiple authors in a carousel
+- [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %}) - For displaying multiple authors in a list format

@@ -1,20 +1,40 @@
+---
+layout: default
+title: Author List Block
+parent: Blocks
+nav_order: 4
+permalink: /blocks/author-list/
+---
+
 # Author List Block
+{: .no_toc }
 
 The Author List Block allows you to display multiple authors in a customizable list format, perfect for team directories, contributor listings, or any situation where a vertical arrangement is preferred.
+{: .fs-6 .fw-300 }
 
-![Author List Block](../images/author-list-block.png)
+## Table of contents
+{: .no_toc .text-delta }
 
-## Features
+1. TOC
+   {:toc}
 
-- Display multiple authors in a clean, organized list
-- Choose between compact or detailed display styles
-- Select unordered (bulleted) or ordered (numbered) list formats
-- Apply dividers between items for improved readability
-- Enable hover effects for interactive elements
-- Customize spacing, padding, and visual appearance
-- Filter authors by role and limit the maximum displayed
+---
+
+![Author List Block](../../assets/images/author-list-block.png)
+
+## Overview
+
+The Author List Block is designed to showcase multiple authors in a clean, organized list format. It's perfect for:
+
+- Team directories
+- Contributor pages
+- Faculty listings
+- Staff pages
+- Event speaker rosters
 
 ## Block Settings
+
+The Author List Block offers a variety of settings to customize both the content and appearance.
 
 ### Author Selection
 
@@ -25,11 +45,11 @@ The Author List Block allows you to display multiple authors in a customizable l
 ### List Settings
 
 - **Display Style**:
-  - **Compact**: Space-efficient layout showing essential information
-  - **Detailed**: Expanded layout with more author details
+    - **Compact**: Space-efficient layout showing essential information
+    - **Detailed**: Expanded layout with more author details
 - **List Style**:
-  - **Unordered List**: Standard bulleted list format
-  - **Ordered List**: Numbered list format
+    - **Unordered List**: Standard bulleted list format
+    - **Ordered List**: Numbered list format
 - **Show Dividers**: Add separators between list items
 - **Divider Color**: Customize the color of dividers
 - **Rounded Corners**: Add rounded corners to list items
@@ -64,6 +84,8 @@ The Compact style presents each author in a streamlined format:
 
 This style is ideal for creating concise lists with many authors, minimizing vertical space while providing essential information.
 
+![Compact Style](../../assets/images/author-list-compact-style.png)
+
 ### Detailed Style
 
 The Detailed style provides a more comprehensive presentation:
@@ -72,6 +94,8 @@ The Detailed style provides a more comprehensive presentation:
 - Social links at the bottom
 
 This style is perfect for more in-depth team directories where you want to showcase more information about each author.
+
+![Detailed Style](../../assets/images/author-list-detailed-style.png)
 
 ## List Style Options
 
@@ -85,9 +109,9 @@ Choose between two list formats:
 The Author List block automatically adapts to different screen sizes:
 
 - **Desktop**: Displays both compact and detailed layouts as configured
-- **Mobile**: 
-  - Detailed layout switches to a stacked format with the image centered
-  - Compact layout maintains its horizontal arrangement with adjusted spacing
+- **Mobile**:
+    - Detailed layout switches to a stacked format with the image centered
+    - Compact layout maintains its horizontal arrangement with adjusted spacing
 
 ## Usage Examples
 
@@ -157,8 +181,27 @@ The Author List block automatically adapts to different screen sizes:
 - Use hover effects to add interactivity for better user engagement
 - For alternating background colors, add a custom CSS class and use `:nth-child(odd/even)` selectors
 
+## Hover Effects
+
+When enabled, the hover effect adds subtle interaction feedback when users hover over list items:
+
+1. A gentle background color transition
+2. A slight shadow effect
+3. (Optional) Scale transformation for a subtle zoom effect
+
+This adds an element of interactivity to your author listings and helps users identify which item they're currently focusing on.
+
+## Converting to Other Blocks
+
+The Author List Block can be easily converted to other Author Profile Blocks types using the toolbar options:
+
+1. Select the Author List Block in the editor
+2. Click the "Convert to Grid" button in the toolbar
+
+This will create a new Author Grid Block with the same authors and settings, allowing you to experiment with different presentation formats.
+
 ## Related Blocks
 
-- [Author Profile Block](./author-profile.md) - For displaying a single author in detail
-- [Author Grid Block](./author-grid.md) - For displaying authors in a responsive grid layout
-- [Author Carousel Block](./author-carousel.md) - For showcasing authors in an interactive carousel
+- [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %}) - For displaying a single author in detail
+- [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %}) - For displaying authors in a responsive grid layout
+- [Author Carousel Block]({{ site.baseurl }}{% link blocks/author-carousel.md %}) - For showcasing authors in an interactive carousel
