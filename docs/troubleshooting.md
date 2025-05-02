@@ -313,4 +313,4 @@ If you're still experiencing issues, you can get additional help from:
 
 - [WordPress.org Support Forums](https://wordpress.org/support/plugin/author-profile-blocks/)
 - [GitHub Issues](https://github.com/mralaminahamed/author-profile-blocks/issues)
-- [Plugin Documentation]({{ site.baseurl }}{% link index.md %})
+- [Plugin Documentation]({{ site.baseurl }}{% link readme.md %})
