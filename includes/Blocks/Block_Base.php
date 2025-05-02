@@ -6,10 +6,10 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Blocks;
+namespace APBL\AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Core\Base;
-use AuthorProfileBlocks\Core\Registerable;
+use APBL\AuthorProfileBlocks\Core\Base;
+use APBL\AuthorProfileBlocks\Core\Registerable;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -95,7 +95,7 @@ abstract class Block_Base extends Base implements Registerable {
 
 		// Register block using block.json metadata.
 		register_block_type(
-			APB_PLUGIN_DIR . 'build/blocks/' . $this->block_name,
+			APBL_PLUGIN_DIR . 'build/blocks/' . $this->block_name,
 			$args
 		);
 
@@ -134,6 +134,6 @@ abstract class Block_Base extends Base implements Registerable {
 	 * @return string The asset path.
 	 */
 	protected function get_asset_path( string $asset_name, string $extension = 'js' ): string {
-		return APB_PLUGIN_URL . 'build/blocks/' . $this->block_name . '/' . $asset_name . '.' . $extension;
+		return APBL_PLUGIN_URL . 'build/blocks/' . $this->block_name . '/' . $asset_name . '.' . $extension;
 	}
 }

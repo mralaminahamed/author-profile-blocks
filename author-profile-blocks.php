@@ -22,26 +22,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'APB_VERSION', '1.0.0' );
-define( 'APB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'APB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'APB_PLUGIN_FILE', __FILE__ );
+define( 'APBL_VERSION', '1.0.0' );
+define( 'APBL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'APBL_PLUGIN_FILE', __FILE__ );
 
-if ( ! file_exists( APB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+if ( ! file_exists( APBL_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	return;
 }
 
 // Autoload classes.
-require_once APB_PLUGIN_DIR . 'vendor/autoload.php';
+require_once APBL_PLUGIN_DIR . 'vendor/autoload.php';
 
 /**
  * Get the plugin instance.
  *
- * @return AuthorProfileBlocks\Plugin The plugin instance.
+ * @return APBL\AuthorProfileBlocks\Plugin The plugin instance.
  */
-function apb(): AuthorProfileBlocks\Plugin {
-	return AuthorProfileBlocks\Plugin::get_instance();
+function apbl(): APBL\AuthorProfileBlocks\Plugin {
+	return APBL\AuthorProfileBlocks\Plugin::get_instance();
 }
 
 // Take off.
-apb()->init();
+apbl()->init();

@@ -59,7 +59,7 @@ function initHoverEffects(items) {
  */
 function initInteractiveElements(block) {
     // Initialize social link interactions
-    const socialLinks = block.querySelectorAll('.apb-social-item a');
+    const socialLinks = block.querySelectorAll('.apbl-social-item a');
     if (socialLinks.length) {
         socialLinks.forEach((link) => {
             // Open in new window
@@ -69,7 +69,7 @@ function initInteractiveElements(block) {
             link.addEventListener('click', (e) => {
                 // Track social clicks if analytics is available
                 if (typeof window.apbTrackEvent === 'function') {
-                    const network = link.closest('.apb-social-item').className.split('apb-social-')[1];
+                    const network = link.closest('.apbl-social-item').className.split('apbl-social-')[1];
                     window.apbTrackEvent('social_click', { network });
                 }
             });

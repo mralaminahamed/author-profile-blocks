@@ -28,7 +28,7 @@ export default function DisplayStyleSelector({ value, onChange, ...props }) {
     ];
 
     return (
-        <div className="apb-display-style-selector" { ...props}>
+        <div className="apbl-display-style-selector" { ...props}>
             <Flex gap={2} direction="column">
                 <FlexItem>
                     <span className="components-base-control__label">

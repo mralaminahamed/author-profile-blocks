@@ -103,8 +103,8 @@ const AuthorPicker = ({
 
     if (isLoading) {
         return (
-            <div className="apb-loading">
-                <Spinner className="apb-spinner" />
+            <div className="apbl-loading">
+                <Spinner className="apbl-spinner" />
                 <p>{__('Loading authors...', 'author-profile-blocks')}</p>
             </div>
         );
@@ -114,8 +114,8 @@ const AuthorPicker = ({
     const addButtonLabel = buttonLabel || __('Add Author', 'author-profile-blocks');
 
     return (
-        <div className="apb-author-picker-wrapper">
-            <div className="apb-author-header">
+        <div className="apbl-author-picker-wrapper">
+            <div className="apbl-author-header">
                 <Flex justify="space-between" align="center">
                     <FlexItem>
                         <Flex align="center" gap={2}>
@@ -124,7 +124,7 @@ const AuthorPicker = ({
                         </Flex>
                     </FlexItem>
                     <FlexItem>
-                        <div className="apb-author-count">
+                        <div className="apbl-author-count">
                             <span>{authors.length}</span>
                             <Tooltip text={__('Total number of available authors', 'author-profile-blocks')}>
                                 <Icon icon={info} size={16} />
@@ -134,18 +134,18 @@ const AuthorPicker = ({
                 </Flex>
             </div>
 
-            <div className="apb-author-content">
+            <div className="apbl-author-content">
                 {/* Show selected authors */}
                 {selectedAuthorIds.length > 0 && (
-                    <div className="apb-authors-selected-wrapper">
+                    <div className="apbl-authors-selected-wrapper">
                         <p>{__('Selected Authors:', 'author-profile-blocks')}</p>
-                        <div className="apb-selected-authors-list">
+                        <div className="apbl-selected-authors-list">
                             {selectedAuthorIds.map(id => {
                                 const author = getAuthorById(id);
                                 if (!author) return null;
 
                                 return (
-                                    <div key={id} className="apb-selected-author">
+                                    <div key={id} className="apbl-selected-author">
                                         {showAvatars && author.avatar_urls && (
                                             <img
                                                 src={author.avatar_urls['24']}
@@ -154,7 +154,7 @@ const AuthorPicker = ({
                                         )}
                                         <span>{author.name}</span>
                                         <span
-                                            className="apb-remove-author dashicons dashicons-no-alt"
+                                            className="apbl-remove-author dashicons dashicons-no-alt"
                                             onClick={() => handleRemoveAuthor(id)}
                                             title={__('Remove', 'author-profile-blocks')}
                                         ></span>
@@ -166,18 +166,18 @@ const AuthorPicker = ({
                 )}
 
                 {/* Search field */}
-                <div className="apb-search-field">
-                    <Icon icon={search} className="apb-search-icon" />
+                <div className="apbl-search-field">
+                    <Icon icon={search} className="apbl-search-icon" />
                     <TextControl
                         value={searchTerm}
                         onChange={setSearchTerm}
                         placeholder={__('Search authors...', 'author-profile-blocks')}
-                        className="apb-author-search"
+                        className="apbl-author-search"
                         onKeyDown={handleSearchKeyPress}
                     />
                     {searchTerm && (
                         <Button
-                            className="apb-clear-search"
+                            className="apbl-clear-search"
                             isSmall
                             isSecondary
                             onClick={clearSearch}
@@ -189,7 +189,7 @@ const AuthorPicker = ({
                 </div>
 
                 {/* Author selection dropdown */}
-                <div className="apb-select-field">
+                <div className="apbl-select-field">
                     <SelectControl
                         label={__('Select Author', 'author-profile-blocks')}
                         value={authorId}
@@ -201,7 +201,7 @@ const AuthorPicker = ({
                             }))
                         ]}
                         onChange={(value) => setAuthorId(value)}
-                        className="apb-author-select"
+                        className="apbl-author-select"
                         __nextHasNoMarginBottom
                     />
                 </div>
@@ -209,14 +209,14 @@ const AuthorPicker = ({
                 {/* Filter information */}
                 {filteredAuthors.length === 0 && searchTerm !== '' ? (
                     <Notice
-                        className="apb-notice"
+                        className="apbl-notice"
                         status="warning"
                         isDismissible={false}
                     >
                         {__('No authors match your search criteria.', 'author-profile-blocks')}
                     </Notice>
                 ) : (filteredAuthors.length < authors.length && searchTerm !== '') && (
-                    <div className="apb-filter-info">
+                    <div className="apbl-filter-info">
                         <Icon icon={info} size={16} />
                         <span>
                             {sprintf(

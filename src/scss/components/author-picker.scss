@@ -2,7 +2,7 @@
 // Import common styles
 @use '../../scss/common' as c;
 
-.apb-author-picker-wrapper {
+.apbl-author-picker-wrapper {
 
   @include c.author-picker-component();
 }
