@@ -1,0 +1,190 @@
+// APB Color Scheme for Author Profile Blocks Documentation
+// This file should be placed in _sass/color_schemes/apb.scss
+
+// Base colors
+$blue-100: #f0f4ff !default;
+$blue-200: #d9e2ff !default;
+$blue-300: #a6c1ff !default;
+$blue-400: #598bff !default;
+$blue-500: #3e7bfa !default;
+$blue-600: #2c5cd1 !default;
+$blue-700: #2145a0 !default;
+$blue-800: #183072 !default;
+$blue-900: #101c44 !default;
+
+$green-100: #effcf6 !default;
+$green-200: #d0f0e0 !default;
+$green-300: #a1e3c6 !default;
+$green-400: #5dd6a5 !default;
+$green-500: #2ecc71 !default;
+$green-600: #25a75c !default;
+$green-700: #1e8549 !default;
+$green-800: #166337 !default;
+$green-900: #0f4025 !default;
+
+$grey-100: #f8f9fa !default;
+$grey-200: #e9ecef !default;
+$grey-300: #dee2e6 !default;
+$grey-400: #ced4da !default;
+$grey-500: #adb5bd !default;
+$grey-600: #6c757d !default;
+$grey-700: #495057 !default;
+$grey-800: #343a40 !default;
+$grey-900: #212529 !default;
+
+// Theme color variables
+$body-background-color: $grey-100 !default;
+$body-heading-color: $grey-900 !default;
+$body-text-color: $grey-700 !default;
+$link-color: $blue-600 !default;
+$nav-child-link-color: $blue-600 !default;
+$sidebar-color: $grey-100 !default;
+$base-button-color: $grey-200 !default;
+$btn-primary-color: $blue-600 !default;
+$code-background-color: $grey-200 !default;
+$feedback-color: darken($sidebar-color, 3%) !default;
+$table-background-color: $grey-100 !default;
+$search-background-color: $grey-100 !default;
+$search-result-preview-color: $grey-600 !default;
+
+// Custom callout colors
+$callouts-note-color: $blue-300 !default;
+$callouts-warning-color: #FFCD00 !default;
+$callouts-important-color: #DD2E44 !default;
+$callouts-tip-color: $green-400 !default;
+$callouts-new-color: #9B59B6 !default;
+
+// Custom styling
+.apb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.apb-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .apb-card-title {
+    margin-top: 0;
+    color: $grey-900;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .apb-card-description {
+    color: $grey-700;
+    margin-bottom: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 1rem 0;
+    border-radius: 4px;
+    border: 1px solid $grey-200;
+  }
+
+  .apb-card-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:after {
+      content: " →";
+      transition: transform 0.2s ease;
+    }
+
+    &:hover:after {
+      transform: translateX(3px);
+    }
+  }
+}
+
+.apb-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.apb-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  .apb-feature-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $blue-100;
+    border-radius: 8px;
+    color: $blue-600;
+  }
+
+  .apb-feature-content {
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    p {
+      margin: 0;
+      color: $grey-700;
+    }
+  }
+}
+
+.apb-header-banner {
+  margin: 2rem 0;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Callout styling
+.callout-blue {
+  background-color: $blue-100;
+  border-left: 4px solid $blue-500;
+  padding: 0.8rem 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.callout-green {
+  background-color: $green-100;
+  border-left: 4px solid $green-500;
+  padding: 0.8rem 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+// Responsive adjustments
+@media (max-width: 800px) {
+  .apb-features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .apb-grid {
+    grid-template-columns: 1fr;
+  }
+}
