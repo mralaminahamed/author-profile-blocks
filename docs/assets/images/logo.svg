@@ -1,0 +1,19 @@
+<svg viewBox="0 0 300 50" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4c6ef5" />
+            <stop offset="100%" stop-color="#7048e8" />
+        </linearGradient>
+    </defs>
+
+    <!-- Logo Icon - Profile Card -->
+    <rect x="10" y="10" width="30" height="30" rx="6" fill="url(#logo-gradient)" />
+
+    <!-- User Icon -->
+    <circle cx="25" cy="20" r="5" fill="white" />
+    <circle cx="25" cy="31" r="8" fill="none" stroke="white" stroke-width="2" />
+
+    <!-- Text Part -->
+    <text x="50" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#212529">Author Profile Blocks</text>
+    <text x="50" y="42" font-family="Arial, sans-serif" font-size="10" fill="#6c757d">Documentation</text>
+</svg>

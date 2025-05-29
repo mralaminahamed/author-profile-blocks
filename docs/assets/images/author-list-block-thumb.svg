@@ -1,0 +1,54 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="300" height="200" rx="6" fill="#f8f9fa" />
+
+    <!-- List Background -->
+    <rect x="20" y="20" width="260" height="160" rx="8" fill="white" stroke="#e9ecef" stroke-width="2" />
+
+    <!-- Author List Item 1 -->
+    <rect x="30" y="35" width="240" height="35" rx="4" fill="#f8fafc" stroke="#e9ecef" stroke-width="1" />
+    <!-- Avatar -->
+    <circle cx="47.5" cy="52.5" r="12.5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" />
+    <path d="M47.5 45 Q52.5 45 52.5 50 Q52.5 55 47.5 55 Q42.5 55 42.5 50 Q42.5 45 47.5 45" fill="#94a3b8" />
+    <circle cx="47.5" cy="57.5" r="7.5" fill="#94a3b8" />
+    <!-- Info -->
+    <rect x="70" y="45" width="80" height="7" rx="1.5" fill="#94a3b8" />
+    <rect x="70" y="57" width="50" height="5" rx="1" fill="#cbd5e1" />
+    <!-- Social Icons -->
+    <circle cx="230" cy="52.5" r="3" fill="#3b82f6" />
+    <circle cx="240" cy="52.5" r="3" fill="#1da1f2" />
+    <circle cx="250" cy="52.5" r="3" fill="#0a66c2" />
+
+    <!-- Divider -->
+    <line x1="30" y1="80" x2="270" y2="80" stroke="#e9ecef" stroke-width="1" />
+
+    <!-- Author List Item 2 -->
+    <rect x="30" y="90" width="240" height="35" rx="4" fill="#f8fafc" stroke="#e9ecef" stroke-width="1" />
+    <!-- Avatar -->
+    <circle cx="47.5" cy="107.5" r="12.5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" />
+    <path d="M47.5 100 Q52.5 100 52.5 105 Q52.5 110 47.5 110 Q42.5 110 42.5 105 Q42.5 100 47.5 100" fill="#94a3b8" />
+    <circle cx="47.5" cy="112.5" r="7.5" fill="#94a3b8" />
+    <!-- Info -->
+    <rect x="70" y="100" width="80" height="7" rx="1.5" fill="#94a3b8" />
+    <rect x="70" y="112" width="50" height="5" rx="1" fill="#cbd5e1" />
+    <!-- Social Icons -->
+    <circle cx="230" cy="107.5" r="3" fill="#3b82f6" />
+    <circle cx="240" cy="107.5" r="3" fill="#1da1f2" />
+    <circle cx="250" cy="107.5" r="3" fill="#0a66c2" />
+
+    <!-- Divider -->
+    <line x1="30" y1="135" x2="270" y2="135" stroke="#e9ecef" stroke-width="1" />
+
+    <!-- Author List Item 3 -->
+    <rect x="30" y="145" width="240" height="35" rx="4" fill="#f8fafc" stroke="#e9ecef" stroke-width="1" />
+    <!-- Avatar -->
+    <circle cx="47.5" cy="162.5" r="12.5" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1" />
+    <path d="M47.5 155 Q52.5 155 52.5 160 Q52.5 165 47.5 165 Q42.5 165 42.5 160 Q42.5 155 47.5 155" fill="#94a3b8" />
+    <circle cx="47.5" cy="167.5" r="7.5" fill="#94a3b8" />
+    <!-- Info -->
+    <rect x="70" y="155" width="80" height="7" rx="1.5" fill="#94a3b8" />
+    <rect x="70" y="167" width="50" height="5" rx="1" fill="#cbd5e1" />
+    <!-- Social Icons -->
+    <circle cx="230" cy="162.5" r="3" fill="#3b82f6" />
+    <circle cx="240" cy="162.5" r="3" fill="#1da1f2" />
+    <circle cx="250" cy="162.5" r="3" fill="#0a66c2" />
+</svg>
