@@ -2,7 +2,7 @@
 @use '../../scss/common/variables' as v;
 @use '../../scss/common/author-picker' as a;
 
-.apb-author-picker-wrapper {
+.apbl-author-picker-wrapper {
 
   @include a.author-picker-component();
 }

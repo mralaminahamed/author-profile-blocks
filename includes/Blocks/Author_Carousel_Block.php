@@ -6,9 +6,9 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Blocks;
+namespace APBL\AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Common\Author_Block_Base;
+use APBL\AuthorProfileBlocks\Common\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -46,9 +46,9 @@ class Author_Carousel_Block extends Author_Block_Base {
 	public function register_carousel_dependencies(): void {
 		wp_register_script(
 			'author-carousel-view',
-			APB_PLUGIN_URL . 'build/blocks/author-carousel/view.js',
+			APBL_PLUGIN_URL . 'build/blocks/author-carousel/view.js',
 			array(),
-			APB_VERSION,
+			APBL_VERSION,
 			true
 		);
 	}

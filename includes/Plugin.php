@@ -6,12 +6,12 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks;
+namespace APBL\AuthorProfileBlocks;
 
-use AuthorProfileBlocks\Blocks\Block_Registry;
-use AuthorProfileBlocks\Core\Base;
-use AuthorProfileBlocks\Core\User_Meta_Provider;
-use AuthorProfileBlocks\Services\Author_Profile_Service;
+use APBL\AuthorProfileBlocks\Blocks\Block_Registry;
+use APBL\AuthorProfileBlocks\Core\Base;
+use APBL\AuthorProfileBlocks\Core\User_Meta_Provider;
+use APBL\AuthorProfileBlocks\Services\Author_Profile_Service;
 use WP_User;
 
 // Exit if accessed directly.
@@ -71,8 +71,6 @@ class Plugin extends Base {
 		// Initialize services.
 		$this->register_services();
 
-		// Load text domain.
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'int', array( $this, 'register_meta_field' ), 0 );
 	}
 
@@ -94,7 +92,7 @@ class Plugin extends Base {
 	 */
 	public function register_meta_field(): void {
 		$this->user_meta_provider->add_meta_field(
-			'apb_author_description',
+			'apbl_author_description',
 			array(
 				'show_in_rest'      => true,
 				'single'            => true,
@@ -106,7 +104,7 @@ class Plugin extends Base {
 			)
 		);
 		$this->user_meta_provider->add_meta_field(
-			'apb_author_position',
+			'apbl_author_position',
 			array(
 				'show_in_rest'      => true,
 				'single'            => true,
@@ -118,7 +116,7 @@ class Plugin extends Base {
 			)
 		);
 		$this->user_meta_provider->add_meta_field(
-			'apb_social_profiles',
+			'apbl_social_profiles',
 			array(
 				'show_in_rest'      => true,
 				'single'            => true,
@@ -130,7 +128,7 @@ class Plugin extends Base {
 			)
 		);
 		$this->user_meta_provider->add_meta_field(
-			'apb_member_since_label',
+			'apbl_member_since_label',
 			array(
 				'show_in_rest'      => true,
 				'single'            => true,
@@ -210,10 +208,10 @@ class Plugin extends Base {
 	 */
 	public function add_author_profile_fields( WP_User $user ): void {
 		// Get current values.
-		$description        = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_description', true );
-		$position           = $this->user_meta_provider->get_meta( $user->ID, 'apb_author_position', true );
-		$social_profiles    = $this->user_meta_provider->get_meta( $user->ID, 'apb_social_profiles', true );
-		$member_since_label = $this->user_meta_provider->get_meta( $user->ID, 'apb_member_since_label', true );
+		$description        = $this->user_meta_provider->get_meta( $user->ID, 'apbl_author_description', true );
+		$position           = $this->user_meta_provider->get_meta( $user->ID, 'apbl_author_position', true );
+		$social_profiles    = $this->user_meta_provider->get_meta( $user->ID, 'apbl_social_profiles', true );
+		$member_since_label = $this->user_meta_provider->get_meta( $user->ID, 'apbl_member_since_label', true );
 
 		// Use default if empty.
 		if ( empty( $member_since_label ) ) {
@@ -230,39 +228,39 @@ class Plugin extends Base {
 			);
 		}
 
-		wp_nonce_field( 'apb_save_profile_data', 'apb_profile_nonce' );
+		wp_nonce_field( 'apbl_save_profile_data', 'apbl_profile_nonce' );
 		?>
 
 		<h2><?php esc_html_e( 'Author Profile Information', 'author-profile-blocks' ); ?></h2>
 		<p><?php esc_html_e( 'These fields are used by the Author Profile Blocks plugin to display author information on your site.', 'author-profile-blocks' ); ?></p>
 
 		<table class="form-table" role="presentation">
-			<tr class="apb-meta-field">
-				<th><label for="apb_author_position"><?php esc_html_e( 'Position/Title', 'author-profile-blocks' ); ?></label></th>
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_author_position"><?php esc_html_e( 'Position/Title', 'author-profile-blocks' ); ?></label></th>
 				<td>
-					<input type="text" name="apb_author_position" id="apb_author_position" value="<?php echo esc_attr( $position ); ?>" class="regular-text"/>
+					<input type="text" name="apbl_author_position" id="apbl_author_position" value="<?php echo esc_attr( $position ); ?>" class="regular-text"/>
 					<p class="description"><?php esc_html_e( 'Enter the author\'s position or title (e.g., "Senior Editor", "Lead Developer", etc.)', 'author-profile-blocks' ); ?></p>
 				</td>
 			</tr>
 
-			<tr class="apb-meta-field">
-				<th><label for="apb_member_since_label"><?php esc_html_e( 'Member Since Label', 'author-profile-blocks' ); ?></label></th>
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_member_since_label"><?php esc_html_e( 'Member Since Label', 'author-profile-blocks' ); ?></label></th>
 				<td>
-					<input type="text" name="apb_member_since_label" id="apb_member_since_label" value="<?php echo esc_attr( $member_since_label ); ?>" class="regular-text"/>
+					<input type="text" name="apbl_member_since_label" id="apbl_member_since_label" value="<?php echo esc_attr( $member_since_label ); ?>" class="regular-text"/>
 					<p class="description"><?php esc_html_e( 'Customize the label used for showing registration date (e.g., "Member since", "Joined on", "With us since", etc.)', 'author-profile-blocks' ); ?></p>
 				</td>
 			</tr>
 
-			<tr class="apb-meta-field">
-				<th><label for="apb_author_description"><?php esc_html_e( 'Author Description', 'author-profile-blocks' ); ?></label></th>
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_author_description"><?php esc_html_e( 'Author Description', 'author-profile-blocks' ); ?></label></th>
 				<td>
 					<?php
 					wp_editor(
 						$description,
-						'apb_author_description',
+						'apbl_author_description',
 						array(
 							'media_buttons' => false,
-							'textarea_name' => 'apb_author_description',
+							'textarea_name' => 'apbl_author_description',
 							'textarea_rows' => 5,
 							'teeny'         => true,
 						)
@@ -272,29 +270,29 @@ class Plugin extends Base {
 				</td>
 			</tr>
 
-			<tr class="apb-meta-field">
+			<tr class="apbl-meta-field">
 				<th><label><?php esc_html_e( 'Social Media Profiles', 'author-profile-blocks' ); ?></label></th>
 				<td>
-					<div class="apb-social-profiles">
+					<div class="apbl-social-profiles">
 						<p>
-							<label for="apb_social_facebook"><?php esc_html_e( 'Facebook URL', 'author-profile-blocks' ); ?></label><br/>
-							<input type="url" name="apb_social_profiles[facebook]" id="apb_social_facebook" value="<?php echo esc_url( $social_profiles['facebook'] ?? '' ); ?>" class="regular-text"/>
+							<label for="apbl_social_facebook"><?php esc_html_e( 'Facebook URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apbl_social_profiles[facebook]" id="apbl_social_facebook" value="<?php echo esc_url( $social_profiles['facebook'] ?? '' ); ?>" class="regular-text"/>
 						</p>
 						<p>
-							<label for="apb_social_twitter"><?php esc_html_e( 'Twitter URL', 'author-profile-blocks' ); ?></label><br/>
-							<input type="url" name="apb_social_profiles[twitter]" id="apb_social_twitter" value="<?php echo esc_url( $social_profiles['twitter'] ?? '' ); ?>" class="regular-text"/>
+							<label for="apbl_social_twitter"><?php esc_html_e( 'Twitter URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apbl_social_profiles[twitter]" id="apbl_social_twitter" value="<?php echo esc_url( $social_profiles['twitter'] ?? '' ); ?>" class="regular-text"/>
 						</p>
 						<p>
-							<label for="apb_social_linkedin"><?php esc_html_e( 'LinkedIn URL', 'author-profile-blocks' ); ?></label><br/>
-							<input type="url" name="apb_social_profiles[linkedin]" id="apb_social_linkedin" value="<?php echo esc_url( $social_profiles['linkedin'] ?? '' ); ?>" class="regular-text"/>
+							<label for="apbl_social_linkedin"><?php esc_html_e( 'LinkedIn URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apbl_social_profiles[linkedin]" id="apbl_social_linkedin" value="<?php echo esc_url( $social_profiles['linkedin'] ?? '' ); ?>" class="regular-text"/>
 						</p>
 						<p>
-							<label for="apb_social_instagram"><?php esc_html_e( 'Instagram URL', 'author-profile-blocks' ); ?></label><br/>
-							<input type="url" name="apb_social_profiles[instagram]" id="apb_social_instagram" value="<?php echo esc_url( $social_profiles['instagram'] ?? '' ); ?>" class="regular-text"/>
+							<label for="apbl_social_instagram"><?php esc_html_e( 'Instagram URL', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apbl_social_profiles[instagram]" id="apbl_social_instagram" value="<?php echo esc_url( $social_profiles['instagram'] ?? '' ); ?>" class="regular-text"/>
 						</p>
 						<p>
-							<label for="apb_social_website"><?php esc_html_e( 'Personal Website', 'author-profile-blocks' ); ?></label><br/>
-							<input type="url" name="apb_social_profiles[website]" id="apb_social_website" value="<?php echo esc_url( $social_profiles['website'] ?? '' ); ?>" class="regular-text"/>
+							<label for="apbl_social_website"><?php esc_html_e( 'Personal Website', 'author-profile-blocks' ); ?></label><br/>
+							<input type="url" name="apbl_social_profiles[website]" id="apbl_social_website" value="<?php echo esc_url( $social_profiles['website'] ?? '' ); ?>" class="regular-text"/>
 						</p>
 					</div>
 				</td>
@@ -328,43 +326,43 @@ class Plugin extends Base {
 		}
 
 		// Verify nonce before processing form data.
-		if ( ! isset( $_POST['apb_profile_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['apb_profile_nonce'] ), 'apb_save_profile_data' ) ) {
+		if ( ! isset( $_POST['apbl_profile_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['apbl_profile_nonce'] ), 'apbl_save_profile_data' ) ) {
 			return;
 		}
 
 		// Update description.
-		if ( isset( $_POST['apb_author_description'] ) ) {
+		if ( isset( $_POST['apbl_author_description'] ) ) {
 			$this->user_meta_provider->update_meta(
 				$user_id,
-				'apb_author_description',
-				wp_kses_post( wp_unslash( $_POST['apb_author_description'] ) )
+				'apbl_author_description',
+				wp_kses_post( wp_unslash( $_POST['apbl_author_description'] ) )
 			);
 		}
 
 		// Update position/title.
-		if ( isset( $_POST['apb_author_position'] ) ) {
+		if ( isset( $_POST['apbl_author_position'] ) ) {
 			$this->user_meta_provider->update_meta(
 				$user_id,
-				'apb_author_position',
-				sanitize_text_field( wp_unslash( $_POST['apb_author_position'] ) )
+				'apbl_author_position',
+				sanitize_text_field( wp_unslash( $_POST['apbl_author_position'] ) )
 			);
 		}
 
 		// Update social profiles.
-		if ( isset( $_POST['apb_social_profiles'] ) && is_array( $_POST['apb_social_profiles'] ) ) {
+		if ( isset( $_POST['apbl_social_profiles'] ) && is_array( $_POST['apbl_social_profiles'] ) ) {
 			$this->user_meta_provider->update_meta(
 				$user_id,
-				'apb_social_profiles',
-				$this->sanitize_social_profiles( wp_unslash( $_POST['apb_social_profiles'] ) ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				'apbl_social_profiles',
+				$this->sanitize_social_profiles( wp_unslash( $_POST['apbl_social_profiles'] ) ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			);
 		}
 
 		// Update member since label.
-		if ( isset( $_POST['apb_member_since_label'] ) ) {
+		if ( isset( $_POST['apbl_member_since_label'] ) ) {
 			$this->user_meta_provider->update_meta(
 				$user_id,
-				'apb_member_since_label',
-				sanitize_text_field( wp_unslash( $_POST['apb_member_since_label'] ) )
+				'apbl_member_since_label',
+				sanitize_text_field( wp_unslash( $_POST['apbl_member_since_label'] ) )
 			);
 		}
 
@@ -419,9 +417,9 @@ class Plugin extends Base {
 		if ( 'user-edit.php' === $hook || 'profile.php' === $hook ) {
 			wp_enqueue_style(
 				'author-profile-blocks-admin',
-				plugin_dir_url( APB_PLUGIN_FILE ) . 'build/admin/styles.css',
+				plugin_dir_url( APBL_PLUGIN_FILE ) . 'build/admin/styles.css',
 				array(),
-				APB_VERSION,
+				APBL_VERSION,
 				'all'
 			);
 		}
@@ -448,19 +446,6 @@ class Plugin extends Base {
 	 */
 	public function get_authors( array $roles = array(), array $args = array() ): array {
 		return $this->author_profile_service->get_authors( $roles, $args );
-	}
-
-	/**
-	 * Load plugin textdomain.
-	 *
-	 * @return void
-	 */
-	public function load_textdomain(): void {
-		load_plugin_textdomain(
-			'author-profile-blocks',
-			false,
-			dirname( plugin_basename( APB_PLUGIN_FILE ) ) . '/languages'
-		);
 	}
 
 	/**

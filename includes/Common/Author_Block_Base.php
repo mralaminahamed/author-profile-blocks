@@ -6,10 +6,10 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Common;
+namespace APBL\AuthorProfileBlocks\Common;
 
-use AuthorProfileBlocks\Blocks\Block_Base;
-use AuthorProfileBlocks\Plugin;
+use APBL\AuthorProfileBlocks\Blocks\Block_Base;
+use APBL\AuthorProfileBlocks\Plugin;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -79,7 +79,7 @@ abstract class Author_Block_Base extends Block_Base {
 	 * @return string HTML for error message.
 	 */
 	protected function render_error_message( string $message ): string {
-		return '<div class="apb-error-message">' . esc_html( $message ) . '</div>';
+		return '<div class="apbl-error-message">' . esc_html( $message ) . '</div>';
 	}
 
 	/**

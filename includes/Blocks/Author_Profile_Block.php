@@ -6,9 +6,9 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Blocks;
+namespace APBL\AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Common\Author_Block_Base;
+use APBL\AuthorProfileBlocks\Common\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -51,7 +51,7 @@ class Author_Profile_Block extends Author_Block_Base {
 				'adminUrl'    => admin_url(),
 				'restNonce'   => wp_create_nonce( 'wp_rest' ),
 				'restUrl'     => rest_url(),
-				'pluginUrl'   => APB_PLUGIN_URL,
+				'pluginUrl'   => APBL_PLUGIN_URL,
 				'socialIcons' => $this->get_social_icon_data(),
 			)
 		);

@@ -2,17 +2,17 @@
  * WordPress dependencies
  */
 import { __, sprintf } from '@wordpress/i18n';
-import { 
+import {
     Animate,
-    Button, 
-    Flex, 
-    FlexItem, 
-    Icon, 
-    Notice, 
-    SearchControl, 
-    SelectControl, 
-    Spinner, 
-    Tooltip 
+    Button,
+    Flex,
+    FlexItem,
+    Icon,
+    Notice,
+    SearchControl,
+    SelectControl,
+    Spinner,
+    Tooltip
 } from '@wordpress/components';
 import { useEffect, useState, useCallback, useMemo } from '@wordpress/element';
 import { useSelect } from '@wordpress/data';
@@ -21,7 +21,7 @@ import { closeSmall, info, people, plus } from '@wordpress/icons';
 
 /**
  * Author result item component
- * 
+ *
  * @param {Object} props Component props
  * @param {Object} props.author Author data
  * @param {Function} props.onSelect Function to call when selected
@@ -44,7 +44,7 @@ const AuthorResultItem = ({ author, onSelect, showAvatar }) => (
 
 /**
  * Selected author chip component
- * 
+ *
  * @param {Object} props Component props
  * @param {Object} props.author Author data
  * @param {Function} props.onRemove Function to call when removed
@@ -104,10 +104,10 @@ const AuthorPicker = ({
     const { authors, loadingAuthors, totalAuthors } = useSelect((select) => {
         const { getUsers, isResolving, getEntityRecords } = select(coreStore);
         const query = { per_page: perPage, who: 'authors' };
-        
+
         const usersList = getUsers(query) || [];
         const totalUsers = getEntityRecords('root', 'user')?.length || usersList.length;
-        
+
         return {
             authors: usersList,
             loadingAuthors: isResolving('getUsers', [query]),
@@ -125,14 +125,14 @@ const AuthorPicker = ({
     // Filter authors based on search term - memoized for performance
     const filteredAuthors = useMemo(() => {
         if (!searchTerm) return authors;
-        return authors.filter(author => 
+        return authors.filter(author =>
             author.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [authors, searchTerm]);
 
     // Filter out already selected authors from the available options - memoized for performance
     const availableAuthors = useMemo(() => {
-        return filteredAuthors.filter(author => 
+        return filteredAuthors.filter(author =>
             !selectedAuthorIds.includes(author.id)
         );
     }, [filteredAuthors, selectedAuthorIds]);
@@ -231,7 +231,7 @@ const AuthorPicker = ({
                 {/* Selected authors section */}
                 <div className="apb-authors-selected-wrapper">
                     <h5>{__('Selected Authors', 'author-profile-blocks')}</h5>
-                    <div 
+                    <div
                         className="apb-selected-authors-list"
                         role="region"
                         aria-label={__('Selected authors', 'author-profile-blocks')}
@@ -276,7 +276,7 @@ const AuthorPicker = ({
 
                     {/* Search results dropdown */}
                     {showDropdown && searchTerm && (
-                        <div 
+                        <div
                             className="apb-search-results"
                             id="apb-search-results"
                             role="listbox"
