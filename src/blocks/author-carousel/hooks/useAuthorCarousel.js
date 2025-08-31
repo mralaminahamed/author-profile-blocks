@@ -6,7 +6,7 @@ import { useState, useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { fetchAuthors } from '../../../js';
+import { fetchAuthors } from '../../../js/services/api';
 
 /**
  * Custom hook for managing authors data in a carousel

@@ -1,10 +1,12 @@
 /**
- * Main entry point for js utilities
- * Export everything from different modules for easier imports
+ * Main entry point for shared JavaScript modules
  */
 
-// Re-export modules
-export * from './components';
-export * from './hooks';
+// Export all services
 export * from './services';
-export * from './utils';
+
+// Export all hooks  
+export * from './hooks';
+
+// Export all components
+export * from './components';

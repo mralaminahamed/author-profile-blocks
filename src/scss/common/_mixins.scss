@@ -25,41 +25,8 @@
 // Focus styles for form elements and controls
 @mixin focus-styles {
   outline: none;
-  border-color: v.$focus-color;
-  box-shadow: 0 0 0 1px v.$focus-color;
-}
-
-// Error message banner styling
-@mixin error-banner {
-  padding: v.$spacing-xs v.$spacing-md;
-  color: v.$error-color;
-  background-color: rgba(v.$error-color, 0.05);
-  border-left: 3px solid v.$error-color;
-  border-radius: v.$border-radius-xs;
-}
-
-// Success message banner styling
-@mixin success-banner {
-  padding: v.$spacing-xs v.$spacing-md;
-  color: darken(#4CAF50, 10%);
-  background-color: rgba(#4CAF50, 0.05);
-  border-left: 3px solid #4CAF50;
-  border-radius: v.$border-radius-xs;
-}
-
-// Reset top and bottom margins on paragraph elements
-@mixin reset-paragraph-margins {
-
-  p {
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+  border-color: v.$primary-color;
+  box-shadow: 0 0 0 1px v.$primary-color;
 }
 
 // Responsive image sizing
@@ -76,39 +43,111 @@
   justify-content: center;
 }
 
-// Box sizing reset
-@mixin box-sizing {
-  box-sizing: border-box;
+// Button reset
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+}
 
-  * {
-    box-sizing: inherit;
+// Card style
+@mixin card {
+  background: v.$white;
+  border: v.$border-width solid v.$border-color;
+  border-radius: v.$border-radius-md;
+  box-shadow: v.$shadow-sm;
+  padding: v.$spacing-md;
+}
+
+// Editor border for block editor
+@mixin editor-border {
+  border: 1px dashed v.$border-color;
+  padding: v.$spacing-md;
+  border-radius: v.$border-radius-sm;
+}
+
+// Author image styles
+@mixin author-image {
+  border-radius: v.$border-radius-md;
+  overflow: hidden;
+  
+  img {
+    @include responsive-image;
+    transition: v.$transition-base;
   }
 }
 
-// Hover effect with shadow and slight transform
-@mixin hover-effect {
-  transition: v.$transition-standard;
+// Author name styles  
+@mixin author-name {
+  margin: 0;
+  font-weight: v.$font-weight-bold;
+  color: v.$text-color;
+  line-height: v.$line-height-base;
+}
 
-  &:hover {
-    box-shadow: v.$shadow-md;
-    transform: translateY(-3px);
+// Author description styles
+@mixin author-description {
+  color: v.$text-color-secondary;
+  margin: v.$spacing-xs 0;
+  line-height: v.$line-height-base;
+}
+
+// Author meta styles
+@mixin author-meta {
+  color: v.$muted-color;
+  font-size: 0.9em;
+}
+
+// Carousel base styles
+@mixin carousel-base {
+  .slick-slider {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+  }
+  
+  .slick-slide {
+    padding: 0 v.$spacing-sm;
+  }
+  
+  .slick-dots {
+    display: flex !important;
+    justify-content: center;
+    gap: v.$spacing-xs;
+    margin-top: v.$spacing-lg;
+    
+    li button:before {
+      color: v.$primary-color;
+    }
   }
 }
 
-// Media query mixins
-@mixin respond-to($breakpoint) {
+// Responsive grid styles
+@mixin responsive-grid {
+  display: grid;
+  gap: v.$spacing-lg;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
 
-  @if $breakpoint == small {
-
-    @media (min-width: v.$breakpoint-small) { @content; }
-  } @else if $breakpoint == medium {
-
-    @media (min-width: v.$breakpoint-medium) { @content; }
-  } @else if $breakpoint == large {
-
-    @media (min-width: v.$breakpoint-large) { @content; }
-  } @else if $breakpoint == xlarge {
-
-    @media (min-width: v.$breakpoint-xlarge) { @content; }
+// List styles
+@mixin list-styles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    padding: v.$spacing-sm 0;
+    border-bottom: 1px solid v.$border-color;
+    
+    &:last-child {
+      border-bottom: none;
+    }
   }
 }

@@ -1,8 +1,0 @@
-// Import common styles and variables
-@use '../../scss/common/variables' as v;
-@use '../../scss/common/author-picker' as a;
-
-.apbl-author-picker-wrapper {
-
-  @include a.author-picker-component();
-}

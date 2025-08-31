@@ -1,133 +1,72 @@
 /**
  * WordPress dependencies
  */
-import { useSelect } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
-import { store as coreStore } from '@wordpress/core-data';
-import { __ } from '@wordpress/i18n';
 
 /**
- * Custom hook to fetch and manage multiple authors data.
+ * Internal dependencies
+ */
+import { fetchAuthors, fetchAuthorsByIds } from '../services/api';
+
+/**
+ * Custom hook for managing multiple authors data
  *
  * @param {Object} options Hook options
- * @param {Array} options.authorIds Array of author IDs.
- * @param {string} options.role Optional. Filter authors by role.
- * @param {number} options.maxAuthors Optional. Maximum number of authors to return.
- * @param {number} options.perPage Optional. Number of authors to fetch per page.
- * @param {string} options.orderBy Optional. Field to sort authors by.
- * @param {string} options.order Optional. Sort order (asc/desc).
- * @return {Object} Authors data and loading state.
+ * @param {Array} options.authorIds Array of author IDs to fetch
+ * @param {string} options.role Optional role filter
+ * @param {number} options.maxAuthors Maximum number of authors to return (0 = unlimited)
+ * @return {Object} Authors data and loading state
  */
-const useAuthorsList = ({
-    authorIds = [],
-    role = '',
-    maxAuthors = 0,
-    perPage = 100,
-    orderBy = 'name',
-    order = 'asc'
-}) => {
-    const [isLoading, setIsLoading] = useState(true);
+const useAuthorsList = ({ authorIds = [], role = '', maxAuthors = 0 } = {}) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [authors, setAuthors] = useState([]);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
 
-    // Fetch authors by IDs
-    const authorData = useSelect(
-        (select) => {
-            if (!authorIds || !authorIds.length) {
-                return {
-                    users: [],
-                    isFinished: true,
-                };
-            }
-
-            const { getEntityRecords, hasFinishedResolution } = select(coreStore);
-            const query = { include: authorIds, per_page: perPage };
-            const users = getEntityRecords('root', 'user', query);
-            const isFinished = hasFinishedResolution('getEntityRecords', [
-                'root',
-                'user',
-                query,
-            ]);
-
-            return {
-                users,
-                isFinished,
-            };
-        },
-        [authorIds, perPage]
-    );
-
-    // Process the fetched authors
     useEffect(() => {
-        if (authorData?.users && authorData.isFinished) {
-            let filteredAuthors = [...authorData.users];
-
-            // Apply role filter if specified
-            if (role) {
-                filteredAuthors = filteredAuthors.filter((author) => {
-                    return author.roles && author.roles.includes(role);
-                });
-            }
-
-            // Sort authors if needed
-            if (orderBy && order) {
-                filteredAuthors.sort((a, b) => {
-                    let valueA = a[orderBy] || '';
-                    let valueB = b[orderBy] || '';
-                    
-                    // Handle string comparison
-                    if (typeof valueA === 'string') {
-                        valueA = valueA.toLowerCase();
-                    }
-                    if (typeof valueB === 'string') {
-                        valueB = valueB.toLowerCase();
-                    }
-                    
-                    if (valueA < valueB) return order === 'asc' ? -1 : 1;
-                    if (valueA > valueB) return order === 'asc' ? 1 : -1;
-                    return 0;
-                });
-            }
-
-            // Apply maximum authors limit if specified
-            if (maxAuthors > 0 && filteredAuthors.length > maxAuthors) {
-                filteredAuthors = filteredAuthors.slice(0, maxAuthors);
-            }
-
-            setAuthors(filteredAuthors);
-            setIsLoading(false);
-
-            // Set error message if no authors found
-            if (filteredAuthors.length === 0 && authorIds.length > 0) {
-                if (role) {
-                    setError(
-                        __('No authors found with the selected role.', 'author-profile-blocks')
-                    );
-                } else {
-                    setError(
-                        __('No authors found with the selected IDs.', 'author-profile-blocks')
-                    );
-                }
-            } else {
-                setError('');
-            }
-        } else if (authorData?.isFinished) {
-            setIsLoading(false);
-            if (authorIds.length > 0) {
-                setError(
-                    __('No authors found with the selected IDs.', 'author-profile-blocks')
-                );
-            }
-        } else {
+        const loadAuthors = async () => {
             setIsLoading(true);
-            setError('');
-        }
-    }, [authorData, authorIds, role, maxAuthors, orderBy, order]);
+            setError(null);
+            
+            try {
+                let authorsData = [];
+
+                if (authorIds.length > 0) {
+                    // Fetch specific authors by IDs
+                    authorsData = await fetchAuthorsByIds(authorIds);
+                } else {
+                    // Fetch all authors with optional role filter
+                    const fetchOptions = {};
+                    if (role) {
+                        fetchOptions.roles = role;
+                    }
+                    if (maxAuthors > 0) {
+                        fetchOptions.perPage = maxAuthors;
+                    }
+                    
+                    authorsData = await fetchAuthors(fetchOptions);
+                }
+
+                // Apply max authors limit if fetching by IDs
+                if (maxAuthors > 0 && authorsData.length > maxAuthors) {
+                    authorsData = authorsData.slice(0, maxAuthors);
+                }
+
+                setAuthors(authorsData);
+            } catch (err) {
+                setError(err.message || 'Failed to load authors');
+                console.error('Error loading authors:', err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadAuthors();
+    }, [authorIds.join(','), role, maxAuthors]); // Dependencies
 
     return {
         authors,
         isLoading,
-        error,
+        error
     };
 };
 

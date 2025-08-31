@@ -23,8 +23,6 @@ import { useState, useEffect } from '@wordpress/element';
 import { search, people, plusCircle, info } from '@wordpress/icons';
 import { sprintf } from '@wordpress/i18n';
 
-import '../../scss/components/author-picker.scss';
-
 /**
  * AuthorSelector component for selecting an author from a dropdown with search
  *
@@ -93,22 +91,22 @@ const AuthorSelector = ({
     };
 
     return (
-        <div className="wpas-author-selector-wrapper">
+        <div className="apbl-author-selector-wrapper">
             <Placeholder
-                icon={<Icon icon={placeholderIcon} className="wpas-author-icon" />}
+                icon={<Icon icon={placeholderIcon} className="apbl-author-icon" />}
                 label={title}
                 instructions={instructions}
-                className="wpas-author-selector"
+                className="apbl-author-selector"
                 isColumnLayout={true}
             >
                 {isLoading ? (
-                    <div className="wpas-loading-container">
+                    <div className="apbl-loading-container">
                         <Spinner />
                         <p>{__('Loading authors...', 'author-profile-blocks')}</p>
                     </div>
                 ) : authors.length > 0 ? (
-                    <Card className="wpas-author-card" elevation={2}>
-                        <CardHeader className="wpas-card-header">
+                    <Card className="apbl-author-card" elevation={2}>
+                        <CardHeader className="apbl-card-header">
                             <Flex justify="space-between" align="center">
                                 <FlexItem>
                                     <Flex align="center" gap={2}>
@@ -117,7 +115,7 @@ const AuthorSelector = ({
                                     </Flex>
                                 </FlexItem>
                                 <FlexItem>
-                                    <div className="wpas-author-count">
+                                    <div className="apbl-author-count">
                                         <span>{authorCount}</span>
                                         <Tooltip text={__('Total number of available authors', 'author-profile-blocks')}>
                                             <Icon icon={info} size={16} />
@@ -128,17 +126,17 @@ const AuthorSelector = ({
                         </CardHeader>
 
                         <CardBody>
-                            <div className="wpas-search-field">
-                                <Icon icon={search} className="wpas-search-icon" />
+                            <div className="apbl-search-field">
+                                <Icon icon={search} className="apbl-search-icon" />
                                 <TextControl
                                     value={searchTerm}
                                     onChange={handleSearchChange}
                                     placeholder={__('Search authors...', 'author-profile-blocks')}
-                                    className="wpas-author-search"
+                                    className="apbl-author-search"
                                 />
                                 {searchTerm && (
                                     <Button
-                                        className="wpas-clear-search"
+                                        className="apbl-clear-search"
                                         isSmall
                                         isSecondary
                                         onClick={clearSearch}
@@ -149,27 +147,27 @@ const AuthorSelector = ({
                                 )}
                             </div>
 
-                            <div className="wpas-select-field">
+                            <div className="apbl-select-field">
                                 <SelectControl
                                     label={__('Select Author', 'author-profile-blocks')}
                                     value={selectedAuthorId}
                                     options={authorOptions}
                                     onChange={handleAuthorChange}
-                                    className="wpas-author-select"
+                                    className="apbl-author-select"
                                     __nextHasNoMarginBottom
                                 />
                             </div>
 
                             {filteredAuthors.length === 0 && searchTerm !== '' ? (
                                 <Notice
-                                    className="wpas-notice"
+                                    className="apbl-notice"
                                     status="warning"
                                     isDismissible={false}
                                 >
                                     {__('No authors match your search criteria.', 'author-profile-blocks')}
                                 </Notice>
                             ) : filteredAuthors.length < authors.length && searchTerm !== '' && (
-                                <div className="wpas-filter-info">
+                                <div className="apbl-filter-info">
                                     <Icon icon={info} size={16} />
                                     <span>
                                         {sprintf(
@@ -183,7 +181,7 @@ const AuthorSelector = ({
                             )}
                         </CardBody>
 
-                        <CardFooter className="wpas-card-footer">
+                        <CardFooter className="apbl-card-footer">
                             <Flex justify="space-between" align="center">
                                 <FlexItem>
                                     {selectedAuthorId && (
@@ -193,7 +191,7 @@ const AuthorSelector = ({
                                                 setSelectedAuthorId('');
                                                 setSearchTerm('');
                                             }}
-                                            className="wpas-reset-btn"
+                                            className="apbl-reset-btn"
                                         >
                                             {__('Reset', 'author-profile-blocks')}
                                         </Button>
@@ -203,11 +201,11 @@ const AuthorSelector = ({
                         </CardFooter>
                     </Card>
                 ) : (
-                    <div className="wpas-no-results">
-                        <Card className="wpas-empty-state-card" elevation={2}>
+                    <div className="apbl-no-results">
+                        <Card className="apbl-empty-state-card" elevation={2}>
                             <CardBody>
-                                <div className="wpas-empty-state">
-                                    <Icon icon={people} size={48} className="wpas-empty-icon" />
+                                <div className="apbl-empty-state">
+                                    <Icon icon={people} size={48} className="apbl-empty-icon" />
                                     <h3>{__('No Users Found', 'author-profile-blocks')}</h3>
                                     <p>{__('You need to create users with appropriate roles before you can use this block.', 'author-profile-blocks')}</p>
                                     {showAddAuthorButton && (
@@ -215,7 +213,7 @@ const AuthorSelector = ({
                                             variant="primary"
                                             href={`${window.AuthorProfileBlocks?.adminUrl || '/wp-admin/'}user-new.php`}
                                             target="_blank"
-                                            className="wpas-create-author-btn"
+                                            className="apbl-create-author-btn"
                                             icon={plusCircle}
                                         >
                                             {__('Create New User', 'author-profile-blocks')}
