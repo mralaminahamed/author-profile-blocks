@@ -23,7 +23,7 @@ import { useState, useEffect } from '@wordpress/element';
 import { search, people, plusCircle, info } from '@wordpress/icons';
 import { sprintf } from '@wordpress/i18n';
 
-import './../../scss/components/author-picker.scss'
+import '../../scss/components/author-picker.scss';
 
 /**
  * AuthorSelector component for selecting an author from a dropdown with search

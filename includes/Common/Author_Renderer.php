@@ -6,7 +6,7 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks\Common;
+namespace APBL\AuthorProfileBlocks\Common;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,14 +32,14 @@ trait Author_Renderer {
 		}
 
 		// Add alignment to the container class if specified
-		if ( !empty( $author['avatarAlignment'] ) ) {
+		if ( ! empty( $author['avatarAlignment'] ) ) {
 			$classes .= ' apb-author-image-align-' . esc_attr( $author['avatarAlignment'] );
 		}
 
 		$image_classes = array();
 
 		// Add avatar shape class if available from attributes
-		if ( !empty( $author['avatarShape'] ) ) {
+		if ( ! empty( $author['avatarShape'] ) ) {
 			$image_classes[] = 'avatar-shape-' . esc_attr( $author['avatarShape'] );
 		}
 
@@ -47,7 +47,7 @@ trait Author_Renderer {
 		$avatar_styles = $this->get_avatar_inline_styles( $author );
 
 		$image_attr = array(
-			'class'   => !empty( $image_classes ) ? implode( ' ', $image_classes ) : '',
+			'class'   => ! empty( $image_classes ) ? implode( ' ', $image_classes ) : '',
 			'alt'     => esc_attr( $author['title'] ),
 			'loading' => 'lazy',
 			'style'   => $avatar_styles,
@@ -74,32 +74,32 @@ trait Author_Renderer {
 		$styles = array();
 
 		// Size
-		if ( !empty( $author['avatarSize'] ) ) {
+		if ( ! empty( $author['avatarSize'] ) ) {
 			$styles[] = 'width: ' . esc_attr( $author['avatarSize'] ) . 'px';
 			$styles[] = 'height: ' . esc_attr( $author['avatarSize'] ) . 'px';
 		}
 
 		// Border
-		if ( !empty( $author['avatarBorderWidth'] ) && $author['avatarBorderWidth'] > 0 ) {
+		if ( ! empty( $author['avatarBorderWidth'] ) && $author['avatarBorderWidth'] > 0 ) {
 			$styles[] = 'border-width: ' . esc_attr( $author['avatarBorderWidth'] ) . 'px';
 			$styles[] = 'border-style: solid';
 
-			if ( !empty( $author['avatarBorderColor'] ) ) {
+			if ( ! empty( $author['avatarBorderColor'] ) ) {
 				$styles[] = 'border-color: ' . esc_attr( $author['avatarBorderColor'] );
 			}
 		}
 
 		// Custom border radius for custom shape
-		if ( !empty( $author['avatarShape'] ) && $author['avatarShape'] === 'custom' && !empty( $author['avatarBorderRadius'] ) ) {
+		if ( ! empty( $author['avatarShape'] ) && $author['avatarShape'] === 'custom' && ! empty( $author['avatarBorderRadius'] ) ) {
 			$styles[] = 'border-radius: ' . esc_attr( $author['avatarBorderRadius'] ) . 'px';
-		} elseif ( !empty( $author['avatarShape'] ) && $author['avatarShape'] === 'circle' ) {
+		} elseif ( ! empty( $author['avatarShape'] ) && $author['avatarShape'] === 'circle' ) {
 			$styles[] = 'border-radius: 50%';
-		} elseif ( !empty( $author['avatarShape'] ) && $author['avatarShape'] === 'rounded' ) {
+		} elseif ( ! empty( $author['avatarShape'] ) && $author['avatarShape'] === 'rounded' ) {
 			$styles[] = 'border-radius: 8px';
 		}
 
 		// Margin
-		if ( !empty( $author['avatarMargin'] ) ) {
+		if ( ! empty( $author['avatarMargin'] ) ) {
 			$styles[] = 'margin-bottom: ' . esc_attr( $author['avatarMargin'] ) . 'px';
 		}
 
@@ -118,11 +118,11 @@ trait Author_Renderer {
 	 */
 	protected function render_author_name( array $author ): string {
 		$style_attr = $this->get_name_inline_styles( $author );
-		$style_html = !empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
+		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build the class attribute with alignment if specified
 		$class_attr = 'apb-author-name';
-		if ( !empty( $author['nameAlignment'] ) ) {
+		if ( ! empty( $author['nameAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['nameAlignment'] );
 		}
 
@@ -132,7 +132,7 @@ trait Author_Renderer {
 				esc_attr( $class_attr ),
 				$style_html,
 				esc_url( $author['url'] ),
-				!empty( $style_attr ) ? ' style="color: inherit; text-decoration: none;"' : '',
+				! empty( $style_attr ) ? ' style="color: inherit; text-decoration: none;"' : '',
 				esc_html( $author['title'] )
 			);
 		}
@@ -156,32 +156,32 @@ trait Author_Renderer {
 		$styles = array();
 
 		// Font size
-		if ( !empty( $author['nameSize'] ) ) {
+		if ( ! empty( $author['nameSize'] ) ) {
 			$styles[] = 'font-size: ' . esc_attr( $author['nameSize'] ) . 'px';
 		}
 
 		// Font weight
-		if ( !empty( $author['nameWeight'] ) ) {
+		if ( ! empty( $author['nameWeight'] ) ) {
 			$styles[] = 'font-weight: ' . esc_attr( $author['nameWeight'] );
 		}
 
 		// Text color
-		if ( !empty( $author['nameColor'] ) ) {
+		if ( ! empty( $author['nameColor'] ) ) {
 			$styles[] = 'color: ' . esc_attr( $author['nameColor'] );
 		}
 
 		// Text transform
-		if ( !empty( $author['nameTransform'] ) && $author['nameTransform'] !== 'none' ) {
+		if ( ! empty( $author['nameTransform'] ) && $author['nameTransform'] !== 'none' ) {
 			$styles[] = 'text-transform: ' . esc_attr( $author['nameTransform'] );
 		}
 
 		// Text alignment
-		if ( !empty( $author['nameAlignment'] ) ) {
+		if ( ! empty( $author['nameAlignment'] ) ) {
 			$styles[] = 'text-align: ' . esc_attr( $author['nameAlignment'] );
 		}
 
 		// Margin
-		if ( !empty( $author['nameMargin'] ) ) {
+		if ( ! empty( $author['nameMargin'] ) ) {
 			$styles[] = 'margin-bottom: ' . esc_attr( $author['nameMargin'] ) . 'px';
 		}
 
@@ -197,11 +197,11 @@ trait Author_Renderer {
 	 */
 	protected function render_author_position( array $author ): string {
 		$style_attr = $this->get_meta_inline_styles( $author );
-		$style_html = !empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
+		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
 		$class_attr = 'apb-author-position';
-		if ( !empty( $author['metaAlignment'] ) ) {
+		if ( ! empty( $author['metaAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
 		}
 
@@ -222,26 +222,26 @@ trait Author_Renderer {
 	 */
 	protected function render_author_email( array $author ): string {
 		$style_attr = $this->get_meta_inline_styles( $author );
-		$style_html = !empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
+		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
 		$class_attr = 'apb-author-email';
-		if ( !empty( $author['metaAlignment'] ) ) {
+		if ( ! empty( $author['metaAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
 		}
 
 		// Generate email link style
 		$link_styles = array();
 
-		if ( !empty( $author['emailLinkColor'] ) ) {
+		if ( ! empty( $author['emailLinkColor'] ) ) {
 			$link_styles[] = 'color: ' . esc_attr( $author['emailLinkColor'] );
 		}
 
-		$link_style_html = !empty( $link_styles ) ? ' style="' . implode( '; ', $link_styles ) . '"' : '';
+		$link_style_html = ! empty( $link_styles ) ? ' style="' . implode( '; ', $link_styles ) . '"' : '';
 
 		// Add hover style via data attribute which will be handled by CSS
 		$data_attr = '';
-		if ( !empty( $author['emailHoverColor'] ) ) {
+		if ( ! empty( $author['emailHoverColor'] ) ) {
 			$data_attr = ' data-hover-color="' . esc_attr( $author['emailHoverColor'] ) . '"';
 		}
 
@@ -267,32 +267,32 @@ trait Author_Renderer {
 		$styles = array();
 
 		// Font size
-		if ( !empty( $author['metaSize'] ) ) {
+		if ( ! empty( $author['metaSize'] ) ) {
 			$styles[] = 'font-size: ' . esc_attr( $author['metaSize'] ) . 'px';
 		}
 
 		// Text color
-		if ( !empty( $author['metaColor'] ) ) {
+		if ( ! empty( $author['metaColor'] ) ) {
 			$styles[] = 'color: ' . esc_attr( $author['metaColor'] );
 		}
 
 		// Font style
-		if ( !empty( $author['metaStyle'] ) && $author['metaStyle'] !== 'normal' ) {
+		if ( ! empty( $author['metaStyle'] ) && $author['metaStyle'] !== 'normal' ) {
 			$styles[] = 'font-style: ' . esc_attr( $author['metaStyle'] );
 		}
 
 		// Font weight
-		if ( !empty( $author['metaBold'] ) && $author['metaBold'] ) {
+		if ( ! empty( $author['metaBold'] ) ) {
 			$styles[] = 'font-weight: bold';
 		}
 
 		// Text alignment
-		if ( !empty( $author['metaAlignment'] ) ) {
+		if ( ! empty( $author['metaAlignment'] ) ) {
 			$styles[] = 'text-align: ' . esc_attr( $author['metaAlignment'] );
 		}
 
 		// Margin
-		if ( !empty( $author['metaMargin'] ) ) {
+		if ( ! empty( $author['metaMargin'] ) ) {
 			$styles[] = 'margin-bottom: ' . esc_attr( $author['metaMargin'] ) . 'px';
 		}
 
@@ -308,11 +308,11 @@ trait Author_Renderer {
 	 */
 	protected function render_author_description( array $author ): string {
 		$style_attr = $this->get_description_inline_styles( $author );
-		$style_html = !empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
+		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
 		$class_attr = 'apb-author-description';
-		if ( !empty( $author['descriptionAlignment'] ) ) {
+		if ( ! empty( $author['descriptionAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['descriptionAlignment'] );
 		}
 
@@ -335,32 +335,32 @@ trait Author_Renderer {
 		$styles = array();
 
 		// Font size
-		if ( !empty( $author['descriptionSize'] ) ) {
+		if ( ! empty( $author['descriptionSize'] ) ) {
 			$styles[] = 'font-size: ' . esc_attr( $author['descriptionSize'] ) . 'px';
 		}
 
 		// Line height
-		if ( !empty( $author['descriptionLineHeight'] ) ) {
+		if ( ! empty( $author['descriptionLineHeight'] ) ) {
 			$styles[] = 'line-height: ' . esc_attr( $author['descriptionLineHeight'] );
 		}
 
 		// Text color
-		if ( !empty( $author['descriptionColor'] ) ) {
+		if ( ! empty( $author['descriptionColor'] ) ) {
 			$styles[] = 'color: ' . esc_attr( $author['descriptionColor'] );
 		}
 
 		// Font style
-		if ( !empty( $author['descriptionStyle'] ) && $author['descriptionStyle'] !== 'normal' ) {
+		if ( ! empty( $author['descriptionStyle'] ) && $author['descriptionStyle'] !== 'normal' ) {
 			$styles[] = 'font-style: ' . esc_attr( $author['descriptionStyle'] );
 		}
 
 		// Text alignment
-		if ( !empty( $author['descriptionAlignment'] ) ) {
+		if ( ! empty( $author['descriptionAlignment'] ) ) {
 			$styles[] = 'text-align: ' . esc_attr( $author['descriptionAlignment'] );
 		}
 
 		// Margin
-		if ( !empty( $author['descriptionMargin'] ) ) {
+		if ( ! empty( $author['descriptionMargin'] ) ) {
 			$styles[] = 'margin-bottom: ' . esc_attr( $author['descriptionMargin'] ) . 'px';
 		}
 
@@ -383,76 +383,76 @@ trait Author_Renderer {
 		}
 
 		// Get social icon alignment if available
-		if ( !empty( $profiles['socialIconAlignment'] ) ) {
-			$classes .= ' apb-social-align-' . esc_attr( $profiles['socialIconAlignment'] );
+		if ( ! empty( $profiles['socialIconAlignment'] ) ) {
+			$classes   .= ' apb-social-align-' . esc_attr( $profiles['socialIconAlignment'] );
 			$data_align = ' data-align="' . esc_attr( $profiles['socialIconAlignment'] ) . '"';
 		} else {
 			$data_align = '';
 		}
 
 		// Generate styles for icons
-		$icon_styles = array();
+		$icon_styles       = array();
 		$icon_hover_styles = array();
 
-		if ( !empty( $profiles['socialIconSize'] ) ) {
+		if ( ! empty( $profiles['socialIconSize'] ) ) {
 			$icon_styles[] = '--author-social-icon-size: ' . esc_attr( $profiles['socialIconSize'] ) . 'px';
 		}
 
-		if ( !empty( $profiles['socialIconColor'] ) ) {
+		if ( ! empty( $profiles['socialIconColor'] ) ) {
 			$icon_styles[] = '--author-social-icon-color: ' . esc_attr( $profiles['socialIconColor'] );
 		}
 
-		if ( !empty( $profiles['socialIconHoverColor'] ) ) {
+		if ( ! empty( $profiles['socialIconHoverColor'] ) ) {
 			$icon_hover_styles[] = '--author-social-icon-hover-color: ' . esc_attr( $profiles['socialIconHoverColor'] );
 		}
 
-		if ( !empty( $profiles['socialIconBackground'] ) ) {
+		if ( ! empty( $profiles['socialIconBackground'] ) ) {
 			$icon_styles[] = '--author-social-icon-bg: ' . esc_attr( $profiles['socialIconBackground'] );
 		}
 
-		if ( !empty( $profiles['socialIconBackgroundHover'] ) ) {
+		if ( ! empty( $profiles['socialIconBackgroundHover'] ) ) {
 			$icon_hover_styles[] = '--author-social-icon-bg-hover: ' . esc_attr( $profiles['socialIconBackgroundHover'] );
 		}
 
-		if ( !empty( $profiles['socialIconSpacing'] ) ) {
+		if ( ! empty( $profiles['socialIconSpacing'] ) ) {
 			$icon_styles[] = '--author-social-icon-spacing: ' . esc_attr( $profiles['socialIconSpacing'] ) . 'px';
 		}
 
 		// Build style attribute
-		$style_html = !empty( $icon_styles ) ? ' style="' . implode( '; ', $icon_styles ) . '"' : '';
-		$data_hover = !empty( $icon_hover_styles ) ? ' data-hover-style="' . implode( '; ', $icon_hover_styles ) . '"' : '';
+		$style_html = ! empty( $icon_styles ) ? ' style="' . implode( '; ', $icon_styles ) . '"' : '';
+		$data_hover = ! empty( $icon_hover_styles ) ? ' data-hover-style="' . implode( '; ', $icon_hover_styles ) . '"' : '';
 
-		$html = '<div class="' . esc_attr( $classes ) . '"' . $data_align . $style_html . $data_hover . '>';
+		$html  = '<div class="' . esc_attr( $classes ) . '"' . $data_align . $style_html . $data_hover . '>';
 		$html .= '<ul class="apb-social-list">';
 
 		$social_icons = $this->get_social_icons();
 
 		// If specific profiles are specified, only show those
 		$filtered_profiles = array();
-		if (!empty($show_profiles)) {
-			foreach ($profiles as $network => $url) {
-				if ($network !== 'socialIconSize' &&
+		if ( ! empty( $show_profiles ) ) {
+			foreach ( $profiles as $network => $url ) {
+				if ( $network !== 'socialIconSize' &&
 					$network !== 'socialIconColor' &&
 					$network !== 'socialIconHoverColor' &&
 					$network !== 'socialIconBackground' &&
 					$network !== 'socialIconBackgroundHover' &&
 					$network !== 'socialIconSpacing' &&
 					$network !== 'socialIconAlignment' &&
-					in_array($network, $show_profiles, true)) {
-					$filtered_profiles[$network] = $url;
+					in_array( $network, $show_profiles, true ) ) {
+					$filtered_profiles[ $network ] = $url;
 				}
 			}
 		} else {
 			// Filter out the style properties from profiles
-			foreach ($profiles as $network => $url) {
-				if ($network !== 'socialIconSize' &&
+			foreach ( $profiles as $network => $url ) {
+				if ( $network !== 'socialIconSize' &&
 					$network !== 'socialIconColor' &&
 					$network !== 'socialIconHoverColor' &&
 					$network !== 'socialIconBackground' &&
 					$network !== 'socialIconBackgroundHover' &&
 					$network !== 'socialIconSpacing' &&
-					$network !== 'socialIconAlignment') {
-					$filtered_profiles[$network] = $url;
+					$network !== 'socialIconAlignment' ) {
+					$filtered_profiles[ $network ] = $url;
 				}
 			}
 		}
@@ -485,11 +485,11 @@ trait Author_Renderer {
 		$label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
 
 		$style_attr = $this->get_meta_inline_styles( $author );
-		$style_html = !empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
+		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
 		$class_attr = 'apb-author-registered-date';
-		if ( !empty( $author['metaAlignment'] ) ) {
+		if ( ! empty( $author['metaAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
 		}
 
@@ -518,16 +518,16 @@ trait Author_Renderer {
 		$styles = array();
 
 		// Add border color if specified
-		if ( !empty( $author['moreContentBorderColor'] ) ) {
+		if ( ! empty( $author['moreContentBorderColor'] ) ) {
 			$styles[] = 'border-top-color: ' . esc_attr( $author['moreContentBorderColor'] );
 		}
 
 		// Add top padding if specified
-		if ( !empty( $author['moreContentPadding'] ) ) {
+		if ( ! empty( $author['moreContentPadding'] ) ) {
 			$styles[] = 'padding-top: ' . esc_attr( $author['moreContentPadding'] ) . 'px';
 		}
 
-		$style_html = !empty( $styles ) ? ' style="' . implode( '; ', $styles ) . '"' : '';
+		$style_html = ! empty( $styles ) ? ' style="' . implode( '; ', $styles ) . '"' : '';
 
 		return sprintf(
 			'<div class="apb-author-more-content"%s>%s</div>',

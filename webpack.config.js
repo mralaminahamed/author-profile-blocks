@@ -30,6 +30,6 @@ module.exports = {
 			'@scss': path.resolve(process.cwd(), 'src/scss'),
 			'@blocks': path.resolve(process.cwd(), 'src/blocks'),
 			'@common': path.resolve(process.cwd(), 'src/scss/common'),
-		}
-	}
+		},
+	},
 };

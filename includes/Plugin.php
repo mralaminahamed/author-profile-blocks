@@ -71,7 +71,7 @@ class Plugin extends Base {
 		// Initialize services.
 		$this->register_services();
 
-		add_action( 'int', array( $this, 'register_meta_field' ), 0 );
+		add_action( 'init', array( $this, 'register_meta_field' ), 0 );
 	}
 
 	/**
