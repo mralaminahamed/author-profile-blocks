@@ -24,7 +24,10 @@ import metadata from './block.json';
  * Initialize global variables
  */
 window.AuthorProfileBlocks = window.AuthorProfileBlocks || {
-  adminUrl: (window.AuthorProfileBlocksData && window.AuthorProfileBlocksData.adminUrl) || '/wp-admin/'
+	adminUrl:
+		(window.AuthorProfileBlocksData &&
+			window.AuthorProfileBlocksData.adminUrl) ||
+		'/wp-admin/',
 };
 
 /**
@@ -33,5 +36,5 @@ window.AuthorProfileBlocks = window.AuthorProfileBlocks || {
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 registerBlockType(metadata.name, {
-  edit: Edit,
+	edit: Edit,
 });

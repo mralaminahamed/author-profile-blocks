@@ -15,6 +15,6 @@ import metadata from './block.json';
  * Register the block
  */
 registerBlockType(metadata.name, {
-    edit: Edit,
-    save: () => null,
+	edit: Edit,
+	save: () => null,
 });

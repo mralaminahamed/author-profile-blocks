@@ -3,16 +3,17 @@
  */
 
 .wp-block-author-profile-blocks-author-profile {
+
     &.is-style-card {
+        overflow: hidden;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
     }
 
     &.is-style-minimal {
+        padding: 0 !important;
         background: transparent !important;
         border: none !important;
-        padding: 0 !important;
     }
 
     &.is-style-bordered {
@@ -29,7 +30,7 @@
         display: flex;
         flex-direction: row;
         gap: var(--author-section-spacing, 15px);
-        
+
         @media (max-width: 600px) {
             flex-direction: column;
         }
@@ -39,7 +40,7 @@
         display: flex;
         flex-direction: row-reverse;
         gap: var(--author-section-spacing, 15px);
-        
+
         @media (max-width: 600px) {
             flex-direction: column;
         }
@@ -60,15 +61,16 @@
 
 /* Tab panel styling */
 .author-profile-inspector-tabs {
+
     .components-tab-panel__tabs {
         display: flex;
-        border-bottom: 1px solid #e0e0e0;
         margin-bottom: 16px;
-        
+        border-bottom: 1px solid #e0e0e0;
+
         .components-tab-panel__tabs-item {
             flex: 1;
             justify-content: center;
-            
+
             &.is-active {
                 box-shadow: inset 0 0 0 1.5px transparent, inset 0 -4px 0 0 var(--wp-admin-theme-color);
             }
@@ -78,14 +80,15 @@
 
 /* Styles to customize avatar appearance */
 .wpas-author-avatar {
+
     &.avatar-shape-circle {
         border-radius: 50%;
     }
-    
+
     &.avatar-shape-square {
         border-radius: 0;
     }
-    
+
     &.avatar-shape-rounded {
         border-radius: 8px;
     }

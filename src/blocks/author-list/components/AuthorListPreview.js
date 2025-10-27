@@ -10,5 +10,5 @@ import { AuthorsListPreview } from '../../../js/components';
  * @return {JSX.Element} Element to render.
  */
 export default function AuthorListPreview(props) {
-    return <AuthorsListPreview {...props} />;
+	return <AuthorsListPreview {...props} />;
 }
