@@ -224,20 +224,10 @@ class Admin {
 	 * @return void
 	 */
 	public function author_roles_field_callback(): void {
-		$options = get_option( 'author_profile_blocks_settings', array() );
-		$selected_roles = isset( $options['author_roles'] ) ? $options['author_roles'] : array( 'administrator', 'editor', 'author' );
-
-		$roles = wp_roles()->roles;
-		?>
-		<select name="author_profile_blocks_settings[author_roles][]" multiple="multiple" class="regular-text">
-			<?php foreach ( $roles as $role_key => $role ) : ?>
-				<option value="<?php echo esc_attr( $role_key ); ?>" <?php echo in_array( $role_key, $selected_roles, true ) ? 'selected' : ''; ?>>
-					<?php echo esc_html( $role['name'] ); ?>
-				</option>
-			<?php endforeach; ?>
-		</select>
-		<p class="description"><?php esc_html_e( 'Select which user roles should be available as authors. Hold Ctrl/Cmd to select multiple roles.', 'author-profile-blocks' ); ?></p>
-		<?php
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/author-roles.php';
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		}
 	}
 
 	/**
@@ -246,12 +236,10 @@ class Admin {
 	 * @return void
 	 */
 	public function avatar_size_field_callback(): void {
-		$options = get_option( 'author_profile_blocks_settings', array() );
-		$avatar_size = isset( $options['avatar_size'] ) ? $options['avatar_size'] : 150;
-		?>
-		<input type="number" name="author_profile_blocks_settings[avatar_size]" value="<?php echo esc_attr( $avatar_size ); ?>" min="32" max="512" class="small-text" />
-		<p class="description"><?php esc_html_e( 'Default avatar size in pixels (32-512).', 'author-profile-blocks' ); ?></p>
-		<?php
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/avatar-size.php';
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		}
 	}
 
 	/**
@@ -260,28 +248,10 @@ class Admin {
 	 * @return void
 	 */
 	public function social_platforms_field_callback(): void {
-		$options = get_option( 'author_profile_blocks_settings', array() );
-		$selected_platforms = isset( $options['social_platforms'] ) ? $options['social_platforms'] : array( 'facebook', 'twitter', 'linkedin', 'instagram' );
-
-		$platforms = array(
-			'facebook'  => __( 'Facebook', 'author-profile-blocks' ),
-			'twitter'   => __( 'Twitter/X', 'author-profile-blocks' ),
-			'linkedin'  => __( 'LinkedIn', 'author-profile-blocks' ),
-			'instagram' => __( 'Instagram', 'author-profile-blocks' ),
-			'youtube'   => __( 'YouTube', 'author-profile-blocks' ),
-			'website'   => __( 'Website', 'author-profile-blocks' ),
-		);
-		?>
-		<div class="social-platforms-checkboxes">
-			<?php foreach ( $platforms as $platform_key => $platform_name ) : ?>
-				<label style="display: block; margin-bottom: 5px;">
-					<input type="checkbox" name="author_profile_blocks_settings[social_platforms][]" value="<?php echo esc_attr( $platform_key ); ?>" <?php echo in_array( $platform_key, $selected_platforms, true ) ? 'checked' : ''; ?> />
-					<?php echo esc_html( $platform_name ); ?>
-				</label>
-			<?php endforeach; ?>
-		</div>
-		<p class="description"><?php esc_html_e( 'Select which social media platforms to display in author profiles.', 'author-profile-blocks' ); ?></p>
-		<?php
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/social-platforms.php';
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		}
 	}
 
 	/**
@@ -290,15 +260,10 @@ class Admin {
 	 * @return void
 	 */
 	public function show_email_field_callback(): void {
-		$options = get_option( 'author_profile_blocks_settings', array() );
-		$show_email = isset( $options['show_email'] ) ? $options['show_email'] : 0;
-		?>
-		<label>
-			<input type="checkbox" name="author_profile_blocks_settings[show_email]" value="1" <?php checked( $show_email, 1 ); ?> />
-			<?php esc_html_e( 'Display email addresses in author profiles', 'author-profile-blocks' ); ?>
-		</label>
-		<p class="description"><?php esc_html_e( 'Warning: Displaying email addresses publicly may increase spam.', 'author-profile-blocks' ); ?></p>
-		<?php
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/show-email.php';
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		}
 	}
 
 	/**
@@ -307,12 +272,10 @@ class Admin {
 	 * @return void
 	 */
 	public function cache_duration_field_callback(): void {
-		$options = get_option( 'author_profile_blocks_settings', array() );
-		$cache_duration = isset( $options['cache_duration'] ) ? $options['cache_duration'] : 24;
-		?>
-		<input type="number" name="author_profile_blocks_settings[cache_duration]" value="<?php echo esc_attr( $cache_duration ); ?>" min="1" max="168" class="small-text" />
-		<p class="description"><?php esc_html_e( 'How long to cache author data in hours (1-168). Default is 24 hours.', 'author-profile-blocks' ); ?></p>
-		<?php
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/cache-duration.php';
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		}
 	}
 
 	/**
@@ -329,29 +292,30 @@ class Admin {
 				'success'
 			);
 		}
-		?>
-		<div class="wrap">
-			<h1><?php esc_html_e( 'Author Profile Blocks Settings', 'author-profile-blocks' ); ?></h1>
-			<p><?php esc_html_e( 'Configure the Author Profile Blocks plugin settings.', 'author-profile-blocks' ); ?></p>
 
-			<?php settings_errors( 'author_profile_blocks_settings' ); ?>
+		// Load the settings page template
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/settings-page.php';
+		if ( file_exists( $template_path ) ) {
+			include $template_path;
+		} else {
+			// Fallback if template doesn't exist
+			?>
+			<div class="wrap">
+				<h1><?php esc_html_e( 'Author Profile Blocks Settings', 'author-profile-blocks' ); ?></h1>
+				<p><?php esc_html_e( 'Configure the Author Profile Blocks plugin settings.', 'author-profile-blocks' ); ?></p>
 
-			<form method="post" action="options.php">
-				<?php
-				settings_fields( 'author_profile_blocks_settings' );
-				do_settings_sections( 'author_profile_blocks_settings' );
-				submit_button();
-				?>
-			</form>
+				<?php settings_errors( 'author_profile_blocks_settings' ); ?>
 
-			<div class="author-profile-blocks-info" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">
-				<h3><?php esc_html_e( 'Plugin Information', 'author-profile-blocks' ); ?></h3>
-				<p><strong><?php esc_html_e( 'Version:', 'author-profile-blocks' ); ?></strong> <?php echo esc_html( APBL_VERSION ); ?></p>
-				<p><strong><?php esc_html_e( 'Documentation:', 'author-profile-blocks' ); ?></strong> <a href="https://github.com/mralaminahamed/author-profile-blocks" target="_blank">GitHub Repository</a></p>
-				<p><strong><?php esc_html_e( 'Support:', 'author-profile-blocks' ); ?></strong> <a href="https://github.com/mralaminahamed/author-profile-blocks/issues" target="_blank">Create an Issue</a></p>
+				<form method="post" action="options.php">
+					<?php
+					settings_fields( 'author_profile_blocks_settings' );
+					do_settings_sections( 'author_profile_blocks_settings' );
+					submit_button();
+					?>
+				</form>
 			</div>
-		</div>
-		<?php
+			<?php
+		}
 	}
 
 	/**
