@@ -4,6 +4,7 @@
  * Meta Data Provider interface
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Core;

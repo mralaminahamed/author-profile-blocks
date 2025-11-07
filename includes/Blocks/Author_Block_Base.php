@@ -4,6 +4,7 @@
  * Author Block Base
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Blocks;
@@ -54,7 +55,7 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return void
 	 */
 	public function register(): void {
-		$block_path = APBL_PLUGIN_DIR . 'build/blocks/' . $this->block_name;
+		$block_path = APBL_PLUGIN_PATH . 'build/blocks/' . $this->block_name;
 
 		// Check if block.json exists
 		if ( ! file_exists( $block_path . '/block.json' ) ) {
@@ -211,10 +212,10 @@ abstract class Author_Block_Base implements Registerable {
 			'adminUrl'  => admin_url(),
 			'restNonce' => wp_create_nonce( 'wp_rest' ),
 			'restUrl'   => rest_url(),
-			'pluginUrl' => APBL_PLUGIN_URL,
+			'pluginUrl' => plugin_dir_url( APBL_PLUGIN_FILE ),
 		);
 
-		$localized_data = array_merge( $default_data, $additional_data );
+		$localized_data = wp_parse_args( $additional_data, $default_data );
 
 		wp_localize_script(
 			'author-profile-blocks-' . $this->block_name . '-editor-script',

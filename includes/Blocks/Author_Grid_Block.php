@@ -4,6 +4,7 @@
  * Author Grid Block class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Blocks;

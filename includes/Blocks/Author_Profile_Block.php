@@ -4,6 +4,7 @@
  * Author Profile Block class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Blocks;
@@ -44,11 +45,11 @@ class Author_Profile_Block extends Author_Block_Base {
 	 * @return void
 	 */
 	public function localize_block_script( array $additional_data = array() ): void {
-		$profile_data = array_merge(
-			$additional_data,
+		$profile_data = wp_parse_args(
 			array(
 				'socialIcons' => $this->get_social_icon_data(),
-			)
+			),
+			$additional_data
 		);
 		parent::localize_block_script( $profile_data );
 	}

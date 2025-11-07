@@ -4,6 +4,7 @@
  * User Meta Provider class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Core;

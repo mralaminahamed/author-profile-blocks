@@ -333,15 +333,15 @@ class Author_Profile_Service {
 		}
 
 		// Merge with default arguments.
-		$query_args = array_merge(
+		$query_args = wp_parse_args(
+			$args,
 			array(
 				'role__in'    => $roles,
 				'orderby'     => 'display_name',
 				'order'       => 'ASC',
 				'count_total' => false,
 				'number'      => - 1, // Get all users.
-			),
-			$args
+			)
 		);
 
 		// Allow filtering of query args.

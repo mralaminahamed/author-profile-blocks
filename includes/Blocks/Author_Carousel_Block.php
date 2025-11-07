@@ -4,6 +4,7 @@
  * Author Carousel Block class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Blocks;
@@ -46,7 +47,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 	public function register_carousel_dependencies(): void {
 		wp_register_script(
 			'author-carousel-view',
-			APBL_PLUGIN_URL . 'build/blocks/author-carousel/view.js',
+			plugin_dir_url( APBL_PLUGIN_FILE ) . 'build/blocks/author-carousel/view.js',
 			array(),
 			APBL_VERSION,
 			true

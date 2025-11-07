@@ -46,7 +46,7 @@ class Admin {
 		if ( 'user-edit.php' === $hook || 'profile.php' === $hook ) {
 			wp_enqueue_style(
 				'author-profile-blocks-admin',
-				APBL_PLUGIN_URL . 'build/admin/styles.css',
+				plugin_dir_url( APBL_PLUGIN_FILE ) . 'build/admin/styles.css',
 				array(),
 				APBL_VERSION,
 				'all'
@@ -290,18 +290,14 @@ class Admin {
 	 * @return void
 	 */
 	private function load_admin_template( string $template, array $data = array() ): void {
-		$template_path = plugin_dir_path( APBL_PLUGIN_FILE ) . 'templates/admin/' . ltrim( $template, '/' );
+		$template_path = APBL_PLUGIN_PATH . 'templates/admin/' . ltrim( $template, '/' );
+        if ( ! file_exists( $template_path ) || ! is_readable( $template_path ) ) {
+            return;
+        }
 
-		if ( file_exists( $template_path ) && is_readable( $template_path ) ) {
-			// Use WordPress load_template function for better security
-			load_template( $template_path, false, $data );
-		} else {
-			// Fallback for settings page
-			if ( 'settings-page.php' === $template ) {
-				$this->render_settings_fallback();
-			}
-		}
-	}
+        // Use WordPress load_template function for better security
+        load_template( $template_path, false, $data );
+    }
 
 	/**
 	 * Render settings page fallback

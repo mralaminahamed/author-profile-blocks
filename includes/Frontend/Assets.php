@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Frontend Assets Class
+ *
+ * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
+ */
+
 namespace AuthorProfileBlocks\Frontend;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,7 +45,7 @@ class Assets {
 
 			wp_enqueue_style(
 				'author-profile-blocks-frontend',
-				APBL_PLUGIN_URL . 'build/frontend/styles.css',
+				plugin_dir_url( APBL_PLUGIN_FILE ) . 'build/frontend/styles.css',
 				array(),
 				APBL_VERSION,
 				'all'
