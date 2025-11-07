@@ -64,12 +64,6 @@
     "test": [
       "phpunit"
     ],
-    "test:unit": [
-      "UNIT_TEST=true phpunit -c phpunit-unit.xml"
-    ],
-    "test:integration": [
-      "phpunit -c phpunit-integration.xml"
-    ],
     "test-f": [
       "phpunit --filter"
     ],
