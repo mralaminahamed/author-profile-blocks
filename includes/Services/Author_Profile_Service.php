@@ -4,9 +4,12 @@
  * Author Profile Service class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Services;
+
+use AuthorProfileBlocks\Core\User_Meta_Provider;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

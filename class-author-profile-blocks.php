@@ -4,6 +4,7 @@
  * Main Plugin Class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 use AuthorProfileBlocks\Admin\Admin;
@@ -39,6 +40,20 @@ class Author_Profile_Blocks {
 	 * @var Author_Block_Base[]
 	 */
 	private array $blocks = array();
+
+	/**
+	 * User Meta Provider instance.
+	 *
+	 * @var User_Meta_Provider
+	 */
+	private User_Meta_Provider $user_meta_provider;
+
+	/**
+	 * Author Profile Service instance.
+	 *
+	 * @var Author_Profile_Service
+	 */
+	private Author_Profile_Service $author_profile_service;
 
 	/**
 	 * Get plugin instance.
