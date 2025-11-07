@@ -96,10 +96,12 @@ class Author_List_Block extends Author_Block_Base {
 		// Build the HTML.
 		ob_start();
 		?>
-		<div <?php
+		<div 
+		<?php
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
 		echo $wrapper_attributes;
-		?>>
+		?>
+		>
 			<?php
 			$this->load_template(
 				'blocks/author-list/list.php',
@@ -170,24 +172,33 @@ class Author_List_Block extends Author_Block_Base {
 			$item_classes[] = 'has-hover-effect';
 		}
 
-		// Create list item.
-		$html = '<li class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
+		$item_class = esc_attr( implode( ' ', $item_classes ) );
 
-		// Inner content container.
-		$html .= '<div class="apbl-author-list-item-content">';
-
-		// Layout depends on display style.
+		// Get the author content based on display style.
 		$display_style = $attributes['displayStyle'] ?? 'compact';
-
 		if ( 'detailed' === $display_style ) {
-			$html .= $this->render_detailed_layout( $author, $attributes );
+			$author_content = $this->render_detailed_layout( $author, $attributes );
 		} else {
-			$html .= $this->render_compact_layout( $author, $attributes );
+			$author_content = $this->render_compact_layout( $author, $attributes );
 		}
 
-		$html .= '</div>'; // Close .apbl-author-list-item-content.
-		$html .= '</li>'; // Close list item.
+		// Prepare template variables.
+		$template_vars = array(
+			'author'          => $author,
+			'attributes'      => $attributes,
+			'item_class'      => $item_class,
+			'style_attribute' => $style_attribute,
+			'display_style'   => $display_style,
+			'author_content'  => $author_content,
+		);
 
-		return $html;
+		// Start output buffering.
+		ob_start();
+
+		// Load the list item template.
+		$this->load_template( 'blocks/list/item.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 }

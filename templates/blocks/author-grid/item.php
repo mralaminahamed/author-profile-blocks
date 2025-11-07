@@ -20,22 +20,35 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Prepare template variables for the layout templates
+$layout_vars = array(
+	'author'              => $author,
+	'attributes'          => $attributes,
+	'author_image'        => $author_image,
+	'author_name'         => $author_name,
+	'author_position'     => $author_position,
+	'author_email'        => $author_email,
+	'author_description'  => $author_description,
+	'registered_date'     => $registered_date,
+	'social_links'        => $social_links,
+);
 ?>
 <div class="<?php echo $item_class; ?>"<?php echo $style_attribute; ?>>
 	<?php
-	// Use the appropriate layout template based on the selected layout.
+	// Use the shared layout templates
 	switch ( $layout ) {
 		case 'compact':
-			include __DIR__ . '/layouts/compact.php';
+			include dirname( __DIR__, 2 ) . '/layouts/compact.php';
 			break;
 
 		case 'centered':
-			include __DIR__ . '/layouts/centered.php';
+			include dirname( __DIR__, 2 ) . '/layouts/centered.php';
 			break;
 
 		case 'card':
 		default:
-			include __DIR__ . '/layouts/card.php';
+			include dirname( __DIR__, 2 ) . '/layouts/card.php';
 			break;
 	}
 	?>

@@ -96,10 +96,12 @@ class Author_Grid_Block extends Author_Block_Base {
 		// Build the HTML.
 		ob_start();
 		?>
-		<div <?php
+		<div 
+		<?php
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
 		echo $wrapper_attributes;
-		?>>
+		?>
+		>
 			<?php
 			$this->load_template(
 				'blocks/author-grid/grid.php',
@@ -182,13 +184,13 @@ class Author_Grid_Block extends Author_Block_Base {
 		$item_class = esc_attr( implode( ' ', $item_classes ) );
 
 		// Pre-render author content.
-		$author_image      = $this->render_author_image( $author );
-		$author_name       = $this->render_author_name( $author );
-		$author_position   = $this->render_author_position( $author );
-		$author_email      = $this->render_author_email( $author );
-		$registered_date   = $this->render_registered_date( $author );
+		$author_image       = $this->render_author_image( $author );
+		$author_name        = $this->render_author_name( $author );
+		$author_position    = $this->render_author_position( $author );
+		$author_email       = $this->render_author_email( $author );
+		$registered_date    = $this->render_registered_date( $author );
 		$author_description = $this->render_author_description( $author );
-		$social_links      = ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocial'] )
+		$social_links       = ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocial'] )
 			? $this->render_social_profiles( $author['social'] )
 			: '';
 

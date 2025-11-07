@@ -122,10 +122,12 @@ class Author_Carousel_Block extends Author_Block_Base {
 		// Build the HTML.
 		ob_start();
 		?>
-		<div <?php
+		<div 
+		<?php
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
 		echo $wrapper_attributes;
-		?>>
+		?>
+		>
 			<?php
 			// Create carousel container and prepare JSON settings for Slick initialization.
 			$carousel_settings = array(
@@ -215,30 +217,41 @@ class Author_Carousel_Block extends Author_Block_Base {
 			$item_classes[] = 'is-rounded';
 		}
 
-		// Build the author slide.
-		$html = '<div class="apbl-author-carousel-slide">';
+		$item_class = esc_attr( implode( ' ', $item_classes ) );
 
-		$html .= '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
-
-		// Use the appropriate layout template based on the selected layout.
+		// Get the author content based on layout.
 		switch ( $layout ) {
 			case 'compact':
-				$html .= $this->render_compact_layout( $author, $attributes );
+				$author_content = $this->render_compact_layout( $author, $attributes );
 				break;
 
 			case 'centered':
-				$html .= $this->render_centered_layout( $author, $attributes );
+				$author_content = $this->render_centered_layout( $author, $attributes );
 				break;
 
 			case 'card':
 			default:
-				$html .= $this->render_card_layout( $author, $attributes );
+				$author_content = $this->render_card_layout( $author, $attributes );
 				break;
 		}
 
-		$html .= '</div>'; // Close carousel item.
-		$html .= '</div>'; // Close carousel slide.
+		// Prepare template variables.
+		$template_vars = array(
+			'author'          => $author,
+			'attributes'      => $attributes,
+			'item_class'      => $item_class,
+			'style_attribute' => $style_attribute,
+			'layout'          => $layout,
+			'author_content'  => $author_content,
+		);
 
-		return $html;
+		// Start output buffering.
+		ob_start();
+
+		// Load the carousel slide template.
+		$this->load_template( 'blocks/carousel/slide.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 }
