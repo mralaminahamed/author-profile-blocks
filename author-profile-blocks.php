@@ -35,14 +35,13 @@ define( 'APBL_VERSION', '1.0.0' );
 define( 'APBL_PLUGIN_FILE', __FILE__ );
 define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'APBL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'APBL_PLUGIN_DIR', __DIR__ );
 
 // Load Composer autoloader for PSR-4 classes
-if ( ! file_exists( APBL_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+if ( ! file_exists( APBL_PLUGIN_PATH . 'vendor/autoload.php' ) ) {
 	return;
 }
 
-require_once APBL_PLUGIN_DIR . 'vendor/autoload.php';
+require_once APBL_PLUGIN_PATH . 'vendor/autoload.php';
 
 /**
  * Get main plugin instance

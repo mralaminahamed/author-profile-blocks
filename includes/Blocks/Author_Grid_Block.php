@@ -98,15 +98,13 @@ class Author_Grid_Block extends Author_Block_Base {
 		?>
 		<div <?php echo $wrapper_attributes; ?>>
 			<?php
-			wc_get_template(
+			$this->load_template(
 				'blocks/author-grid/grid.php',
 				array(
 					'authors'        => $authors,
 					'attributes'     => $attributes,
 					'block_instance' => $this,
-				),
-				'',
-				plugin_dir_path( __FILE__ ) . '../../templates/'
+				)
 			);
 			?>
 		</div>
@@ -128,16 +126,66 @@ class Author_Grid_Block extends Author_Block_Base {
 	 * @return string Rendered HTML.
 	 */
 	public function render_author_item( array $author, array $attributes ): string {
+		// Pre-render all HTML content to avoid calling protected methods from templates.
+		$item_styles     = $this->get_item_styles( $attributes );
+		$style_attribute = '';
+
+		if ( ! empty( $item_styles ) ) {
+			$style_attribute = ' style="' . $this->get_styles_string( $item_styles ) . '"';
+		}
+
+		// Item classes based on layout and options.
+		$item_classes = array( 'apb-author-grid-item' );
+
+		// Add layout class.
+		$layout         = $attributes['layout'] ?? 'card';
+		$item_classes[] = 'is-layout-' . $layout;
+
+		// Add shadow class if enabled.
+		if ( ! empty( $attributes['enableShadow'] ) ) {
+			$item_classes[] = 'has-shadow';
+		}
+
+		// Add border class if enabled.
+		if ( ! empty( $attributes['enableBorder'] ) ) {
+			$item_classes[] = 'has-border';
+		}
+
+		// Add rounded class if enabled.
+		if ( ! empty( $attributes['enableRounded'] ) ) {
+			$item_classes[] = 'is-rounded';
+		}
+
+		$item_class = esc_attr( implode( ' ', $item_classes ) );
+
+		// Pre-render author content.
+		$author_image      = $this->render_author_image( $author );
+		$author_name       = $this->render_author_name( $author );
+		$author_position   = $this->render_author_position( $author );
+		$author_email      = $this->render_author_email( $author );
+		$registered_date   = $this->render_registered_date( $author );
+		$author_description = $this->render_author_description( $author );
+		$social_links      = ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocial'] )
+			? $this->render_social_profiles( $author['social'] )
+			: '';
+
 		ob_start();
-		wc_get_template(
+		$this->load_template(
 			'blocks/author-grid/item.php',
 			array(
-				'author'         => $author,
-				'attributes'     => $attributes,
-				'block_instance' => $this,
-			),
-			'',
-			plugin_dir_path( __FILE__ ) . '../../templates/'
+				'author'             => $author,
+				'attributes'         => $attributes,
+				'item_class'         => $item_class,
+				'style_attribute'    => $style_attribute,
+				'layout'             => $layout,
+				'author_image'       => $author_image,
+				'author_name'        => $author_name,
+				'author_position'    => $author_position,
+				'author_email'       => $author_email,
+				'registered_date'    => $registered_date,
+				'author_description' => $author_description,
+				'social_links'       => $social_links,
+			)
 		);
 		return ob_get_clean();
 	}

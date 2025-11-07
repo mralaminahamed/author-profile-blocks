@@ -2,7 +2,12 @@
  * The following styles get applied inside the editor only.
  */
 
+// Import common styles
+@use '../../scss/common' as c;
+
 .wp-block-author-profile-blocks-author-profile {
+  // Visual indicator in editor
+  @include c.editor-border();
 
     &.is-style-card {
         overflow: hidden;

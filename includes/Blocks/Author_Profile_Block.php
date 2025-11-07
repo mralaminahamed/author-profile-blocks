@@ -44,14 +44,11 @@ class Author_Profile_Block extends Author_Block_Base {
 	 *
 	 * @return void
 	 */
-	public function localize_block_script( array $additional_data = array() ): void {
-		$profile_data = wp_parse_args(
-			array(
-				'socialIcons' => $this->get_social_icon_data(),
-			),
-			$additional_data
+	public function localize_block_script(): void {
+		$profile_data = array(
+			'socialIcons' => $this->get_social_icon_data(),
 		);
-		parent::localize_block_script( $profile_data );
+		parent::localize_block_script($profile_data);
 	}
 
 	/**
@@ -121,55 +118,79 @@ class Author_Profile_Block extends Author_Block_Base {
 
 		switch ( $content_order ) {
 			case 'content-image':
-				wc_get_template(
+				$this->load_template(
 					'blocks/author-profile/content-image.php',
 					array(
-						'author'         => $author_data,
-						'attributes'     => $attributes,
-						'block_instance' => $this,
-					),
-					'',
-					plugin_dir_path( __FILE__ ) . '../../templates/'
+						'author'        => $author_data,
+						'attributes'    => $attributes,
+						'author_image'  => $this->render_author_image( $author_data ),
+						'author_name'   => $this->render_author_name( $author_data ),
+						'author_position' => $this->render_author_position( $author_data ),
+						'author_email'  => $this->render_author_email( $author_data ),
+						'registered_date' => $this->render_registered_date( $author_data ),
+						'author_description' => $this->render_author_description( $author_data ),
+						'social_links'  => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
+							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
+							: '',
+					)
 				);
 				break;
 
 			case 'image-top':
-				wc_get_template(
+				$this->load_template(
 					'blocks/author-profile/image-top.php',
 					array(
-						'author'         => $author_data,
-						'attributes'     => $attributes,
-						'block_instance' => $this,
-					),
-					'',
-					plugin_dir_path( __FILE__ ) . '../../templates/'
+						'author'        => $author_data,
+						'attributes'    => $attributes,
+						'author_image'  => $this->render_author_image( $author_data ),
+						'author_name'   => $this->render_author_name( $author_data ),
+						'author_position' => $this->render_author_position( $author_data ),
+						'author_email'  => $this->render_author_email( $author_data ),
+						'registered_date' => $this->render_registered_date( $author_data ),
+						'author_description' => $this->render_author_description( $author_data ),
+						'social_links'  => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
+							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
+							: '',
+					)
 				);
 				break;
 
 			case 'content-top':
-				wc_get_template(
+				$this->load_template(
 					'blocks/author-profile/content-top.php',
 					array(
-						'author'         => $author_data,
-						'attributes'     => $attributes,
-						'block_instance' => $this,
-					),
-					'',
-					plugin_dir_path( __FILE__ ) . '../../templates/'
+						'author'        => $author_data,
+						'attributes'    => $attributes,
+						'author_image'  => $this->render_author_image( $author_data ),
+						'author_name'   => $this->render_author_name( $author_data ),
+						'author_position' => $this->render_author_position( $author_data ),
+						'author_email'  => $this->render_author_email( $author_data ),
+						'registered_date' => $this->render_registered_date( $author_data ),
+						'author_description' => $this->render_author_description( $author_data ),
+						'social_links'  => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
+							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
+							: '',
+					)
 				);
 				break;
 
 			case 'image-content':
 			default:
-				wc_get_template(
+				$this->load_template(
 					'blocks/author-profile/image-content.php',
 					array(
-						'author'         => $author_data,
-						'attributes'     => $attributes,
-						'block_instance' => $this,
-					),
-					'',
-					plugin_dir_path( __FILE__ ) . '../../templates/'
+						'author'        => $author_data,
+						'attributes'    => $attributes,
+						'author_image'  => $this->render_author_image( $author_data ),
+						'author_name'   => $this->render_author_name( $author_data ),
+						'author_position' => $this->render_author_position( $author_data ),
+						'author_email'  => $this->render_author_email( $author_data ),
+						'registered_date' => $this->render_registered_date( $author_data ),
+						'author_description' => $this->render_author_description( $author_data ),
+						'social_links'  => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
+							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
+							: '',
+					)
 				);
 				break;
 		}

@@ -98,15 +98,13 @@ class Author_List_Block extends Author_Block_Base {
 		?>
 		<div <?php echo $wrapper_attributes; ?>>
 			<?php
-			wc_get_template(
+			$this->load_template(
 				'blocks/author-list/list.php',
 				array(
 					'authors'        => $authors,
 					'attributes'     => $attributes,
 					'block_instance' => $this,
-				),
-				'',
-				plugin_dir_path( __FILE__ ) . '../../templates/'
+				)
 			);
 			?>
 		</div>

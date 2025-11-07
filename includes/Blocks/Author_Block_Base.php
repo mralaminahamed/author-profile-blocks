@@ -186,6 +186,40 @@ abstract class Author_Block_Base implements Registerable {
 	}
 
 	/**
+	 * Load a template file with variables using WordPress native functions.
+	 *
+	 * This replaces wc_get_template() with WordPress native functionality.
+	 *
+	 * @param string $template_name Template name relative to templates directory.
+	 * @param array  $args          Variables to extract for the template.
+	 * @param string $template_path Base path for templates (defaults to plugin templates).
+	 *
+	 * @return void
+	 */
+	protected function load_template( string $template_name, array $args = array(), string $template_path = '' ): void {
+		// Set default template path if not provided.
+		if ( empty( $template_path ) ) {
+			$template_path = plugin_dir_path( __FILE__ ) . '../../templates/';
+		}
+
+		// Build full template path.
+		$template_file = $template_path . $template_name;
+
+		// Check if template exists.
+		if ( ! file_exists( $template_file ) ) {
+			return;
+		}
+
+		// Extract variables for template use.
+		if ( ! empty( $args ) ) {
+			extract( $args, EXTR_SKIP ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+		}
+
+		// Include the template file.
+		include $template_file;
+	}
+
+	/**
 	 * Get author data from the service.
 	 *
 	 * @param int $author_id The author ID.
@@ -207,15 +241,16 @@ abstract class Author_Block_Base implements Registerable {
 	 *
 	 * @return void
 	 */
-	protected function localize_block_script( array $additional_data = array() ): void {
+	public function localize_block_script(): void {
 		$default_data = array(
 			'adminUrl'  => admin_url(),
 			'restNonce' => wp_create_nonce( 'wp_rest' ),
 			'restUrl'   => rest_url(),
 			'pluginUrl' => plugin_dir_url( APBL_PLUGIN_FILE ),
+			'socialIcons' => $this->get_social_icon_data(),
 		);
 
-		$localized_data = wp_parse_args( $additional_data, $default_data );
+		$localized_data = apply_filters( 'author_profile_blocks_localized_block_data', $default_data );
 
 		wp_localize_script(
 			'author-profile-blocks-' . $this->block_name . '-editor-script',
