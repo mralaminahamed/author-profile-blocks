@@ -237,16 +237,14 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Localize block script with common data.
 	 *
-	 * @param array $additional_data Optional additional data to include.
-	 *
 	 * @return void
 	 */
 	public function localize_block_script(): void {
 		$default_data = array(
-			'adminUrl'  => admin_url(),
-			'restNonce' => wp_create_nonce( 'wp_rest' ),
-			'restUrl'   => rest_url(),
-			'pluginUrl' => plugin_dir_url( APBL_PLUGIN_FILE ),
+			'adminUrl'    => admin_url(),
+			'restNonce'   => wp_create_nonce( 'wp_rest' ),
+			'restUrl'     => rest_url(),
+			'pluginUrl'   => plugin_dir_url( APBL_PLUGIN_FILE ),
 			'socialIcons' => $this->get_social_icon_data(),
 		);
 
@@ -613,8 +611,8 @@ abstract class Author_Block_Base implements Registerable {
 		// Gradient background
 		if ( ! empty( $attributes['gradientBackground'] ) ) {
 			$start_color = $attributes['gradientStartColor'] ?? '#ffffff';
-			$end_color = $attributes['gradientEndColor'] ?? '#f8f9fa';
-			$direction = $attributes['gradientDirection'] ?? 'to bottom';
+			$end_color   = $attributes['gradientEndColor'] ?? '#f8f9fa';
+			$direction   = $attributes['gradientDirection'] ?? 'to bottom';
 
 			$styles['background'] = 'linear-gradient(' . $direction . ', ' . $start_color . ', ' . $end_color . ')';
 		}
@@ -834,8 +832,8 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Transform rotate
 		if ( isset( $attributes['transformRotate'] ) && $attributes['transformRotate'] !== 0 ) {
-			$current_transform = $styles['transform'] ?? '';
-			$rotate_transform = 'rotate(' . $attributes['transformRotate'] . 'deg)';
+			$current_transform   = $styles['transform'] ?? '';
+			$rotate_transform    = 'rotate(' . $attributes['transformRotate'] . 'deg)';
 			$styles['transform'] = $current_transform ? $current_transform . ' ' . $rotate_transform : $rotate_transform;
 		}
 
@@ -886,48 +884,26 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_compact_layout( array $author, array $attributes ): string {
-		$html = '<div class="apbl-author-compact">';
+		// Prepare template variables.
+		$template_vars = array(
+			'author'             => $author,
+			'attributes'         => $attributes,
+			'author_image'       => $this->render_author_image( $author ),
+			'author_name'        => $this->render_author_name( $author ),
+			'author_position'    => $this->render_author_position( $author ),
+			'author_email'       => $this->render_author_email( $author ),
+			'author_description' => $this->render_author_description( $author ),
+			'social_links'       => $this->render_social_profiles( $author['social'] ?? array(), 'apbl-compact-social' ),
+		);
 
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author );
-		}
+		// Start output buffering.
+		ob_start();
 
-		// Author info container.
-		$html .= '<div class="apbl-author-info">';
+		// Load the compact layout template.
+		$this->load_template( 'blocks/layouts/compact.php', $template_vars );
 
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Author description in compact mode might be truncated.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		$html .= '</div>'; // Close .apbl-author-info.
-
-		// Social icons if enabled.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= '<div class="apbl-author-social">';
-			$html .= $this->render_social_profiles( $author['social'], 'apbl-compact-social' );
-			$html .= '</div>';
-		}
-
-		$html .= '</div>'; // Close .apbl-author-compact.
-
-		return $html;
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -939,62 +915,27 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_detailed_layout( array $author, array $attributes ): string {
-		$html = '<div class="apbl-author-detailed">';
+		// Prepare template variables.
+		$template_vars = array(
+			'author'             => $author,
+			'attributes'         => $attributes,
+			'author_image'       => $this->render_author_image( $author ),
+			'author_name'        => $this->render_author_name( $author ),
+			'author_position'    => $this->render_author_position( $author ),
+			'author_email'       => $this->render_author_email( $author ),
+			'author_description' => $this->render_author_description( $author ),
+			'registered_date'    => $this->render_registered_date( $author ),
+			'social_links'       => $this->render_social_profiles( $author['social'] ?? array(), 'apbl-detailed-social' ),
+		);
 
-		// Left column with image.
-		$html .= '<div class="apbl-author-left">';
+		// Start output buffering.
+		ob_start();
 
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author );
-		}
+		// Load the detailed layout template.
+		$this->load_template( 'blocks/layouts/detailed.php', $template_vars );
 
-		$html .= '</div>'; // Close .apbl-author-left.
-
-		// Right column with author details.
-		$html .= '<div class="apbl-author-right">';
-
-		// Author info header.
-		$html .= '<div class="apbl-author-header">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		$html .= '</div>'; // Close .apbl-author-header.
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		// Social profiles in footer if enabled.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= '<div class="apbl-author-footer">';
-			$html .= $this->render_social_profiles( $author['social'], 'apbl-detailed-social' );
-			$html .= '</div>';
-		}
-
-		$html .= '</div>'; // Close .apbl-author-right.
-		$html .= '</div>'; // Close .apbl-author-detailed.
-
-		return $html;
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -1006,58 +947,27 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_card_layout( array $author, array $attributes ): string {
-		$html = '<div class="apbl-author-card">';
+		// Prepare template variables.
+		$template_vars = array(
+			'author'             => $author,
+			'attributes'         => $attributes,
+			'author_image'       => $this->render_author_image( $author, 'apbl-card-image' ),
+			'author_name'        => $this->render_author_name( $author ),
+			'author_position'    => $this->render_author_position( $author ),
+			'author_email'       => $this->render_author_email( $author ),
+			'author_description' => $this->render_author_description( $author ),
+			'registered_date'    => $this->render_registered_date( $author ),
+			'social_links'       => $this->render_social_profiles( $author['social'] ?? array() ),
+		);
 
-		// Card header.
-		$html .= '<div class="apbl-card-header">';
+		// Start output buffering.
+		ob_start();
 
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author, 'apbl-card-image' );
-		}
+		// Load the card layout template.
+		$this->load_template( 'blocks/layouts/card.php', $template_vars );
 
-		$html .= '</div>'; // Close .apbl-card-header.
-
-		// Card body.
-		$html .= '<div class="apbl-card-body">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		$html .= '</div>'; // Close .apbl-card-body.
-
-		// Card footer with social profiles.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= '<div class="apbl-card-footer">';
-			$html .= $this->render_social_profiles( $author['social'] );
-			$html .= '</div>'; // Close .apbl-card-footer.
-		}
-
-		$html .= '</div>'; // Close .apbl-author-card.
-
-		return $html;
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -1069,51 +979,27 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_centered_layout( array $author, array $attributes ): string {
-		$html = '<div class="apbl-author-centered">';
+		// Prepare template variables.
+		$template_vars = array(
+			'author'             => $author,
+			'attributes'         => $attributes,
+			'author_image'       => $this->render_author_image( $author, 'apbl-centered-image' ),
+			'author_name'        => $this->render_author_name( $author ),
+			'author_position'    => $this->render_author_position( $author ),
+			'author_email'       => $this->render_author_email( $author ),
+			'author_description' => $this->render_author_description( $author ),
+			'registered_date'    => $this->render_registered_date( $author ),
+			'social_links'       => $this->render_social_profiles( $author['social'] ?? array(), 'apbl-centered-social' ),
+		);
 
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author, 'apbl-centered-image' );
-		}
+		// Start output buffering.
+		ob_start();
 
-		// Author info container.
-		$html .= '<div class="apbl-author-centered-info">';
+		// Load the centered layout template.
+		$this->load_template( 'blocks/layouts/centered.php', $template_vars );
 
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Social profiles - only if display is enabled in attributes.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= $this->render_social_profiles( $author['social'], 'apbl-centered-social' );
-		}
-
-		$html .= '</div>'; // Close .apbl-author-centered-info.
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		$html .= '</div>'; // Close .apbl-author-centered.
-
-		return $html;
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -1125,88 +1011,24 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_image( array $author, string $wrapper_class = '' ): string {
-		$classes = 'apbl-author-image';
-		if ( ! empty( $wrapper_class ) ) {
-			$classes .= ' ' . $wrapper_class;
-		}
-
-		// Add alignment to the container class if specified
-		if ( ! empty( $author['avatarAlignment'] ) ) {
-			$classes .= ' apbl-author-image-align-' . esc_attr( $author['avatarAlignment'] );
-		}
-
-		$image_classes = array();
-
-		// Add avatar shape class if available from attributes
-		if ( ! empty( $author['avatarShape'] ) ) {
-			$image_classes[] = 'avatar-shape-' . esc_attr( $author['avatarShape'] );
-		}
-
-		// Build custom CSS for the avatar
-		$avatar_styles = $this->get_avatar_inline_styles( $author );
-
-		$image_attr = array(
-			'class'   => ! empty( $image_classes ) ? implode( ' ', $image_classes ) : '',
-			'alt'     => esc_attr( $author['title'] ),
-			'loading' => 'lazy',
-			'style'   => $avatar_styles,
+		// Prepare template variables.
+		$template_vars = array(
+			'author'           => $author,
+			'attributes'       => array(), // Not used in this template
+			'additional_class' => $wrapper_class,
 		);
 
-		return '<div class="' . esc_attr( $classes ) . '">' .
-			wp_get_attachment_image(
-				$author['image'],
-				'full',
-				false,
-				$image_attr
-			) .
-		'</div>';
+		// Start output buffering.
+		ob_start();
+
+		// Load the author image template.
+		$this->load_template( 'blocks/components/author-image.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
-	/**
-	 * Generate inline styles for avatar image
-	 *
-	 * @param array $author Author data with style attributes
-	 *
-	 * @return string CSS inline style string
-	 */
-	private function get_avatar_inline_styles( array $author ): string {
-		$styles = array();
 
-		// Size
-		if ( ! empty( $author['avatarSize'] ) ) {
-			$styles[] = 'width: ' . esc_attr( $author['avatarSize'] ) . 'px';
-			$styles[] = 'height: ' . esc_attr( $author['avatarSize'] ) . 'px';
-		}
-
-		// Border
-		if ( ! empty( $author['avatarBorderWidth'] ) && $author['avatarBorderWidth'] > 0 ) {
-			$styles[] = 'border-width: ' . esc_attr( $author['avatarBorderWidth'] ) . 'px';
-			$styles[] = 'border-style: solid';
-
-			if ( ! empty( $author['avatarBorderColor'] ) ) {
-				$styles[] = 'border-color: ' . esc_attr( $author['avatarBorderColor'] );
-			}
-		}
-
-		// Custom border radius for custom shape
-		if ( ! empty( $author['avatarShape'] ) && $author['avatarShape'] === 'custom' && ! empty( $author['avatarBorderRadius'] ) ) {
-			$styles[] = 'border-radius: ' . esc_attr( $author['avatarBorderRadius'] ) . 'px';
-		} elseif ( ! empty( $author['avatarShape'] ) && $author['avatarShape'] === 'circle' ) {
-			$styles[] = 'border-radius: 50%';
-		} elseif ( ! empty( $author['avatarShape'] ) && $author['avatarShape'] === 'rounded' ) {
-			$styles[] = 'border-radius: 8px';
-		}
-
-		// Margin
-		if ( ! empty( $author['avatarMargin'] ) ) {
-			$styles[] = 'margin-bottom: ' . esc_attr( $author['avatarMargin'] ) . 'px';
-		}
-
-		// Object fit to ensure proper sizing
-		$styles[] = 'object-fit: cover';
-
-		return implode( '; ', $styles );
-	}
 
 	/**
 	 * Render author name section.
@@ -1216,76 +1038,23 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_name( array $author ): string {
-		$style_attr = $this->get_name_inline_styles( $author );
-		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
-
-		// Build the class attribute with alignment if specified
-		$class_attr = 'apbl-author-name';
-		if ( ! empty( $author['nameAlignment'] ) ) {
-			$class_attr .= ' has-text-align-' . esc_attr( $author['nameAlignment'] );
-		}
-
-		if ( isset( $author['url'] ) && '' !== $author['url'] ) {
-			return sprintf(
-				'<h3 class="%s"%s><a href="%s"%s>%s</a></h3>',
-				esc_attr( $class_attr ),
-				$style_html,
-				esc_url( $author['url'] ),
-				! empty( $style_attr ) ? ' style="color: inherit; text-decoration: none;"' : '',
-				esc_html( $author['title'] )
-			);
-		}
-
-		return sprintf(
-			'<h3 class="%s"%s>%s</h3>',
-			esc_attr( $class_attr ),
-			$style_html,
-			esc_html( $author['title'] )
+		// Prepare template variables.
+		$template_vars = array(
+			'author'     => $author,
+			'attributes' => array(), // Not used in this template
 		);
+
+		// Start output buffering.
+		ob_start();
+
+		// Load the author name template.
+		$this->load_template( 'blocks/components/author-name.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
-	/**
-	 * Generate inline styles for author name
-	 *
-	 * @param array $author Author data with style attributes
-	 *
-	 * @return string CSS inline style string
-	 */
-	private function get_name_inline_styles( array $author ): string {
-		$styles = array();
 
-		// Font size
-		if ( ! empty( $author['nameSize'] ) ) {
-			$styles[] = 'font-size: ' . esc_attr( $author['nameSize'] ) . 'px';
-		}
-
-		// Font weight
-		if ( ! empty( $author['nameWeight'] ) ) {
-			$styles[] = 'font-weight: ' . esc_attr( $author['nameWeight'] );
-		}
-
-		// Text color
-		if ( ! empty( $author['nameColor'] ) ) {
-			$styles[] = 'color: ' . esc_attr( $author['nameColor'] );
-		}
-
-		// Text transform
-		if ( ! empty( $author['nameTransform'] ) && $author['nameTransform'] !== 'none' ) {
-			$styles[] = 'text-transform: ' . esc_attr( $author['nameTransform'] );
-		}
-
-		// Text alignment
-		if ( ! empty( $author['nameAlignment'] ) ) {
-			$styles[] = 'text-align: ' . esc_attr( $author['nameAlignment'] );
-		}
-
-		// Margin
-		if ( ! empty( $author['nameMargin'] ) ) {
-			$styles[] = 'margin-bottom: ' . esc_attr( $author['nameMargin'] ) . 'px';
-		}
-
-		return implode( '; ', $styles );
-	}
 
 	/**
 	 * Render author position section.
@@ -1295,21 +1064,20 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_position( array $author ): string {
-		$style_attr = $this->get_meta_inline_styles( $author );
-		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
-
-		// Build class attribute with alignment if specified
-		$class_attr = 'apbl-author-position';
-		if ( ! empty( $author['metaAlignment'] ) ) {
-			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
-		}
-
-		return sprintf(
-			'<div class="%s"%s>%s</div>',
-			esc_attr( $class_attr ),
-			$style_html,
-			esc_html( $author['position'] )
+		// Prepare template variables.
+		$template_vars = array(
+			'author'     => $author,
+			'attributes' => array(), // Not used in this template
 		);
+
+		// Start output buffering.
+		ob_start();
+
+		// Load the author position template.
+		$this->load_template( 'blocks/components/author-position.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -1320,83 +1088,23 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_email( array $author ): string {
-		$style_attr = $this->get_meta_inline_styles( $author );
-		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
-
-		// Build class attribute with alignment if specified
-		$class_attr = 'apbl-author-email';
-		if ( ! empty( $author['metaAlignment'] ) ) {
-			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
-		}
-
-		// Generate email link style
-		$link_styles = array();
-
-		if ( ! empty( $author['emailLinkColor'] ) ) {
-			$link_styles[] = 'color: ' . esc_attr( $author['emailLinkColor'] );
-		}
-
-		$link_style_html = ! empty( $link_styles ) ? ' style="' . implode( '; ', $link_styles ) . '"' : '';
-
-		// Add hover style via data attribute which will be handled by CSS
-		$data_attr = '';
-		if ( ! empty( $author['emailHoverColor'] ) ) {
-			$data_attr = ' data-hover-color="' . esc_attr( $author['emailHoverColor'] ) . '"';
-		}
-
-		return sprintf(
-			'<div class="%s"%s><a href="mailto:%s"%s%s>%s</a></div>',
-			esc_attr( $class_attr ),
-			$style_html,
-			esc_attr( $author['email'] ),
-			$link_style_html,
-			$data_attr,
-			esc_html( $author['email'] )
+		// Prepare template variables.
+		$template_vars = array(
+			'author'     => $author,
+			'attributes' => array(), // Not used in this template
 		);
+
+		// Start output buffering.
+		ob_start();
+
+		// Load the author email template.
+		$this->load_template( 'blocks/components/author-email.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
-	/**
-	 * Generate inline styles for meta elements (email, registered date)
-	 *
-	 * @param array $author Author data with style attributes
-	 *
-	 * @return string CSS inline style string
-	 */
-	private function get_meta_inline_styles( array $author ): string {
-		$styles = array();
 
-		// Font size
-		if ( ! empty( $author['metaSize'] ) ) {
-			$styles[] = 'font-size: ' . esc_attr( $author['metaSize'] ) . 'px';
-		}
-
-		// Text color
-		if ( ! empty( $author['metaColor'] ) ) {
-			$styles[] = 'color: ' . esc_attr( $author['metaColor'] );
-		}
-
-		// Font style
-		if ( ! empty( $author['metaStyle'] ) && $author['metaStyle'] !== 'normal' ) {
-			$styles[] = 'font-style: ' . esc_attr( $author['metaStyle'] );
-		}
-
-		// Font weight
-		if ( ! empty( $author['metaBold'] ) ) {
-			$styles[] = 'font-weight: bold';
-		}
-
-		// Text alignment
-		if ( ! empty( $author['metaAlignment'] ) ) {
-			$styles[] = 'text-align: ' . esc_attr( $author['metaAlignment'] );
-		}
-
-		// Margin
-		if ( ! empty( $author['metaMargin'] ) ) {
-			$styles[] = 'margin-bottom: ' . esc_attr( $author['metaMargin'] ) . 'px';
-		}
-
-		return implode( '; ', $styles );
-	}
 
 	/**
 	 * Render author description section.
@@ -1406,65 +1114,23 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_description( array $author ): string {
-		$style_attr = $this->get_description_inline_styles( $author );
-		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
-
-		// Build class attribute with alignment if specified
-		$class_attr = 'apbl-author-description';
-		if ( ! empty( $author['descriptionAlignment'] ) ) {
-			$class_attr .= ' has-text-align-' . esc_attr( $author['descriptionAlignment'] );
-		}
-
-		return sprintf(
-			'<div class="%s"%s>%s</div>',
-			esc_attr( $class_attr ),
-			$style_html,
-			wp_kses_post( $author['description'] )
+		// Prepare template variables.
+		$template_vars = array(
+			'author'     => $author,
+			'attributes' => array(), // Not used in this template
 		);
+
+		// Start output buffering.
+		ob_start();
+
+		// Load the author description template.
+		$this->load_template( 'blocks/components/author-description.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
-	/**
-	 * Generate inline styles for author description
-	 *
-	 * @param array $author Author data with style attributes
-	 *
-	 * @return string CSS inline style string
-	 */
-	private function get_description_inline_styles( array $author ): string {
-		$styles = array();
 
-		// Font size
-		if ( ! empty( $author['descriptionSize'] ) ) {
-			$styles[] = 'font-size: ' . esc_attr( $author['descriptionSize'] ) . 'px';
-		}
-
-		// Line height
-		if ( ! empty( $author['descriptionLineHeight'] ) ) {
-			$styles[] = 'line-height: ' . esc_attr( $author['descriptionLineHeight'] );
-		}
-
-		// Text color
-		if ( ! empty( $author['descriptionColor'] ) ) {
-			$styles[] = 'color: ' . esc_attr( $author['descriptionColor'] );
-		}
-
-		// Font style
-		if ( ! empty( $author['descriptionStyle'] ) && $author['descriptionStyle'] !== 'normal' ) {
-			$styles[] = 'font-style: ' . esc_attr( $author['descriptionStyle'] );
-		}
-
-		// Text alignment
-		if ( ! empty( $author['descriptionAlignment'] ) ) {
-			$styles[] = 'text-align: ' . esc_attr( $author['descriptionAlignment'] );
-		}
-
-		// Margin
-		if ( ! empty( $author['descriptionMargin'] ) ) {
-			$styles[] = 'margin-bottom: ' . esc_attr( $author['descriptionMargin'] ) . 'px';
-		}
-
-		return implode( '; ', $styles );
-	}
 
 	/**
 	 * Render social profiles section.
@@ -1476,100 +1142,21 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_social_profiles( array $profiles, string $wrapper_class = '', array $show_profiles = array() ): string {
-		$classes = 'apbl-social-profiles';
-		if ( ! empty( $wrapper_class ) ) {
-			$classes .= ' ' . $wrapper_class;
-		}
+		// Prepare template variables.
+		$template_vars = array(
+			'social_profiles'  => $profiles,
+			'additional_class' => $wrapper_class,
+			'show_profiles'    => $show_profiles,
+		);
 
-		// Get social icon alignment if available
-		if ( ! empty( $profiles['socialIconAlignment'] ) ) {
-			$classes   .= ' apbl-social-align-' . esc_attr( $profiles['socialIconAlignment'] );
-			$data_align = ' data-align="' . esc_attr( $profiles['socialIconAlignment'] ) . '"';
-		} else {
-			$data_align = '';
-		}
+		// Start output buffering.
+		ob_start();
 
-		// Generate styles for icons
-		$icon_styles       = array();
-		$icon_hover_styles = array();
+		// Load the social profiles template.
+		$this->load_template( 'blocks/components/social-profiles.php', $template_vars );
 
-		if ( ! empty( $profiles['socialIconSize'] ) ) {
-			$icon_styles[] = '--author-social-icon-size: ' . esc_attr( $profiles['socialIconSize'] ) . 'px';
-		}
-
-		if ( ! empty( $profiles['socialIconColor'] ) ) {
-			$icon_styles[] = '--author-social-icon-color: ' . esc_attr( $profiles['socialIconColor'] );
-		}
-
-		if ( ! empty( $profiles['socialIconHoverColor'] ) ) {
-			$icon_hover_styles[] = '--author-social-icon-hover-color: ' . esc_attr( $profiles['socialIconHoverColor'] );
-		}
-
-		if ( ! empty( $profiles['socialIconBackground'] ) ) {
-			$icon_styles[] = '--author-social-icon-bg: ' . esc_attr( $profiles['socialIconBackground'] );
-		}
-
-		if ( ! empty( $profiles['socialIconBackgroundHover'] ) ) {
-			$icon_hover_styles[] = '--author-social-icon-bg-hover: ' . esc_attr( $profiles['socialIconBackgroundHover'] );
-		}
-
-		if ( ! empty( $profiles['socialIconSpacing'] ) ) {
-			$icon_styles[] = '--author-social-icon-spacing: ' . esc_attr( $profiles['socialIconSpacing'] ) . 'px';
-		}
-
-		// Build style attribute
-		$style_html = ! empty( $icon_styles ) ? ' style="' . implode( '; ', $icon_styles ) . '"' : '';
-		$data_hover = ! empty( $icon_hover_styles ) ? ' data-hover-style="' . implode( '; ', $icon_hover_styles ) . '"' : '';
-
-		$html  = '<div class="' . esc_attr( $classes ) . '"' . $data_align . $style_html . $data_hover . '>';
-		$html .= '<ul class="apbl-social-list">';
-
-		$social_icons = $this->get_social_icons();
-
-		// If specific profiles are specified, only show those
-		$filtered_profiles = array();
-		if ( ! empty( $show_profiles ) ) {
-			foreach ( $profiles as $network => $url ) {
-				if ( $network !== 'socialIconSize' &&
-					$network !== 'socialIconColor' &&
-					$network !== 'socialIconHoverColor' &&
-					$network !== 'socialIconBackground' &&
-					$network !== 'socialIconBackgroundHover' &&
-					$network !== 'socialIconSpacing' &&
-					$network !== 'socialIconAlignment' &&
-					in_array( $network, $show_profiles, true ) ) {
-					$filtered_profiles[ $network ] = $url;
-				}
-			}
-		} else {
-			// Filter out the style properties from profiles
-			foreach ( $profiles as $network => $url ) {
-				if ( $network !== 'socialIconSize' &&
-					$network !== 'socialIconColor' &&
-					$network !== 'socialIconHoverColor' &&
-					$network !== 'socialIconBackground' &&
-					$network !== 'socialIconBackgroundHover' &&
-					$network !== 'socialIconSpacing' &&
-					$network !== 'socialIconAlignment' ) {
-					$filtered_profiles[ $network ] = $url;
-				}
-			}
-		}
-
-		foreach ( $filtered_profiles as $network => $url ) {
-			if ( ! empty( $url ) && isset( $social_icons[ $network ] ) ) {
-				$html .= '<li class="apbl-social-item apbl-social-' . esc_attr( $network ) . '">';
-				$html .= '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">';
-				$html .= '<span class="dashicons ' . esc_attr( $social_icons[ $network ] ) . '" aria-hidden="true"></span>';
-				$html .= '<span class="screen-reader-text">' . esc_html( ucfirst( $network ) ) . '</span>';
-				$html .= '</a>';
-				$html .= '</li>';
-			}
-		}
-
-		$html .= '</ul></div>';
-
-		return $html;
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -1580,25 +1167,20 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_registered_date( array $author ): string {
-		// Use the customizable label.
-		$label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
-
-		$style_attr = $this->get_meta_inline_styles( $author );
-		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
-
-		// Build class attribute with alignment if specified
-		$class_attr = 'apbl-author-registered-date';
-		if ( ! empty( $author['metaAlignment'] ) ) {
-			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
-		}
-
-		return sprintf(
-			'<div class="%s"%s><span class="apbl-registered-date-label">%s</span> <span class="apbl-registered-date-value">%s</span></div>',
-			esc_attr( $class_attr ),
-			$style_html,
-			esc_html( $label ),
-			esc_html( $author['registered_date'] )
+		// Prepare template variables.
+		$template_vars = array(
+			'author'     => $author,
+			'attributes' => array(), // Not used in this template
 		);
+
+		// Start output buffering.
+		ob_start();
+
+		// Load the registered date template.
+		$this->load_template( 'blocks/components/registered-date.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
@@ -1614,25 +1196,20 @@ abstract class Author_Block_Base implements Registerable {
 			return '';
 		}
 
-		$styles = array();
-
-		// Add border color if specified
-		if ( ! empty( $author['moreContentBorderColor'] ) ) {
-			$styles[] = 'border-top-color: ' . esc_attr( $author['moreContentBorderColor'] );
-		}
-
-		// Add top padding if specified
-		if ( ! empty( $author['moreContentPadding'] ) ) {
-			$styles[] = 'padding-top: ' . esc_attr( $author['moreContentPadding'] ) . 'px';
-		}
-
-		$style_html = ! empty( $styles ) ? ' style="' . implode( '; ', $styles ) . '"' : '';
-
-		return sprintf(
-			'<div class="apbl-author-more-content"%s>%s</div>',
-			$style_html,
-			wp_kses_post( $content )
+		// Prepare template variables.
+		$template_vars = array(
+			'content' => $content,
+			'author'  => $author,
 		);
+
+		// Start output buffering.
+		ob_start();
+
+		// Load the more content template.
+		$this->load_template( 'blocks/components/more-content.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
 	}
 
 	/**
