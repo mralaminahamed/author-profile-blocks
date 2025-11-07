@@ -3,6 +3,7 @@
  * Admin Class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Admin;
@@ -31,6 +32,7 @@ class Admin {
 	private function init(): void {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
 
 	/**
@@ -68,15 +70,271 @@ class Admin {
 	}
 
 	/**
+	 * Register plugin settings
+	 *
+	 * @return void
+	 */
+	public function register_settings(): void {
+		// Register main settings group
+		register_setting(
+			'author_profile_blocks_settings',
+			'author_profile_blocks_settings',
+			array( $this, 'sanitize_settings' )
+		);
+
+		// General Settings Section
+		add_settings_section(
+			'author_profile_blocks_general',
+			__( 'General Settings', 'author-profile-blocks' ),
+			array( $this, 'general_settings_section_callback' ),
+			'author_profile_blocks_settings'
+		);
+
+		// Author Roles Field
+		add_settings_field(
+			'author_roles',
+			__( 'Author Roles', 'author-profile-blocks' ),
+			array( $this, 'author_roles_field_callback' ),
+			'author_profile_blocks_settings',
+			'author_profile_blocks_general'
+		);
+
+		// Display Settings Section
+		add_settings_section(
+			'author_profile_blocks_display',
+			__( 'Display Settings', 'author-profile-blocks' ),
+			array( $this, 'display_settings_section_callback' ),
+			'author_profile_blocks_settings'
+		);
+
+		// Avatar Size Field
+		add_settings_field(
+			'avatar_size',
+			__( 'Avatar Size (pixels)', 'author-profile-blocks' ),
+			array( $this, 'avatar_size_field_callback' ),
+			'author_profile_blocks_settings',
+			'author_profile_blocks_display'
+		);
+
+		// Social Media Fields
+		add_settings_field(
+			'social_platforms',
+			__( 'Social Media Platforms', 'author-profile-blocks' ),
+			array( $this, 'social_platforms_field_callback' ),
+			'author_profile_blocks_settings',
+			'author_profile_blocks_display'
+		);
+
+		// Show Email Field
+		add_settings_field(
+			'show_email',
+			__( 'Show Email Addresses', 'author-profile-blocks' ),
+			array( $this, 'show_email_field_callback' ),
+			'author_profile_blocks_settings',
+			'author_profile_blocks_display'
+		);
+
+		// Performance Settings Section
+		add_settings_section(
+			'author_profile_blocks_performance',
+			__( 'Performance Settings', 'author-profile-blocks' ),
+			array( $this, 'performance_settings_section_callback' ),
+			'author_profile_blocks_settings'
+		);
+
+		// Cache Duration Field
+		add_settings_field(
+			'cache_duration',
+			__( 'Cache Duration (hours)', 'author-profile-blocks' ),
+			array( $this, 'cache_duration_field_callback' ),
+			'author_profile_blocks_settings',
+			'author_profile_blocks_performance'
+		);
+	}
+
+	/**
+	 * Sanitize settings before saving
+	 *
+	 * @param array $input Raw input data.
+	 * @return array Sanitized data.
+	 */
+	public function sanitize_settings( array $input ): array {
+		$sanitized = array();
+
+		// Sanitize author roles
+		if ( isset( $input['author_roles'] ) && is_array( $input['author_roles'] ) ) {
+			$sanitized['author_roles'] = array_map( 'sanitize_text_field', $input['author_roles'] );
+		}
+
+		// Sanitize avatar size
+		if ( isset( $input['avatar_size'] ) ) {
+			$sanitized['avatar_size'] = absint( $input['avatar_size'] );
+			// Ensure reasonable bounds
+			$sanitized['avatar_size'] = max( 32, min( 512, $sanitized['avatar_size'] ) );
+		}
+
+		// Sanitize social platforms
+		if ( isset( $input['social_platforms'] ) && is_array( $input['social_platforms'] ) ) {
+			$sanitized['social_platforms'] = array_map( 'sanitize_text_field', $input['social_platforms'] );
+		}
+
+		// Sanitize show email
+		$sanitized['show_email'] = isset( $input['show_email'] ) ? 1 : 0;
+
+		// Sanitize cache duration
+		if ( isset( $input['cache_duration'] ) ) {
+			$sanitized['cache_duration'] = absint( $input['cache_duration'] );
+			// Ensure reasonable bounds (1 hour to 1 week)
+			$sanitized['cache_duration'] = max( 1, min( 168, $sanitized['cache_duration'] ) );
+		}
+
+		return $sanitized;
+	}
+
+	/**
+	 * General settings section callback
+	 *
+	 * @return void
+	 */
+	public function general_settings_section_callback(): void {
+		echo '<p>' . esc_html__( 'Configure general settings for the Author Profile Blocks plugin.', 'author-profile-blocks' ) . '</p>';
+	}
+
+	/**
+	 * Display settings section callback
+	 *
+	 * @return void
+	 */
+	public function display_settings_section_callback(): void {
+		echo '<p>' . esc_html__( 'Configure how author profiles are displayed in blocks.', 'author-profile-blocks' ) . '</p>';
+	}
+
+	/**
+	 * Performance settings section callback
+	 *
+	 * @return void
+	 */
+	public function performance_settings_section_callback(): void {
+		echo '<p>' . esc_html__( 'Configure performance and caching settings.', 'author-profile-blocks' ) . '</p>';
+	}
+
+	/**
+	 * Author roles field callback
+	 *
+	 * @return void
+	 */
+	public function author_roles_field_callback(): void {
+		$options = get_option( 'author_profile_blocks_settings', array() );
+		$selected_roles = isset( $options['author_roles'] ) ? $options['author_roles'] : array( 'administrator', 'editor', 'author' );
+
+		$roles = wp_roles()->roles;
+		?>
+		<select name="author_profile_blocks_settings[author_roles][]" multiple="multiple" class="regular-text">
+			<?php foreach ( $roles as $role_key => $role ) : ?>
+				<option value="<?php echo esc_attr( $role_key ); ?>" <?php echo in_array( $role_key, $selected_roles, true ) ? 'selected' : ''; ?>>
+					<?php echo esc_html( $role['name'] ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+		<p class="description"><?php esc_html_e( 'Select which user roles should be available as authors. Hold Ctrl/Cmd to select multiple roles.', 'author-profile-blocks' ); ?></p>
+		<?php
+	}
+
+	/**
+	 * Avatar size field callback
+	 *
+	 * @return void
+	 */
+	public function avatar_size_field_callback(): void {
+		$options = get_option( 'author_profile_blocks_settings', array() );
+		$avatar_size = isset( $options['avatar_size'] ) ? $options['avatar_size'] : 150;
+		?>
+		<input type="number" name="author_profile_blocks_settings[avatar_size]" value="<?php echo esc_attr( $avatar_size ); ?>" min="32" max="512" class="small-text" />
+		<p class="description"><?php esc_html_e( 'Default avatar size in pixels (32-512).', 'author-profile-blocks' ); ?></p>
+		<?php
+	}
+
+	/**
+	 * Social platforms field callback
+	 *
+	 * @return void
+	 */
+	public function social_platforms_field_callback(): void {
+		$options = get_option( 'author_profile_blocks_settings', array() );
+		$selected_platforms = isset( $options['social_platforms'] ) ? $options['social_platforms'] : array( 'facebook', 'twitter', 'linkedin', 'instagram' );
+
+		$platforms = array(
+			'facebook'  => __( 'Facebook', 'author-profile-blocks' ),
+			'twitter'   => __( 'Twitter/X', 'author-profile-blocks' ),
+			'linkedin'  => __( 'LinkedIn', 'author-profile-blocks' ),
+			'instagram' => __( 'Instagram', 'author-profile-blocks' ),
+			'youtube'   => __( 'YouTube', 'author-profile-blocks' ),
+			'website'   => __( 'Website', 'author-profile-blocks' ),
+		);
+		?>
+		<div class="social-platforms-checkboxes">
+			<?php foreach ( $platforms as $platform_key => $platform_name ) : ?>
+				<label style="display: block; margin-bottom: 5px;">
+					<input type="checkbox" name="author_profile_blocks_settings[social_platforms][]" value="<?php echo esc_attr( $platform_key ); ?>" <?php echo in_array( $platform_key, $selected_platforms, true ) ? 'checked' : ''; ?> />
+					<?php echo esc_html( $platform_name ); ?>
+				</label>
+			<?php endforeach; ?>
+		</div>
+		<p class="description"><?php esc_html_e( 'Select which social media platforms to display in author profiles.', 'author-profile-blocks' ); ?></p>
+		<?php
+	}
+
+	/**
+	 * Show email field callback
+	 *
+	 * @return void
+	 */
+	public function show_email_field_callback(): void {
+		$options = get_option( 'author_profile_blocks_settings', array() );
+		$show_email = isset( $options['show_email'] ) ? $options['show_email'] : 0;
+		?>
+		<label>
+			<input type="checkbox" name="author_profile_blocks_settings[show_email]" value="1" <?php checked( $show_email, 1 ); ?> />
+			<?php esc_html_e( 'Display email addresses in author profiles', 'author-profile-blocks' ); ?>
+		</label>
+		<p class="description"><?php esc_html_e( 'Warning: Displaying email addresses publicly may increase spam.', 'author-profile-blocks' ); ?></p>
+		<?php
+	}
+
+	/**
+	 * Cache duration field callback
+	 *
+	 * @return void
+	 */
+	public function cache_duration_field_callback(): void {
+		$options = get_option( 'author_profile_blocks_settings', array() );
+		$cache_duration = isset( $options['cache_duration'] ) ? $options['cache_duration'] : 24;
+		?>
+		<input type="number" name="author_profile_blocks_settings[cache_duration]" value="<?php echo esc_attr( $cache_duration ); ?>" min="1" max="168" class="small-text" />
+		<p class="description"><?php esc_html_e( 'How long to cache author data in hours (1-168). Default is 24 hours.', 'author-profile-blocks' ); ?></p>
+		<?php
+	}
+
+	/**
 	 * Settings page callback
 	 *
 	 * @return void
 	 */
 	public function settings_page(): void {
+		if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			add_settings_error(
+				'author_profile_blocks_settings',
+				'settings_updated',
+				__( 'Settings saved successfully.', 'author-profile-blocks' ),
+				'success'
+			);
+		}
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Author Profile Blocks Settings', 'author-profile-blocks' ); ?></h1>
 			<p><?php esc_html_e( 'Configure the Author Profile Blocks plugin settings.', 'author-profile-blocks' ); ?></p>
+
+			<?php settings_errors( 'author_profile_blocks_settings' ); ?>
 
 			<form method="post" action="options.php">
 				<?php
@@ -85,7 +343,41 @@ class Admin {
 				submit_button();
 				?>
 			</form>
+
+			<div class="author-profile-blocks-info" style="margin-top: 30px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">
+				<h3><?php esc_html_e( 'Plugin Information', 'author-profile-blocks' ); ?></h3>
+				<p><strong><?php esc_html_e( 'Version:', 'author-profile-blocks' ); ?></strong> <?php echo esc_html( APBL_VERSION ); ?></p>
+				<p><strong><?php esc_html_e( 'Documentation:', 'author-profile-blocks' ); ?></strong> <a href="https://github.com/mralaminahamed/author-profile-blocks" target="_blank">GitHub Repository</a></p>
+				<p><strong><?php esc_html_e( 'Support:', 'author-profile-blocks' ); ?></strong> <a href="https://github.com/mralaminahamed/author-profile-blocks/issues" target="_blank">Create an Issue</a></p>
+			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Get default settings
+	 *
+	 * @return array Default settings array.
+	 */
+	public static function get_default_settings(): array {
+		return array(
+			'author_roles'    => array( 'administrator', 'editor', 'author' ),
+			'avatar_size'     => 150,
+			'social_platforms' => array( 'facebook', 'twitter', 'linkedin', 'instagram' ),
+			'show_email'      => 0,
+			'cache_duration'  => 24,
+		);
+	}
+
+	/**
+	 * Get plugin settings with defaults
+	 *
+	 * @return array Plugin settings merged with defaults.
+	 */
+	public static function get_settings(): array {
+		return wp_parse_args(
+			get_option( 'author_profile_blocks_settings', array() ),
+			self::get_default_settings()
+		);
 	}
 }

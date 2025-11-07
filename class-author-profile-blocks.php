@@ -85,7 +85,18 @@ class Author_Profile_Blocks {
 		$this->user_meta_provider     = new User_Meta_Provider();
 		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
 
+		$this->register_admin();
 		$this->register_blocks();
+	}
+
+	/**
+	 * Register admin components.
+	 *
+	 * @return void
+	 */
+	private function register_admin(): void {
+		new Admin();
+		new PluginLinks();
 	}
 
 	/**
