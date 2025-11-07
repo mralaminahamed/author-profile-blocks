@@ -1,5 +1,13 @@
 <?php
 /**
+ * Author Profile Blocks
+ *
+ * @package           AuthorProfileBlocks
+ * @author            Al Amin Ahamed
+ * @copyright         2025 Al Amin Ahamed
+ * @license           GPL-3.0-only
+ *
+ * @wordpress-plugin
  * Plugin Name:       Author Profile Blocks
  * Plugin URI:        https://github.com/mralaminahamed/author-profile-blocks
  * Description:       Gutenberg blocks for displaying author profiles and team members with customizable layouts.
@@ -9,12 +17,12 @@
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
  * Author URI:        https://github.com/mralaminahamed
- * License:           GPL-3.0-only
- * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       author-profile-blocks
  * Domain Path:       /languages
+ * License:           GPL-3.0-only
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  *
- * @package AuthorProfileBlocks
+ * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed
  */
 
 // Exit if accessed directly.
