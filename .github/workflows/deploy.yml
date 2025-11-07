@@ -22,6 +22,17 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set plugin name
+        id: plugin_name
+        run: |
+          PLUGIN_SLUG="${{ github.event.repository.name }}"
+          PLUGIN_FILE="${PLUGIN_SLUG}.php"
+          # Convert kebab-case to Title Case for display
+          PLUGIN_NAME=$(echo "$PLUGIN_SLUG" | sed 's/-/ /g' | sed 's/\b\w/\U&/g')
+          echo "plugin_slug=$PLUGIN_SLUG" >> $GITHUB_OUTPUT
+          echo "plugin_file=$PLUGIN_FILE" >> $GITHUB_OUTPUT
+          echo "plugin_name=$PLUGIN_NAME" >> $GITHUB_OUTPUT
+
       - name: Validate tag and plugin version alignment
         id: version_check
         run: |
@@ -29,11 +40,11 @@ jobs:
           # Strip leading v if present
           if [[ "$TAG_REF" =~ ^v ]]; then TAG_STRIPPED=${TAG_REF#v}; else TAG_STRIPPED=$TAG_REF; fi
           # Extract Version from plugin header (first match)
-          PLUGIN_VERSION=$(grep -E "^[[:space:]]*\*[[:space:]]*Version:" author-profile-blocks.php | head -n1 | sed -E 's/.*Version:[[:space:]]*([^ ]+).*/\1/')
+          PLUGIN_VERSION=$(grep -E "^[[:space:]]*\*[[:space:]]*Version:" ${{ steps.plugin_name.outputs.plugin_file }} | head -n1 | sed -E 's/.*Version:[[:space:]]*([^ ]+).*/\1/')
           echo "Tag: $TAG_REF";
           echo "Stripped Tag: $TAG_STRIPPED";
           echo "Plugin Version: $PLUGIN_VERSION";
-          if [ -z "$PLUGIN_VERSION" ]; then echo "Could not determine plugin version from author-profile-blocks.php"; exit 1; fi
+          if [ -z "$PLUGIN_VERSION" ]; then echo "Could not determine plugin version from ${{ steps.plugin_name.outputs.plugin_file }}"; exit 1; fi
           if [ "$PLUGIN_VERSION" != "$TAG_STRIPPED" ]; then echo "Version mismatch: tag ($TAG_STRIPPED) != plugin header ($PLUGIN_VERSION)"; exit 1; fi
           echo "version=$PLUGIN_VERSION" >> $GITHUB_OUTPUT
 
@@ -44,18 +55,18 @@ jobs:
             exit 1
           fi
 
-      - name: Setup PHP 7.4
+      - name: Setup PHP 8.1
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'
           coverage: none
           tools: composer:v2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'yarn'
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -72,7 +83,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: node-${{ runner.os }}-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+          key: node-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             node-${{ runner.os }}-
 
@@ -116,7 +127,7 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: author-profile-blocks
+          SLUG: ${{ steps.plugin_name.outputs.plugin_slug }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
@@ -124,8 +135,8 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ steps.version_check.outputs.version }}
           body: |
-            Release ${{ steps.version_check.outputs.version }} of Author Profile Blocks.
+            Release ${{ steps.version_check.outputs.version }} of ${{ steps.plugin_name.outputs.plugin_name }}.
             Refer to CHANGELOG.md for full details.
           files: ${{ steps.deploy.outputs.zip-path }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

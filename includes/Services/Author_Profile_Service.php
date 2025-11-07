@@ -6,10 +6,10 @@
  * @package AuthorProfileBlocks
  */
 
-namespace APBL\AuthorProfileBlocks\Services;
+namespace AuthorProfileBlocks\Services;
 
-use APBL\AuthorProfileBlocks\Core\Base;
-use APBL\AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Core\User_Meta_Provider;
 use WP_User_Query;
 
 // Exit if accessed directly.

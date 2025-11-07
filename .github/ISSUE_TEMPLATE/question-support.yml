@@ -1,0 +1,96 @@
+---
+name: ❓ Question & Support
+description: Ask questions or request help with Author Profile Blocks
+title: "[Question]: "
+labels: ["question", "support"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ❓ Question & Support
+
+        Need help with Author Profile Blocks? Ask your questions here!
+
+        **Before posting:**
+        - Check the [documentation](https://github.com/mralaminahamed/author-profile-blocks/tree/main/docs)
+        - Search existing [issues](https://github.com/mralaminahamed/author-profile-blocks/issues) and [discussions](https://github.com/mralaminahamed/author-profile-blocks/discussions)
+        - Review the [troubleshooting guide](https://github.com/mralaminahamed/author-profile-blocks/blob/main/docs/troubleshooting.md)
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of question do you have?
+      options:
+        - How-to / Usage question
+        - Configuration help
+        - Block customization
+        - Development question
+        - Compatibility issue
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: block-type
+    attributes:
+      label: Block Type (if applicable)
+      description: Which block is your question about?
+      options:
+        - Author Profile Block
+        - Author Grid Block
+        - Author List Block
+        - Author Carousel Block
+        - All blocks
+        - Not block-specific
+    validations:
+      required: false
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: Describe your question clearly
+      placeholder: What would you like to know or what help do you need?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Provide any relevant context or background information
+      placeholder: What are you trying to achieve? What have you tried so far?
+
+  - type: input
+    id: wordpress-version
+    attributes:
+      label: WordPress Version
+      description: What version of WordPress are you using?
+      placeholder: e.g., 6.4.2
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin Version
+      description: What version of Author Profile Blocks are you using?
+      placeholder: e.g., 1.0.0
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Any relevant environment information
+      placeholder: Theme, other plugins, server environment, etc.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please check the following
+      options:
+        - label: I have searched the documentation and existing issues
+          required: true
+        - label: This is not a bug report (use the Bug Report template instead)
+        - label: This is not a feature request (use the Feature Request template instead)

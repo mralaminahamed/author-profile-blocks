@@ -8,123 +8,145 @@ import { useState } from '@wordpress/element';
 /**
  * AuthorPicker component for selecting multiple authors
  *
- * @param {Object} props Component props
- * @param {Array} props.authors Available authors list
- * @param {Array} props.selectedAuthors Currently selected authors
+ * @param {Object}   props                 Component props
+ * @param {Array}    props.authors         Available authors list
+ * @param {Array}    props.selectedAuthors Currently selected authors
  * @param {Function} props.onAuthorsChange Callback when authors change
- * @param {number} props.maxAuthors Maximum number of authors (0 = unlimited)
+ * @param {number}   props.maxAuthors      Maximum number of authors (0 = unlimited)
  * @return {JSX.Element} Component to render
  */
 const AuthorPicker = ({
-    authors = [],
-    selectedAuthors = [],
-    onAuthorsChange,
-    maxAuthors = 0
+	authors = [],
+	selectedAuthors = [],
+	onAuthorsChange,
+	maxAuthors = 0,
 }) => {
-    const [currentAuthorId, setCurrentAuthorId] = useState('');
+	const [currentAuthorId, setCurrentAuthorId] = useState('');
 
-    // Filter available authors (exclude already selected)
-    const availableAuthors = authors.filter(author => 
-        !selectedAuthors.find(selected => selected.id === author.id)
-    );
+	// Filter available authors (exclude already selected)
+	const availableAuthors = authors.filter(
+		(author) =>
+			!selectedAuthors.find((selected) => selected.id === author.id)
+	);
 
-    // Check if we've reached the max limit
-    const hasReachedMax = maxAuthors > 0 && selectedAuthors.length >= maxAuthors;
+	// Check if we've reached the max limit
+	const hasReachedMax =
+		maxAuthors > 0 && selectedAuthors.length >= maxAuthors;
 
-    // Prepare options for select
-    const authorOptions = [
-        { label: __('Select an author...', 'author-profile-blocks'), value: '' },
-        ...availableAuthors.map(author => ({
-            label: author.name || author.display_name || `User ${author.id}`,
-            value: author.id.toString()
-        }))
-    ];
+	// Prepare options for select
+	const authorOptions = [
+		{ label: __('Select an author…', 'author-profile-blocks'), value: '' },
+		...availableAuthors.map((author) => ({
+			label: author.name || author.display_name || `User ${author.id}`,
+			value: author.id.toString(),
+		})),
+	];
 
-    // Handle adding author
-    const handleAddAuthor = () => {
-        if (!currentAuthorId) return;
+	// Handle adding author
+	const handleAddAuthor = () => {
+		if (!currentAuthorId) {
+			return;
+		}
 
-        const authorId = parseInt(currentAuthorId);
-        const author = authors.find(a => a.id === authorId);
-        
-        if (author && !selectedAuthors.find(selected => selected.id === authorId)) {
-            onAuthorsChange([...selectedAuthors, author]);
-            setCurrentAuthorId('');
-        }
-    };
+		const authorId = parseInt(currentAuthorId);
+		const author = authors.find((a) => a.id === authorId);
 
-    // Handle removing author
-    const handleRemoveAuthor = (authorId) => {
-        const newSelection = selectedAuthors.filter(author => author.id !== authorId);
-        onAuthorsChange(newSelection);
-    };
+		if (
+			author &&
+			!selectedAuthors.find((selected) => selected.id === authorId)
+		) {
+			onAuthorsChange([...selectedAuthors, author]);
+			setCurrentAuthorId('');
+		}
+	};
 
-    return (
-        <div className="apbl-author-picker">
-            {!hasReachedMax && availableAuthors.length > 0 && (
-                <Flex className="apbl-author-picker-controls">
-                    <FlexItem>
-                        <SelectControl
-                            value={currentAuthorId}
-                            options={authorOptions}
-                            onChange={setCurrentAuthorId}
-                            className="apbl-author-select"
-                        />
-                    </FlexItem>
-                    <FlexItem>
-                        <Button
-                            variant="secondary"
-                            onClick={handleAddAuthor}
-                            disabled={!currentAuthorId}
-                        >
-                            {__('Add Author', 'author-profile-blocks')}
-                        </Button>
-                    </FlexItem>
-                </Flex>
-            )}
+	// Handle removing author
+	const handleRemoveAuthor = (authorId) => {
+		const newSelection = selectedAuthors.filter(
+			(author) => author.id !== authorId
+		);
+		onAuthorsChange(newSelection);
+	};
 
-            {hasReachedMax && (
-                <p className="apbl-max-reached">
-                    {__('Maximum number of authors reached.', 'author-profile-blocks')}
-                </p>
-            )}
+	return (
+		<div className="apbl-author-picker">
+			{!hasReachedMax && availableAuthors.length > 0 && (
+				<Flex className="apbl-author-picker-controls">
+					<FlexItem>
+						<SelectControl
+							value={currentAuthorId}
+							options={authorOptions}
+							onChange={setCurrentAuthorId}
+							className="apbl-author-select"
+						/>
+					</FlexItem>
+					<FlexItem>
+						<Button
+							variant="secondary"
+							onClick={handleAddAuthor}
+							disabled={!currentAuthorId}
+						>
+							{__('Add Author', 'author-profile-blocks')}
+						</Button>
+					</FlexItem>
+				</Flex>
+			)}
 
-            {availableAuthors.length === 0 && selectedAuthors.length > 0 && (
-                <p className="apbl-all-selected">
-                    {__('All available authors have been selected.', 'author-profile-blocks')}
-                </p>
-            )}
+			{hasReachedMax && (
+				<p className="apbl-max-reached">
+					{__(
+						'Maximum number of authors reached.',
+						'author-profile-blocks'
+					)}
+				</p>
+			)}
 
-            {selectedAuthors.length > 0 && (
-                <div className="apbl-selected-authors">
-                    <h4>{__('Selected Authors:', 'author-profile-blocks')}</h4>
-                    <ul className="apbl-selected-authors-list">
-                        {selectedAuthors.map(author => (
-                            <li key={author.id} className="apbl-selected-author">
-                                <span className="apbl-author-name">
-                                    {author.name || author.display_name || `User ${author.id}`}
-                                </span>
-                                <Button
-                                    variant="link"
-                                    isDestructive
-                                    onClick={() => handleRemoveAuthor(author.id)}
-                                    className="apbl-remove-author"
-                                >
-                                    {__('Remove', 'author-profile-blocks')}
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+			{availableAuthors.length === 0 && selectedAuthors.length > 0 && (
+				<p className="apbl-all-selected">
+					{__(
+						'All available authors have been selected.',
+						'author-profile-blocks'
+					)}
+				</p>
+			)}
 
-            {authors.length === 0 && (
-                <p className="apbl-no-authors">
-                    {__('No authors available.', 'author-profile-blocks')}
-                </p>
-            )}
-        </div>
-    );
+			{selectedAuthors.length > 0 && (
+				<div className="apbl-selected-authors">
+					<h4>{__('Selected Authors:', 'author-profile-blocks')}</h4>
+					<ul className="apbl-selected-authors-list">
+						{selectedAuthors.map((author) => (
+							<li
+								key={author.id}
+								className="apbl-selected-author"
+							>
+								<span className="apbl-author-name">
+									{author.name ||
+										author.display_name ||
+										`User ${author.id}`}
+								</span>
+								<Button
+									variant="link"
+									isDestructive
+									onClick={() =>
+										handleRemoveAuthor(author.id)
+									}
+									className="apbl-remove-author"
+								>
+									{__('Remove', 'author-profile-blocks')}
+								</Button>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
+
+			{authors.length === 0 && (
+				<p className="apbl-no-authors">
+					{__('No authors available.', 'author-profile-blocks')}
+				</p>
+			)}
+		</div>
+	);
 };
 
 export default AuthorPicker;

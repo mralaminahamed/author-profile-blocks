@@ -9,13 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-02T13:36:27+00:00\n"
+"POT-Creation-Date: 2025-11-07T00:49:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: author-profile-blocks\n"
 
 #. Plugin Name of the plugin
 #: author-profile-blocks.php
+#: includes/Admin/Menu.php:28
+#: includes/Admin/Menu.php:29
 msgid "Author Profile Blocks"
 msgstr ""
 
@@ -37,6 +39,78 @@ msgstr ""
 #. Author URI of the plugin
 #: author-profile-blocks.php
 msgid "https://github.com/mralaminahamed"
+msgstr ""
+
+#: class-author-profile-blocks.php:120
+#: class-author-profile-blocks.php:301
+#: includes/Common/Author_Renderer.php:485
+#: includes/Services/Author_Profile_Service.php:256
+#: includes/Services/Author_Profile_Service.php:289
+msgid "Member since"
+msgstr ""
+
+#: class-author-profile-blocks.php:317
+msgid "Author Profile Information"
+msgstr ""
+
+#: class-author-profile-blocks.php:318
+msgid "These fields are used by the Author Profile Blocks plugin to display author information on your site."
+msgstr ""
+
+#: class-author-profile-blocks.php:322
+msgid "Position/Title"
+msgstr ""
+
+#: class-author-profile-blocks.php:325
+msgid "Enter the author's position or title (e.g., \"Senior Editor\", \"Lead Developer\", etc.)"
+msgstr ""
+
+#: class-author-profile-blocks.php:330
+msgid "Member Since Label"
+msgstr ""
+
+#: class-author-profile-blocks.php:333
+msgid "Customize the label used for showing registration date (e.g., \"Member since\", \"Joined on\", \"With us since\", etc.)"
+msgstr ""
+
+#: class-author-profile-blocks.php:338
+msgid "Author Description"
+msgstr ""
+
+#: class-author-profile-blocks.php:352
+msgid "Enter a detailed description for this author."
+msgstr ""
+
+#: class-author-profile-blocks.php:357
+msgid "Social Media Profiles"
+msgstr ""
+
+#: class-author-profile-blocks.php:361
+msgid "Facebook URL"
+msgstr ""
+
+#: class-author-profile-blocks.php:365
+msgid "Twitter URL"
+msgstr ""
+
+#: class-author-profile-blocks.php:369
+msgid "LinkedIn URL"
+msgstr ""
+
+#: class-author-profile-blocks.php:373
+msgid "Instagram URL"
+msgstr ""
+
+#: class-author-profile-blocks.php:377
+msgid "Personal Website"
+msgstr ""
+
+#: includes/Admin/Menu.php:44
+msgid "Author Profile Blocks Settings"
+msgstr ""
+
+#: includes/Admin/Menu.php:45
+msgid "Configure the Author Profile Blocks plugin settings."
 msgstr ""
 
 #: includes/Blocks/Author_Carousel_Block.php:78
@@ -65,96 +139,28 @@ msgstr ""
 msgid "Author not found."
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:154
-#: includes/Plugin.php:136
-#: includes/Plugin.php:218
-#: includes/Services/Author_Profile_Service.php:256
-#: includes/Services/Author_Profile_Service.php:289
-msgid "Member since"
-msgstr ""
-
-#: includes/Common/Author_Renderer.php:204
-#: build/blocks/author-profile/index.js:809
-#: build/blocks/author-profile/index.js:500
+#: includes/Common/Author_Renderer.php:562
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:107
 msgid "Facebook"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:208
-#: build/blocks/author-profile/index.js:818
-#: build/blocks/author-profile/index.js:512
+#: includes/Common/Author_Renderer.php:566
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:125
 msgid "Twitter"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:212
-#: build/blocks/author-profile/index.js:827
-#: build/blocks/author-profile/index.js:524
+#: includes/Common/Author_Renderer.php:570
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:140
 msgid "LinkedIn"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:216
-#: build/blocks/author-profile/index.js:836
-#: build/blocks/author-profile/index.js:536
+#: includes/Common/Author_Renderer.php:574
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:158
 msgid "Instagram"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:220
+#: includes/Common/Author_Renderer.php:578
 msgid "Website"
-msgstr ""
-
-#: includes/Plugin.php:234
-msgid "Author Profile Information"
-msgstr ""
-
-#: includes/Plugin.php:235
-msgid "These fields are used by the Author Profile Blocks plugin to display author information on your site."
-msgstr ""
-
-#: includes/Plugin.php:239
-msgid "Position/Title"
-msgstr ""
-
-#: includes/Plugin.php:242
-msgid "Enter the author's position or title (e.g., \"Senior Editor\", \"Lead Developer\", etc.)"
-msgstr ""
-
-#: includes/Plugin.php:247
-msgid "Member Since Label"
-msgstr ""
-
-#: includes/Plugin.php:250
-msgid "Customize the label used for showing registration date (e.g., \"Member since\", \"Joined on\", \"With us since\", etc.)"
-msgstr ""
-
-#: includes/Plugin.php:255
-msgid "Author Description"
-msgstr ""
-
-#: includes/Plugin.php:269
-msgid "Enter a detailed description for this author."
-msgstr ""
-
-#: includes/Plugin.php:274
-msgid "Social Media Profiles"
-msgstr ""
-
-#: includes/Plugin.php:278
-msgid "Facebook URL"
-msgstr ""
-
-#: includes/Plugin.php:282
-msgid "Twitter URL"
-msgstr ""
-
-#: includes/Plugin.php:286
-msgid "LinkedIn URL"
-msgstr ""
-
-#: includes/Plugin.php:290
-msgid "Instagram URL"
-msgstr ""
-
-#: includes/Plugin.php:294
-msgid "Personal Website"
 msgstr ""
 
 #: includes/Services/Author_Profile_Service.php:79
@@ -181,1616 +187,396 @@ msgstr ""
 msgid "Member since label"
 msgstr ""
 
-#: build/blocks/author-carousel/index.js:327
-#: src/blocks/author-carousel/components/AuthorCarouselPreview.js:41
-#: build/blocks/author-carousel/index.js:156
+#: includes/Settings/PluginLinks.php:34
+msgid "Settings"
+msgstr ""
+
+#: includes/Settings/PluginLinks.php:59
+msgid "Documentation"
+msgstr ""
+
+#: includes/Settings/PluginLinks.php:65
+msgid "GitHub"
+msgstr ""
+
+#: src/blocks/author-carousel/components/AuthorCarouselPreview.js:44
 msgid "Carousel preview - will be fully functional on the frontend"
 msgstr ""
 
-#: build/blocks/author-carousel/index.js:388
-#: build/blocks/author-grid/index.js:354
-#: build/blocks/author-profile/index.js:917
-#: src/blocks/author-carousel/components/CarouselLayoutSelector.js:25
-#: src/blocks/author-grid/components/GridLayoutSelector.js:25
-#: build/blocks/author-carousel/index.js:196
-#: build/blocks/author-grid/index.js:165
-#: build/blocks/author-profile/index.js:609
-msgid "Card"
+#: src/blocks/author-carousel/components/AuthorsSelector.js:59
+#: src/blocks/author-grid/components/AuthorsSelector.js:59
+#: src/js/components/MultiAuthorSelector.js:70
+msgid "Loading authors…"
 msgstr ""
 
-#: build/blocks/author-carousel/index.js:392
-#: build/blocks/author-grid/index.js:358
-#: build/blocks/author-list/index.js:514
-#: src/blocks/author-carousel/components/CarouselLayoutSelector.js:30
-#: src/blocks/author-grid/components/GridLayoutSelector.js:30
-#: src/blocks/author-list/components/DisplayStyleSelector.js:20
-#: build/blocks/author-carousel/index.js:201
-#: build/blocks/author-grid/index.js:170
-#: build/blocks/author-list/index.js:224
-msgid "Compact"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:396
-#: build/blocks/author-grid/index.js:362
-#: src/blocks/author-carousel/components/CarouselLayoutSelector.js:35
-#: src/blocks/author-grid/components/GridLayoutSelector.js:35
-#: build/blocks/author-carousel/index.js:206
-#: build/blocks/author-grid/index.js:175
-msgid "Centered"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:523
-#: build/blocks/author-carousel/index.js:1383
-#: build/blocks/author-carousel/index.js:1567
-#: build/blocks/author-carousel/index.js:1645
-#: build/blocks/author-grid/index.js:491
-#: build/blocks/author-grid/index.js:644
-#: build/blocks/author-grid/index.js:1321
-#: build/blocks/author-grid/index.js:1505
-#: build/blocks/author-grid/index.js:1583
-#: build/blocks/author-list/index.js:794
-#: build/blocks/author-list/index.js:1766
-#: build/blocks/author-list/index.js:1951
-#: build/blocks/author-list/index.js:2029
-#: build/blocks/author-profile/index.js:760
-#: build/blocks/author-profile/index.js:2629
-#: build/blocks/author-profile/index.js:2813
-#: build/blocks/author-profile/index.js:2891
-#: src/blocks/author-carousel/edit.js:76
-#: src/blocks/author-grid/edit.js:88
-#: src/blocks/author-grid/edit.js:232
-#: src/blocks/author-list/edit.js:138
-#: src/blocks/author-profile/edit.js:141
-#: src/js/components/AuthorPicker.js:123
-#: src/js/components/AuthorSelector.js:45
-#: src/js/components/AuthorSelector.js:116
-#: build/blocks/author-carousel/index.js:307
-#: build/blocks/author-carousel/index.js:1085
-#: build/blocks/author-carousel/index.js:1291
-#: build/blocks/author-carousel/index.js:1362
-#: build/blocks/author-grid/index.js:288
-#: build/blocks/author-grid/index.js:432
-#: build/blocks/author-grid/index.js:1035
-#: build/blocks/author-grid/index.js:1241
-#: build/blocks/author-grid/index.js:1312
-#: build/blocks/author-list/index.js:453
-#: build/blocks/author-list/index.js:1323
-#: build/blocks/author-list/index.js:1529
-#: build/blocks/author-list/index.js:1600
-#: build/blocks/author-profile/index.js:446
-#: build/blocks/author-profile/index.js:2113
-#: build/blocks/author-profile/index.js:2319
-#: build/blocks/author-profile/index.js:2390
-msgid "Author Selection"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:529
-#: build/blocks/author-grid/index.js:497
-#: build/blocks/author-list/index.js:800
-#: src/blocks/author-carousel/edit.js:83
-#: src/blocks/author-grid/edit.js:95
-#: src/blocks/author-list/edit.js:147
-#: build/blocks/author-carousel/index.js:314
-#: build/blocks/author-grid/index.js:295
-#: build/blocks/author-list/index.js:462
-msgid "Filter by Role"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:532
-#: build/blocks/author-grid/index.js:500
-#: build/blocks/author-list/index.js:731
-#: src/blocks/author-carousel/edit.js:86
-#: src/blocks/author-grid/edit.js:98
-#: src/blocks/author-list/edit.js:76
-#: build/blocks/author-carousel/index.js:317
-#: build/blocks/author-grid/index.js:298
-#: build/blocks/author-list/index.js:391
-msgid "All Roles"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:535
-#: build/blocks/author-grid/index.js:503
-#: src/blocks/author-carousel/edit.js:87
-#: src/blocks/author-grid/edit.js:99
-#: build/blocks/author-carousel/index.js:318
-#: build/blocks/author-grid/index.js:299
-msgid "Administrator"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:538
-#: build/blocks/author-grid/index.js:506
-#: src/blocks/author-carousel/edit.js:88
-#: src/blocks/author-grid/edit.js:100
-#: build/blocks/author-carousel/index.js:319
-#: build/blocks/author-grid/index.js:300
-msgid "Editor"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:541
-#: build/blocks/author-grid/index.js:509
-#: src/blocks/author-carousel/edit.js:89
-#: src/blocks/author-grid/edit.js:101
-#: build/blocks/author-carousel/index.js:320
-#: build/blocks/author-grid/index.js:301
-msgid "Author"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:544
-#: build/blocks/author-grid/index.js:512
-#: src/blocks/author-carousel/edit.js:90
-#: src/blocks/author-grid/edit.js:102
-#: build/blocks/author-carousel/index.js:321
-#: build/blocks/author-grid/index.js:302
-msgid "Contributor"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:551
-#: build/blocks/author-grid/index.js:519
-#: src/blocks/author-carousel/edit.js:96
-#: src/blocks/author-grid/edit.js:108
-#: build/blocks/author-carousel/index.js:327
-#: build/blocks/author-grid/index.js:308
-msgid "Maximum Authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:561
-#: src/blocks/author-carousel/edit.js:105
-#: build/blocks/author-carousel/index.js:336
-msgid "Carousel Settings"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:563
-#: src/blocks/author-carousel/edit.js:107
-#: build/blocks/author-carousel/index.js:338
-msgid "Slides to Show"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:572
-#: src/blocks/author-carousel/edit.js:116
-#: build/blocks/author-carousel/index.js:347
-msgid "Slide Spacing (px)"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:581
-#: src/blocks/author-carousel/edit.js:125
-#: build/blocks/author-carousel/index.js:356
-msgid "Autoplay"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:587
-#: src/blocks/author-carousel/edit.js:132
-#: build/blocks/author-carousel/index.js:363
-msgid "Autoplay Speed (ms)"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:597
-#: src/blocks/author-carousel/edit.js:143
-#: build/blocks/author-carousel/index.js:374
-msgid "Show Dots"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:603
-#: src/blocks/author-carousel/edit.js:149
-#: build/blocks/author-carousel/index.js:380
-msgid "Show Arrows"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:609
-#: src/blocks/author-carousel/edit.js:155
-#: build/blocks/author-carousel/index.js:386
-msgid "Infinite Loop"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:616
-#: build/blocks/author-grid/index.js:550
-#: src/blocks/author-carousel/edit.js:161
-#: src/blocks/author-grid/edit.js:136
-#: src/blocks/author-profile/edit.js:85
-#: build/blocks/author-carousel/index.js:392
-#: build/blocks/author-grid/index.js:336
-msgid "Display Settings"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:618
-#: build/blocks/author-grid/index.js:552
-#: build/blocks/author-list/index.js:921
-#: build/blocks/author-profile/index.js:771
-#: src/blocks/author-carousel/edit.js:163
-#: src/blocks/author-grid/edit.js:138
-#: src/blocks/author-list/edit.js:262
-#: src/blocks/author-profile/edit.js:87
-#: build/blocks/author-carousel/index.js:394
-#: build/blocks/author-grid/index.js:338
-#: build/blocks/author-list/index.js:577
-#: build/blocks/author-profile/index.js:461
-msgid "Show Author Image"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:624
-#: build/blocks/author-grid/index.js:558
-#: src/blocks/author-carousel/edit.js:169
-#: src/blocks/author-grid/edit.js:144
-#: build/blocks/author-carousel/index.js:400
-#: build/blocks/author-grid/index.js:344
-msgid "Show Author Position"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:630
-#: build/blocks/author-grid/index.js:564
-#: build/blocks/author-profile/index.js:777
-#: src/blocks/author-carousel/edit.js:175
-#: src/blocks/author-grid/edit.js:150
-#: src/blocks/author-profile/edit.js:93
-#: build/blocks/author-carousel/index.js:406
-#: build/blocks/author-grid/index.js:350
-#: build/blocks/author-profile/index.js:467
-msgid "Show Author Email"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:636
-#: build/blocks/author-grid/index.js:570
-#: build/blocks/author-profile/index.js:783
-#: src/blocks/author-carousel/edit.js:181
-#: src/blocks/author-grid/edit.js:156
-#: src/blocks/author-profile/edit.js:99
-#: build/blocks/author-carousel/index.js:412
-#: build/blocks/author-grid/index.js:356
-#: build/blocks/author-profile/index.js:473
-msgid "Show Author Description"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:642
-#: build/blocks/author-grid/index.js:576
-#: build/blocks/author-profile/index.js:789
-#: src/blocks/author-carousel/edit.js:187
-#: src/blocks/author-grid/edit.js:162
-#: src/blocks/author-profile/edit.js:105
-#: build/blocks/author-carousel/index.js:418
-#: build/blocks/author-grid/index.js:362
-#: build/blocks/author-profile/index.js:479
-msgid "Show Member Since Date"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:648
-#: build/blocks/author-grid/index.js:582
-#: build/blocks/author-list/index.js:945
-#: build/blocks/author-profile/index.js:801
-#: src/blocks/author-carousel/edit.js:193
-#: src/blocks/author-grid/edit.js:168
-#: src/blocks/author-list/edit.js:286
-#: build/blocks/author-carousel/index.js:424
-#: build/blocks/author-grid/index.js:368
-#: build/blocks/author-list/index.js:601
-#: build/blocks/author-profile/index.js:491
-msgid "Show Social Links"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:655
-#: build/blocks/author-grid/index.js:589
-#: src/blocks/author-carousel/edit.js:199
-#: src/blocks/author-grid/edit.js:174
-#: src/blocks/author-profile/edit.js:117
-#: build/blocks/author-carousel/index.js:430
-#: build/blocks/author-grid/index.js:374
-msgid "Style Settings"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:657
-#: build/blocks/author-grid/index.js:591
-#: src/blocks/author-carousel/edit.js:201
-#: src/blocks/author-grid/edit.js:176
-#: build/blocks/author-carousel/index.js:432
-#: build/blocks/author-grid/index.js:376
-msgid "Item Padding (px)"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:666
-#: build/blocks/author-grid/index.js:600
-#: src/blocks/author-carousel/edit.js:210
-#: src/blocks/author-grid/edit.js:185
-#: build/blocks/author-carousel/index.js:441
-#: build/blocks/author-grid/index.js:385
-msgid "Enable Shadow"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:672
-#: build/blocks/author-grid/index.js:606
-#: build/blocks/author-list/index.js:854
-#: src/blocks/author-carousel/edit.js:216
-#: src/blocks/author-grid/edit.js:191
-#: src/blocks/author-list/edit.js:201
-#: build/blocks/author-carousel/index.js:447
-#: build/blocks/author-grid/index.js:391
-#: build/blocks/author-list/index.js:516
-msgid "Enable Rounded Corners"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:678
-#: build/blocks/author-grid/index.js:612
-#: src/blocks/author-carousel/edit.js:222
-#: src/blocks/author-grid/edit.js:197
-#: build/blocks/author-carousel/index.js:453
-#: build/blocks/author-grid/index.js:397
-msgid "Enable Border"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:684
-#: build/blocks/author-grid/index.js:618
-#: src/blocks/author-carousel/edit.js:229
-#: src/blocks/author-grid/edit.js:204
-#: build/blocks/author-carousel/index.js:460
-#: build/blocks/author-grid/index.js:404
-msgid "Border Width (px)"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:694
-#: build/blocks/author-grid/index.js:628
-#: src/blocks/author-carousel/edit.js:240
-#: src/blocks/author-grid/edit.js:215
-#: src/blocks/author-profile/edit.js:129
-#: build/blocks/author-carousel/index.js:471
-#: build/blocks/author-grid/index.js:415
-msgid "Color Settings"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:701
-#: build/blocks/author-grid/index.js:635
-#: build/blocks/author-profile/index.js:1215
-#: build/blocks/author-profile/index.js:1560
-#: src/blocks/author-carousel/edit.js:246
-#: src/blocks/author-grid/edit.js:221
-#: src/blocks/author-profile/edit.js:135
-#: build/blocks/author-carousel/index.js:477
-#: build/blocks/author-grid/index.js:421
-#: build/blocks/author-profile/index.js:859
-#: build/blocks/author-profile/index.js:1148
-msgid "Background Color"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:707
-#: build/blocks/author-grid/index.js:641
-#: build/blocks/author-profile/index.js:1053
-#: build/blocks/author-profile/index.js:1273
-#: build/blocks/author-profile/index.js:1612
-#: src/blocks/author-carousel/edit.js:251
-#: src/blocks/author-grid/edit.js:226
-#: build/blocks/author-carousel/index.js:482
-#: build/blocks/author-grid/index.js:426
-#: build/blocks/author-profile/index.js:710
-#: build/blocks/author-profile/index.js:911
-#: build/blocks/author-profile/index.js:1193
-msgid "Border Color"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:714
-#: src/blocks/author-carousel/edit.js:261
-#: build/blocks/author-carousel/index.js:492
-msgid "Author Carousel"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:715
-#: src/blocks/author-carousel/edit.js:262
-#: build/blocks/author-carousel/index.js:493
-msgid "Select authors to display in an interactive carousel."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:718
-#: src/blocks/author-carousel/components/AuthorsSelector.js:109
-#: src/blocks/author-carousel/edit.js:265
-#: build/blocks/author-carousel/index.js:496
-msgid "Add Author to Carousel"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:884
-#: build/blocks/author-grid/index.js:822
-#: build/blocks/author-list/index.js:1265
-#: build/blocks/author-profile/index.js:2130
-#: build/blocks/author-carousel/index.js:609
-#: build/blocks/author-grid/index.js:559
-#: build/blocks/author-list/index.js:847
-#: build/blocks/author-profile/index.js:1637
-msgid "Configure this author block"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:911
-#: build/blocks/author-grid/index.js:849
-#: build/blocks/author-list/index.js:1292
-#: build/blocks/author-profile/index.js:909
-#: build/blocks/author-profile/index.js:2157
-#: build/blocks/author-carousel/index.js:633
-#: build/blocks/author-grid/index.js:583
-#: build/blocks/author-list/index.js:871
-#: build/blocks/author-profile/index.js:603
-#: build/blocks/author-profile/index.js:1661
-msgid "Layout Options"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:925
-#: build/blocks/author-grid/index.js:863
-#: build/blocks/author-list/index.js:1306
-#: build/blocks/author-profile/index.js:2171
-#: build/blocks/author-carousel/index.js:654
-#: build/blocks/author-grid/index.js:604
-#: build/blocks/author-list/index.js:892
-#: build/blocks/author-profile/index.js:1682
-msgid "Continue"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1222
-#: build/blocks/author-grid/index.js:1160
-#: build/blocks/author-list/index.js:1605
-#: build/blocks/author-profile/index.js:2468
-#: src/blocks/author-carousel/components/AuthorsSelector.js:78
-#: src/blocks/author-grid/components/AuthorsSelector.js:78
-#: src/js/components/AuthorPicker.js:159
-#: build/blocks/author-carousel/index.js:937
-#: build/blocks/author-grid/index.js:887
-#: build/blocks/author-list/index.js:1175
-#: build/blocks/author-profile/index.js:1965
-msgid "Remove"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1223
-#: build/blocks/author-grid/index.js:1161
-#: build/blocks/author-list/index.js:1606
-#: build/blocks/author-profile/index.js:2469
-#: build/blocks/author-carousel/index.js:938
-#: build/blocks/author-grid/index.js:888
-#: build/blocks/author-list/index.js:1176
-#: build/blocks/author-profile/index.js:1966
-msgid "Remove %s"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1358
-#: build/blocks/author-carousel/index.js:1627
-#: build/blocks/author-carousel/index.js:1808
-#: build/blocks/author-grid/index.js:1296
-#: build/blocks/author-grid/index.js:1565
-#: build/blocks/author-grid/index.js:1746
-#: build/blocks/author-list/index.js:1741
-#: build/blocks/author-list/index.js:2011
-#: build/blocks/author-list/index.js:2193
-#: build/blocks/author-profile/index.js:2604
-#: build/blocks/author-profile/index.js:2873
-#: build/blocks/author-profile/index.js:3054
-#: src/blocks/author-carousel/components/AuthorsSelector.js:48
-#: src/blocks/author-grid/components/AuthorsSelector.js:48
-#: src/js/components/AuthorPicker.js:108
-#: src/js/components/AuthorSelector.js:107
-#: src/js/components/AuthorsListPreview.js:29
-#: build/blocks/author-carousel/index.js:1067
-#: build/blocks/author-carousel/index.js:1353
-#: build/blocks/author-carousel/index.js:1510
-#: build/blocks/author-grid/index.js:1017
-#: build/blocks/author-grid/index.js:1303
-#: build/blocks/author-grid/index.js:1460
-#: build/blocks/author-list/index.js:1305
-#: build/blocks/author-list/index.js:1591
-#: build/blocks/author-list/index.js:1748
-#: build/blocks/author-profile/index.js:2095
-#: build/blocks/author-profile/index.js:2381
-#: build/blocks/author-profile/index.js:2538
-msgid "Loading authors..."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1364
-#: build/blocks/author-grid/index.js:1302
-#: build/blocks/author-list/index.js:1747
-#: build/blocks/author-profile/index.js:1952
-#: build/blocks/author-profile/index.js:2610
-#: src/blocks/author-carousel/components/AuthorsSelector.js:90
-#: src/blocks/author-grid/components/AuthorsSelector.js:90
-#: src/blocks/author-profile/edit.js:162
-#: src/js/components/AuthorPicker.js:114
-#: build/blocks/author-carousel/index.js:1073
-#: build/blocks/author-grid/index.js:1023
-#: build/blocks/author-list/index.js:1311
-#: build/blocks/author-profile/index.js:1510
-#: build/blocks/author-profile/index.js:2101
-msgid "Add Author"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1390
-#: build/blocks/author-carousel/index.js:1654
-#: build/blocks/author-grid/index.js:1328
-#: build/blocks/author-grid/index.js:1592
-#: build/blocks/author-list/index.js:1773
-#: build/blocks/author-list/index.js:2038
-#: build/blocks/author-profile/index.js:2636
-#: build/blocks/author-profile/index.js:2900
-#: src/js/components/AuthorPicker.js:129
-#: src/js/components/AuthorSelector.js:122
-#: build/blocks/author-carousel/index.js:1090
-#: build/blocks/author-carousel/index.js:1368
-#: build/blocks/author-grid/index.js:1040
-#: build/blocks/author-grid/index.js:1318
-#: build/blocks/author-list/index.js:1328
-#: build/blocks/author-list/index.js:1606
-#: build/blocks/author-profile/index.js:2118
-#: build/blocks/author-profile/index.js:2396
-msgid "Total number of available authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1404
-#: build/blocks/author-grid/index.js:1342
-#: build/blocks/author-list/index.js:1787
-#: build/blocks/author-profile/index.js:2650
-#: build/blocks/author-carousel/index.js:1101
-#: build/blocks/author-grid/index.js:1051
-#: build/blocks/author-list/index.js:1339
-#: build/blocks/author-profile/index.js:2129
-msgid "Selected Authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1408
-#: build/blocks/author-grid/index.js:1346
-#: build/blocks/author-list/index.js:1791
-#: build/blocks/author-profile/index.js:2654
-#: build/blocks/author-carousel/index.js:1105
-#: build/blocks/author-grid/index.js:1055
-#: build/blocks/author-list/index.js:1343
-#: build/blocks/author-profile/index.js:2133
-msgid "Selected authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1421
-#: build/blocks/author-grid/index.js:1359
-#: build/blocks/author-list/index.js:1804
-#: build/blocks/author-profile/index.js:2667
-#: build/blocks/author-carousel/index.js:1125
-#: build/blocks/author-grid/index.js:1075
-#: build/blocks/author-list/index.js:1363
-#: build/blocks/author-profile/index.js:2153
-msgid "No authors selected yet"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1429
-#: build/blocks/author-grid/index.js:1367
-#: build/blocks/author-list/index.js:1812
-#: build/blocks/author-profile/index.js:2675
-#: build/blocks/author-carousel/index.js:1133
-#: build/blocks/author-grid/index.js:1083
-#: build/blocks/author-list/index.js:1371
-#: build/blocks/author-profile/index.js:2161
-msgid "Find Authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1433
-#: build/blocks/author-grid/index.js:1371
-#: build/blocks/author-list/index.js:1816
-#: build/blocks/author-profile/index.js:2679
-#: build/blocks/author-carousel/index.js:1137
-#: build/blocks/author-grid/index.js:1087
-#: build/blocks/author-list/index.js:1375
-#: build/blocks/author-profile/index.js:2165
-msgid "Search by name..."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1443
-#: build/blocks/author-grid/index.js:1381
-#: build/blocks/author-list/index.js:1826
-#: build/blocks/author-profile/index.js:2689
-#: build/blocks/author-carousel/index.js:1151
-#: build/blocks/author-grid/index.js:1101
-#: build/blocks/author-list/index.js:1389
-#: build/blocks/author-profile/index.js:2179
-msgid "Author search results"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1452
-#: build/blocks/author-grid/index.js:1390
-#: build/blocks/author-list/index.js:1835
-#: build/blocks/author-profile/index.js:2698
-#: build/blocks/author-carousel/index.js:1165
-#: build/blocks/author-grid/index.js:1115
-#: build/blocks/author-list/index.js:1403
-#: build/blocks/author-profile/index.js:2193
-msgid "No matching authors found"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1457
-#: build/blocks/author-grid/index.js:1395
-#: build/blocks/author-list/index.js:1840
-#: build/blocks/author-profile/index.js:2703
-#: build/blocks/author-carousel/index.js:1174
-#: build/blocks/author-grid/index.js:1124
-#: build/blocks/author-list/index.js:1412
-#: build/blocks/author-profile/index.js:2202
-msgid "Or select from matching authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1460
-#: build/blocks/author-grid/index.js:1398
-#: build/blocks/author-list/index.js:1843
-#: build/blocks/author-profile/index.js:2706
-#: src/blocks/author-carousel/components/AuthorsSelector.js:93
-#: src/blocks/author-grid/components/AuthorsSelector.js:93
-#: src/js/components/AuthorPicker.js:197
-#: build/blocks/author-carousel/index.js:1177
-#: build/blocks/author-grid/index.js:1127
-#: build/blocks/author-list/index.js:1415
-#: build/blocks/author-profile/index.js:2205
-msgid "-- Select an author --"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1474
-#: build/blocks/author-carousel/index.js:1698
-#: build/blocks/author-grid/index.js:1412
-#: build/blocks/author-grid/index.js:1636
-#: build/blocks/author-list/index.js:1857
-#: build/blocks/author-list/index.js:2082
-#: build/blocks/author-profile/index.js:2720
-#: build/blocks/author-profile/index.js:2944
-#: src/js/components/AuthorPicker.js:216
-#: src/js/components/AuthorSelector.js:169
-#: build/blocks/author-carousel/index.js:1197
-#: build/blocks/author-carousel/index.js:1415
-#: build/blocks/author-grid/index.js:1147
-#: build/blocks/author-grid/index.js:1365
-#: build/blocks/author-list/index.js:1435
-#: build/blocks/author-list/index.js:1653
-#: build/blocks/author-profile/index.js:2225
-#: build/blocks/author-profile/index.js:2443
-msgid "No authors match your search criteria."
-msgstr ""
-
-#. translators: %1$d: filtered authors count, %2$d: total authors count
-#: build/blocks/author-carousel/index.js:1482
-#: build/blocks/author-carousel/index.js:1706
-#: build/blocks/author-grid/index.js:1420
-#: build/blocks/author-grid/index.js:1644
-#: build/blocks/author-list/index.js:1865
-#: build/blocks/author-list/index.js:2090
-#: build/blocks/author-profile/index.js:2728
-#: build/blocks/author-profile/index.js:2952
-#: src/js/components/AuthorPicker.js:224
-#: src/js/components/AuthorSelector.js:177
-#: build/blocks/author-carousel/index.js:1205
-#: build/blocks/author-carousel/index.js:1423
-#: build/blocks/author-grid/index.js:1155
-#: build/blocks/author-grid/index.js:1373
-#: build/blocks/author-list/index.js:1443
-#: build/blocks/author-list/index.js:1661
-#: build/blocks/author-profile/index.js:2233
-#: build/blocks/author-profile/index.js:2451
-msgid "Showing %1$d of %2$d authors"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1496
-#: build/blocks/author-grid/index.js:1434
-#: build/blocks/author-list/index.js:1879
-#: build/blocks/author-profile/index.js:2742
-#: src/js/components/AuthorPicker.js:242
-#: build/blocks/author-carousel/index.js:1225
-#: build/blocks/author-grid/index.js:1175
-#: build/blocks/author-list/index.js:1463
-#: build/blocks/author-profile/index.js:2253
-msgid "Clear All"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1568
-#: build/blocks/author-grid/index.js:1506
-#: build/blocks/author-list/index.js:1952
-#: build/blocks/author-profile/index.js:2814
-#: src/js/components/AuthorSelector.js:46
-#: build/blocks/author-carousel/index.js:1292
-#: build/blocks/author-grid/index.js:1242
-#: build/blocks/author-list/index.js:1530
-#: build/blocks/author-profile/index.js:2320
-msgid "Select an author to display in your content."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1586
-#: build/blocks/author-grid/index.js:1524
-#: build/blocks/author-list/index.js:1970
-#: build/blocks/author-profile/index.js:2832
-#: src/js/components/AuthorSelector.js:66
-#: build/blocks/author-carousel/index.js:1312
-#: build/blocks/author-grid/index.js:1262
-#: build/blocks/author-list/index.js:1550
-#: build/blocks/author-profile/index.js:2340
-msgid "Select an author..."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1672
-#: build/blocks/author-grid/index.js:1610
-#: build/blocks/author-list/index.js:2056
-#: build/blocks/author-profile/index.js:2918
-#: src/js/components/AuthorPicker.js:174
-#: src/js/components/AuthorSelector.js:136
-#: build/blocks/author-carousel/index.js:1382
-#: build/blocks/author-grid/index.js:1332
-#: build/blocks/author-list/index.js:1620
-#: build/blocks/author-profile/index.js:2410
-msgid "Search authors..."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1679
-#: build/blocks/author-grid/index.js:1617
-#: build/blocks/author-list/index.js:2063
-#: build/blocks/author-profile/index.js:2925
-#: src/js/components/AuthorPicker.js:184
-#: src/js/components/AuthorSelector.js:145
-#: build/blocks/author-carousel/index.js:1391
-#: build/blocks/author-grid/index.js:1341
-#: build/blocks/author-list/index.js:1629
-#: build/blocks/author-profile/index.js:2419
-msgid "Clear search"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1687
-#: build/blocks/author-grid/index.js:1625
-#: build/blocks/author-list/index.js:2071
-#: build/blocks/author-profile/index.js:2933
-#: src/js/components/AuthorPicker.js:194
-#: src/js/components/AuthorSelector.js:154
-#: build/blocks/author-carousel/index.js:1400
-#: build/blocks/author-grid/index.js:1350
-#: build/blocks/author-list/index.js:1638
-#: build/blocks/author-profile/index.js:2428
-msgid "Select Author"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1722
-#: build/blocks/author-grid/index.js:1660
-#: build/blocks/author-list/index.js:2106
-#: build/blocks/author-profile/index.js:2968
-#: src/js/components/AuthorSelector.js:198
-#: build/blocks/author-carousel/index.js:1444
-#: build/blocks/author-grid/index.js:1394
-#: build/blocks/author-list/index.js:1682
-#: build/blocks/author-profile/index.js:2472
-msgid "Reset"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1740
-#: build/blocks/author-grid/index.js:1678
-#: build/blocks/author-list/index.js:2124
-#: build/blocks/author-profile/index.js:2986
-#: src/js/components/AuthorSelector.js:211
-#: build/blocks/author-carousel/index.js:1457
-#: build/blocks/author-grid/index.js:1407
-#: build/blocks/author-list/index.js:1695
-#: build/blocks/author-profile/index.js:2485
-msgid "No Users Found"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1742
-#: build/blocks/author-grid/index.js:1680
-#: build/blocks/author-list/index.js:2126
-#: build/blocks/author-profile/index.js:2988
-#: src/js/components/AuthorSelector.js:212
-#: build/blocks/author-carousel/index.js:1458
-#: build/blocks/author-grid/index.js:1408
-#: build/blocks/author-list/index.js:1696
-#: build/blocks/author-profile/index.js:2486
-msgid "You need to create users with appropriate roles before you can use this block."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1749
-#: build/blocks/author-grid/index.js:1687
-#: build/blocks/author-list/index.js:2133
-#: build/blocks/author-profile/index.js:2995
-#: src/js/components/AuthorSelector.js:221
-#: build/blocks/author-carousel/index.js:1467
-#: build/blocks/author-grid/index.js:1417
-#: build/blocks/author-list/index.js:1705
-#: build/blocks/author-profile/index.js:2495
-msgid "Create New User"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1815
-#: build/blocks/author-grid/index.js:1753
-#: build/blocks/author-list/index.js:954
-#: build/blocks/author-list/index.js:2200
-#: build/blocks/author-profile/index.js:3061
-#: src/blocks/author-list/edit.js:296
-#: src/js/components/AuthorsListPreview.js:38
-#: build/blocks/author-carousel/index.js:1519
-#: build/blocks/author-grid/index.js:1469
-#: build/blocks/author-list/index.js:611
-#: build/blocks/author-list/index.js:1757
-#: build/blocks/author-profile/index.js:2547
-msgid "Author List"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1822
-#: build/blocks/author-grid/index.js:1760
-#: build/blocks/author-list/index.js:2207
-#: build/blocks/author-profile/index.js:3068
-#: src/js/components/AuthorsListPreview.js:47
-#: build/blocks/author-carousel/index.js:1528
-#: build/blocks/author-grid/index.js:1478
-#: build/blocks/author-list/index.js:1766
-#: build/blocks/author-profile/index.js:2556
-msgid "No authors available to display."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:1953
-#: build/blocks/author-grid/index.js:1891
-#: build/blocks/author-list/index.js:2339
-#: build/blocks/author-profile/index.js:3199
-#: src/js/components/BlockLayoutSelector.js:32
-#: build/blocks/author-carousel/index.js:1650
-#: build/blocks/author-grid/index.js:1600
-#: build/blocks/author-list/index.js:1888
-#: build/blocks/author-profile/index.js:2678
-msgid "Select Layout:"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:2010
-#: build/blocks/author-grid/index.js:1948
-#: build/blocks/author-list/index.js:2397
-#: build/blocks/author-profile/index.js:3256
-#: src/js/components/BlockStateDisplay.js:24
-#: build/blocks/author-carousel/index.js:1694
-#: build/blocks/author-grid/index.js:1644
-#: build/blocks/author-list/index.js:1932
-#: build/blocks/author-profile/index.js:2722
-msgid "No content to display"
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:2011
-#: build/blocks/author-grid/index.js:1949
-#: build/blocks/author-list/index.js:2398
-#: build/blocks/author-profile/index.js:3257
-#: src/js/components/BlockStateDisplay.js:25
-#: build/blocks/author-carousel/index.js:1695
-#: build/blocks/author-grid/index.js:1645
-#: build/blocks/author-list/index.js:1933
-#: build/blocks/author-profile/index.js:2723
-msgid "Loading..."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:2355
-#: build/blocks/author-grid/index.js:2293
-#: build/blocks/author-list/index.js:2747
-#: build/blocks/author-profile/index.js:3601
-#: src/js/hooks/useAuthorsList.js:104
-#: build/blocks/author-carousel/index.js:1957
-#: build/blocks/author-grid/index.js:1907
-#: build/blocks/author-list/index.js:2195
-#: build/blocks/author-profile/index.js:2985
-msgid "No authors found with the selected role."
-msgstr ""
-
-#: build/blocks/author-carousel/index.js:2357
-#: build/blocks/author-carousel/index.js:2365
-#: build/blocks/author-grid/index.js:2295
-#: build/blocks/author-grid/index.js:2303
-#: build/blocks/author-list/index.js:2749
-#: build/blocks/author-list/index.js:2757
-#: build/blocks/author-profile/index.js:3603
-#: build/blocks/author-profile/index.js:3611
-#: src/js/hooks/useAuthorsList.js:108
-#: src/js/hooks/useAuthorsList.js:118
-#: build/blocks/author-carousel/index.js:1961
-#: build/blocks/author-carousel/index.js:1971
-#: build/blocks/author-grid/index.js:1911
-#: build/blocks/author-grid/index.js:1921
-#: build/blocks/author-list/index.js:2199
-#: build/blocks/author-list/index.js:2209
-#: build/blocks/author-profile/index.js:2989
-#: build/blocks/author-profile/index.js:2999
-msgid "No authors found with the selected IDs."
-msgstr ""
-
-#: build/blocks/author-grid/index.js:529
-#: src/blocks/author-grid/edit.js:117
-#: build/blocks/author-grid/index.js:317
-msgid "Grid Settings"
-msgstr ""
-
-#: build/blocks/author-grid/index.js:531
-#: src/blocks/author-grid/edit.js:119
-#: build/blocks/author-grid/index.js:319
-msgid "Columns"
-msgstr ""
-
-#: build/blocks/author-grid/index.js:540
-#: src/blocks/author-grid/edit.js:127
-#: build/blocks/author-grid/index.js:327
-msgid "Item Spacing (px)"
-msgstr ""
-
-#: build/blocks/author-grid/index.js:650
-#: src/blocks/author-grid/edit.js:239
-#: build/blocks/author-grid/index.js:439
-msgid "Clear Authors"
-msgstr ""
-
-#: build/blocks/author-grid/index.js:657
-#: src/blocks/author-grid/edit.js:249
-#: build/blocks/author-grid/index.js:449
-msgid "Author Grid"
-msgstr ""
-
-#: build/blocks/author-grid/index.js:658
-#: src/blocks/author-grid/edit.js:250
-#: build/blocks/author-grid/index.js:450
-msgid "Select authors to display in a responsive grid layout."
-msgstr ""
-
-#: build/blocks/author-grid/index.js:661
-#: src/blocks/author-grid/components/AuthorsSelector.js:109
-#: src/blocks/author-grid/edit.js:253
-#: build/blocks/author-grid/index.js:453
-msgid "Add Author to Grid"
-msgstr ""
-
-#: build/blocks/author-list/index.js:518
-#: src/blocks/author-list/components/DisplayStyleSelector.js:25
-#: build/blocks/author-list/index.js:229
-msgid "Detailed"
-msgstr ""
-
-#: build/blocks/author-list/index.js:530
-#: src/blocks/author-list/components/DisplayStyleSelector.js:35
-#: build/blocks/author-list/index.js:239
-msgid "Display Style"
-msgstr ""
-
-#: build/blocks/author-list/index.js:591
-#: src/blocks/author-list/components/ListLayoutSelector.js:20
-#: build/blocks/author-list/index.js:280
-msgid "Unordered List"
-msgstr ""
-
-#: build/blocks/author-list/index.js:595
-#: src/blocks/author-list/components/ListLayoutSelector.js:25
-#: build/blocks/author-list/index.js:285
-msgid "Ordered List"
-msgstr ""
-
-#: build/blocks/author-list/index.js:607
-#: src/blocks/author-list/components/ListLayoutSelector.js:35
-#: build/blocks/author-list/index.js:295
-msgid "List Style"
-msgstr ""
-
-#: build/blocks/author-list/index.js:782
-#: src/blocks/author-list/edit.js:123
-#: build/blocks/author-list/index.js:438
-msgid "Convert to Grid"
-msgstr ""
-
-#: build/blocks/author-list/index.js:786
-#: src/blocks/author-list/edit.js:128
-#: build/blocks/author-list/index.js:443
-msgid "Refresh Authors"
-msgstr ""
-
-#: build/blocks/author-list/index.js:807
-#: src/blocks/author-list/edit.js:154
-#: build/blocks/author-list/index.js:469
-msgid "Maximum Authors to Display"
-msgstr ""
-
-#: build/blocks/author-list/index.js:815
-#: src/blocks/author-list/edit.js:160
-#: build/blocks/author-list/index.js:475
-msgid "Set to 0 to show all selected authors"
-msgstr ""
-
-#: build/blocks/author-list/index.js:818
-#: src/blocks/author-list/edit.js:168
-#: build/blocks/author-list/index.js:483
-msgid "List Settings"
-msgstr ""
-
-#: build/blocks/author-list/index.js:837
-#: src/blocks/author-list/edit.js:184
-#: build/blocks/author-list/index.js:499
-msgid "Show Dividers Between Items"
-msgstr ""
-
-#: build/blocks/author-list/index.js:845
-#: src/blocks/author-list/edit.js:191
-#: build/blocks/author-list/index.js:506
-msgid "Divider Color"
-msgstr ""
-
-#: build/blocks/author-list/index.js:860
-#: src/blocks/author-list/edit.js:207
-#: build/blocks/author-list/index.js:522
-msgid "Enable Hover Effect"
-msgstr ""
-
-#: build/blocks/author-list/index.js:866
-#: src/blocks/author-list/edit.js:213
-#: build/blocks/author-list/index.js:528
-msgid "Space Between Items"
-msgstr ""
-
-#: build/blocks/author-list/index.js:875
-#: src/blocks/author-list/edit.js:222
-#: build/blocks/author-list/index.js:537
-msgid "Block Padding"
-msgstr ""
-
-#: build/blocks/author-list/index.js:884
-#: src/blocks/author-list/edit.js:231
-#: build/blocks/author-list/index.js:546
-msgid "Item Padding"
-msgstr ""
-
-#: build/blocks/author-list/index.js:894
-#: src/blocks/author-list/edit.js:240
-#: build/blocks/author-list/index.js:555
-msgid "Colors"
-msgstr ""
-
-#: build/blocks/author-list/index.js:898
-#: build/blocks/author-profile/index.js:1213
-#: src/blocks/author-list/edit.js:242
-#: build/blocks/author-list/index.js:557
-#: build/blocks/author-profile/index.js:858
-msgid "Block Background"
-msgstr ""
-
-#: build/blocks/author-list/index.js:909
-#: src/blocks/author-list/edit.js:251
-#: build/blocks/author-list/index.js:566
-msgid "Item Background"
-msgstr ""
-
-#: build/blocks/author-list/index.js:919
-#: src/blocks/author-list/edit.js:260
-#: build/blocks/author-list/index.js:575
-msgid "Display Elements"
-msgstr ""
-
-#: build/blocks/author-list/index.js:927
-#: src/blocks/author-list/edit.js:268
-#: build/blocks/author-list/index.js:583
-msgid "Show Position/Role"
-msgstr ""
-
-#: build/blocks/author-list/index.js:933
-#: src/blocks/author-list/edit.js:274
-#: build/blocks/author-list/index.js:589
-msgid "Show Email"
-msgstr ""
-
-#: build/blocks/author-list/index.js:939
-#: src/blocks/author-list/edit.js:280
-#: build/blocks/author-list/index.js:595
-msgid "Show Description"
-msgstr ""
-
-#: build/blocks/author-list/index.js:955
-#: src/blocks/author-list/edit.js:297
-#: build/blocks/author-list/index.js:612
-msgid "Select authors to display in a customizable list format."
-msgstr ""
-
-#: build/blocks/author-list/index.js:958
-#: src/blocks/author-list/edit.js:303
-#: build/blocks/author-list/index.js:618
-msgid "Select Authors"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:590
-#: src/blocks/author-profile/components/MoreContent.js:23
-#: build/blocks/author-profile/index.js:323
-msgid "Additional Information"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:593
-#: src/blocks/author-profile/components/MoreContent.js:25
-#: build/blocks/author-profile/index.js:325
-msgid "Add supplementary content about this author"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:623
-#: src/blocks/author-profile/components/MoreContent.js:43
-#: build/blocks/author-profile/index.js:343
-msgid "Add additional author information such as biography, achievements, or contact details..."
-msgstr ""
-
-#: build/blocks/author-profile/index.js:677
-#: build/blocks/author-profile/index.js:381
-msgid "Additional CSS Class"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:679
-#: build/blocks/author-profile/index.js:383
-msgid "Custom CSS Class"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:684
-#: build/blocks/author-profile/index.js:386
-msgid "Add custom CSS class(es) to the block for additional styling."
-msgstr ""
-
-#: build/blocks/author-profile/index.js:687
-#: build/blocks/author-profile/index.js:390
-msgid "Custom CSS Variables"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:690
-#: build/blocks/author-profile/index.js:391
-msgid "These advanced settings generate CSS variables that can be used for custom styling with CSS."
-msgstr ""
-
-#: build/blocks/author-profile/index.js:692
-#: build/blocks/author-profile/index.js:394
-msgid "--author-profile-custom-var-1"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:698
-#: build/blocks/author-profile/index.js:400
-msgid "--author-profile-custom-var-2"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:766
-#: src/blocks/author-profile/edit.js:148
-#: build/blocks/author-profile/index.js:454
-msgid "Clear Selected Author"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:769
-#: build/blocks/author-profile/index.js:459
-msgid "Content Elements"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:795
-#: src/blocks/author-profile/edit.js:111
-#: build/blocks/author-profile/index.js:485
-msgid "Show More Section"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:911
-#: build/blocks/author-profile/index.js:605
-msgid "Block Style Preset"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:914
-#: build/blocks/author-profile/index.js:608
-msgid "Default"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:920
-#: build/blocks/author-profile/index.js:610
-msgid "Minimal"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:923
-#: build/blocks/author-profile/index.js:611
-msgid "Bordered"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:926
-#: build/blocks/author-profile/index.js:612
-msgid "Shadow"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:933
-#: build/blocks/author-profile/index.js:618
-msgid "Content Layout"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:936
-#: build/blocks/author-profile/index.js:621
-msgid "Image Left, Content Right"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:939
-#: build/blocks/author-profile/index.js:622
-msgid "Image Right, Content Left"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:942
-#: build/blocks/author-profile/index.js:623
-msgid "Image Top, Content Bottom"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:945
-#: build/blocks/author-profile/index.js:624
-msgid "Content Top, Image Bottom"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:952
-#: build/blocks/author-profile/index.js:630
-msgid "Container Width"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:957
-#: build/blocks/author-profile/index.js:633
-msgid "Example: 100%, 450px, 50rem, etc."
-msgstr ""
-
-#: build/blocks/author-profile/index.js:959
-#: build/blocks/author-profile/index.js:637
-msgid "Text Alignment"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:962
-#: build/blocks/author-profile/index.js:1284
-#: build/blocks/author-profile/index.js:1369
-#: build/blocks/author-profile/index.js:1435
-#: build/blocks/author-profile/index.js:1501
-#: build/blocks/author-profile/index.js:1595
-#: build/blocks/author-profile/index.js:640
-#: build/blocks/author-profile/index.js:923
-#: build/blocks/author-profile/index.js:985
-#: build/blocks/author-profile/index.js:1041
-#: build/blocks/author-profile/index.js:1096
-#: build/blocks/author-profile/index.js:1182
-msgid "Left"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:965
-#: build/blocks/author-profile/index.js:1287
-#: build/blocks/author-profile/index.js:1372
-#: build/blocks/author-profile/index.js:1438
-#: build/blocks/author-profile/index.js:1504
-#: build/blocks/author-profile/index.js:1598
-#: build/blocks/author-profile/index.js:641
-#: build/blocks/author-profile/index.js:924
-#: build/blocks/author-profile/index.js:986
-#: build/blocks/author-profile/index.js:1042
-#: build/blocks/author-profile/index.js:1097
-#: build/blocks/author-profile/index.js:1183
-msgid "Center"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:968
-#: build/blocks/author-profile/index.js:1290
-#: build/blocks/author-profile/index.js:1375
-#: build/blocks/author-profile/index.js:1441
-#: build/blocks/author-profile/index.js:1507
-#: build/blocks/author-profile/index.js:1601
-#: build/blocks/author-profile/index.js:642
-#: build/blocks/author-profile/index.js:925
-#: build/blocks/author-profile/index.js:987
-#: build/blocks/author-profile/index.js:1043
-#: build/blocks/author-profile/index.js:1098
-#: build/blocks/author-profile/index.js:1184
-msgid "Right"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:976
-#: build/blocks/author-profile/index.js:648
-msgid "Spacing"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:979
-#: src/blocks/author-profile/edit.js:119
-#: build/blocks/author-profile/index.js:650
-msgid "Padding"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1012
-#: build/blocks/author-profile/index.js:1297
-#: build/blocks/author-profile/index.js:1382
-#: build/blocks/author-profile/index.js:1451
-#: build/blocks/author-profile/index.js:1514
-#: build/blocks/author-profile/index.js:679
-#: build/blocks/author-profile/index.js:931
-#: build/blocks/author-profile/index.js:993
-#: build/blocks/author-profile/index.js:1050
-#: build/blocks/author-profile/index.js:1104
-msgid "Margin"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1031
-#: build/blocks/author-profile/index.js:690
-msgid "Section Spacing"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1041
-#: build/blocks/author-profile/index.js:699
-msgid "Border & Shadow"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1044
-#: build/blocks/author-profile/index.js:1264
-#: build/blocks/author-profile/index.js:701
-#: build/blocks/author-profile/index.js:902
-msgid "Border Width"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1061
-#: build/blocks/author-profile/index.js:1255
-#: build/blocks/author-profile/index.js:719
-#: build/blocks/author-profile/index.js:892
-msgid "Border Radius"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1070
-#: build/blocks/author-profile/index.js:728
-msgid "Box Shadow"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1077
-#: build/blocks/author-profile/index.js:735
-msgid "Shadow Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1085
-#: build/blocks/author-profile/index.js:743
-msgid "Horizontal Offset"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1093
-#: build/blocks/author-profile/index.js:751
-msgid "Vertical Offset"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1101
-#: build/blocks/author-profile/index.js:759
-msgid "Blur Radius"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1109
-#: build/blocks/author-profile/index.js:767
-msgid "Spread"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1224
-#: build/blocks/author-profile/index.js:868
-msgid "Avatar"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1227
-#: build/blocks/author-profile/index.js:870
-msgid "Size"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1236
-#: build/blocks/author-profile/index.js:879
-msgid "Shape"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1239
-#: build/blocks/author-profile/index.js:882
-msgid "Circle"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1242
-#: build/blocks/author-profile/index.js:883
-msgid "Square"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1245
-#: build/blocks/author-profile/index.js:884
-msgid "Rounded"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1248
-#: build/blocks/author-profile/index.js:885
-msgid "Custom"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1281
-#: build/blocks/author-profile/index.js:1366
-#: build/blocks/author-profile/index.js:1432
-#: build/blocks/author-profile/index.js:1498
-#: build/blocks/author-profile/index.js:1592
-#: build/blocks/author-profile/index.js:920
-#: build/blocks/author-profile/index.js:982
-#: build/blocks/author-profile/index.js:1038
-#: build/blocks/author-profile/index.js:1093
-#: build/blocks/author-profile/index.js:1179
-msgid "Alignment"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1306
-#: build/blocks/author-profile/index.js:940
-msgid "Author Name"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1309
-#: build/blocks/author-profile/index.js:1394
-#: build/blocks/author-profile/index.js:1463
-#: build/blocks/author-profile/index.js:941
-#: build/blocks/author-profile/index.js:1003
-#: build/blocks/author-profile/index.js:1061
-msgid "Text Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1317
-#: build/blocks/author-profile/index.js:1402
-#: build/blocks/author-profile/index.js:1471
-#: build/blocks/author-profile/index.js:949
-#: build/blocks/author-profile/index.js:1011
-#: build/blocks/author-profile/index.js:1069
-msgid "Font Size"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1325
-#: build/blocks/author-profile/index.js:957
-msgid "Font Weight"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1328
-#: build/blocks/author-profile/index.js:1422
-#: build/blocks/author-profile/index.js:1482
-#: build/blocks/author-profile/index.js:960
-#: build/blocks/author-profile/index.js:1031
-#: build/blocks/author-profile/index.js:1080
-msgid "Normal"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1331
-#: build/blocks/author-profile/index.js:961
-msgid "Bold"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1334
-#: build/blocks/author-profile/index.js:962
-msgid "Light"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1337
-#: build/blocks/author-profile/index.js:963
-msgid "Semi-Bold"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1340
-#: build/blocks/author-profile/index.js:964
-msgid "Extra Bold"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1347
-#: build/blocks/author-profile/index.js:970
-msgid "Text Transform"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1350
-#: build/blocks/author-profile/index.js:973
-msgid "None"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1353
-#: build/blocks/author-profile/index.js:974
-msgid "Uppercase"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1356
-#: build/blocks/author-profile/index.js:975
-msgid "Lowercase"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1359
-#: build/blocks/author-profile/index.js:976
-msgid "Capitalize"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1391
-#: build/blocks/author-profile/index.js:1002
-msgid "Description"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1410
-#: build/blocks/author-profile/index.js:1019
-msgid "Line Height"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1419
-#: build/blocks/author-profile/index.js:1479
-#: build/blocks/author-profile/index.js:1028
-#: build/blocks/author-profile/index.js:1077
-msgid "Font Style"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1425
-#: build/blocks/author-profile/index.js:1485
-#: build/blocks/author-profile/index.js:1032
-#: build/blocks/author-profile/index.js:1081
-msgid "Italic"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1444
-#: build/blocks/author-profile/index.js:1044
-msgid "Justify"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1460
-#: build/blocks/author-profile/index.js:1060
-msgid "Meta Information"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1492
-#: build/blocks/author-profile/index.js:1087
-msgid "Bold Text"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1523
-#: build/blocks/author-profile/index.js:1114
-msgid "Email Link Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1531
-#: build/blocks/author-profile/index.js:1121
-msgid "Email Link Hover Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1541
-#: build/blocks/author-profile/index.js:1133
-msgid "Social Icons"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1544
-#: build/blocks/author-profile/index.js:1134
-msgid "Icon Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1552
-#: build/blocks/author-profile/index.js:1141
-msgid "Icon Hover Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1568
-#: build/blocks/author-profile/index.js:1155
-msgid "Background Hover Color"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1576
-#: build/blocks/author-profile/index.js:1163
-msgid "Icon Size"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1584
-#: build/blocks/author-profile/index.js:1171
-msgid "Icon Spacing"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1609
-#: build/blocks/author-profile/index.js:1192
-msgid "More Content Section"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1620
-#: build/blocks/author-profile/index.js:1201
-msgid "Top Padding"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1904
-#: build/blocks/author-profile/index.js:1447
-msgid "Content"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1908
-#: build/blocks/author-profile/index.js:1452
-msgid "Style"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1912
-#: build/blocks/author-profile/index.js:1457
-msgid "Layout"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1916
-#: build/blocks/author-profile/index.js:1462
-msgid "Advanced"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1948
-#: src/blocks/author-profile/edit.js:158
-#: build/blocks/author-profile/index.js:1506
-msgid "Select an Author"
-msgstr ""
-
-#: build/blocks/author-profile/index.js:1949
-#: src/blocks/author-profile/edit.js:159
-#: build/blocks/author-profile/index.js:1507
-msgid "Choose an author to display their profile."
-msgstr ""
-
-#: src/blocks/author-carousel/components/AuthorsSelector.js:55
+#: src/blocks/author-carousel/components/AuthorsSelector.js:67
 msgid "Select Authors for Carousel"
 msgstr ""
 
-#: src/blocks/author-carousel/components/AuthorsSelector.js:60
-#: src/blocks/author-grid/components/AuthorsSelector.js:60
-#: src/js/components/AuthorPicker.js:141
+#: src/blocks/author-carousel/components/AuthorsSelector.js:73
+#: src/blocks/author-grid/components/AuthorsSelector.js:71
+#: src/js/components/AuthorPicker.js:115
+#: src/js/components/MultiAuthorSelector.js:104
 msgid "Selected Authors:"
 msgstr ""
 
-#: src/blocks/author-grid/components/AuthorsSelector.js:55
+#: src/blocks/author-carousel/components/AuthorsSelector.js:93
+#: src/blocks/author-grid/components/AuthorsSelector.js:91
+#: src/js/components/AuthorPicker.js:135
+#: src/js/components/MultiAuthorSelector.js:126
+msgid "Remove"
+msgstr ""
+
+#: src/blocks/author-carousel/components/AuthorsSelector.js:108
+#: src/blocks/author-grid/components/AuthorsSelector.js:106
+#: src/blocks/author-profile/edit.js:320
+#: src/js/components/AuthorPicker.js:89
+#: src/js/components/MultiAuthorSelector.js:26
+msgid "Add Author"
+msgstr ""
+
+#: src/blocks/author-carousel/components/AuthorsSelector.js:112
+#: src/blocks/author-grid/components/AuthorsSelector.js:110
+msgid "-- Select an author --"
+msgstr ""
+
+#: src/blocks/author-carousel/components/AuthorsSelector.js:133
+#: src/blocks/author-carousel/edit.js:373
+msgid "Add Author to Carousel"
+msgstr ""
+
+#: src/blocks/author-carousel/components/CarouselLayoutSelector.js:25
+#: src/blocks/author-grid/components/GridLayoutSelector.js:25
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:58
+msgid "Card"
+msgstr ""
+
+#: src/blocks/author-carousel/components/CarouselLayoutSelector.js:30
+#: src/blocks/author-grid/components/GridLayoutSelector.js:30
+#: src/blocks/author-list/components/DisplayStyleSelector.js:22
+msgid "Compact"
+msgstr ""
+
+#: src/blocks/author-carousel/components/CarouselLayoutSelector.js:35
+#: src/blocks/author-grid/components/GridLayoutSelector.js:35
+msgid "Centered"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:92
+#: src/blocks/author-grid/edit.js:93
+#: src/blocks/author-grid/edit.js:313
+#: src/blocks/author-list/edit.js:150
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:37
+msgid "Author Selection"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:101
+#: src/blocks/author-grid/edit.js:102
+#: src/blocks/author-list/edit.js:159
+msgid "Filter by Role"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:105
+#: src/blocks/author-grid/edit.js:106
+#: src/blocks/author-list/edit.js:88
+msgid "All Roles"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:109
+#: src/blocks/author-grid/edit.js:110
+msgid "Administrator"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:116
+#: src/blocks/author-grid/edit.js:117
+msgid "Editor"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:120
+#: src/blocks/author-grid/edit.js:121
+msgid "Author"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:124
+#: src/blocks/author-grid/edit.js:125
+msgid "Contributor"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:137
+#: src/blocks/author-grid/edit.js:138
+msgid "Maximum Authors"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:149
+msgid "Carousel Settings"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:152
+msgid "Slides to Show"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:163
+msgid "Slide Spacing (px)"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:177
+msgid "Autoplay"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:184
+msgid "Autoplay Speed (ms)"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:200
+msgid "Show Dots"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:206
+msgid "Show Arrows"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:214
+msgid "Infinite Loop"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:221
+#: src/blocks/author-grid/edit.js:171
+msgid "Display Settings"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:224
+#: src/blocks/author-grid/edit.js:174
+#: src/blocks/author-list/edit.js:325
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:52
+msgid "Show Author Image"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:232
+#: src/blocks/author-grid/edit.js:182
+msgid "Show Author Position"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:243
+#: src/blocks/author-grid/edit.js:193
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:58
+msgid "Show Author Email"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:251
+#: src/blocks/author-grid/edit.js:201
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:64
+msgid "Show Author Description"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:262
+#: src/blocks/author-grid/edit.js:212
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:75
+msgid "Show Member Since Date"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:275
+#: src/blocks/author-grid/edit.js:225
+#: src/blocks/author-list/edit.js:360
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:96
+msgid "Show Social Links"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:284
+#: src/blocks/author-grid/edit.js:234
+msgid "Style Settings"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:287
+#: src/blocks/author-grid/edit.js:237
+msgid "Item Padding (px)"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:296
+#: src/blocks/author-grid/edit.js:246
+msgid "Enable Shadow"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:304
+#: src/blocks/author-grid/edit.js:254
+#: src/blocks/author-list/edit.js:233
+msgid "Enable Rounded Corners"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:315
+#: src/blocks/author-grid/edit.js:265
+msgid "Enable Border"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:324
+#: src/blocks/author-grid/edit.js:274
+msgid "Border Width (px)"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:340
+#: src/blocks/author-grid/edit.js:290
+msgid "Color Settings"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:347
+#: src/blocks/author-grid/edit.js:297
+#: src/blocks/author-profile/components/inspector/StylePanel.js:80
+#: src/blocks/author-profile/components/inspector/StylePanel.js:548
+msgid "Background Color"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:356
+#: src/blocks/author-grid/edit.js:306
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:218
+#: src/blocks/author-profile/components/inspector/StylePanel.js:159
+#: src/blocks/author-profile/components/inspector/StylePanel.js:624
+msgid "Border Color"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:366
+msgid "Author Carousel"
+msgstr ""
+
+#: src/blocks/author-carousel/edit.js:367
+msgid "Select authors to display in an interactive carousel."
+msgstr ""
+
+#: src/blocks/author-grid/components/AuthorsSelector.js:66
 msgid "Select Authors for Grid"
+msgstr ""
+
+#: src/blocks/author-grid/components/AuthorsSelector.js:131
+#: src/blocks/author-grid/edit.js:338
+msgid "Add Author to Grid"
+msgstr ""
+
+#: src/blocks/author-grid/edit.js:149
+msgid "Grid Settings"
+msgstr ""
+
+#: src/blocks/author-grid/edit.js:151
+msgid "Columns"
+msgstr ""
+
+#: src/blocks/author-grid/edit.js:159
+msgid "Item Spacing (px)"
+msgstr ""
+
+#: src/blocks/author-grid/edit.js:321
+msgid "Clear Authors"
+msgstr ""
+
+#: src/blocks/author-grid/edit.js:331
+msgid "Author Grid"
+msgstr ""
+
+#: src/blocks/author-grid/edit.js:332
+msgid "Select authors to display in a responsive grid layout."
+msgstr ""
+
+#: src/blocks/author-list/components/DisplayStyleSelector.js:27
+msgid "Detailed"
+msgstr ""
+
+#: src/blocks/author-list/components/DisplayStyleSelector.js:37
+msgid "Display Style"
+msgstr ""
+
+#: src/blocks/author-list/components/ListLayoutSelector.js:22
+msgid "Unordered List"
+msgstr ""
+
+#: src/blocks/author-list/components/ListLayoutSelector.js:27
+msgid "Ordered List"
+msgstr ""
+
+#: src/blocks/author-list/components/ListLayoutSelector.js:37
+msgid "List Style"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:135
+msgid "Convert to Grid"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:140
+msgid "Refresh Authors"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:168
+msgid "Maximum Authors to Display"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:179
+msgid "Set to 0 to show all selected authors"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:187
+msgid "List Settings"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:207
+msgid "Show Dividers Between Items"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:220
+msgid "Divider Color"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:244
+msgid "Enable Hover Effect"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:257
+msgid "Space Between Items"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:271
+msgid "Block Padding"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:282
+msgid "Item Padding"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:293
+msgid "Colors"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:296
+#: src/blocks/author-profile/components/inspector/StylePanel.js:78
+msgid "Block Background"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:309
+msgid "Item Background"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:322
+msgid "Display Elements"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:333
+msgid "Show Position/Role"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:344
+msgid "Show Email"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:352
+msgid "Show Description"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:372
+msgid "Author List"
+msgstr ""
+
+#: src/blocks/author-list/edit.js:373
+msgid "Select authors to display in a customizable list format."
+msgstr ""
+
+#: src/blocks/author-list/edit.js:379
+#: src/js/components/MultiAuthorSelector.js:25
+msgid "Select Authors"
 msgstr ""
 
 #: src/blocks/author-profile/components/AuthorSelector.js:20
@@ -1801,53 +587,461 @@ msgstr ""
 msgid "Select an author to display their profile in your content."
 msgstr ""
 
-#: src/js/components/AuthorBlockPlaceholder.js:53
-msgid "Placeholder for author block"
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:21
+msgid "Additional CSS Class"
 msgstr ""
 
-#: build/blocks/author-carousel/block.json
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:24
+msgid "Custom CSS Class"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:29
+msgid "Add custom CSS class(es) to the block for additional styling."
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:37
+msgid "Custom CSS Variables"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:41
+msgid "These advanced settings generate CSS variables that can be used for custom styling with CSS."
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:48
+msgid "--author-profile-custom-var-1"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/AdvancedPanel.js:57
+msgid "--author-profile-custom-var-2"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:45
+msgid "Clear Selected Author"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:50
+msgid "Content Elements"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/ContentPanel.js:88
+msgid "Show More Section"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:48
+msgid "Layout Options"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:50
+msgid "Block Style Preset"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:54
+msgid "Default"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:62
+msgid "Minimal"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:66
+msgid "Bordered"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:70
+msgid "Shadow"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:78
+msgid "Content Layout"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:82
+msgid "Image Left, Content Right"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:89
+msgid "Image Right, Content Left"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:96
+msgid "Image Top, Content Bottom"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:103
+msgid "Content Top, Image Bottom"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:114
+msgid "Container Width"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:119
+msgid "Example: 100%, 450px, 50rem, etc."
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:126
+msgid "Text Alignment"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:130
+#: src/blocks/author-profile/components/inspector/StylePanel.js:175
+#: src/blocks/author-profile/components/inspector/StylePanel.js:284
+#: src/blocks/author-profile/components/inspector/StylePanel.js:370
+#: src/blocks/author-profile/components/inspector/StylePanel.js:456
+#: src/blocks/author-profile/components/inspector/StylePanel.js:599
+msgid "Left"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:134
+#: src/blocks/author-profile/components/inspector/StylePanel.js:179
+#: src/blocks/author-profile/components/inspector/StylePanel.js:288
+#: src/blocks/author-profile/components/inspector/StylePanel.js:374
+#: src/blocks/author-profile/components/inspector/StylePanel.js:460
+#: src/blocks/author-profile/components/inspector/StylePanel.js:603
+msgid "Center"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:138
+#: src/blocks/author-profile/components/inspector/StylePanel.js:183
+#: src/blocks/author-profile/components/inspector/StylePanel.js:292
+#: src/blocks/author-profile/components/inspector/StylePanel.js:378
+#: src/blocks/author-profile/components/inspector/StylePanel.js:464
+#: src/blocks/author-profile/components/inspector/StylePanel.js:607
+msgid "Right"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:147
+msgid "Spacing"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:151
+msgid "Padding"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:181
+#: src/blocks/author-profile/components/inspector/StylePanel.js:193
+#: src/blocks/author-profile/components/inspector/StylePanel.js:302
+#: src/blocks/author-profile/components/inspector/StylePanel.js:392
+#: src/blocks/author-profile/components/inspector/StylePanel.js:474
+msgid "Margin"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:192
+msgid "Section Spacing"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:204
+msgid "Border & Shadow"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:208
+#: src/blocks/author-profile/components/inspector/StylePanel.js:147
+msgid "Border Width"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:230
+#: src/blocks/author-profile/components/inspector/StylePanel.js:135
+msgid "Border Radius"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:239
+msgid "Box Shadow"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:247
+msgid "Shadow Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:258
+msgid "Horizontal Offset"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:271
+msgid "Vertical Offset"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:284
+msgid "Blur Radius"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/LayoutPanel.js:294
+msgid "Spread"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:93
+msgid "Avatar"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:97
+msgid "Size"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:108
+msgid "Shape"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:112
+msgid "Circle"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:116
+msgid "Square"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:120
+msgid "Rounded"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:124
+msgid "Custom"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:171
+#: src/blocks/author-profile/components/inspector/StylePanel.js:280
+#: src/blocks/author-profile/components/inspector/StylePanel.js:366
+#: src/blocks/author-profile/components/inspector/StylePanel.js:452
+#: src/blocks/author-profile/components/inspector/StylePanel.js:595
+msgid "Alignment"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:205
+msgid "Author Name"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:208
+#: src/blocks/author-profile/components/inspector/StylePanel.js:316
+#: src/blocks/author-profile/components/inspector/StylePanel.js:409
+msgid "Text Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:218
+#: src/blocks/author-profile/components/inspector/StylePanel.js:327
+#: src/blocks/author-profile/components/inspector/StylePanel.js:420
+msgid "Font Size"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:226
+msgid "Font Weight"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:230
+#: src/blocks/author-profile/components/inspector/StylePanel.js:352
+#: src/blocks/author-profile/components/inspector/StylePanel.js:432
+msgid "Normal"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:234
+msgid "Bold"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:238
+msgid "Light"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:242
+msgid "Semi-Bold"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:246
+msgid "Extra Bold"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:254
+msgid "Text Transform"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:258
+msgid "None"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:262
+msgid "Uppercase"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:266
+msgid "Lowercase"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:270
+msgid "Capitalize"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:312
+msgid "Description"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:337
+msgid "Line Height"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:348
+#: src/blocks/author-profile/components/inspector/StylePanel.js:428
+msgid "Font Style"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:356
+#: src/blocks/author-profile/components/inspector/StylePanel.js:436
+msgid "Italic"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:382
+msgid "Justify"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:405
+msgid "Meta Information"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:446
+msgid "Bold Text"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:487
+msgid "Email Link Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:501
+msgid "Email Link Hover Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:522
+msgid "Social Icons"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:526
+msgid "Icon Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:537
+msgid "Icon Hover Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:559
+msgid "Background Hover Color"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:575
+msgid "Icon Size"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:585
+msgid "Icon Spacing"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:620
+msgid "More Content Section"
+msgstr ""
+
+#: src/blocks/author-profile/components/inspector/StylePanel.js:635
+msgid "Top Padding"
+msgstr ""
+
+#: src/blocks/author-profile/components/MoreContent.js:30
+msgid "Additional Information"
+msgstr ""
+
+#: src/blocks/author-profile/components/MoreContent.js:36
+msgid "Add supplementary content about this author"
+msgstr ""
+
+#: src/blocks/author-profile/components/MoreContent.js:57
+msgid "Add additional author information such as biography, achievements, or contact details…"
+msgstr ""
+
+#: src/blocks/author-profile/edit.js:254
+msgid "Content"
+msgstr ""
+
+#: src/blocks/author-profile/edit.js:259
+msgid "Style"
+msgstr ""
+
+#: src/blocks/author-profile/edit.js:264
+msgid "Layout"
+msgstr ""
+
+#: src/blocks/author-profile/edit.js:269
+msgid "Advanced"
+msgstr ""
+
+#: src/blocks/author-profile/edit.js:313
+msgid "Select an Author"
+msgstr ""
+
+#: src/blocks/author-profile/edit.js:314
+msgid "Choose an author to display their profile."
+msgstr ""
+
+#: src/js/components/AuthorBlockPlaceholder.js:19
+msgid "Author Block"
+msgstr ""
+
+#: src/js/components/AuthorBlockPlaceholder.js:20
+msgid "Configure your author block settings."
+msgstr ""
+
+#: src/js/components/AuthorBlockPlaceholder.js:37
+msgid "Loading…"
+msgstr ""
+
+#: src/js/components/AuthorPicker.js:38
+#: src/js/components/MultiAuthorSelector.js:37
+msgid "Select an author…"
+msgstr ""
+
+#: src/js/components/AuthorPicker.js:97
+msgid "Maximum number of authors reached."
+msgstr ""
+
+#: src/js/components/AuthorPicker.js:106
+#: src/js/components/MultiAuthorSelector.js:140
+msgid "All available authors have been selected."
+msgstr ""
+
+#: src/js/components/AuthorPicker.js:145
+#: src/js/components/MultiAuthorSelector.js:80
+msgid "No authors available."
+msgstr ""
+
+#: src/js/components/AuthorsListPreview.js:18
+msgid "No authors to display."
+msgstr ""
+
 #: src/blocks/author-carousel/block.json
 msgctxt "block title"
 msgid "Author Carousel"
 msgstr ""
 
-#: build/blocks/author-carousel/block.json
 #: src/blocks/author-carousel/block.json
 msgctxt "block description"
 msgid "Display multiple authors in an interactive carousel with customizable options."
 msgstr ""
 
-#: build/blocks/author-grid/block.json
 #: src/blocks/author-grid/block.json
 msgctxt "block title"
 msgid "Author Grid"
 msgstr ""
 
-#: build/blocks/author-grid/block.json
 #: src/blocks/author-grid/block.json
 msgctxt "block description"
 msgid "Display multiple authors in a responsive grid layout with customizable options."
 msgstr ""
 
-#: build/blocks/author-list/block.json
 #: src/blocks/author-list/block.json
 msgctxt "block title"
 msgid "Author List"
 msgstr ""
 
-#: build/blocks/author-list/block.json
 #: src/blocks/author-list/block.json
 msgctxt "block description"
 msgid "Display a list of authors with customizable layouts."
 msgstr ""
 
-#: build/blocks/author-profile/block.json
 #: src/blocks/author-profile/block.json
 msgctxt "block title"
 msgid "Author Profile"
 msgstr ""
 
-#: build/blocks/author-profile/block.json
 #: src/blocks/author-profile/block.json
 msgctxt "block description"
 msgid "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type."

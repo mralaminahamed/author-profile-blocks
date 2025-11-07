@@ -90,10 +90,14 @@
 }
 
 // Author description styles
-@mixin author-description {
+@mixin author-description($lines: false) {
   margin: v.$spacing-xs 0;
   line-height: v.$line-height-base;
   color: v.$text-color-secondary;
+
+  @if $lines {
+    @include truncate-lines($lines);
+  }
 }
 
 // Author meta styles
@@ -152,4 +156,386 @@
       border-bottom: none;
     }
   }
+}
+
+// Editor placeholder styles
+@mixin editor-placeholder {
+  padding: v.$spacing-md;
+  text-align: center;
+  border: 1px dashed v.$border-color;
+  border-radius: v.$border-radius-sm;
+  background-color: rgba(v.$primary-color, 0.02);
+}
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == large {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == medium {
+    @media (min-width: 576px) {
+      @content;
+    }
+  } @else if $breakpoint == small {
+    @media (max-width: 575px) {
+      @content;
+    }
+  }
+}
+
+// Color picker section styles
+@mixin color-picker-section {
+  margin-bottom: v.$spacing-md;
+
+  .components-base-control__label {
+    display: block;
+    margin-bottom: v.$spacing-sm;
+    font-weight: 500;
+  }
+}
+
+// List layout styles
+@mixin list-layout {
+  .wp-block-author-profile-blocks-author-list {
+    @include list-styles;
+
+    .apb-author-item {
+      display: flex;
+      align-items: center;
+      gap: v.$spacing-md;
+      padding: v.$spacing-md 0;
+      border-bottom: 1px solid v.$border-color;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .apb-author-image {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .apb-author-content {
+        flex: 1;
+        min-width: 0;
+
+        .apb-author-name {
+          @include author-name;
+          margin-bottom: v.$spacing-xs;
+        }
+
+        .apb-author-description {
+          @include author-description;
+        }
+
+        .apb-author-meta {
+          @include author-meta;
+        }
+      }
+    }
+  }
+}
+
+// Author position styles
+@mixin author-position {
+  display: block;
+  margin: v.$spacing-xs 0;
+  font-size: 0.9em;
+  font-weight: v.$font-weight-normal;
+  color: v.$text-color-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Carousel slide styles
+@mixin carousel-slide {
+  position: relative;
+  padding: 0 v.$spacing-sm;
+
+  .apb-author-item {
+    @include card;
+    text-align: center;
+    transition: v.$transition-base;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: v.$shadow-md;
+    }
+
+    .apb-author-image {
+      @include author-image;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto v.$spacing-md;
+    }
+
+    .apb-author-name {
+      @include author-name;
+      margin-bottom: v.$spacing-xs;
+    }
+
+    .apb-author-description {
+      @include author-description;
+      @include truncate-lines(3);
+    }
+
+    .apb-author-meta {
+      @include author-meta;
+    }
+  }
+}
+
+// Author picker wrapper styles
+@mixin author-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-md;
+  margin-bottom: v.$spacing-md;
+
+  .apb-author-selector-dropdown {
+    flex: 1;
+  }
+}
+
+// Reset list styles
+@mixin reset-list-styles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// List dividers
+@mixin list-dividers {
+  li {
+    border-bottom: 1px solid v.$border-color;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// Author email styles
+@mixin author-email {
+  display: block;
+  margin: v.$spacing-xs 0;
+  font-size: 0.9em;
+  color: v.$text-color-secondary;
+
+  &:hover {
+    color: v.$primary-color;
+  }
+}
+
+// Card layout styles
+@mixin card-layout {
+  @include card;
+  text-align: center;
+  transition: v.$transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: v.$shadow-md;
+  }
+}
+
+// Editor toolbar styles
+@mixin editor-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: v.$spacing-sm;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid v.$border-color;
+}
+
+// Hover transition styles
+@mixin hover-transition {
+  transition: v.$transition-base;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: v.$shadow-sm;
+  }
+}
+
+// Author registered date styles
+@mixin author-registered-date {
+  display: block;
+  margin: v.$spacing-xs 0;
+  font-size: 0.85em;
+  color: v.$muted-color;
+  font-style: italic;
+}
+
+// Compact layout styles
+@mixin compact-layout {
+  padding: v.$spacing-sm;
+  margin-bottom: v.$spacing-md;
+  background: v.$white;
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-sm;
+  transition: v.$transition-base;
+
+  &:hover {
+    box-shadow: v.$shadow-sm;
+  }
+}
+
+// Rounded corners styles
+@mixin rounded-corners {
+  border-radius: v.$border-radius-md;
+  overflow: hidden;
+}
+
+// Social profiles center styles
+@mixin social-profiles-center {
+  display: flex;
+  justify-content: center;
+  gap: v.$spacing-md;
+  margin: v.$spacing-md 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: v.$light-gray;
+    color: v.$text-color;
+    transition: v.$transition-base;
+
+    &:hover {
+      background-color: v.$primary-color;
+      color: v.$white;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Centered layout styles
+@mixin centered-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+// Social profiles start styles
+@mixin social-profiles-start {
+  display: flex;
+  justify-content: flex-start;
+  gap: v.$spacing-md;
+  margin: v.$spacing-md 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: v.$light-gray;
+    color: v.$text-color;
+    transition: v.$transition-base;
+
+    &:hover {
+      background-color: v.$primary-color;
+      color: v.$white;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Social profiles end styles
+@mixin social-profiles-end {
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$spacing-md;
+  margin: v.$spacing-md 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: v.$light-gray;
+    color: v.$text-color;
+    transition: v.$transition-base;
+
+    &:hover {
+      background-color: v.$primary-color;
+      color: v.$white;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Shadow effect styles
+@mixin shadow-effect {
+  box-shadow: v.$shadow-sm;
+  transition: v.$transition-base;
+
+  &:hover {
+    box-shadow: v.$shadow-md;
+    transform: translateY(-2px);
+  }
+}
+
+// Border effect styles
+@mixin border-effect {
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-sm;
+  transition: v.$transition-base;
+
+  &:hover {
+    border-color: v.$primary-color;
+  }
+}
+
+// Error message styles
+@mixin error-message {
+  padding: v.$spacing-sm;
+  background-color: rgba(v.$error, 0.1);
+  border: 1px solid v.$error;
+  border-radius: v.$border-radius-sm;
+  color: v.$error;
+  font-size: 0.9em;
+}
+
+// Carousel loading styles
+@mixin carousel-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: v.$spacing-xl;
+  color: v.$text-color-secondary;
+
+  &::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 2px solid v.$border-color;
+    border-top: 2px solid v.$primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -15,47 +15,56 @@
     "php": ">=7.4"
   },
   "autoload": {
+    "classmap": [
+      "class-author-profile-blocks.php"
+    ],
     "psr-4": {
-      "APBL\\AuthorProfileBlocks\\": "includes/"
+      "AuthorProfileBlocks\\": "includes/"
     }
   },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "^3.7",
-    "wp-coding-standards/wpcs": "^3.0",
-    "phpstan/phpstan": "^1.10",
-    "szepeviktor/phpstan-wordpress": "^1.3",
-    "php-stubs/wordpress-stubs": "^6.7",
-    "phpcompatibility/php-compatibility": "^9.3"
-  },
-  "scripts": {
-    "phpcs:check": "phpcs --standard=phpcs.xml.dist",
-    "phpcs:fix": "phpcbf --standard=phpcs.xml.dist",
-    "phpcs:check:review": "phpcs ./includes --standard=phpcs.plugin-review.xml.dist",
-    "phpcs:fix:review": "phpcbf ./includes --standard=phpcs.plugin-review.xml.dist",
-    "phpstan": "phpstan analyse --memory-limit=2G --no-progress",
-    "wp:make-pot": "wp i18n make-pot ./ ./languages/author-profile-blocks.pot --domain=author-profile-blocks --package-name=\"Author Profile Blocks\"",
-    "wp:make-po": "cp ./languages/author-profile-blocks.pot ./languages/author-profile-blocks.po",
-    "wp:make-mo": "wp i18n make-mo ./languages/author-profile-blocks.po",
-    "wp:make-json": "wp i18n make-json ./languages/author-profile-blocks.po --no-purge",
-    "generate-md": "wp-readme-to-md",
-    "release": [
-      "yarn build",
-      "@phpcs:check",
-      "@phpstan",
-      "@wp:make-pot",
-      "@wp:make-po",
-      "@wp:make-mo",
-      "@wp:make-json",
-      "composer update --no-dev",
-      "wp-readme-to-md",
-      "yarn plugin-zip"
-    ]
-  },
-  "config": {
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "composer/installers": true,
-      "phpstan/extension-installer": true
-    }
-  }
+   "require-dev": {
+     "phpunit/phpunit": "^9.6",
+     "wp-phpunit/wp-phpunit": "dev-master",
+     "yoast/phpunit-polyfills": "^1.0",
+     "phpstan/phpstan": "^2.1",
+     "squizlabs/php_codesniffer": "^3.13",
+     "wp-coding-standards/wpcs": "^3.2",
+     "phpcompatibility/php-compatibility": "^9.3",
+     "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+     "php-stubs/wordpress-stubs": "^6.4",
+      "szepeviktor/phpstan-wordpress": "^2.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+   "scripts": {
+     "phpcs": [
+       "Composer\\Config::disableProcessTimeout",
+       "phpcs --standard=phpcs.xml"
+     ],
+     "phpcbf": [
+       "Composer\\Config::disableProcessTimeout",
+       "phpcbf --standard=phpcs.xml"
+     ],
+     "phpcs:plugin-review": [
+       "Composer\\Config::disableProcessTimeout",
+       "phpcs --standard=phpcs.plugin-review.xml"
+     ],
+     "phpcbf:plugin-review": [
+       "Composer\\Config::disableProcessTimeout",
+       "phpcbf --standard=phpcs.plugin-review.xml"
+     ],
+     "phpstan": "phpstan analyse --memory-limit 2G",
+     "test": "phpunit",
+     "test:coverage": "phpunit --coverage-html coverage",
+     "makepot": "wp i18n make-pot . languages/author-profile-blocks.pot --exclude=node_modules,vendor,drafts,docs,build,release,tests",
+     "zip": "composer update --no-dev && cd .. && zip -r author-profile-blocks.zip author-profile-blocks/ -x 'author-profile-blocks/.git/*' 'author-profile-blocks/.github/*' 'author-profile-blocks/node_modules/*' 'author-profile-blocks/tests/*' 'author-profile-blocks/src/*' 'author-profile-blocks/resources/*' 'author-profile-blocks/*.lock' 'author-profile-blocks/*.zip' 'author-profile-blocks/.*' && mv author-profile-blocks.zip author-profile-blocks/",
+     "zip:wporg": "composer update --no-dev && cd .. && zip -r author-profile-blocks.zip author-profile-blocks/ -x 'author-profile-blocks/.git/*' 'author-profile-blocks/.github/*' 'author-profile-blocks/node_modules/*' 'author-profile-blocks/tests/*' 'author-profile-blocks/src/*' 'author-profile-blocks/resources/*' 'author-profile-blocks/*.lock' 'author-profile-blocks/*.zip' 'author-profile-blocks/.*' && mv author-profile-blocks.zip author-profile-blocks/"
+   },
+   "config": {
+     "allow-plugins": {
+       "dealerdirect/phpcodesniffer-composer-installer": true
+     },
+     "optimize-autoloader": true,
+     "classmap-authoritative": true
+   }
 }

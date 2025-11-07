@@ -155,11 +155,19 @@
   }
 
   // Responsive adjustments
-  @media (max-width: c.$breakpoint-medium) {
+  @media (max-width: 576px) {
 
     .apb-author-list-detailed {
+      flex-direction: column;
 
-      @include c.mobile-stack();
+      .apb-author-list-left {
+        flex: none;
+        margin-bottom: c.$spacing-md;
+      }
+
+      .apb-author-list-right {
+        flex: none;
+      }
     }
   }
 }

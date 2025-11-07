@@ -26,8 +26,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a WordPress Gutenberg plugin that provides four block types for displaying author profiles using WordPress users (not custom post types).
 
 ### Core Structure
-- **Namespace**: `APBL\AuthorProfileBlocks`
-- **Main Plugin**: `includes/Plugin.php` - Singleton pattern, registers all services
+- **Namespace**: `AuthorProfileBlocks`
+- **Main Plugin**: `class-author-profile-blocks.php` - Singleton pattern, registers all services
 - **Block Registry**: `includes/Blocks/Block_Registry.php` - Manages block registration
 - **User Meta Provider**: `includes/Core/User_Meta_Provider.php` - Extends WP user profiles
 

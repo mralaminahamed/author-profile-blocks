@@ -1,18 +1,19 @@
 <?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
 /**
- * Plugin class
+ * Main Plugin Class
  *
  * @package AuthorProfileBlocks
  */
 
-namespace APBL\AuthorProfileBlocks;
-
-use APBL\AuthorProfileBlocks\Blocks\Block_Registry;
-use APBL\AuthorProfileBlocks\Core\Base;
-use APBL\AuthorProfileBlocks\Core\User_Meta_Provider;
-use APBL\AuthorProfileBlocks\Services\Author_Profile_Service;
-use WP_User;
+use AuthorProfileBlocks\Admin\Assets;
+use AuthorProfileBlocks\Admin\Menu;
+use AuthorProfileBlocks\Blocks\Block_Registry;
+use AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Frontend\Assets as FrontendAssets;
+use AuthorProfileBlocks\Services\Author_Profile_Service;
+use AuthorProfileBlocks\Settings\PluginLinks;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,43 +21,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Main plugin class.
+ * Main plugin class for Author Profile Blocks.
  */
-class Plugin extends Base {
+class Author_Profile_Blocks extends Base {
 	/**
 	 * Plugin instance.
 	 *
-	 * @var Plugin|null
+	 * @var Author_Profile_Blocks|null
 	 */
-	private static ?Plugin $instance = null;
-
-	/**
-	 * Block registry instance.
-	 *
-	 * @var Block_Registry
-	 */
-	private Block_Registry $block_registry;
-
-	/**
-	 * User meta provider instance.
-	 *
-	 * @var User_Meta_Provider
-	 */
-	private User_Meta_Provider $user_meta_provider;
-
-	/**
-	 * Author profile service instance.
-	 *
-	 * @var Author_Profile_Service
-	 */
-	private Author_Profile_Service $author_profile_service;
+	private static ?Author_Profile_Blocks $instance = null;
 
 	/**
 	 * Get plugin instance.
 	 *
-	 * @return Plugin Plugin instance.
+	 * @return Author_Profile_Blocks Plugin instance.
 	 */
-	public static function get_instance(): Plugin {
+	public static function get_instance(): Author_Profile_Blocks {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
@@ -72,6 +52,10 @@ class Plugin extends Base {
 		$this->register_services();
 
 		add_action( 'init', array( $this, 'register_meta_field' ), 0 );
+
+		// Register activation/deactivation hooks.
+		register_activation_hook( APBL_PLUGIN_FILE, array( $this, 'activate' ) );
+		register_deactivation_hook( APBL_PLUGIN_FILE, array( $this, 'deactivate' ) );
 	}
 
 	/**
@@ -148,10 +132,24 @@ class Plugin extends Base {
 	 * @return void
 	 */
 	public function init(): void {
+		// Initialize settings components.
+		new PluginLinks();
+
+		// Initialize blocks.
+		$this->block_registry->init();
+
+		// Initialize frontend components.
+		new FrontendAssets();
+
+		// Initialize admin components.
+		if ( is_admin() ) {
+			new Menu();
+			new Assets();
+		}
+
 		// Initialize service components.
 		$this->user_meta_provider->init();
 		$this->author_profile_service->init();
-		$this->block_registry->init();
 
 		// Register hooks in groups for better organization.
 		$this->register_user_profile_hooks();
@@ -172,6 +170,91 @@ class Plugin extends Base {
 		 * @param self $plugin The Plugin instance.
 		 */
 		do_action( 'author_profile_blocks_init', $this );
+	}
+
+	/**
+	 * Plugin activation.
+	 *
+	 * @return void
+	 */
+	public function activate(): void {
+		// Set default options.
+		$this->set_default_options();
+
+		// Flush rewrite rules.
+		flush_rewrite_rules();
+
+		// Set activation flag.
+		update_option( 'author_profile_blocks_activated', true );
+
+		do_action( 'author_profile_blocks_activated' );
+	}
+
+	/**
+	 * Plugin deactivation.
+	 *
+	 * @return void
+	 */
+	public function deactivate(): void {
+		// Clear cached data.
+		delete_transient( 'author_profile_blocks_temp_data' );
+
+		// Flush rewrite rules.
+		flush_rewrite_rules();
+
+		do_action( 'author_profile_blocks_deactivated' );
+	}
+
+	/**
+	 * Set default plugin options.
+	 *
+	 * @return void
+	 */
+	private function set_default_options(): void {
+		if ( ! get_option( 'author_profile_blocks_settings' ) ) {
+			$default_settings = array(
+				'enable_blocks' => true,
+			);
+			update_option( 'author_profile_blocks_settings', $default_settings );
+		}
+	}
+
+	/**
+	 * Get plugin settings.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function get_settings(): array {
+		$settings = get_option( 'author_profile_blocks_settings', array() );
+
+		/**
+		 * Filter the plugin settings.
+		 *
+		 * @param array $settings The plugin settings array.
+		 */
+		return apply_filters( 'author_profile_blocks_settings', $settings );
+	}
+
+	/**
+	 * Get specific setting.
+	 *
+	 * @param string $key           Setting key.
+	 * @param mixed  $default_value Default value.
+	 *
+	 * @return mixed
+	 */
+	public function get_setting( string $key, $default_value = '' ) {
+		$settings = $this->get_settings();
+		$value    = $settings[ $key ] ?? $default_value;
+
+		/**
+		 * Filter the specific plugin setting value.
+		 *
+		 * @param mixed  $value         The setting value.
+		 * @param string $key           The setting key.
+		 * @param mixed  $default_value The default value.
+		 */
+		return apply_filters( 'author_profile_blocks_setting', $value, $key, $default_value );
 	}
 
 	/**

@@ -4,6 +4,12 @@
 import { registerBlockType } from '@wordpress/blocks';
 
 /**
+ * Slick carousel styles
+ */
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+/**
  * Internal dependencies
  */
 import './style.scss';

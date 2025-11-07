@@ -1,0 +1,107 @@
+---
+name: 📚 Documentation Issue
+description: Report issues with documentation, guides, or help content
+title: "[Docs]: "
+labels: ["documentation"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 📚 Documentation Issue
+
+        Help us improve our documentation! Report issues, suggest improvements, or request new content.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation is this about?
+      options:
+        - README.md
+        - User Guide
+        - Developer Documentation
+        - Block Documentation
+        - Installation Guide
+        - Troubleshooting Guide
+        - API Documentation
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What type of documentation issue is this?
+      options:
+        - Outdated information
+        - Missing information
+        - Incorrect information
+        - Unclear explanation
+        - Broken links
+        - Poor formatting
+        - Translation issue
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the documentation issue
+      placeholder: What's wrong with the documentation?
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Where is this documentation located?
+      placeholder: e.g., README.md#installation, docs/user-guide.md, etc.
+
+  - type: textarea
+    id: current-text
+    attributes:
+      label: Current Text (if applicable)
+      description: Quote the current problematic text
+      placeholder: Copy the text that needs to be changed
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested Fix
+      description: How should this be fixed?
+      placeholder: Provide your suggested improvement or correction
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this documentation issue?
+      options:
+        - Minor (typo, formatting)
+        - Moderate (unclear explanation)
+        - Major (missing critical information)
+        - Critical (dangerous/incorrect instructions)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any additional information or context
+      placeholder: Screenshots, links, or additional details
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please check the following
+      options:
+        - label: I have searched existing documentation issues to make sure this is not a duplicate
+          required: true
+        - label: I am willing to help improve the documentation if needed

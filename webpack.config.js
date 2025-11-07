@@ -1,7 +1,14 @@
-const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+/**
+ * External dependencies
+ */
 const path = require('path');
 
-module.exports = {
+/**
+ * WordPress dependencies
+ */
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+
+const updatedConfig = {
 	...defaultConfig,
 
 	entry: {
@@ -26,10 +33,10 @@ module.exports = {
 		...defaultConfig.resolve,
 		alias: {
 			...defaultConfig.resolve?.alias,
-			// Add aliases for easier imports if needed
-			'@scss': path.resolve(process.cwd(), 'src/scss'),
-			'@blocks': path.resolve(process.cwd(), 'src/blocks'),
-			'@common': path.resolve(process.cwd(), 'src/scss/common'),
+			// Path alias for src directory
+			'@': path.resolve(process.cwd(), 'src'),
 		},
 	},
 };
+
+module.exports = updatedConfig;

@@ -23,25 +23,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define plugin constants.
 define( 'APBL_VERSION', '1.0.0' );
-define( 'APBL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'APBL_PLUGIN_FILE', __FILE__ );
+define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'APBL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'APBL_PLUGIN_DIR', __DIR__ );
 
+// Load Composer autoloader for PSR-4 classes
 if ( ! file_exists( APBL_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	return;
 }
 
-// Autoload classes.
 require_once APBL_PLUGIN_DIR . 'vendor/autoload.php';
 
 /**
- * Get the plugin instance.
+ * Get main plugin instance
  *
- * @return APBL\AuthorProfileBlocks\Plugin The plugin instance.
+ * @since 1.0.0
+ * @return Author_Profile_Blocks Plugin instance.
  */
-function apbl(): APBL\AuthorProfileBlocks\Plugin {
-	return APBL\AuthorProfileBlocks\Plugin::get_instance();
+function author_profile_blocks(): Author_Profile_Blocks {
+	return Author_Profile_Blocks::get_instance();
 }
 
-// Take off.
-apbl()->init();
+// Initialize plugin
+author_profile_blocks()->init();

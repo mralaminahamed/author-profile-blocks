@@ -5,7 +5,7 @@
 // Export all services
 export * from './services';
 
-// Export all hooks  
+// Export all hooks
 export * from './hooks';
 
 // Export all components

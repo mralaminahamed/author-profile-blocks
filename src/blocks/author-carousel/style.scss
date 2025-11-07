@@ -5,9 +5,7 @@
 // Import common styles
 @use '../../scss/common' as c;
 
-// Import Slick slider base styles
-@import 'slick-carousel/slick/slick.css';
-@import 'slick-carousel/slick/slick-theme.css';
+// Slick slider styles are imported in the JavaScript file
 
 // Carousel container
 .wp-block-author-profile-blocks-author-carousel {

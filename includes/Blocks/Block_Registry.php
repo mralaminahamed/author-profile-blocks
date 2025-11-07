@@ -6,9 +6,9 @@
  * @package AuthorProfileBlocks
  */
 
-namespace APBL\AuthorProfileBlocks\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
-use APBL\AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Core\Base;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

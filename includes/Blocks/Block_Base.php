@@ -6,10 +6,10 @@
  * @package AuthorProfileBlocks
  */
 
-namespace APBL\AuthorProfileBlocks\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
-use APBL\AuthorProfileBlocks\Core\Base;
-use APBL\AuthorProfileBlocks\Core\Registerable;
+use AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Core\Registerable;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
