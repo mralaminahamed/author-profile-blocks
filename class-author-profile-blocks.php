@@ -254,9 +254,6 @@ class Author_Profile_Blocks {
 		// Initialize blocks.
 		$this->initialize_blocks();
 
-		// Initialize frontend components.
-		new FrontendAssets();
-
 		// Initialize admin components.
 		if ( is_admin() ) {
 			new PluginLinks();

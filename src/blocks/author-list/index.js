@@ -19,7 +19,7 @@ import './view';
 /**
  * Register the block.
  */
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	...metadata,
 	icon,
 	example: {
@@ -40,4 +40,4 @@ registerBlockType(metadata.name, {
 	 * Save function is handled on the PHP side, so we return null here.
 	 */
 	save: () => null,
-});
+} );

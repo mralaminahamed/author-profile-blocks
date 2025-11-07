@@ -14,33 +14,33 @@ import { fetchAuthors, fetchAuthorById } from '../services/api';
  * @param {number} initialAuthorId Initial author ID if available
  * @return {Object} Authors data and functions
  */
-const useAuthors = (initialAuthorId = 0) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [authors, setAuthors] = useState([]);
-	const [selectedAuthor, setSelectedAuthor] = useState(null);
+const useAuthors = ( initialAuthorId = 0 ) => {
+	const [ isLoading, setIsLoading ] = useState( false );
+	const [ authors, setAuthors ] = useState( [] );
+	const [ selectedAuthor, setSelectedAuthor ] = useState( null );
 
 	// Load all authors on mount
-	useEffect(() => {
+	useEffect( () => {
 		const loadAuthors = async () => {
-			setIsLoading(true);
+			setIsLoading( true );
 			try {
 				const authorsData = await fetchAuthors();
-				setAuthors(authorsData);
+				setAuthors( authorsData );
 
 				// Find selected author if we have an initialAuthorId
-				if (initialAuthorId) {
+				if ( initialAuthorId ) {
 					const selected = authorsData.find(
-						(author) => author.id === initialAuthorId
+						( author ) => author.id === initialAuthorId,
 					);
-					setSelectedAuthor(selected);
+					setSelectedAuthor( selected );
 				}
 			} finally {
-				setIsLoading(false);
+				setIsLoading( false );
 			}
 		};
 
 		void loadAuthors();
-	}, [initialAuthorId]);
+	}, [ initialAuthorId ] );
 
 	return {
 		authors,

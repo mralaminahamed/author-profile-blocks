@@ -10,11 +10,11 @@ import ServerSideRender from '@wordpress/server-side-render';
  * @param {Object} props.attributes Block attributes
  * @return {JSX.Element} Component to render
  */
-const AuthorGridPreview = ({ attributes }) => {
+const AuthorGridPreview = ( { attributes } ) => {
 	return (
 		<ServerSideRender
 			block="author-profile-blocks/author-grid"
-			attributes={attributes}
+			attributes={ attributes }
 		/>
 	);
 };

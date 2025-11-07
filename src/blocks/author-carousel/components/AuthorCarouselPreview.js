@@ -11,40 +11,40 @@ import { __ } from '@wordpress/i18n';
  * @param {Object} props.attributes Block attributes
  * @return {JSX.Element} Component to render
  */
-const AuthorCarouselPreview = ({ attributes }) => {
+const AuthorCarouselPreview = ( { attributes } ) => {
 	// Generate a simple placeholder in the editor instead of trying to initialize Slick
 	// The real carousel will be rendered on the frontend
-	if (attributes.authorIds && attributes.authorIds.length > 0) {
+	if ( attributes.authorIds && attributes.authorIds.length > 0 ) {
 		const slidesToShow = attributes.slidesToShow || 3;
 
 		return (
 			<div className="apb-carousel-placeholder">
-				{Array.from({
-					length: Math.min(slidesToShow, attributes.authorIds.length),
-				}).map((_, index) => (
-					<div key={index} className="apb-carousel-slide-placeholder">
-						{attributes.showImage && (
+				{ Array.from( {
+					length: Math.min( slidesToShow, attributes.authorIds.length ),
+				} ).map( ( _, index ) => (
+					<div key={ index } className="apb-carousel-slide-placeholder">
+						{ attributes.showImage && (
 							<div className="apb-placeholder-image"></div>
-						)}
+						) }
 						<div className="apb-placeholder-line apb-placeholder-title"></div>
-						{attributes.showPosition && (
+						{ attributes.showPosition && (
 							<div className="apb-placeholder-line"></div>
-						)}
-						{attributes.showDescription && (
+						) }
+						{ attributes.showDescription && (
 							<>
 								<div className="apb-placeholder-line apb-placeholder-text"></div>
 								<div className="apb-placeholder-line apb-placeholder-text"></div>
 								<div className="apb-placeholder-line apb-placeholder-text"></div>
 							</>
-						)}
+						) }
 					</div>
-				))}
+				) ) }
 				<div className="apb-editor-note">
 					<em>
-						{__(
+						{ __(
 							'Carousel preview - will be fully functional on the frontend',
-							'author-profile-blocks'
-						)}
+							'author-profile-blocks',
+						) }
 					</em>
 				</div>
 			</div>
@@ -54,7 +54,7 @@ const AuthorCarouselPreview = ({ attributes }) => {
 	return (
 		<ServerSideRender
 			block="author-profile-blocks/author-carousel"
-			attributes={attributes}
+			attributes={ attributes }
 		/>
 	);
 };

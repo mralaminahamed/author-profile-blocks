@@ -36,12 +36,12 @@ import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './componen
  * @param          props.insertBlocks
  * @return {JSX.Element} Element to render.
  */
-export default function Edit({
+export default function Edit( {
 	attributes,
 	setAttributes,
 	clientId,
 	insertBlocks,
-}) {
+} ) {
 	const {
 		authorIds,
 		authorRole,
@@ -103,59 +103,59 @@ export default function Edit({
 	const { authors, isLoading, error } = useAuthors(
 		authorIds,
 		authorRole,
-		maxAuthors
+		maxAuthors,
 	);
 
 	// Get roles for dropdown
-	const authorRoles = useSelect((select) => {
-		const { getRoles } = select('core');
+	const authorRoles = useSelect( ( select ) => {
+		const { getRoles } = select( 'core' );
 		return getRoles ? getRoles() : [];
-	}, []);
+	}, [] );
 
 	// Format roles for dropdown
 	const roleOptions = [
-		{ label: __('All Roles', 'author-profile-blocks'), value: '' },
+		{ label: __( 'All Roles', 'author-profile-blocks' ), value: '' },
 	];
 
-	if (authorRoles && authorRoles.length) {
-		authorRoles.forEach((role) => {
-			roleOptions.push({ label: role.name, value: role.id });
-		});
+	if ( authorRoles && authorRoles.length ) {
+		authorRoles.forEach( ( role ) => {
+			roleOptions.push( { label: role.name, value: role.id } );
+		} );
 	}
 
 	// Load Google Font if selected
-	useEffect(() => {
-		if (googleFont && googleFont !== '') {
-			loadGoogleFont(googleFont);
+	useEffect( () => {
+		if ( googleFont && googleFont !== '' ) {
+			loadGoogleFont( googleFont );
 		}
-	}, [googleFont]);
+	}, [ googleFont ] );
 
-	const loadGoogleFont = (fontName) => {
-		if (!fontName) {
+	const loadGoogleFont = ( fontName ) => {
+		if ( ! fontName ) {
 			return;
 		}
 
 		// Remove existing Google Fonts link if present
-		const existingLink = document.querySelector('link[href*="fonts.googleapis.com"]');
-		if (existingLink) {
+		const existingLink = document.querySelector( 'link[href*="fonts.googleapis.com"]' );
+		if ( existingLink ) {
 			existingLink.remove();
 		}
 
 		// Add new Google Font
-		const link = document.createElement('link');
-		link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@300;400;500;600;700&display=swap`;
+		const link = document.createElement( 'link' );
+		link.href = `https://fonts.googleapis.com/css2?family=${ encodeURIComponent( fontName ) }:wght@300;400;500;600;700&display=swap`;
 		link.rel = 'stylesheet';
-		document.head.appendChild(link);
+		document.head.appendChild( link );
 	};
 
 	// Handle author IDs change
-	const handleAuthorIdsChange = (newAuthorIds) => {
-		setAttributes({ authorIds: newAuthorIds });
+	const handleAuthorIdsChange = ( newAuthorIds ) => {
+		setAttributes( { authorIds: newAuthorIds } );
 	};
 
 	// Convert to Grid block
 	const convertToGrid = () => {
-		const gridBlock = createBlock('author-profile-blocks/author-grid', {
+		const gridBlock = createBlock( 'author-profile-blocks/author-grid', {
 			authorIds,
 			authorRole,
 			maxAuthors,
@@ -168,94 +168,94 @@ export default function Edit({
 			showEmail,
 			showDescription,
 			showSocial,
-		});
+		} );
 
-		insertBlocks(gridBlock, undefined, clientId, true);
+		insertBlocks( gridBlock, undefined, clientId, true );
 	};
 
 	// Block props with enhanced styling
-	const blockProps = useBlockProps({
+	const blockProps = useBlockProps( {
 		className: [
 			layoutPreset ? layoutPreset : '',
-			animationType && animationType !== 'none' ? `has-${animationType}-animation` : '',
-			hoverEffect && hoverEffect !== 'none' ? `has-${hoverEffect}-hover` : '',
+			animationType && animationType !== 'none' ? `has-${ animationType }-animation` : '',
+			hoverEffect && hoverEffect !== 'none' ? `has-${ hoverEffect }-hover` : '',
 			customCssClass ? customCssClass : '',
-			googleFont ? `has-${googleFont.toLowerCase().replace(/\s+/g, '-')}-font` : '',
-		].filter(Boolean).join(' '),
+			googleFont ? `has-${ googleFont.toLowerCase().replace( /\s+/g, '-' ) }-font` : '',
+		].filter( Boolean ).join( ' ' ),
 		style: {
 			'--author-list-margin': margin || '',
-			'--author-list-section-spacing': sectionSpacing ? `${sectionSpacing}px` : '',
+			'--author-list-section-spacing': sectionSpacing ? `${ sectionSpacing }px` : '',
 			'--author-list-container-width': containerWidth || '',
 			'--author-list-custom-var-1': customVar1 || '',
 			'--author-list-custom-var-2': customVar2 || '',
 		},
-	});
+	} );
 
 	return (
-		<div {...blockProps}>
+		<div { ...blockProps }>
 			<BlockControls>
 				<AlignmentToolbar
-					value={textAlign}
-					onChange={(value) => setAttributes({ textAlign: value })}
+					value={ textAlign }
+					onChange={ ( value ) => setAttributes( { textAlign: value } ) }
 				/>
 				<ToolbarGroup>
 					<ToolbarButton
-						icon={grid}
-						label={__('Convert to Grid', 'author-profile-blocks')}
-						onClick={convertToGrid}
+						icon={ grid }
+						label={ __( 'Convert to Grid', 'author-profile-blocks' ) }
+						onClick={ convertToGrid }
 					/>
 					<ToolbarButton
-						icon={update}
-						label={__('Refresh Authors', 'author-profile-blocks')}
-						onClick={() => {
+						icon={ update }
+						label={ __( 'Refresh Authors', 'author-profile-blocks' ) }
+						onClick={ () => {
 							// Refreshing happens automatically through the hook system
-						}}
+						} }
 					/>
 				</ToolbarGroup>
 			</BlockControls>
 
 			<InspectorControls>
 				<ContentPanel
-					attributes={attributes}
-					setAttributes={setAttributes}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
 
 				<LayoutPanel
-					attributes={attributes}
-					setAttributes={setAttributes}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
 
 				<StylePanel
-					attributes={attributes}
-					setAttributes={setAttributes}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
 
 				<AdvancedPanel
-					attributes={attributes}
-					setAttributes={setAttributes}
+					attributes={ attributes }
+					setAttributes={ setAttributes }
 				/>
 			</InspectorControls>
 
-			{authorIds.length === 0 ? (
+			{ authorIds.length === 0 ? (
 				<AuthorBlockPlaceholder
-					icon={list}
-					title={__('Author List', 'author-profile-blocks')}
-					instructions={__(
+					icon={ list }
+					title={ __( 'Author List', 'author-profile-blocks' ) }
+					instructions={ __(
 						'Select authors to display in a customizable list format.',
-						'author-profile-blocks'
-					)}
-					selectedAuthorIds={authorIds}
-					onChange={handleAuthorIdsChange}
-					buttonLabel={__('Select Authors', 'author-profile-blocks')}
+						'author-profile-blocks',
+					) }
+					selectedAuthorIds={ authorIds }
+					onChange={ handleAuthorIdsChange }
+					buttonLabel={ __( 'Select Authors', 'author-profile-blocks' ) }
 				/>
 			) : (
 				<AuthorListPreview
-					isLoading={isLoading}
-					authors={authors}
-					attributes={attributes}
-					error={error}
+					isLoading={ isLoading }
+					authors={ authors }
+					attributes={ attributes }
+					error={ error }
 				/>
-			)}
+			) }
 		</div>
 	);
 }

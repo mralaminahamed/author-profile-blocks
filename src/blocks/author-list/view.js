@@ -7,32 +7,32 @@
 /**
  * Initialize frontend functionality when DOM is ready.
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener( 'DOMContentLoaded', () => {
 	initAuthorListBlocks();
-});
+} );
 
 /**
  * Initialize all Author List blocks on the page.
  */
 function initAuthorListBlocks() {
 	const authorListBlocks = document.querySelectorAll(
-		'.wp-block-author-profile-blocks-author-list'
+		'.wp-block-author-profile-blocks-author-list',
 	);
 
-	if (!authorListBlocks.length) {
+	if ( ! authorListBlocks.length ) {
 		return;
 	}
 
-	authorListBlocks.forEach((block) => {
+	authorListBlocks.forEach( ( block ) => {
 		// Initialize hover effects if present
-		const hoverItems = block.querySelectorAll('.has-hover-effect');
-		if (hoverItems.length) {
-			initHoverEffects(hoverItems);
+		const hoverItems = block.querySelectorAll( '.has-hover-effect' );
+		if ( hoverItems.length ) {
+			initHoverEffects( hoverItems );
 		}
 
 		// Initialize any interactive elements
-		initInteractiveElements(block);
-	});
+		initInteractiveElements( block );
+	} );
 }
 
 /**
@@ -40,18 +40,18 @@ function initAuthorListBlocks() {
  *
  * @param {NodeList} items List items with hover effects.
  */
-function initHoverEffects(items) {
-	items.forEach((item) => {
-		item.addEventListener('mouseenter', () => {
+function initHoverEffects( items ) {
+	items.forEach( ( item ) => {
+		item.addEventListener( 'mouseenter', () => {
 			// Add any additional hover effect classes or attributes
-			item.classList.add('is-hovered');
-		});
+			item.classList.add( 'is-hovered' );
+		} );
 
-		item.addEventListener('mouseleave', () => {
+		item.addEventListener( 'mouseleave', () => {
 			// Remove hover effect classes or attributes
-			item.classList.remove('is-hovered');
-		});
-	});
+			item.classList.remove( 'is-hovered' );
+		} );
+	} );
 }
 
 /**
@@ -59,25 +59,25 @@ function initHoverEffects(items) {
  *
  * @param {Element} block The Author List block element.
  */
-function initInteractiveElements(block) {
+function initInteractiveElements( block ) {
 	// Initialize social link interactions
-	const socialLinks = block.querySelectorAll('.apbl-social-item a');
-	if (socialLinks.length) {
-		socialLinks.forEach((link) => {
+	const socialLinks = block.querySelectorAll( '.apbl-social-item a' );
+	if ( socialLinks.length ) {
+		socialLinks.forEach( ( link ) => {
 			// Open in new window
-			link.setAttribute('target', '_blank');
-			link.setAttribute('rel', 'noopener noreferrer');
+			link.setAttribute( 'target', '_blank' );
+			link.setAttribute( 'rel', 'noopener noreferrer' );
 
-			link.addEventListener('click', (e) => {
+			link.addEventListener( 'click', ( e ) => {
 				// Track social clicks if analytics is available
-				if (typeof window.apbTrackEvent === 'function') {
+				if ( typeof window.apbTrackEvent === 'function' ) {
 					const network = link
-						.closest('.apbl-social-item')
-						.className.split('apbl-social-')[1];
-					window.apbTrackEvent('social_click', { network });
+						.closest( '.apbl-social-item' )
+						.className.split( 'apbl-social-' )[ 1 ];
+					window.apbTrackEvent( 'social_click', { network } );
 				}
-			});
-		});
+			} );
+		} );
 	}
 
 	// Add any other interactive element initializations here

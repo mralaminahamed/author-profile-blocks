@@ -17,134 +17,134 @@ import { useState } from '@wordpress/element';
  * @param {string}   props.buttonText      Text for the add button (e.g., "Add Author to Grid")
  * @return {JSX.Element} Component to render
  */
-const MultiAuthorSelector = ({
+const MultiAuthorSelector = ( {
 	authors,
 	selectedIds = [],
 	onSelectAuthors,
 	isLoading = false,
-	title = __('Select Authors', 'author-profile-blocks'),
-	buttonText = __('Add Author', 'author-profile-blocks'),
-}) => {
-	const [authorId, setAuthorId] = useState('');
+	title = __( 'Select Authors', 'author-profile-blocks' ),
+	buttonText = __( 'Add Author', 'author-profile-blocks' ),
+} ) => {
+	const [ authorId, setAuthorId ] = useState( '' );
 
 	// Filter out already selected authors
 	const availableAuthors = authors.filter(
-		(author) => !selectedIds.includes(author.id)
+		( author ) => ! selectedIds.includes( author.id ),
 	);
 
 	// Prepare options for select control
 	const authorOptions = [
-		{ label: __('Select an author…', 'author-profile-blocks'), value: '' },
-		...availableAuthors.map((author) => ({
+		{ label: __( 'Select an author…', 'author-profile-blocks' ), value: '' },
+		...availableAuthors.map( ( author ) => ( {
 			label: author.name,
 			value: author.id.toString(),
-		})),
+		} ) ),
 	];
 
 	// Handle adding a new author
 	const handleAddAuthor = () => {
-		if (authorId) {
-			const newSelectedIds = [...selectedIds, parseInt(authorId)];
-			onSelectAuthors(newSelectedIds);
-			setAuthorId('');
+		if ( authorId ) {
+			const newSelectedIds = [ ...selectedIds, parseInt( authorId ) ];
+			onSelectAuthors( newSelectedIds );
+			setAuthorId( '' );
 		}
 	};
 
 	// Handle removing an author
-	const handleRemoveAuthor = (authorIdToRemove) => {
+	const handleRemoveAuthor = ( authorIdToRemove ) => {
 		const newSelectedIds = selectedIds.filter(
-			(id) => id !== authorIdToRemove
+			( id ) => id !== authorIdToRemove,
 		);
-		onSelectAuthors(newSelectedIds);
+		onSelectAuthors( newSelectedIds );
 	};
 
 	// Get selected authors data for display
 	const selectedAuthors = selectedIds
-		.map((id) => authors.find((author) => author.id === id))
-		.filter(Boolean);
+		.map( ( id ) => authors.find( ( author ) => author.id === id ) )
+		.filter( Boolean );
 
-	if (isLoading) {
+	if ( isLoading ) {
 		return (
 			<div className="apbl-authors-selector">
 				<Spinner />
-				<p>{__('Loading authors…', 'author-profile-blocks')}</p>
+				<p>{ __( 'Loading authors…', 'author-profile-blocks' ) }</p>
 			</div>
 		);
 	}
 
 	return (
 		<div className="apbl-authors-selector">
-			<h3>{title}</h3>
+			<h3>{ title }</h3>
 
-			{authors.length === 0 ? (
-				<p>{__('No authors available.', 'author-profile-blocks')}</p>
+			{ authors.length === 0 ? (
+				<p>{ __( 'No authors available.', 'author-profile-blocks' ) }</p>
 			) : (
 				<>
 					<div className="apbl-author-select-controls">
 						<SelectControl
-							value={authorId}
-							options={authorOptions}
-							onChange={setAuthorId}
-							disabled={availableAuthors.length === 0}
+							value={ authorId }
+							options={ authorOptions }
+							onChange={ setAuthorId }
+							disabled={ availableAuthors.length === 0 }
 						/>
 						<Button
 							variant="secondary"
-							onClick={handleAddAuthor}
+							onClick={ handleAddAuthor }
 							disabled={
-								!authorId || availableAuthors.length === 0
+								! authorId || availableAuthors.length === 0
 							}
 						>
-							{buttonText}
+							{ buttonText }
 						</Button>
 					</div>
 
-					{selectedAuthors.length > 0 && (
+					{ selectedAuthors.length > 0 && (
 						<div className="apbl-selected-authors">
 							<h4>
-								{__(
+								{ __(
 									'Selected Authors:',
-									'author-profile-blocks'
-								)}
+									'author-profile-blocks',
+								) }
 							</h4>
 							<ul className="apbl-selected-authors-list">
-								{selectedAuthors.map((author) => (
+								{ selectedAuthors.map( ( author ) => (
 									<li
-										key={author.id}
+										key={ author.id }
 										className="apbl-selected-author-item"
 									>
 										<span className="apbl-author-name">
-											{author.name}
+											{ author.name }
 										</span>
 										<Button
 											variant="link"
 											isDestructive
-											onClick={() =>
-												handleRemoveAuthor(author.id)
+											onClick={ () =>
+												handleRemoveAuthor( author.id )
 											}
 											className="apbl-remove-author"
 										>
-											{__(
+											{ __(
 												'Remove',
-												'author-profile-blocks'
-											)}
+												'author-profile-blocks',
+											) }
 										</Button>
 									</li>
-								))}
+								) ) }
 							</ul>
 						</div>
-					)}
+					) }
 
-					{availableAuthors.length === 0 &&
+					{ availableAuthors.length === 0 &&
 						selectedAuthors.length > 0 && (
 						<p className="apbl-all-selected">
-								{__(
-									'All available authors have been selected.',
-									'author-profile-blocks'
-								)}
+							{ __(
+								'All available authors have been selected.',
+								'author-profile-blocks',
+							) }
 						</p>
-					)}
+					) }
 				</>
-			)}
+			) }
 		</div>
 	);
 };

@@ -55,7 +55,7 @@ const ContentPanel = ( { attributes, setAttributes } ) => {
 				<RangeControl
 					label={ __(
 						'Maximum Authors to Display',
-						'author-profile-blocks'
+						'author-profile-blocks',
 					) }
 					value={ maxAuthors }
 					onChange={ ( value ) =>
@@ -66,7 +66,7 @@ const ContentPanel = ( { attributes, setAttributes } ) => {
 					step={ 1 }
 					help={ __(
 						'Set to 0 to show all selected authors',
-						'author-profile-blocks'
+						'author-profile-blocks',
 					) }
 				/>
 			</PanelBody>
@@ -128,7 +128,7 @@ const ContentPanel = ( { attributes, setAttributes } ) => {
 					}
 					help={ __(
 						'Load images only when they come into view to improve performance',
-						'author-profile-blocks'
+						'author-profile-blocks',
 					) }
 				/>
 
@@ -140,7 +140,7 @@ const ContentPanel = ( { attributes, setAttributes } ) => {
 					}
 					help={ __(
 						'Display author information in organized tabs',
-						'author-profile-blocks'
+						'author-profile-blocks',
 					) }
 				/>
 			</PanelBody>

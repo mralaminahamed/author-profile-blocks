@@ -17,22 +17,22 @@ const { AuthorProfileBlocks = { adminUrl: '/wp-admin/' } } = window;
  * @param {Function} props.onSelectLayout Callback for layout selection
  * @return {JSX.Element} Component to render
  */
-const GridLayoutSelector = ({ selectedLayout, onSelectLayout }) => {
+const GridLayoutSelector = ( { selectedLayout, onSelectLayout } ) => {
 	// Layout options
 	const layouts = [
 		{
 			name: 'card',
-			label: __('Card', 'author-profile-blocks'),
+			label: __( 'Card', 'author-profile-blocks' ),
 			icon: 'dashicons-cover-image',
 		},
 		{
 			name: 'compact',
-			label: __('Compact', 'author-profile-blocks'),
+			label: __( 'Compact', 'author-profile-blocks' ),
 			icon: 'dashicons-id',
 		},
 		{
 			name: 'centered',
-			label: __('Centered', 'author-profile-blocks'),
+			label: __( 'Centered', 'author-profile-blocks' ),
 			icon: 'dashicons-align-center',
 		},
 	];
@@ -40,17 +40,17 @@ const GridLayoutSelector = ({ selectedLayout, onSelectLayout }) => {
 	return (
 		<div className="apb-grid-layout-options">
 			<ButtonGroup>
-				{layouts.map((layout) => (
+				{ layouts.map( ( layout ) => (
 					<Button
-						key={layout.name}
-						className={`apb-layout-option ${selectedLayout === layout.name ? 'is-selected' : ''}`}
-						isPressed={selectedLayout === layout.name}
-						onClick={() => onSelectLayout(layout.name)}
+						key={ layout.name }
+						className={ `apb-layout-option ${ selectedLayout === layout.name ? 'is-selected' : '' }` }
+						isPressed={ selectedLayout === layout.name }
+						onClick={ () => onSelectLayout( layout.name ) }
 					>
-						<span className={`dashicons ${layout.icon}`}></span>
-						<span>{layout.label}</span>
+						<span className={ `dashicons ${ layout.icon }` }></span>
+						<span>{ layout.label }</span>
 					</Button>
-				))}
+				) ) }
 			</ButtonGroup>
 		</div>
 	);

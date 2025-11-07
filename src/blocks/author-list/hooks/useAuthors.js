@@ -11,10 +11,10 @@ import { useAuthorsList } from '../../../js/hooks';
  * @param {number} maxAuthors Optional. Maximum number of authors to return.
  * @return {Object} Authors data and loading state.
  */
-export default function useAuthors(authorIds, role = '', maxAuthors = 0) {
-	return useAuthorsList({
+export default function useAuthors( authorIds, role = '', maxAuthors = 0 ) {
+	return useAuthorsList( {
 		authorIds,
 		role,
 		maxAuthors,
-	});
+	} );
 }

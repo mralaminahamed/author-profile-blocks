@@ -17,81 +17,50 @@ $list_classes   = array( 'apbl-authors-list-preview' );
 $list_classes[] = 'apbl-display-' . ( $attributes['displayStyle'] ?? 'compact' );
 $list_classes[] = 'apbl-text-align-' . ( $attributes['textAlign'] ?? 'left' );
 
+// Add layout preset class.
+if ( ! empty( $attributes['layoutPreset'] ) ) {
+	$list_classes[] = esc_attr( $attributes['layoutPreset'] );
+}
+
+// Add animation classes.
+if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+	$list_classes[] = 'has-' . esc_attr( $attributes['animationType'] ) . '-animation';
+}
+
+// Add hover effect class.
+if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+	$list_classes[] = 'has-' . esc_attr( $attributes['hoverEffect'] ) . '-hover';
+}
+
+// Add Google Font class.
+if ( ! empty( $attributes['googleFont'] ) ) {
+	$list_classes[] = 'has-' . esc_attr( sanitize_title( $attributes['googleFont'] ) ) . '-font';
+}
+
 if ( ! empty( $attributes['enableDividers'] ) ) {
 	$list_classes[] = 'apbl-has-dividers';
 }
 
+// Add section spacing custom property.
+$list_style = '';
+if ( isset( $attributes['sectionSpacing'] ) ) {
+	$list_style .= '--author-list-section-spacing: ' . (int) $attributes['sectionSpacing'] . 'px;';
+}
+
+// Add custom CSS variables.
+if ( ! empty( $attributes['customVar1'] ) ) {
+	$list_style .= '--author-list-custom-var-1: ' . esc_attr( $attributes['customVar1'] ) . ';';
+}
+if ( ! empty( $attributes['customVar2'] ) ) {
+	$list_style .= '--author-list-custom-var-2: ' . esc_attr( $attributes['customVar2'] ) . ';';
+}
+
 $list_tag = $attributes['listStyle'] ?? 'ul';
 ?>
-<div class="<?php echo esc_attr( implode( ' ', $list_classes ) ); ?>">
+<div class="<?php echo esc_attr( implode( ' ', $list_classes ) ); ?>"<?php echo ! empty( $list_style ) ? ' style="' . esc_attr( $list_style ) . '"' : ''; ?>>
 	<<?php echo $list_tag; ?> class="apbl-authors-list">
 		<?php foreach ( $authors as $author ) : ?>
-			<li class="apbl-author-list-item">
-				<div class="apbl-author-content">
-					<?php if ( ! empty( $author['avatar'] ) && ! empty( $attributes['showImage'] ) ) : ?>
-						<div class="apbl-author-avatar">
-							<img
-								src="<?php echo esc_url( $author['avatar'] ); ?>"
-								alt="<?php echo esc_attr( $author['name'] ?? $author['display_name'] ?? '' ); ?>"
-								width="60"
-								height="60"
-							/>
-						</div>
-					<?php endif; ?>
-
-					<div class="apbl-author-info">
-						<h3 class="apbl-author-name">
-							<?php echo esc_html( $author['name'] ?? $author['display_name'] ?? 'User ' . $author['id'] ); ?>
-						</h3>
-
-						<?php if ( ! empty( $author['position'] ) && ! empty( $attributes['showPosition'] ) ) : ?>
-							<div class="apbl-author-position">
-								<?php echo esc_html( $author['position'] ); ?>
-							</div>
-						<?php endif; ?>
-
-						<?php if ( ! empty( $author['email'] ) && ! empty( $attributes['showEmail'] ) ) : ?>
-							<div class="apbl-author-email">
-								<a href="<?php echo esc_url( 'mailto:' . $author['email'] ); ?>">
-									<?php echo esc_html( $author['email'] ); ?>
-								</a>
-							</div>
-						<?php endif; ?>
-
-						<?php if ( ! empty( $author['description'] ) && ! empty( $attributes['showDescription'] ) && $attributes['displayStyle'] === 'detailed' ) : ?>
-							<div class="apbl-author-description">
-								<?php
-								$description = strlen( $author['description'] ) > 150
-									? substr( $author['description'], 0, 150 ) . '...'
-									: $author['description'];
-								echo esc_html( $description );
-								?>
-							</div>
-						<?php endif; ?>
-					</div>
-				</div>
-
-				<?php if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocial'] ) ) : ?>
-					<div class="apbl-author-social">
-						<?php
-						$social_profiles = array_filter( $author['social'] );
-						foreach ( $social_profiles as $network => $url ) :
-							if ( ! $url ) {
-								continue;
-							}
-							?>
-							<a
-								href="<?php echo esc_url( $url ); ?>"
-								class="apbl-social-<?php echo esc_attr( $network ); ?>"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<?php echo esc_html( $network ); ?>
-							</a>
-						<?php endforeach; ?>
-					</div>
-				<?php endif; ?>
-			</li>
+			<?php echo $block_instance->render_author_item( $author, $attributes ); ?>
 		<?php endforeach; ?>
 	</<?php echo $list_tag; ?>>
 </div>

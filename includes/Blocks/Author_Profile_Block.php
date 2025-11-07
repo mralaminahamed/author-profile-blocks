@@ -111,6 +111,7 @@ class Author_Profile_Block extends Author_Block_Base {
 
 		// Build the HTML.
 		ob_start();
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
 		echo '<div ' . $wrapper_attributes . '>';
 
 		// Determine layout based on content order

@@ -424,6 +424,26 @@ abstract class Author_Block_Base implements Registerable {
 			$classes[] = 'content-order-' . $attributes['contentOrder'];
 		}
 
+		// Add layout preset class if specified
+		if ( ! empty( $attributes['layoutPreset'] ) ) {
+			$classes[] = $attributes['layoutPreset'];
+		}
+
+		// Add animation classes
+		if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+			$classes[] = 'has-' . $attributes['animationType'] . '-animation';
+		}
+
+		// Add hover effect class
+		if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+			$classes[] = 'has-' . $attributes['hoverEffect'] . '-hover';
+		}
+
+		// Add Google Font class
+		if ( ! empty( $attributes['googleFont'] ) ) {
+			$classes[] = 'has-' . sanitize_title( $attributes['googleFont'] ) . '-font';
+		}
+
 		// Add custom CSS class if specified
 		if ( ! empty( $attributes['customCssClass'] ) ) {
 			$classes[] = esc_attr( $attributes['customCssClass'] );
@@ -561,6 +581,51 @@ abstract class Author_Block_Base implements Registerable {
 		// Section spacing custom property
 		if ( isset( $attributes['sectionSpacing'] ) ) {
 			$styles['--author-section-spacing'] = $attributes['sectionSpacing'] . 'px';
+		}
+
+		// Animation duration
+		if ( isset( $attributes['animationDuration'] ) ) {
+			$styles['--author-animation-duration'] = $attributes['animationDuration'] . 'ms';
+		}
+
+		// Transform properties
+		if ( isset( $attributes['transformScale'] ) && $attributes['transformScale'] !== 1 ) {
+			$styles['--author-transform-scale'] = $attributes['transformScale'];
+		}
+
+		if ( isset( $attributes['transformRotate'] ) && $attributes['transformRotate'] !== 0 ) {
+			$styles['--author-transform-rotate'] = $attributes['transformRotate'] . 'deg';
+		}
+
+		// Filter properties
+		if ( isset( $attributes['filterBrightness'] ) && $attributes['filterBrightness'] !== 100 ) {
+			$styles['--author-filter-brightness'] = $attributes['filterBrightness'] . '%';
+		}
+
+		if ( isset( $attributes['filterContrast'] ) && $attributes['filterContrast'] !== 100 ) {
+			$styles['--author-filter-contrast'] = $attributes['filterContrast'] . '%';
+		}
+
+		if ( isset( $attributes['filterSaturate'] ) && $attributes['filterSaturate'] !== 100 ) {
+			$styles['--author-filter-saturate'] = $attributes['filterSaturate'] . '%';
+		}
+
+		// Gradient background
+		if ( ! empty( $attributes['gradientBackground'] ) ) {
+			$start_color = $attributes['gradientStartColor'] ?? '#ffffff';
+			$end_color = $attributes['gradientEndColor'] ?? '#f8f9fa';
+			$direction = $attributes['gradientDirection'] ?? 'to bottom';
+
+			$styles['background'] = 'linear-gradient(' . $direction . ', ' . $start_color . ', ' . $end_color . ')';
+		}
+
+		// Custom CSS variables
+		if ( isset( $attributes['customVar1'] ) && ! empty( $attributes['customVar1'] ) ) {
+			$styles['--author-custom-var-1'] = $attributes['customVar1'];
+		}
+
+		if ( isset( $attributes['customVar2'] ) && ! empty( $attributes['customVar2'] ) ) {
+			$styles['--author-custom-var-2'] = $attributes['customVar2'];
 		}
 
 		// Avatar custom properties
@@ -757,6 +822,38 @@ abstract class Author_Block_Base implements Registerable {
 			$styles['border-color'] = $attributes['dividerColor'];
 		}
 
+		// Animation duration for items
+		if ( isset( $attributes['animationDuration'] ) ) {
+			$styles['animation-duration'] = $attributes['animationDuration'] . 'ms';
+		}
+
+		// Transform scale
+		if ( isset( $attributes['transformScale'] ) && $attributes['transformScale'] !== 1 ) {
+			$styles['transform'] = 'scale(' . $attributes['transformScale'] . ')';
+		}
+
+		// Transform rotate
+		if ( isset( $attributes['transformRotate'] ) && $attributes['transformRotate'] !== 0 ) {
+			$current_transform = $styles['transform'] ?? '';
+			$rotate_transform = 'rotate(' . $attributes['transformRotate'] . 'deg)';
+			$styles['transform'] = $current_transform ? $current_transform . ' ' . $rotate_transform : $rotate_transform;
+		}
+
+		// Filter properties
+		$filters = array();
+		if ( isset( $attributes['filterBrightness'] ) && $attributes['filterBrightness'] !== 100 ) {
+			$filters[] = 'brightness(' . $attributes['filterBrightness'] . '%)';
+		}
+		if ( isset( $attributes['filterContrast'] ) && $attributes['filterContrast'] !== 100 ) {
+			$filters[] = 'contrast(' . $attributes['filterContrast'] . '%)';
+		}
+		if ( isset( $attributes['filterSaturate'] ) && $attributes['filterSaturate'] !== 100 ) {
+			$filters[] = 'saturate(' . $attributes['filterSaturate'] . '%)';
+		}
+		if ( ! empty( $filters ) ) {
+			$styles['filter'] = implode( ' ', $filters );
+		}
+
 		return $styles;
 	}
 
@@ -922,7 +1019,7 @@ abstract class Author_Block_Base implements Registerable {
 		$html .= '</div>'; // Close .apbl-card-header.
 
 		// Card body.
-		$html .= '<div class="apb-card-body">';
+		$html .= '<div class="apbl-card-body">';
 
 		// Author name.
 		if ( ! empty( $author['title'] ) ) {
@@ -949,16 +1046,16 @@ abstract class Author_Block_Base implements Registerable {
 			$html .= $this->render_author_description( $author );
 		}
 
-		$html .= '</div>'; // Close .apb-card-body.
+		$html .= '</div>'; // Close .apbl-card-body.
 
 		// Card footer with social profiles.
 		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= '<div class="apb-card-footer">';
+			$html .= '<div class="apbl-card-footer">';
 			$html .= $this->render_social_profiles( $author['social'] );
-			$html .= '</div>'; // Close .apb-card-footer.
+			$html .= '</div>'; // Close .apbl-card-footer.
 		}
 
-		$html .= '</div>'; // Close .apb-author-card.
+		$html .= '</div>'; // Close .apbl-author-card.
 
 		return $html;
 	}
@@ -972,15 +1069,15 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_centered_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-centered">';
+		$html = '<div class="apbl-author-centered">';
 
 		// Author image - only if image display is enabled in attributes.
 		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author, 'apb-centered-image' );
+			$html .= $this->render_author_image( $author, 'apbl-centered-image' );
 		}
 
 		// Author info container.
-		$html .= '<div class="apb-author-centered-info">';
+		$html .= '<div class="apbl-author-centered-info">';
 
 		// Author name.
 		if ( ! empty( $author['title'] ) ) {
@@ -1004,17 +1101,17 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Social profiles - only if display is enabled in attributes.
 		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= $this->render_social_profiles( $author['social'], 'apb-centered-social' );
+			$html .= $this->render_social_profiles( $author['social'], 'apbl-centered-social' );
 		}
 
-		$html .= '</div>'; // Close .apb-author-centered-info.
+		$html .= '</div>'; // Close .apbl-author-centered-info.
 
 		// Author description - only if description display is enabled in attributes.
 		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
 			$html .= $this->render_author_description( $author );
 		}
 
-		$html .= '</div>'; // Close .apb-author-centered.
+		$html .= '</div>'; // Close .apbl-author-centered.
 
 		return $html;
 	}
@@ -1028,14 +1125,14 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_author_image( array $author, string $wrapper_class = '' ): string {
-		$classes = 'apb-author-image';
+		$classes = 'apbl-author-image';
 		if ( ! empty( $wrapper_class ) ) {
 			$classes .= ' ' . $wrapper_class;
 		}
 
 		// Add alignment to the container class if specified
 		if ( ! empty( $author['avatarAlignment'] ) ) {
-			$classes .= ' apb-author-image-align-' . esc_attr( $author['avatarAlignment'] );
+			$classes .= ' apbl-author-image-align-' . esc_attr( $author['avatarAlignment'] );
 		}
 
 		$image_classes = array();
@@ -1123,7 +1220,7 @@ abstract class Author_Block_Base implements Registerable {
 		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build the class attribute with alignment if specified
-		$class_attr = 'apb-author-name';
+		$class_attr = 'apbl-author-name';
 		if ( ! empty( $author['nameAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['nameAlignment'] );
 		}
@@ -1202,7 +1299,7 @@ abstract class Author_Block_Base implements Registerable {
 		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
-		$class_attr = 'apb-author-position';
+		$class_attr = 'apbl-author-position';
 		if ( ! empty( $author['metaAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
 		}
@@ -1227,7 +1324,7 @@ abstract class Author_Block_Base implements Registerable {
 		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
-		$class_attr = 'apb-author-email';
+		$class_attr = 'apbl-author-email';
 		if ( ! empty( $author['metaAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
 		}
@@ -1313,7 +1410,7 @@ abstract class Author_Block_Base implements Registerable {
 		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
-		$class_attr = 'apb-author-description';
+		$class_attr = 'apbl-author-description';
 		if ( ! empty( $author['descriptionAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['descriptionAlignment'] );
 		}
@@ -1379,14 +1476,14 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_social_profiles( array $profiles, string $wrapper_class = '', array $show_profiles = array() ): string {
-		$classes = 'apb-social-profiles';
+		$classes = 'apbl-social-profiles';
 		if ( ! empty( $wrapper_class ) ) {
 			$classes .= ' ' . $wrapper_class;
 		}
 
 		// Get social icon alignment if available
 		if ( ! empty( $profiles['socialIconAlignment'] ) ) {
-			$classes   .= ' apb-social-align-' . esc_attr( $profiles['socialIconAlignment'] );
+			$classes   .= ' apbl-social-align-' . esc_attr( $profiles['socialIconAlignment'] );
 			$data_align = ' data-align="' . esc_attr( $profiles['socialIconAlignment'] ) . '"';
 		} else {
 			$data_align = '';
@@ -1425,7 +1522,7 @@ abstract class Author_Block_Base implements Registerable {
 		$data_hover = ! empty( $icon_hover_styles ) ? ' data-hover-style="' . implode( '; ', $icon_hover_styles ) . '"' : '';
 
 		$html  = '<div class="' . esc_attr( $classes ) . '"' . $data_align . $style_html . $data_hover . '>';
-		$html .= '<ul class="apb-social-list">';
+		$html .= '<ul class="apbl-social-list">';
 
 		$social_icons = $this->get_social_icons();
 
@@ -1461,7 +1558,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		foreach ( $filtered_profiles as $network => $url ) {
 			if ( ! empty( $url ) && isset( $social_icons[ $network ] ) ) {
-				$html .= '<li class="apb-social-item apb-social-' . esc_attr( $network ) . '">';
+				$html .= '<li class="apbl-social-item apbl-social-' . esc_attr( $network ) . '">';
 				$html .= '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">';
 				$html .= '<span class="dashicons ' . esc_attr( $social_icons[ $network ] ) . '" aria-hidden="true"></span>';
 				$html .= '<span class="screen-reader-text">' . esc_html( ucfirst( $network ) ) . '</span>';
@@ -1490,13 +1587,13 @@ abstract class Author_Block_Base implements Registerable {
 		$style_html = ! empty( $style_attr ) ? ' style="' . $style_attr . '"' : '';
 
 		// Build class attribute with alignment if specified
-		$class_attr = 'apb-author-registered-date';
+		$class_attr = 'apbl-author-registered-date';
 		if ( ! empty( $author['metaAlignment'] ) ) {
 			$class_attr .= ' has-text-align-' . esc_attr( $author['metaAlignment'] );
 		}
 
 		return sprintf(
-			'<div class="%s"%s><span class="apb-registered-date-label">%s</span> <span class="apb-registered-date-value">%s</span></div>',
+			'<div class="%s"%s><span class="apbl-registered-date-label">%s</span> <span class="apbl-registered-date-value">%s</span></div>',
 			esc_attr( $class_attr ),
 			$style_html,
 			esc_html( $label ),
@@ -1532,7 +1629,7 @@ abstract class Author_Block_Base implements Registerable {
 		$style_html = ! empty( $styles ) ? ' style="' . implode( '; ', $styles ) . '"' : '';
 
 		return sprintf(
-			'<div class="apb-author-more-content"%s>%s</div>',
+			'<div class="apbl-author-more-content"%s>%s</div>',
 			$style_html,
 			wp_kses_post( $content )
 		);

@@ -122,7 +122,10 @@ class Author_Carousel_Block extends Author_Block_Base {
 		// Build the HTML.
 		ob_start();
 		?>
-		<div <?php echo $wrapper_attributes; ?>>
+		<div <?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
+		echo $wrapper_attributes;
+		?>>
 			<?php
 			// Create carousel container and prepare JSON settings for Slick initialization.
 			$carousel_settings = array(
@@ -135,9 +138,12 @@ class Author_Carousel_Block extends Author_Block_Base {
 				'infinite'       => ! isset( $attributes['infinite'] ) || (bool) $attributes['infinite'],
 			);
 			?>
-			<div class="apb-author-carousel" data-settings="<?php echo esc_attr( wp_json_encode( $carousel_settings ) ); ?>">
+			<div class="apbl-author-carousel" data-settings="<?php echo esc_attr( wp_json_encode( $carousel_settings ) ); ?>">
 				<?php foreach ( $authors as $author ) : ?>
-					<?php echo $this->render_author_slide( $author, $attributes ); ?>
+					<?php
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_author_slide() returns properly escaped HTML
+					echo $this->render_author_slide( $author, $attributes );
+					?>
 				<?php endforeach; ?>
 			</div>
 		</div>
@@ -158,7 +164,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 	 *
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_slide( array $author, array $attributes ): string {
+	public function render_author_slide( array $author, array $attributes ): string {
 		// Get item styles.
 		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
@@ -168,11 +174,31 @@ class Author_Carousel_Block extends Author_Block_Base {
 		}
 
 		// Item classes based on layout and options.
-		$item_classes = array( 'apb-author-carousel-item' );
+		$item_classes = array( 'apbl-author-carousel-item' );
 
 		// Add layout class.
 		$layout         = $attributes['layout'] ?? 'card';
 		$item_classes[] = 'is-layout-' . $layout;
+
+		// Add layout preset class.
+		if ( ! empty( $attributes['layoutPreset'] ) ) {
+			$item_classes[] = $attributes['layoutPreset'];
+		}
+
+		// Add animation classes.
+		if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['animationType'] . '-animation';
+		}
+
+		// Add hover effect class.
+		if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['hoverEffect'] . '-hover';
+		}
+
+		// Add Google Font class.
+		if ( ! empty( $attributes['googleFont'] ) ) {
+			$item_classes[] = 'has-' . sanitize_title( $attributes['googleFont'] ) . '-font';
+		}
 
 		// Add shadow class if enabled.
 		if ( ! empty( $attributes['enableShadow'] ) ) {
@@ -190,7 +216,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 		}
 
 		// Build the author slide.
-		$html = '<div class="apb-author-carousel-slide">';
+		$html = '<div class="apbl-author-carousel-slide">';
 
 		$html .= '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 

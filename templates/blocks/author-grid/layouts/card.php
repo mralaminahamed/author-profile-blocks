@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php echo $author_image; ?>
 <?php endif; ?>
 
-<div class="apb-author-info">
+	<div class="apbl-author-info">
 	<?php if ( ! empty( $author['title'] ) ) : ?>
 		<?php echo $author_name; ?>
 	<?php endif; ?>

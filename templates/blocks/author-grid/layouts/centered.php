@@ -17,12 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="apb-author-centered">
+<div class="apbl-author-centered">
 	<?php if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) : ?>
 		<?php echo $author_image; ?>
 	<?php endif; ?>
 
-	<div class="apb-author-info">
+	<div class="apbl-author-info">
 		<?php if ( ! empty( $author['title'] ) ) : ?>
 			<?php echo $author_name; ?>
 		<?php endif; ?>

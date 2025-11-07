@@ -15,120 +15,120 @@ import { useState } from '@wordpress/element';
  * @param {boolean}  props.isLoading       Loading state
  * @return {JSX.Element} Component to render
  */
-const AuthorsSelector = ({
+const AuthorsSelector = ( {
 	authors,
 	selectedIds,
 	onSelectAuthors,
 	isLoading,
-}) => {
-	const [authorId, setAuthorId] = useState('');
+} ) => {
+	const [ authorId, setAuthorId ] = useState( '' );
 
 	// Filter out already selected authors
 	const availableAuthors = authors.filter(
-		(author) => !selectedIds.includes(author.id)
+		( author ) => ! selectedIds.includes( author.id ),
 	);
 
 	// Handle author selection
 	const handleAddAuthor = () => {
-		if (!authorId) {
+		if ( ! authorId ) {
 			return;
 		}
 
-		const newSelectedIds = [...selectedIds, parseInt(authorId)];
-		onSelectAuthors(newSelectedIds);
-		setAuthorId(''); // Reset selection
+		const newSelectedIds = [ ...selectedIds, parseInt( authorId ) ];
+		onSelectAuthors( newSelectedIds );
+		setAuthorId( '' ); // Reset selection
 	};
 
 	// Handle author removal
-	const handleRemoveAuthor = (id) => {
+	const handleRemoveAuthor = ( id ) => {
 		const newSelectedIds = selectedIds.filter(
-			(authorId) => authorId !== id
+			( authorId ) => authorId !== id,
 		);
-		onSelectAuthors(newSelectedIds);
+		onSelectAuthors( newSelectedIds );
 	};
 
 	// Get author data by ID
-	const getAuthorById = (id) => {
-		return authors.find((author) => author.id === id);
+	const getAuthorById = ( id ) => {
+		return authors.find( ( author ) => author.id === id );
 	};
 
-	if (isLoading) {
+	if ( isLoading ) {
 		return (
 			<div className="apb-loading">
 				<Spinner className="apb-spinner" />
-				<p>{__('Loading authors…', 'author-profile-blocks')}</p>
+				<p>{ __( 'Loading authors…', 'author-profile-blocks' ) }</p>
 			</div>
 		);
 	}
 
 	return (
 		<div className="apb-author-selector">
-			<h3>{__('Select Authors for Grid', 'author-profile-blocks')}</h3>
+			<h3>{ __( 'Select Authors for Grid', 'author-profile-blocks' ) }</h3>
 
-			{/* Show selected authors */}
-			{selectedIds.length > 0 && (
+			{ /* Show selected authors */ }
+			{ selectedIds.length > 0 && (
 				<div className="apb-authors-selected-wrapper">
-					<p>{__('Selected Authors:', 'author-profile-blocks')}</p>
+					<p>{ __( 'Selected Authors:', 'author-profile-blocks' ) }</p>
 					<div className="apb-selected-authors-list">
-						{selectedIds.map((id) => {
-							const author = getAuthorById(id);
-							if (!author) {
+						{ selectedIds.map( ( id ) => {
+							const author = getAuthorById( id );
+							if ( ! author ) {
 								return null;
 							}
 
 							return (
-								<div key={id} className="apb-selected-author">
-									{author.avatar_urls && (
+								<div key={ id } className="apb-selected-author">
+									{ author.avatar_urls && (
 										<img
-											src={author.avatar_urls['24']}
-											alt={author.name}
+											src={ author.avatar_urls[ '24' ] }
+											alt={ author.name }
 										/>
-									)}
-									<span>{author.name}</span>
+									) }
+									<span>{ author.name }</span>
 									<span
 										className="apb-remove-author dashicons dashicons-no-alt"
-										onClick={() => handleRemoveAuthor(id)}
-										title={__(
+										onClick={ () => handleRemoveAuthor( id ) }
+										title={ __(
 											'Remove',
-											'author-profile-blocks'
-										)}
+											'author-profile-blocks',
+										) }
 									></span>
 								</div>
 							);
-						})}
+						} ) }
 					</div>
 				</div>
-			)}
+			) }
 
-			{/* Author selection dropdown */}
+			{ /* Author selection dropdown */ }
 			<div className="apb-author-selector-dropdown">
 				<SelectControl
-					label={__('Add Author', 'author-profile-blocks')}
-					value={authorId}
-					options={[
+					label={ __( 'Add Author', 'author-profile-blocks' ) }
+					value={ authorId }
+					options={ [
 						{
 							label: __(
 								'-- Select an author --',
-								'author-profile-blocks'
+								'author-profile-blocks',
 							),
 							value: '',
 						},
-						...availableAuthors.map((author) => ({
+						...availableAuthors.map( ( author ) => ( {
 							label: author.name,
 							value: author.id,
-						})),
-					]}
-					onChange={(value) => setAuthorId(value)}
+						} ) ),
+					] }
+					onChange={ ( value ) => setAuthorId( value ) }
 				/>
 			</div>
 
 			<div className="apb-button-wrapper">
 				<Button
 					variant="primary"
-					onClick={handleAddAuthor}
-					disabled={!authorId}
+					onClick={ handleAddAuthor }
+					disabled={ ! authorId }
 				>
-					{__('Add Author to Grid', 'author-profile-blocks')}
+					{ __( 'Add Author to Grid', 'author-profile-blocks' ) }
 				</Button>
 			</div>
 		</div>

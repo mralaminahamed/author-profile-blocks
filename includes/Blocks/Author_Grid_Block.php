@@ -96,7 +96,10 @@ class Author_Grid_Block extends Author_Block_Base {
 		// Build the HTML.
 		ob_start();
 		?>
-		<div <?php echo $wrapper_attributes; ?>>
+		<div <?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
+		echo $wrapper_attributes;
+		?>>
 			<?php
 			$this->load_template(
 				'blocks/author-grid/grid.php',
@@ -135,11 +138,31 @@ class Author_Grid_Block extends Author_Block_Base {
 		}
 
 		// Item classes based on layout and options.
-		$item_classes = array( 'apb-author-grid-item' );
+		$item_classes = array( 'apbl-author-grid-item' );
 
 		// Add layout class.
 		$layout         = $attributes['layout'] ?? 'card';
 		$item_classes[] = 'is-layout-' . $layout;
+
+		// Add layout preset class.
+		if ( ! empty( $attributes['layoutPreset'] ) ) {
+			$item_classes[] = $attributes['layoutPreset'];
+		}
+
+		// Add animation classes.
+		if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['animationType'] . '-animation';
+		}
+
+		// Add hover effect class.
+		if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['hoverEffect'] . '-hover';
+		}
+
+		// Add Google Font class.
+		if ( ! empty( $attributes['googleFont'] ) ) {
+			$item_classes[] = 'has-' . sanitize_title( $attributes['googleFont'] ) . '-font';
+		}
 
 		// Add shadow class if enabled.
 		if ( ! empty( $attributes['enableShadow'] ) ) {

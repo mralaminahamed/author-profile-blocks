@@ -10,6 +10,7 @@
 namespace AuthorProfileBlocks\Services;
 
 use AuthorProfileBlocks\Core\User_Meta_Provider;
+use WP_User_Query;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

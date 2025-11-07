@@ -15,40 +15,40 @@ import { formatListBullets, formatListNumbered } from '@wordpress/icons';
  * @param          value.onChange
  * @return {JSX.Element} Element to render.
  */
-export default function ListLayoutSelector({ value, onChange, ...props }) {
+export default function ListLayoutSelector( { value, onChange, ...props } ) {
 	const layouts = [
 		{
 			name: 'ul',
-			label: __('Unordered List', 'author-profile-blocks'),
+			label: __( 'Unordered List', 'author-profile-blocks' ),
 			icon: formatListBullets,
 		},
 		{
 			name: 'ol',
-			label: __('Ordered List', 'author-profile-blocks'),
+			label: __( 'Ordered List', 'author-profile-blocks' ),
 			icon: formatListNumbered,
 		},
 	];
 
 	return (
-		<div className="apbl-list-layout-selector" {...props}>
-			<Flex gap={2} direction="column">
+		<div className="apbl-list-layout-selector" { ...props }>
+			<Flex gap={ 2 } direction="column">
 				<FlexItem>
 					<span className="components-base-control__label">
-						{__('List Style', 'author-profile-blocks')}
+						{ __( 'List Style', 'author-profile-blocks' ) }
 					</span>
 				</FlexItem>
 				<FlexItem>
 					<ButtonGroup>
-						{layouts.map((layout) => (
+						{ layouts.map( ( layout ) => (
 							<Button
-								key={layout.name}
-								icon={layout.icon}
-								label={layout.label}
-								isPressed={value === layout.name}
-								onClick={() => onChange(layout.name)}
+								key={ layout.name }
+								icon={ layout.icon }
+								label={ layout.label }
+								isPressed={ value === layout.name }
+								onClick={ () => onChange( layout.name ) }
 								showTooltip
 							/>
-						))}
+						) ) }
 					</ButtonGroup>
 				</FlexItem>
 			</Flex>

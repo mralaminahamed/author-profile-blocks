@@ -12,18 +12,18 @@ import 'slick-carousel';
 /**
  * Initialize carousels when the DOM is ready
  */
-jQuery(document).ready(function ($) {
+jQuery( document ).ready( function( $ ) {
 	// Check if slick is available
-	if (typeof $.fn.slick === 'undefined') {
+	if ( typeof $.fn.slick === 'undefined' ) {
 		console.error(
-			'Slick Carousel library is not loaded. Author Carousel functionality will be limited.'
+			'Slick Carousel library is not loaded. Author Carousel functionality will be limited.',
 		);
 		return;
 	}
 	// Initialize all author carousels on the page
-	$('.apb-author-carousel').each(function () {
-		const $carousel = $(this);
-		const settings = $carousel.data('settings') || {};
+	$( '.apb-author-carousel' ).each( function() {
+		const $carousel = $( this );
+		const settings = $carousel.data( 'settings' ) || {};
 
 		// Default settings
 		const defaults = {
@@ -53,9 +53,9 @@ jQuery(document).ready(function ($) {
 		};
 
 		// Merge defaults with user settings
-		const slickSettings = $.extend({}, defaults, settings);
+		const slickSettings = $.extend( {}, defaults, settings );
 
 		// Initialize slick
-		$carousel.slick(slickSettings);
-	});
-});
+		$carousel.slick( slickSettings );
+	} );
+} );

@@ -17,9 +17,48 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Build container classes with advanced features
+$container_class = 'apbl-author-profile-content';
+
+// Add layout preset class
+if ( ! empty( $attributes['layoutPreset'] ) ) {
+	$container_class .= ' ' . esc_attr( $attributes['layoutPreset'] );
+}
+
+// Add animation classes
+if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+	$container_class .= ' has-' . esc_attr( $attributes['animationType'] ) . '-animation';
+}
+
+// Add hover effect class
+if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+	$container_class .= ' has-' . esc_attr( $attributes['hoverEffect'] ) . '-hover';
+}
+
+// Add Google Font class
+if ( ! empty( $attributes['googleFont'] ) ) {
+	$container_class .= ' has-' . esc_attr( sanitize_title( $attributes['googleFont'] ) ) . '-font';
+}
+
+// Build inline styles with CSS custom properties
+$container_style = '';
+
+// Add section spacing custom property
+if ( isset( $attributes['sectionSpacing'] ) ) {
+	$container_style .= '--author-profile-section-spacing: ' . (int) $attributes['sectionSpacing'] . 'px;';
+}
+
+// Add custom CSS variables
+if ( ! empty( $attributes['customVar1'] ) ) {
+	$container_style .= '--author-profile-custom-var-1: ' . esc_attr( $attributes['customVar1'] ) . ';';
+}
+if ( ! empty( $attributes['customVar2'] ) ) {
+	$container_style .= '--author-profile-custom-var-2: ' . esc_attr( $attributes['customVar2'] ) . ';';
+}
 ?>
-<div class="apb-author-profile-content">
-	<div class="apb-author-info">
+<div class="<?php echo esc_attr( $container_class ); ?>"<?php echo ! empty( $container_style ) ? ' style="' . esc_attr( $container_style ) . '"' : ''; ?>>
+	<div class="apbl-author-info">
 		<?php if ( ! empty( $author['title'] ) ) : ?>
 			<?php echo $author_name; ?>
 		<?php endif; ?>

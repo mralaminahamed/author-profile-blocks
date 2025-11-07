@@ -107,6 +107,134 @@
     "authorRole": {
       "type": "string",
       "default": ""
+    },
+    "layoutPreset": {
+      "type": "string",
+      "default": "default"
+    },
+    "animationType": {
+      "type": "string",
+      "default": "none"
+    },
+    "animationDuration": {
+      "type": "number",
+      "default": 300
+    },
+    "hoverEffect": {
+      "type": "string",
+      "default": "none"
+    },
+    "customCssClass": {
+      "type": "string",
+      "default": ""
+    },
+    "googleFont": {
+      "type": "string",
+      "default": ""
+    },
+    "fontSizeUnit": {
+      "type": "string",
+      "default": "px"
+    },
+    "gradientBackground": {
+      "type": "boolean",
+      "default": false
+    },
+    "gradientStartColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "gradientEndColor": {
+      "type": "string",
+      "default": "#f8f9fa"
+    },
+    "gradientDirection": {
+      "type": "string",
+      "default": "to bottom"
+    },
+    "transformScale": {
+      "type": "number",
+      "default": 1
+    },
+    "transformRotate": {
+      "type": "number",
+      "default": 0
+    },
+    "filterBrightness": {
+      "type": "number",
+      "default": 100
+    },
+    "filterContrast": {
+      "type": "number",
+      "default": 100
+    },
+    "filterSaturate": {
+      "type": "number",
+      "default": 100
+    },
+    "lazyLoad": {
+      "type": "boolean",
+      "default": true
+    },
+    "contentTabs": {
+      "type": "boolean",
+      "default": false
+    },
+    "tabLabels": {
+      "type": "object",
+      "default": {
+        "bio": "Bio",
+        "contact": "Contact",
+        "social": "Social"
+      }
+    },
+    "margin": {
+      "type": "string",
+      "default": ""
+    },
+    "sectionSpacing": {
+      "type": "number",
+      "default": 15
+    },
+    "boxShadow": {
+      "type": "boolean",
+      "default": false
+    },
+    "boxShadowColor": {
+      "type": "string",
+      "default": "rgba(0,0,0,0.2)"
+    },
+    "boxShadowBlur": {
+      "type": "number",
+      "default": 8
+    },
+    "boxShadowSpread": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowHorizontal": {
+      "type": "number",
+      "default": 0
+    },
+    "boxShadowVertical": {
+      "type": "number",
+      "default": 4
+    },
+    "borderRadius": {
+      "type": "number",
+      "default": 0
+    },
+    "containerWidth": {
+      "type": "string",
+      "default": ""
+    },
+    "customVar1": {
+      "type": "string",
+      "default": ""
+    },
+    "customVar2": {
+      "type": "string",
+      "default": ""
     }
   },
   "example": {

@@ -96,7 +96,10 @@ class Author_List_Block extends Author_Block_Base {
 		// Build the HTML.
 		ob_start();
 		?>
-		<div <?php echo $wrapper_attributes; ?>>
+		<div <?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
+		echo $wrapper_attributes;
+		?>>
 			<?php
 			$this->load_template(
 				'blocks/author-list/list.php',
@@ -125,7 +128,7 @@ class Author_List_Block extends Author_Block_Base {
 	 *
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_item( array $author, array $attributes ): string {
+	public function render_author_item( array $author, array $attributes ): string {
 		// Get item styles.
 		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
@@ -135,7 +138,27 @@ class Author_List_Block extends Author_Block_Base {
 		}
 
 		// Item classes based on layout and options.
-		$item_classes = array( 'apb-author-list-item' );
+		$item_classes = array( 'apbl-author-list-item' );
+
+		// Add layout preset class.
+		if ( ! empty( $attributes['layoutPreset'] ) ) {
+			$item_classes[] = $attributes['layoutPreset'];
+		}
+
+		// Add animation classes.
+		if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['animationType'] . '-animation';
+		}
+
+		// Add hover effect class.
+		if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['hoverEffect'] . '-hover';
+		}
+
+		// Add Google Font class.
+		if ( ! empty( $attributes['googleFont'] ) ) {
+			$item_classes[] = 'has-' . sanitize_title( $attributes['googleFont'] ) . '-font';
+		}
 
 		// Add rounded class if enabled.
 		if ( ! empty( $attributes['enableRounded'] ) ) {
@@ -151,7 +174,7 @@ class Author_List_Block extends Author_Block_Base {
 		$html = '<li class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
 
 		// Inner content container.
-		$html .= '<div class="apb-author-list-item-content">';
+		$html .= '<div class="apbl-author-list-item-content">';
 
 		// Layout depends on display style.
 		$display_style = $attributes['displayStyle'] ?? 'compact';
@@ -162,7 +185,7 @@ class Author_List_Block extends Author_Block_Base {
 			$html .= $this->render_compact_layout( $author, $attributes );
 		}
 
-		$html .= '</div>'; // Close .apb-author-list-item-content.
+		$html .= '</div>'; // Close .apbl-author-list-item-content.
 		$html .= '</li>'; // Close list item.
 
 		return $html;
