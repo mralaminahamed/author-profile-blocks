@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Plugin Links Settings Class
+ *
+ * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
+ */
+
 namespace AuthorProfileBlocks\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,13 +41,18 @@ class PluginLinks {
 	 * @return array<int, string> Modified action links.
 	 */
 	public function add_action_links( array $links ): array {
-		$settings_link = sprintf(
-			'<a href="%s">%s</a>',
-			admin_url( 'options-general.php?page=author-profile-blocks' ),
-			__( 'Settings', 'author-profile-blocks' )
+		$settings_url = add_query_arg(
+			array( 'page' => 'author-profile-blocks' ),
+			admin_url( 'options-general.php' )
 		);
 
-		array_unshift( $links, $settings_link );
+		$settings_link = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url( $settings_url ),
+			esc_html__( 'Settings', 'author-profile-blocks' )
+		);
+
+		array_unshift( $links, wp_kses_post( $settings_link ) );
 
 		return $links;
 	}
@@ -59,20 +71,22 @@ class PluginLinks {
 			return $links;
 		}
 
+		$repository_url = 'https://github.com/mralaminahamed/author-profile-blocks';
+
 		$docs_link = sprintf(
-			'<a href="%s" target="_blank">%s</a>',
-			'https://github.com/mralaminahamed/author-profile-blocks',
-			__( 'Documentation', 'author-profile-blocks' )
+			'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+			esc_url( $repository_url ),
+			esc_html__( 'Documentation', 'author-profile-blocks' )
 		);
 
 		$github_link = sprintf(
-			'<a href="%s" target="_blank">%s</a>',
-			'https://github.com/mralaminahamed/author-profile-blocks',
-			__( 'GitHub', 'author-profile-blocks' )
+			'<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+			esc_url( $repository_url ),
+			esc_html__( 'GitHub', 'author-profile-blocks' )
 		);
 
-		$links[] = $docs_link;
-		$links[] = $github_link;
+		$links[] = wp_kses_post( $docs_link );
+		$links[] = wp_kses_post( $github_link );
 
 		return $links;
 	}

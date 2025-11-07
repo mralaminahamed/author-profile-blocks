@@ -161,31 +161,31 @@ class Admin {
 	public function sanitize_settings( array $input ): array {
 		$sanitized = array();
 
-		// Sanitize author roles
+		// Sanitize author roles using WordPress functions
 		if ( isset( $input['author_roles'] ) && is_array( $input['author_roles'] ) ) {
-			$sanitized['author_roles'] = array_map( 'sanitize_text_field', $input['author_roles'] );
+			$sanitized['author_roles'] = array_map( 'sanitize_text_field', wp_unslash( $input['author_roles'] ) );
 		}
 
 		// Sanitize avatar size
 		if ( isset( $input['avatar_size'] ) ) {
-			$sanitized['avatar_size'] = absint( $input['avatar_size'] );
+			$sanitized['avatar_size'] = absint( wp_unslash( $input['avatar_size'] ) );
 			// Ensure reasonable bounds
-			$sanitized['avatar_size'] = max( 32, min( 512, $sanitized['avatar_size'] ) );
+			$sanitized['avatar_size'] = wp_clamp( $sanitized['avatar_size'], 32, 512 );
 		}
 
 		// Sanitize social platforms
 		if ( isset( $input['social_platforms'] ) && is_array( $input['social_platforms'] ) ) {
-			$sanitized['social_platforms'] = array_map( 'sanitize_text_field', $input['social_platforms'] );
+			$sanitized['social_platforms'] = array_map( 'sanitize_text_field', wp_unslash( $input['social_platforms'] ) );
 		}
 
-		// Sanitize show email
-		$sanitized['show_email'] = isset( $input['show_email'] ) ? 1 : 0;
+		// Sanitize show email using WordPress boolean function
+		$sanitized['show_email'] = rest_sanitize_boolean( wp_unslash( $input['show_email'] ?? false ) ) ? 1 : 0;
 
 		// Sanitize cache duration
 		if ( isset( $input['cache_duration'] ) ) {
-			$sanitized['cache_duration'] = absint( $input['cache_duration'] );
+			$sanitized['cache_duration'] = absint( wp_unslash( $input['cache_duration'] ) );
 			// Ensure reasonable bounds (1 hour to 1 week)
-			$sanitized['cache_duration'] = max( 1, min( 168, $sanitized['cache_duration'] ) );
+			$sanitized['cache_duration'] = wp_clamp( $sanitized['cache_duration'], 1, 168 );
 		}
 
 		return $sanitized;
@@ -269,11 +269,12 @@ class Admin {
 	 * @return void
 	 */
 	public function settings_page(): void {
-		if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		// Check if settings were updated using WordPress function
+		if ( isset( $_GET['settings-updated'] ) && rest_sanitize_boolean( wp_unslash( $_GET['settings-updated'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			add_settings_error(
 				'author_profile_blocks_settings',
 				'settings_updated',
-				__( 'Settings saved successfully.', 'author-profile-blocks' ),
+				esc_html__( 'Settings saved successfully.', 'author-profile-blocks' ),
 				'success'
 			);
 		}
@@ -289,15 +290,11 @@ class Admin {
 	 * @return void
 	 */
 	private function load_admin_template( string $template, array $data = array() ): void {
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/' . $template;
+		$template_path = plugin_dir_path( APBL_PLUGIN_FILE ) . 'templates/admin/' . ltrim( $template, '/' );
 
-		if ( file_exists( $template_path ) ) {
-			// Extract data variables for template use
-			if ( ! empty( $data ) ) {
-				extract( $data, EXTR_SKIP );
-			}
-
-			include $template_path;
+		if ( file_exists( $template_path ) && is_readable( $template_path ) ) {
+			// Use WordPress load_template function for better security
+			load_template( $template_path, false, $data );
 		} else {
 			// Fallback for settings page
 			if ( 'settings-page.php' === $template ) {
