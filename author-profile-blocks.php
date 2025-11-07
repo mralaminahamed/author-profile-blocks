@@ -5,6 +5,7 @@
  * Description:       A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.
  * Version:           1.0.0
  * Requires at least: 6.0
+ * Tested up to:      6.7
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
  * Author URI:        https://github.com/mralaminahamed
