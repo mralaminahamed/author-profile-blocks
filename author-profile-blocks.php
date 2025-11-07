@@ -8,8 +8,8 @@
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
  * Author URI:        https://github.com/mralaminahamed
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * License:           GPL-3.0-only
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       author-profile-blocks
  * Domain Path:       /languages
  *
