@@ -224,10 +224,7 @@ class Admin {
 	 * @return void
 	 */
 	public function author_roles_field_callback(): void {
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/author-roles.php';
-		if ( file_exists( $template_path ) ) {
-			include $template_path;
-		}
+		$this->load_admin_template( 'fields/author-roles.php' );
 	}
 
 	/**
@@ -236,10 +233,7 @@ class Admin {
 	 * @return void
 	 */
 	public function avatar_size_field_callback(): void {
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/avatar-size.php';
-		if ( file_exists( $template_path ) ) {
-			include $template_path;
-		}
+		$this->load_admin_template( 'fields/avatar-size.php' );
 	}
 
 	/**
@@ -248,10 +242,7 @@ class Admin {
 	 * @return void
 	 */
 	public function social_platforms_field_callback(): void {
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/social-platforms.php';
-		if ( file_exists( $template_path ) ) {
-			include $template_path;
-		}
+		$this->load_admin_template( 'fields/social-platforms.php' );
 	}
 
 	/**
@@ -260,10 +251,7 @@ class Admin {
 	 * @return void
 	 */
 	public function show_email_field_callback(): void {
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/show-email.php';
-		if ( file_exists( $template_path ) ) {
-			include $template_path;
-		}
+		$this->load_admin_template( 'fields/show-email.php' );
 	}
 
 	/**
@@ -272,10 +260,7 @@ class Admin {
 	 * @return void
 	 */
 	public function cache_duration_field_callback(): void {
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/fields/cache-duration.php';
-		if ( file_exists( $template_path ) ) {
-			include $template_path;
-		}
+		$this->load_admin_template( 'fields/cache-duration.php' );
 	}
 
 	/**
@@ -293,29 +278,56 @@ class Admin {
 			);
 		}
 
-		// Load the settings page template
-		$template_path = APBL_PLUGIN_DIR . 'templates/admin/settings-page.php';
+		$this->load_admin_template( 'settings-page.php' );
+	}
+
+	/**
+	 * Load admin template
+	 *
+	 * @param string $template Template file name.
+	 * @param array  $data     Optional data to pass to template.
+	 * @return void
+	 */
+	private function load_admin_template( string $template, array $data = array() ): void {
+		$template_path = APBL_PLUGIN_DIR . 'templates/admin/' . $template;
+
 		if ( file_exists( $template_path ) ) {
+			// Extract data variables for template use
+			if ( ! empty( $data ) ) {
+				extract( $data, EXTR_SKIP );
+			}
+
 			include $template_path;
 		} else {
-			// Fallback if template doesn't exist
-			?>
-			<div class="wrap">
-				<h1><?php esc_html_e( 'Author Profile Blocks Settings', 'author-profile-blocks' ); ?></h1>
-				<p><?php esc_html_e( 'Configure the Author Profile Blocks plugin settings.', 'author-profile-blocks' ); ?></p>
-
-				<?php settings_errors( 'author_profile_blocks_settings' ); ?>
-
-				<form method="post" action="options.php">
-					<?php
-					settings_fields( 'author_profile_blocks_settings' );
-					do_settings_sections( 'author_profile_blocks_settings' );
-					submit_button();
-					?>
-				</form>
-			</div>
-			<?php
+			// Fallback for settings page
+			if ( 'settings-page.php' === $template ) {
+				$this->render_settings_fallback();
+			}
 		}
+	}
+
+	/**
+	 * Render settings page fallback
+	 *
+	 * @return void
+	 */
+	private function render_settings_fallback(): void {
+		?>
+		<div class="wrap">
+			<h1><?php esc_html_e( 'Author Profile Blocks Settings', 'author-profile-blocks' ); ?></h1>
+			<p><?php esc_html_e( 'Configure the Author Profile Blocks plugin settings.', 'author-profile-blocks' ); ?></p>
+
+			<?php settings_errors( 'author_profile_blocks_settings' ); ?>
+
+			<form method="post" action="options.php">
+				<?php
+				settings_fields( 'author_profile_blocks_settings' );
+				do_settings_sections( 'author_profile_blocks_settings' );
+				submit_button();
+				?>
+			</form>
+		</div>
+		<?php
 	}
 
 	/**
