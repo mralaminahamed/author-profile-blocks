@@ -9,27 +9,22 @@ import {
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
 import {
-	PanelBody,
-	ToggleControl,
-	RangeControl,
-	SelectControl,
-	ColorPicker,
 	ToolbarGroup,
 	ToolbarButton,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import { list, grid, update } from '@wordpress/icons';
+import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
-import { AuthorPicker, AuthorBlockPlaceholder } from '../../js/components';
+import { AuthorBlockPlaceholder } from '../../js/components';
 import AuthorListPreview from './components/AuthorListPreview';
-import DisplayStyleSelector from './components/DisplayStyleSelector';
-import ListLayoutSelector from './components/ListLayoutSelector';
 import useAuthors from './hooks/useAuthors';
+import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './components/inspector';
 
 /**
  * Edit function for the Author List block.
@@ -68,6 +63,40 @@ export default function Edit({
 		showEmail,
 		showDescription,
 		showSocial,
+		// New advanced attributes
+		layoutPreset,
+		animationType,
+		animationDuration,
+		hoverEffect,
+		customCssClass,
+		googleFont,
+		fontSizeUnit,
+		gradientBackground,
+		gradientStartColor,
+		gradientEndColor,
+		gradientDirection,
+		transformScale,
+		transformRotate,
+		filterBrightness,
+		filterContrast,
+		filterSaturate,
+		lazyLoad,
+		contentTabs,
+		tabLabels,
+		margin,
+		sectionSpacing,
+		boxShadow,
+		boxShadowColor,
+		boxShadowBlur,
+		boxShadowSpread,
+		boxShadowHorizontal,
+		boxShadowVertical,
+		borderWidth,
+		borderColor,
+		borderRadius,
+		containerWidth,
+		customVar1,
+		customVar2,
 	} = attributes;
 
 	// Use our custom hook to fetch and manage authors
@@ -94,6 +123,31 @@ export default function Edit({
 		});
 	}
 
+	// Load Google Font if selected
+	useEffect(() => {
+		if (googleFont && googleFont !== '') {
+			loadGoogleFont(googleFont);
+		}
+	}, [googleFont]);
+
+	const loadGoogleFont = (fontName) => {
+		if (!fontName) {
+			return;
+		}
+
+		// Remove existing Google Fonts link if present
+		const existingLink = document.querySelector('link[href*="fonts.googleapis.com"]');
+		if (existingLink) {
+			existingLink.remove();
+		}
+
+		// Add new Google Font
+		const link = document.createElement('link');
+		link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontName)}:wght@300;400;500;600;700&display=swap`;
+		link.rel = 'stylesheet';
+		document.head.appendChild(link);
+	};
+
 	// Handle author IDs change
 	const handleAuthorIdsChange = (newAuthorIds) => {
 		setAttributes({ authorIds: newAuthorIds });
@@ -119,8 +173,23 @@ export default function Edit({
 		insertBlocks(gridBlock, undefined, clientId, true);
 	};
 
-	// Block props
-	const blockProps = useBlockProps();
+	// Block props with enhanced styling
+	const blockProps = useBlockProps({
+		className: [
+			layoutPreset ? layoutPreset : '',
+			animationType && animationType !== 'none' ? `has-${animationType}-animation` : '',
+			hoverEffect && hoverEffect !== 'none' ? `has-${hoverEffect}-hover` : '',
+			customCssClass ? customCssClass : '',
+			googleFont ? `has-${googleFont.toLowerCase().replace(/\s+/g, '-')}-font` : '',
+		].filter(Boolean).join(' '),
+		style: {
+			'--author-list-margin': margin || '',
+			'--author-list-section-spacing': sectionSpacing ? `${sectionSpacing}px` : '',
+			'--author-list-container-width': containerWidth || '',
+			'--author-list-custom-var-1': customVar1 || '',
+			'--author-list-custom-var-2': customVar2 || '',
+		},
+	});
 
 	return (
 		<div {...blockProps}>
@@ -146,224 +215,25 @@ export default function Edit({
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody
-					title={__('Author Selection', 'author-profile-blocks')}
-					initialOpen={true}
-				>
-					<AuthorPicker
-						selectedAuthorIds={authorIds ?? []}
-						onChange={handleAuthorIdsChange}
-					/>
+				<ContentPanel
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
 
-					<SelectControl
-						label={__('Filter by Role', 'author-profile-blocks')}
-						value={authorRole}
-						options={roleOptions}
-						onChange={(value) =>
-							setAttributes({ authorRole: value })
-						}
-					/>
+				<LayoutPanel
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
 
-					<RangeControl
-						label={__(
-							'Maximum Authors to Display',
-							'author-profile-blocks'
-						)}
-						value={maxAuthors}
-						onChange={(value) =>
-							setAttributes({ maxAuthors: value })
-						}
-						min={0}
-						max={100}
-						step={1}
-						help={__(
-							'Set to 0 to show all selected authors',
-							'author-profile-blocks'
-						)}
-					/>
-				</PanelBody>
+				<StylePanel
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
 
-				<PanelBody
-					title={__('List Settings', 'author-profile-blocks')}
-					initialOpen={true}
-				>
-					<DisplayStyleSelector
-						value={displayStyle}
-						onChange={(value) =>
-							setAttributes({ displayStyle: value })
-						}
-						style={{ marginBottom: '1rem' }}
-					/>
-
-					<ListLayoutSelector
-						value={listStyle}
-						onChange={(value) =>
-							setAttributes({ listStyle: value })
-						}
-						style={{ marginBottom: '1rem' }}
-					/>
-
-					<ToggleControl
-						label={__(
-							'Show Dividers Between Items',
-							'author-profile-blocks'
-						)}
-						checked={enableDividers}
-						onChange={() =>
-							setAttributes({ enableDividers: !enableDividers })
-						}
-					/>
-
-					{enableDividers && (
-						<div className="apbl-color-picker-label-wrapper">
-							<span>
-								{__('Divider Color', 'author-profile-blocks')}
-							</span>
-							<ColorPicker
-								color={dividerColor}
-								onChange={(value) =>
-									setAttributes({ dividerColor: value })
-								}
-								enableAlpha
-							/>
-						</div>
-					)}
-
-					<ToggleControl
-						label={__(
-							'Enable Rounded Corners',
-							'author-profile-blocks'
-						)}
-						checked={enableRounded}
-						onChange={() =>
-							setAttributes({ enableRounded: !enableRounded })
-						}
-					/>
-
-					<ToggleControl
-						label={__(
-							'Enable Hover Effect',
-							'author-profile-blocks'
-						)}
-						checked={enableHoverEffect}
-						onChange={() =>
-							setAttributes({
-								enableHoverEffect: !enableHoverEffect,
-							})
-						}
-					/>
-
-					<RangeControl
-						label={__(
-							'Space Between Items',
-							'author-profile-blocks'
-						)}
-						value={itemSpacing}
-						onChange={(value) =>
-							setAttributes({ itemSpacing: value })
-						}
-						min={0}
-						max={50}
-						step={1}
-					/>
-
-					<RangeControl
-						label={__('Block Padding', 'author-profile-blocks')}
-						value={blockPadding}
-						onChange={(value) =>
-							setAttributes({ blockPadding: value })
-						}
-						min={0}
-						max={50}
-						step={1}
-					/>
-
-					<RangeControl
-						label={__('Item Padding', 'author-profile-blocks')}
-						value={itemPadding}
-						onChange={(value) =>
-							setAttributes({ itemPadding: value })
-						}
-						min={0}
-						max={50}
-						step={1}
-					/>
-				</PanelBody>
-
-				<PanelBody title={__('Colors', 'author-profile-blocks')}>
-					<div className="apb-color-picker-label-wrapper">
-						<span>
-							{__('Block Background', 'author-profile-blocks')}
-						</span>
-						<ColorPicker
-							color={backgroundColor}
-							onChange={(value) =>
-								setAttributes({ backgroundColor: value })
-							}
-							enableAlpha
-						/>
-					</div>
-
-					<div className="apb-color-picker-label-wrapper">
-						<span>
-							{__('Item Background', 'author-profile-blocks')}
-						</span>
-						<ColorPicker
-							color={itemBackgroundColor}
-							onChange={(value) =>
-								setAttributes({ itemBackgroundColor: value })
-							}
-							enableAlpha
-						/>
-					</div>
-				</PanelBody>
-
-				<PanelBody
-					title={__('Display Elements', 'author-profile-blocks')}
-				>
-					<ToggleControl
-						label={__('Show Author Image', 'author-profile-blocks')}
-						checked={showImage}
-						onChange={() =>
-							setAttributes({ showImage: !showImage })
-						}
-					/>
-
-					<ToggleControl
-						label={__(
-							'Show Position/Role',
-							'author-profile-blocks'
-						)}
-						checked={showPosition}
-						onChange={() =>
-							setAttributes({ showPosition: !showPosition })
-						}
-					/>
-
-					<ToggleControl
-						label={__('Show Email', 'author-profile-blocks')}
-						checked={showEmail}
-						onChange={() =>
-							setAttributes({ showEmail: !showEmail })
-						}
-					/>
-
-					<ToggleControl
-						label={__('Show Description', 'author-profile-blocks')}
-						checked={showDescription}
-						onChange={() =>
-							setAttributes({ showDescription: !showDescription })
-						}
-					/>
-
-					<ToggleControl
-						label={__('Show Social Links', 'author-profile-blocks')}
-						checked={showSocial}
-						onChange={() =>
-							setAttributes({ showSocial: !showSocial })
-						}
-					/>
-				</PanelBody>
+				<AdvancedPanel
+					attributes={attributes}
+					setAttributes={setAttributes}
+				/>
 			</InspectorControls>
 
 			{authorIds.length === 0 ? (
