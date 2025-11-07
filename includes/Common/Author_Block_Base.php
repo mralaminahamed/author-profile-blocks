@@ -9,7 +9,7 @@
 namespace AuthorProfileBlocks\Common;
 
 use AuthorProfileBlocks\Blocks\Block_Base;
-use AuthorProfileBlocks\Plugin;
+use Author_Profile_Blocks;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -83,6 +83,43 @@ abstract class Author_Block_Base extends Block_Base {
 	}
 
 	/**
+	 * Get standardized error message for missing author selection.
+	 *
+	 * @return string The error message.
+	 */
+	protected function get_no_authors_selected_message(): string {
+		/* translators: %s: block type (grid, carousel, list) */
+		return __( 'Please select authors for the %s.', 'author-profile-blocks' );
+	}
+
+	/**
+	 * Get standardized error message for no authors found.
+	 *
+	 * @return string The error message.
+	 */
+	protected function get_no_authors_found_message(): string {
+		return __( 'No authors found matching the specified criteria.', 'author-profile-blocks' );
+	}
+
+	/**
+	 * Get standardized error message for missing single author selection.
+	 *
+	 * @return string The error message.
+	 */
+	protected function get_no_author_selected_message(): string {
+		return __( 'Please select an author.', 'author-profile-blocks' );
+	}
+
+	/**
+	 * Get standardized error message for author not found.
+	 *
+	 * @return string The error message.
+	 */
+	protected function get_author_not_found_message(): string {
+		return __( 'Author not found.', 'author-profile-blocks' );
+	}
+
+	/**
 	 * Get author data from the service.
 	 *
 	 * @param int $author_id The author ID.
@@ -94,7 +131,67 @@ abstract class Author_Block_Base extends Block_Base {
 			return null;
 		}
 
-		return Plugin::get_instance()->get_author_data( $author_id );
+		return Author_Profile_Blocks::get_instance()->get_author_data( $author_id );
+	}
+
+	/**
+	 * Localize block script with common data.
+	 *
+	 * @param array $additional_data Optional additional data to include.
+	 *
+	 * @return void
+	 */
+	protected function localize_block_script( array $additional_data = array() ): void {
+		$default_data = array(
+			'adminUrl'  => admin_url(),
+			'restNonce' => wp_create_nonce( 'wp_rest' ),
+			'restUrl'   => rest_url(),
+			'pluginUrl' => APBL_PLUGIN_URL,
+		);
+
+		$localized_data = array_merge( $default_data, $additional_data );
+
+		wp_localize_script(
+			'author-profile-blocks-' . $this->block_name . '-editor-script',
+			'AuthorProfileBlocksData',
+			$localized_data
+		);
+	}
+
+	/**
+	 * Extract author IDs from block attributes.
+	 *
+	 * @param array $attributes Block attributes.
+	 *
+	 * @return array Array of author IDs.
+	 */
+	protected function extract_author_ids( array $attributes ): array {
+		return $attributes['authorIds'] ?? array();
+	}
+
+	/**
+	 * Extract author roles from block attributes.
+	 *
+	 * @param array $attributes Block attributes.
+	 *
+	 * @return array Array of author roles.
+	 */
+	protected function extract_author_roles( array $attributes ): array {
+		if ( ! empty( $attributes['authorRole'] ) ) {
+			return array( $attributes['authorRole'] );
+		}
+		return array();
+	}
+
+	/**
+	 * Extract max authors limit from block attributes.
+	 *
+	 * @param array $attributes Block attributes.
+	 *
+	 * @return int Maximum number of authors.
+	 */
+	protected function extract_max_authors( array $attributes ): int {
+		return isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
 	}
 
 	/**
@@ -112,7 +209,7 @@ abstract class Author_Block_Base extends Block_Base {
 		}
 
 		$authors = array();
-		$plugin  = Plugin::get_instance();
+		$plugin  = Author_Profile_Blocks::get_instance();
 
 		// First approach: Use individual author data method if we have specific IDs.
 		foreach ( $author_ids as $author_id ) {

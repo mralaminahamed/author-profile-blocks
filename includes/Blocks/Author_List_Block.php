@@ -48,10 +48,10 @@ class Author_List_Block extends Author_Block_Base {
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
-		$author_ids = $attributes['authorIds'] ?? array();
+		$author_ids = $this->extract_author_ids( $attributes );
 
 		if ( empty( $author_ids ) ) {
-			return $this->render_error_message( __( 'Please select authors for the list.', 'author-profile-blocks' ) );
+			return $this->render_error_message( sprintf( $this->get_no_authors_selected_message(), 'list' ) );
 		}
 
 		// Check cache first.
@@ -62,21 +62,18 @@ class Author_List_Block extends Author_Block_Base {
 		}
 
 		// Apply author role filter if specified.
-		$roles = array();
-		if ( ! empty( $attributes['authorRole'] ) ) {
-			$roles = array( $attributes['authorRole'] );
-		}
+		$roles = $this->extract_author_roles( $attributes );
 
 		// Get authors data.
 		$authors = $this->get_authors_data( $author_ids, $roles );
 
 		// Apply maximum authors limit if specified.
-		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
+		$max_authors = $this->extract_max_authors( $attributes );
 		$authors     = $this->apply_author_limit( $authors, $max_authors );
 
 		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
-			return $this->render_error_message( __( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) );
+			return $this->render_error_message( $this->get_no_authors_found_message() );
 		}
 
 		// Generate styles for the block.

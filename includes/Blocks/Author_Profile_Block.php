@@ -44,14 +44,8 @@ class Author_Profile_Block extends Author_Block_Base {
 	 * @return void
 	 */
 	public function localize_block_script(): void {
-		wp_localize_script(
-			'author-profile-blocks-author-profile-editor-script',
-			'AuthorProfileBlocksData',
+		$this->localize_block_script(
 			array(
-				'adminUrl'    => admin_url(),
-				'restNonce'   => wp_create_nonce( 'wp_rest' ),
-				'restUrl'     => rest_url(),
-				'pluginUrl'   => APBL_PLUGIN_URL,
 				'socialIcons' => $this->get_social_icon_data(),
 			)
 		);
@@ -79,7 +73,7 @@ class Author_Profile_Block extends Author_Block_Base {
 		$author_id = $attributes['authorId'] ?? 0;
 
 		if ( empty( $author_id ) ) {
-			return $this->render_error_message( __( 'Please select an author.', 'author-profile-blocks' ) );
+			return $this->render_error_message( $this->get_no_author_selected_message() );
 		}
 
 		// Check cache first.
@@ -93,7 +87,7 @@ class Author_Profile_Block extends Author_Block_Base {
 		$author_data = $this->get_author_data( $author_id );
 
 		if ( ! $author_data ) {
-			return $this->render_error_message( __( 'Author not found.', 'author-profile-blocks' ) );
+			return $this->render_error_message( $this->get_author_not_found_message() );
 		}
 
 		// Add styling properties to author data
