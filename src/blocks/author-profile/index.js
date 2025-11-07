@@ -21,20 +21,10 @@ import Edit from './edit';
 import metadata from './block.json';
 
 /**
- * Initialize global variables
- */
-window.AuthorProfileBlocks = window.AuthorProfileBlocks || {
-	adminUrl:
-		(window.AuthorProfileBlocksData &&
-			window.AuthorProfileBlocksData.adminUrl) ||
-		'/wp-admin/',
-};
-
-/**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	edit: Edit,
-});
+} );

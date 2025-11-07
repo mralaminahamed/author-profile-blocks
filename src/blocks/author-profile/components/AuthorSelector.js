@@ -14,15 +14,15 @@ import { AuthorSelector as CommonAuthorSelector } from '../../../js/components';
  * @param {Object} props Component props
  * @return {JSX.Element} Component to render
  */
-const AuthorSelector = (props) => {
+const AuthorSelector = ( props ) => {
 	return (
 		<CommonAuthorSelector
-			title={__('Author Profile Block', 'author-profile-blocks')}
-			instructions={__(
+			title={ __( 'Author Profile Block', 'author-profile-blocks' ) }
+			instructions={ __(
 				'Select an author to display their profile in your content.',
-				'author-profile-blocks'
-			)}
-			{...props}
+				'author-profile-blocks',
+			) }
+			{ ...props }
 		/>
 	);
 };

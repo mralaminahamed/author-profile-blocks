@@ -330,4 +330,186 @@
   --author-more-content-padding: 15px;
 
   --author-section-spacing: 15px;
+
+  // Google Font support
+  --author-name-font-family: inherit;
+}
+
+// Animation classes
+@keyframes apb-fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes apb-slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes apb-slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes apb-slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes apb-slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes apb-scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes apb-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+// Hover effects
+.apb-hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.apb-hover-glow {
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+  }
+}
+
+.apb-hover-scale {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.apb-hover-rotate {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: rotate(2deg);
+  }
+}
+
+.apb-hover-shadow {
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Apply animations and hover effects
+.wp-block-author-profile-blocks-author-profile {
+  // Entrance animations
+  &.apb-animation-fadeIn {
+    animation: apb-fadeIn 0.6s ease-out;
+  }
+
+  &.apb-animation-slideUp {
+    animation: apb-slideUp 0.6s ease-out;
+  }
+
+  &.apb-animation-slideDown {
+    animation: apb-slideDown 0.6s ease-out;
+  }
+
+  &.apb-animation-slideLeft {
+    animation: apb-slideLeft 0.6s ease-out;
+  }
+
+  &.apb-animation-slideRight {
+    animation: apb-slideRight 0.6s ease-out;
+  }
+
+  &.apb-animation-scaleIn {
+    animation: apb-scaleIn 0.6s ease-out;
+  }
+
+  &.apb-animation-bounce {
+    animation: apb-bounce 1s ease-out;
+  }
+
+  // Hover effects
+  &.apb-hover-lift {
+    @extend .apb-hover-lift;
+  }
+
+  &.apb-hover-glow {
+    @extend .apb-hover-glow;
+  }
+
+  &.apb-hover-scale {
+    @extend .apb-hover-scale;
+  }
+
+  &.apb-hover-rotate {
+    @extend .apb-hover-rotate;
+  }
+
+  &.apb-hover-shadow {
+    @extend .apb-hover-shadow;
+  }
+}
+
+// Google Font application
+.wp-block-author-profile-blocks-author-profile {
+  .apb-author-name {
+    font-family: var(--author-name-font-family, inherit);
+  }
 }

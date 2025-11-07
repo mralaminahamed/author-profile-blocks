@@ -30,6 +30,20 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
+    &.is-style-banner {
+        padding: 32px !important;
+        text-align: center;
+
+        .apb-author-image {
+            margin-bottom: 24px;
+        }
+
+        .apb-author-name {
+            margin-bottom: 16px;
+            font-size: 28px;
+        }
+    }
+
     /* Content order variations */
     &.content-order-image-content {
         display: flex;
@@ -114,4 +128,85 @@
     margin-top: 4px;
     font-style: italic;
     color: #757575;
+}
+
+/* Animation and hover effect previews in editor */
+.wp-block-author-profile-blocks-author-profile {
+
+    &.apb-hover-lift:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+        transition: all 0.2s ease;
+    }
+
+    &.apb-hover-glow:hover {
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+        transition: box-shadow 0.3s ease;
+    }
+
+    &.apb-hover-scale:hover {
+        transform: scale(1.02);
+        transition: transform 0.2s ease;
+    }
+
+    &.apb-hover-shadow:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease;
+    }
+}
+
+/* Layout presets styling */
+.apb-layout-presets {
+
+    .apb-layout-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .apb-layout-preset {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+        padding: 12px 8px;
+        cursor: pointer;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background: #f8f9fa;
+            border-color: var(--wp-admin-theme-color);
+        }
+
+        &.is-selected {
+            color: #fff;
+            background: var(--wp-admin-theme-color);
+            border-color: var(--wp-admin-theme-color);
+        }
+
+        .apb-layout-icon {
+            margin-bottom: 4px;
+            font-size: 20px;
+        }
+
+        .apb-layout-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
+        }
+    }
+}
+
+/* Preset styles grid */
+.apb-preset-button {
+    transition: all 0.2s ease !important;
+
+    &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-1px);
+    }
 }

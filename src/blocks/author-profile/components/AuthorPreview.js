@@ -10,7 +10,7 @@ import ServerSideRender from '@wordpress/server-side-render';
  * @param {Object} props.attributes Block attributes
  * @return {JSX.Element} Component to render
  */
-const AuthorPreview = ({ attributes }) => {
+const AuthorPreview = ( { attributes } ) => {
 	const {
 		// Avatar settings
 		avatarSize,
@@ -57,73 +57,78 @@ const AuthorPreview = ({ attributes }) => {
 		// Layout settings
 		contentOrder,
 		sectionSpacing,
+		// Additional attributes
+		layoutPreset,
+		lazyLoad,
+		contentTabs,
+		tabLabels,
 	} = attributes;
 
 	// Create custom CSS variables to pass to the server-side render
 	const customStyles = {
 		// Avatar styles
-		'--author-avatar-size': avatarSize ? `${avatarSize}px` : undefined,
+		'--author-avatar-size': avatarSize ? `${ avatarSize }px` : undefined,
 		'--author-avatar-border-width': avatarBorderWidth
-			? `${avatarBorderWidth}px`
+			? `${ avatarBorderWidth }px`
 			: undefined,
 		'--author-avatar-border-color': avatarBorderColor || undefined,
 		'--author-avatar-border-radius':
 			avatarShape === 'custom' && avatarBorderRadius
-				? `${avatarBorderRadius}px`
+				? `${ avatarBorderRadius }px`
 				: undefined,
 		'--author-avatar-align': avatarAlignment || undefined,
 		'--author-avatar-margin': avatarMargin
-			? `${avatarMargin}px`
+			? `${ avatarMargin }px`
 			: undefined,
 		// Name styles
-		'--author-name-size': nameSize ? `${nameSize}px` : undefined,
+		'--author-name-size': nameSize ? `${ nameSize }px` : undefined,
 		'--author-name-weight': nameWeight || undefined,
 		'--author-name-color': nameColor || undefined,
 		'--author-name-transform': nameTransform || undefined,
 		'--author-name-align': nameAlignment || undefined,
-		'--author-name-margin': nameMargin ? `${nameMargin}px` : undefined,
+		'--author-name-margin': nameMargin ? `${ nameMargin }px` : undefined,
 		// Description styles
 		'--author-description-size': descriptionSize
-			? `${descriptionSize}px`
+			? `${ descriptionSize }px`
 			: undefined,
 		'--author-description-line-height': descriptionLineHeight || undefined,
 		'--author-description-color': descriptionColor || undefined,
 		'--author-description-style': descriptionStyle || undefined,
 		'--author-description-align': descriptionAlignment || undefined,
 		'--author-description-margin': descriptionMargin
-			? `${descriptionMargin}px`
+			? `${ descriptionMargin }px`
 			: undefined,
 		// Meta styles
-		'--author-meta-size': metaSize ? `${metaSize}px` : undefined,
+		'--author-meta-size': metaSize ? `${ metaSize }px` : undefined,
 		'--author-meta-color': metaColor || undefined,
 		'--author-meta-style': metaStyle || undefined,
 		'--author-meta-weight': metaBold ? 'bold' : undefined,
 		'--author-meta-align': metaAlignment || undefined,
-		'--author-meta-margin': metaMargin ? `${metaMargin}px` : undefined,
+		'--author-meta-margin': metaMargin ? `${ metaMargin }px` : undefined,
 		// Email link styles
 		'--author-email-link-color': emailLinkColor || undefined,
 		'--author-email-link-hover-color': emailHoverColor || undefined,
 		// Social icon styles
 		'--author-social-icon-size': socialIconSize
-			? `${socialIconSize}px`
+			? `${ socialIconSize }px`
 			: undefined,
 		'--author-social-icon-color': socialIconColor || undefined,
 		'--author-social-icon-hover-color': socialIconHoverColor || undefined,
 		'--author-social-icon-bg': socialIconBackground || undefined,
 		'--author-social-icon-bg-hover': socialIconBackgroundHover || undefined,
 		'--author-social-icon-spacing': socialIconSpacing
-			? `${socialIconSpacing}px`
+			? `${ socialIconSpacing }px`
 			: undefined,
 		'--author-social-icon-align': socialIconAlignment || undefined,
 		// More content section styles
 		'--author-more-content-border-color':
 			moreContentBorderColor || undefined,
 		'--author-more-content-padding': moreContentPadding
-			? `${moreContentPadding}px`
+			? `${ moreContentPadding }px`
 			: undefined,
 		// Spacing
 		'--author-section-spacing': sectionSpacing
-			? `${sectionSpacing}px`
+			? `${ sectionSpacing }px`
 			: undefined,
 	};
 
@@ -133,13 +138,17 @@ const AuthorPreview = ({ attributes }) => {
 		'data-content-order': contentOrder || undefined,
 		'data-meta-bold': metaBold ? 'true' : undefined,
 		'data-description-style': descriptionStyle || undefined,
+		'data-layout-preset': layoutPreset || undefined,
+		'data-lazy-load': lazyLoad ? 'true' : undefined,
+		'data-content-tabs': contentTabs ? 'true' : undefined,
+		'data-tab-labels': tabLabels ? JSON.stringify( tabLabels ) : undefined,
 	};
 
 	return (
-		<div style={customStyles} {...dataAttributes}>
+		<div style={ customStyles } { ...dataAttributes }>
 			<ServerSideRender
 				block="author-profile-blocks/author-profile"
-				attributes={attributes}
+				attributes={ attributes }
 			/>
 		</div>
 	);
