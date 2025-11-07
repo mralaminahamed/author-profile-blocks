@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Author Profile Blocks
  * Plugin URI:        https://github.com/mralaminahamed/author-profile-blocks
- * Description:       A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.
+ * Description:       Gutenberg blocks for displaying author profiles and team members with customizable layouts.
  * Version:           1.0.0
  * Requires at least: 6.0
  * Tested up to:      6.7
