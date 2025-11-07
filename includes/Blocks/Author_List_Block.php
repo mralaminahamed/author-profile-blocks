@@ -8,7 +8,7 @@
 
 namespace AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Common\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -93,35 +93,24 @@ class Author_List_Block extends Author_Block_Base {
 		);
 
 		// Build the HTML.
-		$html = '<div ' . $wrapper_attributes . '>';
-
-		// Determine list style.
-		$list_style = $attributes['listStyle'] ?? 'ul';
-		$list_tag   = ( 'ol' === $list_style ) ? 'ol' : 'ul';
-
-		// Create list container with appropriate class.
-		$list_class = 'apb-author-list';
-
-		// Add divider class if enabled.
-		if ( ! empty( $attributes['enableDividers'] ) ) {
-			$list_class .= ' has-dividers';
-		}
-
-		// Add spacing style.
-		$list_style_attr = '';
-		if ( isset( $attributes['itemSpacing'] ) ) {
-			$list_style_attr = ' style="gap: ' . (int) $attributes['itemSpacing'] . 'px;"';
-		}
-
-		$html .= '<' . $list_tag . ' class="' . esc_attr( $list_class ) . '"' . $list_style_attr . '>';
-
-		// Add each author profile.
-		foreach ( $authors as $author ) {
-			$html .= $this->render_author_item( $author, $attributes );
-		}
-
-		$html .= '</' . $list_tag . '>'; // Close list container.
-		$html .= '</div>'; // Close block wrapper.
+		ob_start();
+		?>
+		<div <?php echo $wrapper_attributes; ?>>
+			<?php
+			wc_get_template(
+				'blocks/author-list/list.php',
+				array(
+					'authors'        => $authors,
+					'attributes'     => $attributes,
+					'block_instance' => $this,
+				),
+				'',
+				plugin_dir_path( __FILE__ ) . '../../templates/'
+			);
+			?>
+		</div>
+		<?php
+		$html = ob_get_clean();
 
 		// Cache the result.
 		$this->set_cached_render( $cache_key, $html );

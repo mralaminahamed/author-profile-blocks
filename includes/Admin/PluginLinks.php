@@ -1,10 +1,16 @@
 <?php
 
-namespace AuthorProfileBlocks\Settings;
+namespace AuthorProfileBlocks\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/**
+ * Plugin Links Settings Class
+ *
+ * @package AuthorProfileBlocks
+ */
 
 /**
  * Plugin Links Settings Class

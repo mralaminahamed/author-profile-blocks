@@ -6,14 +6,16 @@
  * @package AuthorProfileBlocks
  */
 
-use AuthorProfileBlocks\Admin\Assets;
-use AuthorProfileBlocks\Admin\Menu;
-use AuthorProfileBlocks\Blocks\Block_Registry;
-use AuthorProfileBlocks\Core\Base;
+use AuthorProfileBlocks\Admin\Admin;
+use AuthorProfileBlocks\Admin\PluginLinks;
+use AuthorProfileBlocks\Blocks\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
+use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+use AuthorProfileBlocks\Blocks\Author_List_Block;
+use AuthorProfileBlocks\Blocks\Author_Profile_Block;
 use AuthorProfileBlocks\Core\User_Meta_Provider;
 use AuthorProfileBlocks\Frontend\Assets as FrontendAssets;
 use AuthorProfileBlocks\Services\Author_Profile_Service;
-use AuthorProfileBlocks\Settings\PluginLinks;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,13 +25,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Main plugin class for Author Profile Blocks.
  */
-class Author_Profile_Blocks extends Base {
+class Author_Profile_Blocks {
 	/**
 	 * Plugin instance.
 	 *
 	 * @var Author_Profile_Blocks|null
 	 */
 	private static ?Author_Profile_Blocks $instance = null;
+
+	/**
+	 * List of blocks to register.
+	 *
+	 * @var Author_Block_Base[]
+	 */
+	private array $blocks = array();
 
 	/**
 	 * Get plugin instance.
@@ -50,12 +59,6 @@ class Author_Profile_Blocks extends Base {
 	private function __construct() {
 		// Initialize services.
 		$this->register_services();
-
-		add_action( 'init', array( $this, 'register_meta_field' ), 0 );
-
-		// Register activation/deactivation hooks.
-		register_activation_hook( APBL_PLUGIN_FILE, array( $this, 'activate' ) );
-		register_deactivation_hook( APBL_PLUGIN_FILE, array( $this, 'deactivate' ) );
 	}
 
 	/**
@@ -66,7 +69,76 @@ class Author_Profile_Blocks extends Base {
 	public function register_services(): void {
 		$this->user_meta_provider     = new User_Meta_Provider();
 		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
-		$this->block_registry         = new Block_Registry();
+
+		$this->register_blocks();
+	}
+
+	/**
+	 * Register all blocks.
+	 *
+	 * @return void
+	 */
+	private function register_blocks(): void {
+		// Register all blocks here.
+		$this->register_block( new Author_Profile_Block() );
+		$this->register_block( new Author_Grid_Block() );
+		$this->register_block( new Author_Carousel_Block() );
+		$this->register_block( new Author_List_Block() );
+
+		// Allow plugins/themes to register additional blocks.
+		do_action( 'author_profile_blocks_register_blocks', $this );
+	}
+
+	/**
+	 * Initialize all registered blocks.
+	 *
+	 * @return void
+	 */
+	private function initialize_blocks(): void {
+		// Initialize each block.
+		foreach ( $this->blocks as $block ) {
+			$block->init();
+		}
+
+		// Allow other components to interact with our block registry.
+		do_action( 'author_profile_blocks_blocks_registered', $this );
+	}
+
+	/**
+	 * Register a block instance.
+	 *
+	 * @param Author_Block_Base $block Block instance.
+	 *
+	 * @return void
+	 */
+	public function register_block( Author_Block_Base $block ): void {
+		$this->blocks[] = $block;
+	}
+
+	/**
+	 * Get all registered blocks.
+	 *
+	 * @return Author_Block_Base[] Array of block instances.
+	 */
+	public function get_blocks(): array {
+		return $this->blocks;
+	}
+
+	/**
+	 * Get a specific block by name.
+	 *
+	 * @param string $name Block name.
+	 *
+	 * @return Author_Block_Base|null Block instance or null if not found.
+	 */
+	public function get_block( string $name ): ?Author_Block_Base {
+		foreach ( $this->blocks as $block ) {
+			if ( $block->get_block_name() === $name ) {
+				return $block;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -124,6 +196,9 @@ class Author_Profile_Blocks extends Base {
 				},
 			)
 		);
+
+		// Register the meta fields with WordPress.
+		$this->user_meta_provider->register_meta_fields();
 	}
 
 	/**
@@ -132,31 +207,40 @@ class Author_Profile_Blocks extends Base {
 	 * @return void
 	 */
 	public function init(): void {
-		// Initialize settings components.
-		new PluginLinks();
+		// Register activation/deactivation hooks.
+		register_activation_hook( APBL_PLUGIN_FILE, array( $this, 'activate' ) );
+		register_deactivation_hook( APBL_PLUGIN_FILE, array( $this, 'deactivate' ) );
+
+		// Register early hooks.
+		add_action( 'init', array( $this, 'register_meta_field' ), 0 );
+		add_action( 'init', array( $this, 'init_components' ) );
+	}
+
+	/**
+	 * Initialize plugin components.
+	 *
+	 * @return void
+	 */
+	public function init_components(): void {
+		// Initialize service components first (blocks may depend on them).
+		$this->user_meta_provider->init();
+		$this->author_profile_service->init();
 
 		// Initialize blocks.
-		$this->block_registry->init();
+		$this->initialize_blocks();
 
 		// Initialize frontend components.
 		new FrontendAssets();
 
 		// Initialize admin components.
 		if ( is_admin() ) {
-			new Menu();
-			new Assets();
+			new PluginLinks();
+			new Admin();
 		}
-
-		// Initialize service components.
-		$this->user_meta_provider->init();
-		$this->author_profile_service->init();
 
 		// Register hooks in groups for better organization.
 		$this->register_user_profile_hooks();
 		$this->register_admin_hooks();
-
-		// Set initialized state.
-		$this->set_initialized();
 
 		/**
 		 * Fires after the Author Profile Blocks plugin has been fully initialized.
@@ -534,10 +618,10 @@ class Author_Profile_Blocks extends Base {
 	/**
 	 * Get the block registry.
 	 *
-	 * @return Block_Registry Block registry instance.
+	 * @return self Block registry instance.
 	 */
-	public function get_block_registry(): Block_Registry {
-		return $this->block_registry;
+	public function get_block_registry(): self {
+		return $this;
 	}
 
 	/**

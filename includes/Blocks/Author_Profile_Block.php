@@ -8,7 +8,7 @@
 
 namespace AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Common\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -43,12 +43,14 @@ class Author_Profile_Block extends Author_Block_Base {
 	 *
 	 * @return void
 	 */
-	public function localize_block_script(): void {
-		$this->localize_block_script(
+	public function localize_block_script( array $additional_data = array() ): void {
+		$profile_data = array_merge(
+			$additional_data,
 			array(
 				'socialIcons' => $this->get_social_icon_data(),
 			)
 		);
+		parent::localize_block_script( $profile_data );
 	}
 
 	/**
@@ -110,36 +112,74 @@ class Author_Profile_Block extends Author_Block_Base {
 		);
 
 		// Build the HTML.
-		$html = '<div ' . $wrapper_attributes . '>';
+		ob_start();
+		echo '<div ' . $wrapper_attributes . '>';
 
 		// Determine layout based on content order
 		$content_order = $attributes['contentOrder'] ?? 'image-content';
 
 		switch ( $content_order ) {
 			case 'content-image':
-				$html .= $this->render_content_image_layout( $author_data, $attributes );
+				wc_get_template(
+					'blocks/author-profile/content-image.php',
+					array(
+						'author'         => $author_data,
+						'attributes'     => $attributes,
+						'block_instance' => $this,
+					),
+					'',
+					plugin_dir_path( __FILE__ ) . '../../templates/'
+				);
 				break;
 
 			case 'image-top':
-				$html .= $this->render_image_top_layout( $author_data, $attributes );
+				wc_get_template(
+					'blocks/author-profile/image-top.php',
+					array(
+						'author'         => $author_data,
+						'attributes'     => $attributes,
+						'block_instance' => $this,
+					),
+					'',
+					plugin_dir_path( __FILE__ ) . '../../templates/'
+				);
 				break;
 
 			case 'content-top':
-				$html .= $this->render_content_top_layout( $author_data, $attributes );
+				wc_get_template(
+					'blocks/author-profile/content-top.php',
+					array(
+						'author'         => $author_data,
+						'attributes'     => $attributes,
+						'block_instance' => $this,
+					),
+					'',
+					plugin_dir_path( __FILE__ ) . '../../templates/'
+				);
 				break;
 
 			case 'image-content':
 			default:
-				$html .= $this->render_image_content_layout( $author_data, $attributes );
+				wc_get_template(
+					'blocks/author-profile/image-content.php',
+					array(
+						'author'         => $author_data,
+						'attributes'     => $attributes,
+						'block_instance' => $this,
+					),
+					'',
+					plugin_dir_path( __FILE__ ) . '../../templates/'
+				);
 				break;
 		}
 
 		// Add optional more content if enabled.
 		if ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) ) {
-			$html .= $this->render_more_content( $attributes['moreContent'], $author_data );
+			echo $this->render_more_content( $attributes['moreContent'], $author_data );
 		}
 
-		$html .= '</div>';
+		echo '</div>';
+		$html = ob_get_clean();
 
 		// Cache the result.
 		$this->set_cached_render( $cache_key, $html );
@@ -303,231 +343,5 @@ class Author_Profile_Block extends Author_Block_Base {
 		if ( isset( $attributes['moreContentPadding'] ) ) {
 			$author_data['moreContentPadding'] = $attributes['moreContentPadding'];
 		}
-	}
-
-	/**
-	 * Render image-content layout (image left, content right)
-	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
-	 *
-	 * @return string Rendered HTML.
-	 */
-	private function render_image_content_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-profile-content">';
-
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author );
-		}
-
-		// Author info.
-		$html .= '<div class="apb-author-info">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		// Social profiles - only if display is enabled in attributes.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocialLinks'] ) ) {
-			$social_links_to_show = $attributes['socialLinksToShow'] ?? array();
-			$html                .= $this->render_social_profiles( $author['social'], '', $social_links_to_show );
-		}
-
-		$html .= '</div>'; // Close .apb-author-info.
-		$html .= '</div>'; // Close .apb-author-profile-content.
-
-		return $html;
-	}
-
-	/**
-	 * Render content-image layout (content left, image right)
-	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
-	 *
-	 * @return string Rendered HTML.
-	 */
-	private function render_content_image_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-profile-content">';
-
-		// Author info.
-		$html .= '<div class="apb-author-info">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		// Social profiles - only if display is enabled in attributes.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocialLinks'] ) ) {
-			$social_links_to_show = $attributes['socialLinksToShow'] ?? array();
-			$html                .= $this->render_social_profiles( $author['social'], '', $social_links_to_show );
-		}
-
-		$html .= '</div>'; // Close .apb-author-info.
-
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author );
-		}
-
-		$html .= '</div>'; // Close .apb-author-profile-content.
-
-		return $html;
-	}
-
-	/**
-	 * Render image-top layout (image above, content below)
-	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
-	 *
-	 * @return string Rendered HTML.
-	 */
-	private function render_image_top_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-profile-content">';
-
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author, 'apb-author-image-centered' );
-		}
-
-		// Author info.
-		$html .= '<div class="apb-author-info">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		// Social profiles - only if display is enabled in attributes.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocialLinks'] ) ) {
-			$social_links_to_show = $attributes['socialLinksToShow'] ?? array();
-			$html                .= $this->render_social_profiles( $author['social'], 'apb-social-profiles-centered', $social_links_to_show );
-		}
-
-		$html .= '</div>'; // Close .apb-author-info.
-		$html .= '</div>'; // Close .apb-author-profile-content.
-
-		return $html;
-	}
-
-	/**
-	 * Render content-top layout (content above, image below)
-	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
-	 *
-	 * @return string Rendered HTML.
-	 */
-	private function render_content_top_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-profile-content">';
-
-		// Author info.
-		$html .= '<div class="apb-author-info">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
-		}
-
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
-		}
-
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
-		}
-
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
-		}
-
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
-		}
-
-		// Social profiles - only if display is enabled in attributes.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocialLinks'] ) ) {
-			$social_links_to_show = $attributes['socialLinksToShow'] ?? array();
-			$html                .= $this->render_social_profiles( $author['social'], 'apb-social-profiles-centered', $social_links_to_show );
-		}
-
-		$html .= '</div>'; // Close .apb-author-info.
-
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author, 'apb-author-image-centered' );
-		}
-
-		$html .= '</div>'; // Close .apb-author-profile-content.
-
-		return $html;
 	}
 }

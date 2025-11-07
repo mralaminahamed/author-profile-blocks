@@ -3,10 +3,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
-	AlignmentToolbar,
-	BlockControls,
-	InspectorControls,
 	useBlockProps,
+	InspectorControls,
+	BlockControls,
+	AlignmentToolbar,
 } from '@wordpress/block-editor';
 import { TabPanel } from '@wordpress/components';
 
@@ -15,7 +15,7 @@ import { TabPanel } from '@wordpress/components';
  */
 import './editor.scss';
 import { useAuthors } from '../../js/hooks';
-import AuthorBlockPlaceholder from '../../js/components/AuthorBlockPlaceholder';
+import { AuthorBlockPlaceholder } from '../../js/components';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
 import {

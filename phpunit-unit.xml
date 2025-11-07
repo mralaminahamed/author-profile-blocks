@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="tests/php/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+    <php>
+        <env name="UNIT_TEST" value="true" />
+    </php>
+	<testsuites>
+		<testsuite name="Author Profile Blocks Unit Tests">
+			<directory prefix="" suffix=".php">./tests/php/src/unit</directory>
+		</testsuite>
+	</testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./includes/</directory>
+            <exclude>
+                <directory>./includes/Core/</directory>
+                <directory>./includes/Settings/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

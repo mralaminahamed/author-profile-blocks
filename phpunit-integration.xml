@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="tests/php/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+    <php>
+        <env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/php/phpunit-wp-config.php" />
+    </php>
+	<testsuites>
+		<testsuite name="Author Profile Blocks Integration Tests">
+			<directory prefix="" suffix=".php">./tests/php/src/integration</directory>
+		</testsuite>
+	</testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./includes/</directory>
+            <exclude>
+                <directory>./includes/Core/</directory>
+                <directory>./includes/Settings/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

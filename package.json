@@ -27,12 +27,11 @@
 	},
 	"scripts": {
 		"start": "wp-scripts start",
-		"build": "wp-scripts build",
+		"build": "wp-scripts build --webpack-copy-php",
 		"type": "npx tsc --noEmit",
 		"lint": "yarn lint:js && yarn lint:css && yarn lint:md:docs && yarn lint:pkg-json",
 		"plugin-zip": "wp-scripts plugin-zip --root-folder=author-profile-blocks",
-		"wp:make-pot": "wp i18n make-pot . languages/author-profile-blocks.pot",
-		"bundle-analyze": "wp-scripts build --webpack-copy-php --webpack-bundle-analyzer"
+		"wp:make-pot": "wp i18n make-pot . languages/author-profile-blocks.pot"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.28.5",

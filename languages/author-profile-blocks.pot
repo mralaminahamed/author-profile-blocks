@@ -9,15 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-07T00:49:48+00:00\n"
+"POT-Creation-Date: 2025-11-07T12:05:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: author-profile-blocks\n"
 
 #. Plugin Name of the plugin
 #: author-profile-blocks.php
-#: includes/Admin/Menu.php:28
-#: includes/Admin/Menu.php:29
+#: includes/Admin/Admin.php:62
+#: includes/Admin/Admin.php:63
 msgid "Author Profile Blocks"
 msgstr ""
 
@@ -41,170 +41,168 @@ msgstr ""
 msgid "https://github.com/mralaminahamed"
 msgstr ""
 
-#: class-author-profile-blocks.php:120
-#: class-author-profile-blocks.php:301
-#: includes/Common/Author_Renderer.php:485
-#: includes/Services/Author_Profile_Service.php:256
-#: includes/Services/Author_Profile_Service.php:289
+#: class-author-profile-blocks.php:192
+#: class-author-profile-blocks.php:385
+#: includes/Blocks/Author_Block_Base.php:1451
+#: includes/Services/Author_Profile_Service.php:241
+#: includes/Services/Author_Profile_Service.php:274
 msgid "Member since"
 msgstr ""
 
-#: class-author-profile-blocks.php:317
+#: class-author-profile-blocks.php:401
 msgid "Author Profile Information"
 msgstr ""
 
-#: class-author-profile-blocks.php:318
+#: class-author-profile-blocks.php:402
 msgid "These fields are used by the Author Profile Blocks plugin to display author information on your site."
 msgstr ""
 
-#: class-author-profile-blocks.php:322
+#: class-author-profile-blocks.php:406
 msgid "Position/Title"
 msgstr ""
 
-#: class-author-profile-blocks.php:325
+#: class-author-profile-blocks.php:409
 msgid "Enter the author's position or title (e.g., \"Senior Editor\", \"Lead Developer\", etc.)"
 msgstr ""
 
-#: class-author-profile-blocks.php:330
+#: class-author-profile-blocks.php:414
 msgid "Member Since Label"
 msgstr ""
 
-#: class-author-profile-blocks.php:333
+#: class-author-profile-blocks.php:417
 msgid "Customize the label used for showing registration date (e.g., \"Member since\", \"Joined on\", \"With us since\", etc.)"
 msgstr ""
 
-#: class-author-profile-blocks.php:338
+#: class-author-profile-blocks.php:422
 msgid "Author Description"
 msgstr ""
 
-#: class-author-profile-blocks.php:352
+#: class-author-profile-blocks.php:436
 msgid "Enter a detailed description for this author."
 msgstr ""
 
-#: class-author-profile-blocks.php:357
+#: class-author-profile-blocks.php:441
 msgid "Social Media Profiles"
 msgstr ""
 
-#: class-author-profile-blocks.php:361
+#: class-author-profile-blocks.php:445
 msgid "Facebook URL"
 msgstr ""
 
-#: class-author-profile-blocks.php:365
+#: class-author-profile-blocks.php:449
 msgid "Twitter URL"
 msgstr ""
 
-#: class-author-profile-blocks.php:369
+#: class-author-profile-blocks.php:453
 msgid "LinkedIn URL"
 msgstr ""
 
-#: class-author-profile-blocks.php:373
+#: class-author-profile-blocks.php:457
 msgid "Instagram URL"
 msgstr ""
 
-#: class-author-profile-blocks.php:377
+#: class-author-profile-blocks.php:461
 msgid "Personal Website"
 msgstr ""
 
-#: includes/Admin/Menu.php:44
+#: includes/Admin/Admin.php:78
 msgid "Author Profile Blocks Settings"
 msgstr ""
 
-#: includes/Admin/Menu.php:45
+#: includes/Admin/Admin.php:79
 msgid "Configure the Author Profile Blocks plugin settings."
 msgstr ""
 
-#: includes/Blocks/Author_Carousel_Block.php:78
-msgid "Please select authors for the carousel."
+#: includes/Admin/PluginLinks.php:40
+msgid "Settings"
 msgstr ""
 
-#: includes/Blocks/Author_Carousel_Block.php:105
-#: includes/Blocks/Author_Grid_Block.php:79
-#: includes/Blocks/Author_List_Block.php:79
+#: includes/Admin/PluginLinks.php:65
+msgid "Documentation"
+msgstr ""
+
+#: includes/Admin/PluginLinks.php:71
+msgid "GitHub"
+msgstr ""
+
+#. translators: %s: block type (grid, carousel, list)
+#: includes/Blocks/Author_Block_Base.php:157
+#, php-format
+msgid "Please select authors for the %s."
+msgstr ""
+
+#: includes/Blocks/Author_Block_Base.php:166
 msgid "No authors found matching the specified criteria."
 msgstr ""
 
-#: includes/Blocks/Author_Grid_Block.php:54
-msgid "Please select authors for the grid."
-msgstr ""
-
-#: includes/Blocks/Author_List_Block.php:54
-msgid "Please select authors for the list."
-msgstr ""
-
-#: includes/Blocks/Author_Profile_Block.php:82
+#: includes/Blocks/Author_Block_Base.php:175
 msgid "Please select an author."
 msgstr ""
 
-#: includes/Blocks/Author_Profile_Block.php:96
+#: includes/Blocks/Author_Block_Base.php:184
 msgid "Author not found."
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:562
+#: includes/Blocks/Author_Block_Base.php:1528
 #: src/blocks/author-profile/components/inspector/ContentPanel.js:107
 msgid "Facebook"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:566
+#: includes/Blocks/Author_Block_Base.php:1532
 #: src/blocks/author-profile/components/inspector/ContentPanel.js:125
 msgid "Twitter"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:570
+#: includes/Blocks/Author_Block_Base.php:1536
 #: src/blocks/author-profile/components/inspector/ContentPanel.js:140
 msgid "LinkedIn"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:574
+#: includes/Blocks/Author_Block_Base.php:1540
 #: src/blocks/author-profile/components/inspector/ContentPanel.js:158
 msgid "Instagram"
 msgstr ""
 
-#: includes/Common/Author_Renderer.php:578
+#: includes/Blocks/Author_Block_Base.php:1544
 msgid "Website"
 msgstr ""
 
-#: includes/Services/Author_Profile_Service.php:79
+#: includes/Services/Author_Profile_Service.php:74
 msgid "Avatar URL"
 msgstr ""
 
-#: includes/Services/Author_Profile_Service.php:93
+#: includes/Services/Author_Profile_Service.php:88
 msgid "Author position or title"
 msgstr ""
 
-#: includes/Services/Author_Profile_Service.php:107
+#: includes/Services/Author_Profile_Service.php:102
 msgid "Author extended description"
 msgstr ""
 
-#: includes/Services/Author_Profile_Service.php:121
+#: includes/Services/Author_Profile_Service.php:116
 msgid "Author social profiles"
 msgstr ""
 
-#: includes/Services/Author_Profile_Service.php:135
+#: includes/Services/Author_Profile_Service.php:130
 msgid "User registration date"
 msgstr ""
 
-#: includes/Services/Author_Profile_Service.php:149
+#: includes/Services/Author_Profile_Service.php:144
 msgid "Member since label"
 msgstr ""
 
-#: includes/Settings/PluginLinks.php:34
-msgid "Settings"
-msgstr ""
-
-#: includes/Settings/PluginLinks.php:59
-msgid "Documentation"
-msgstr ""
-
-#: includes/Settings/PluginLinks.php:65
-msgid "GitHub"
-msgstr ""
-
+#: templates/blocks/author-carousel/carousel.php:40
 #: src/blocks/author-carousel/components/AuthorCarouselPreview.js:44
 msgid "Carousel preview - will be fully functional on the frontend"
 msgstr ""
 
+#: templates/blocks/author-carousel/carousel.php:46
+msgid "No authors selected for carousel."
+msgstr ""
+
 #: src/blocks/author-carousel/components/AuthorsSelector.js:59
 #: src/blocks/author-grid/components/AuthorsSelector.js:59
+#: src/js/components/AuthorSelector.js:105
 #: src/js/components/MultiAuthorSelector.js:70
 msgid "Loading authors…"
 msgstr ""
@@ -267,6 +265,8 @@ msgstr ""
 #: src/blocks/author-grid/edit.js:313
 #: src/blocks/author-list/edit.js:150
 #: src/blocks/author-profile/components/inspector/ContentPanel.js:37
+#: src/js/components/AuthorSelector.js:43
+#: src/js/components/AuthorSelector.js:114
 msgid "Author Selection"
 msgstr ""
 
@@ -985,6 +985,7 @@ msgid "Loading…"
 msgstr ""
 
 #: src/js/components/AuthorPicker.js:38
+#: src/js/components/AuthorSelector.js:64
 #: src/js/components/MultiAuthorSelector.js:37
 msgid "Select an author…"
 msgstr ""
@@ -1001,6 +1002,52 @@ msgstr ""
 #: src/js/components/AuthorPicker.js:145
 #: src/js/components/MultiAuthorSelector.js:80
 msgid "No authors available."
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:44
+msgid "Select an author to display in your content."
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:120
+msgid "Total number of available authors"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:134
+msgid "Search authors…"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:143
+msgid "Clear search"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:152
+msgid "Select Author"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:167
+msgid "No authors match your search criteria."
+msgstr ""
+
+#. translators: %1$d: filtered authors count, %2$d: total authors count
+#: src/js/components/AuthorSelector.js:176
+#, js-format
+msgid "Showing %1$d of %2$d authors"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:198
+msgid "Reset"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:211
+msgid "No Users Found"
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:212
+msgid "You need to create users with appropriate roles before you can use this block."
+msgstr ""
+
+#: src/js/components/AuthorSelector.js:221
+msgid "Create New User"
 msgstr ""
 
 #: src/js/components/AuthorsListPreview.js:18
@@ -1044,5 +1091,5 @@ msgstr ""
 
 #: src/blocks/author-profile/block.json
 msgctxt "block description"
-msgid "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type."
+msgid "Showcase author profiles with a beautiful Gutenberg block that displays author information from WordPress users."
 msgstr ""

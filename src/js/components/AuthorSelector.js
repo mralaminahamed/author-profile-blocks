@@ -166,13 +166,14 @@ const AuthorSelector = ({
 								>
 									{__('No authors match your search criteria.', 'author-profile-blocks')}
 								</Notice>
-							) : filteredAuthors.length < authors.length && searchTerm !== '' && (
+							) : (
+								filteredAuthors.length < authors.length && searchTerm !== '' && (
 									<div className="apbl-filter-info">
 										<Icon icon={info} size={16} />
 										<span>
 											{sprintf(
 												/* translators: %1$d: filtered authors count, %2$d: total authors count */
-											__('Showing %1$d of %2$d authors', 'author-profile-blocks'),
+												__('Showing %1$d of %2$d authors', 'author-profile-blocks'),
 												filteredAuthors.length,
 												authors.length
 											)}

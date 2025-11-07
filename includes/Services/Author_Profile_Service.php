@@ -8,10 +8,6 @@
 
 namespace AuthorProfileBlocks\Services;
 
-use AuthorProfileBlocks\Core\Base;
-use AuthorProfileBlocks\Core\User_Meta_Provider;
-use WP_User_Query;
-
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles author profile data operations.
  */
-class Author_Profile_Service extends Base {
+class Author_Profile_Service {
 	/**
 	 * User Meta Provider instance.
 	 *
@@ -58,8 +54,7 @@ class Author_Profile_Service extends Base {
 		add_action( 'user_register', array( $this, 'clear_user_cache' ) );
 		add_action( 'deleted_user', array( $this, 'clear_user_cache' ) );
 
-		// Set initialized state.
-		$this->set_initialized();
+		// Initialization complete
 	}
 
 	/**
@@ -152,21 +147,11 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register additional fields as needed.
-		$this->register_custom_rest_fields();
-
 		// Allow other components to register additional fields.
 		do_action( 'author_profile_blocks_register_rest_fields', $this );
 	}
 
-	/**
-	 * Register custom REST API fields.
-	 *
-	 * @return void
-	 */
-	protected function register_custom_rest_fields(): void {
-		// Add other custom fields here.
-	}
+
 
 	/**
 	 * Get user avatar URL for REST API.
@@ -381,45 +366,9 @@ class Author_Profile_Service extends Base {
 		return $authors;
 	}
 
-	/**
-	 * Get featured authors based on a meta flag.
-	 *
-	 * @param int $number Optional. Number of authors to get. Default is -1 (all).
-	 *
-	 * @return array Array of featured author data.
-	 */
-	public function get_featured_authors( int $number = - 1 ): array {
-		// Query for users with the featured meta flag.
-		$args = array(
-			'meta_key'     => 'apbl_is_featured', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-			'meta_value'   => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-			'meta_compare' => '=',
-			'number'       => $number,
-		);
 
-		return $this->get_authors( array(), $args );
-	}
 
-	/**
-	 * Search authors by name or metadata.
-	 *
-	 * @param string $search_term The search term.
-	 * @param array  $args        Optional. Additional arguments for WP_User_Query.
-	 *
-	 * @return array Array of author data matching the search.
-	 */
-	public function search_authors( string $search_term, array $args = array() ): array {
-		// Merge with default arguments for search.
-		$query_args = array_merge(
-			array(
-				'search'         => '*' . sanitize_text_field( $search_term ) . '*',
-				'search_columns' => array( 'display_name', 'user_email' ),
-			),
-			$args
-		);
 
-		return $this->get_authors( array(), $query_args );
-	}
 
 	/**
 	 * Clear the author cache when a user is updated.

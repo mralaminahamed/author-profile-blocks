@@ -8,7 +8,7 @@
 
 namespace AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Common\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -119,29 +119,29 @@ class Author_Carousel_Block extends Author_Block_Base {
 		);
 
 		// Build the HTML.
-		$html = '<div ' . $wrapper_attributes . '>';
-
-		// Create carousel container and prepare JSON settings for Slick initialization.
-		$carousel_settings = array(
-			'slidesToShow'   => isset( $attributes['slidesToShow'] ) ? (int) $attributes['slidesToShow'] : 3,
-			'slidesToScroll' => 1,
-			'autoplay'       => ! isset( $attributes['autoplay'] ) || (bool) $attributes['autoplay'],
-			'autoplaySpeed'  => isset( $attributes['autoplaySpeed'] ) ? (int) $attributes['autoplaySpeed'] : 3000,
-			'dots'           => ! isset( $attributes['showDots'] ) || (bool) $attributes['showDots'],
-			'arrows'         => ! isset( $attributes['showArrows'] ) || (bool) $attributes['showArrows'],
-			'infinite'       => ! isset( $attributes['infinite'] ) || (bool) $attributes['infinite'],
-		);
-
-		// Add carousel container.
-		$html .= '<div class="apb-author-carousel" data-settings="' . esc_attr( wp_json_encode( $carousel_settings ) ) . '">';
-
-		// Add each author slide.
-		foreach ( $authors as $author ) {
-			$html .= $this->render_author_slide( $author, $attributes );
-		}
-
-		$html .= '</div>'; // Close carousel container.
-		$html .= '</div>'; // Close block wrapper.
+		ob_start();
+		?>
+		<div <?php echo $wrapper_attributes; ?>>
+			<?php
+			// Create carousel container and prepare JSON settings for Slick initialization.
+			$carousel_settings = array(
+				'slidesToShow'   => isset( $attributes['slidesToShow'] ) ? (int) $attributes['slidesToShow'] : 3,
+				'slidesToScroll' => 1,
+				'autoplay'       => ! isset( $attributes['autoplay'] ) || (bool) $attributes['autoplay'],
+				'autoplaySpeed'  => isset( $attributes['autoplaySpeed'] ) ? (int) $attributes['autoplaySpeed'] : 3000,
+				'dots'           => ! isset( $attributes['showDots'] ) || (bool) $attributes['showDots'],
+				'arrows'         => ! isset( $attributes['showArrows'] ) || (bool) $attributes['showArrows'],
+				'infinite'       => ! isset( $attributes['infinite'] ) || (bool) $attributes['infinite'],
+			);
+			?>
+			<div class="apb-author-carousel" data-settings="<?php echo esc_attr( wp_json_encode( $carousel_settings ) ); ?>">
+				<?php foreach ( $authors as $author ) : ?>
+					<?php echo $this->render_author_slide( $author, $attributes ); ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<?php
+		$html = ob_get_clean();
 
 		// Cache the result.
 		$this->set_cached_render( $cache_key, $html );

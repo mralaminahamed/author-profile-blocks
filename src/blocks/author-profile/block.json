@@ -6,7 +6,7 @@
   "title": "Author Profile",
   "category": "widgets",
   "icon": "admin-users",
-  "description": "Showcase author profiles with a beautiful Gutenberg block that displays author information from a custom post type.",
+  "description": "Showcase author profiles with a beautiful Gutenberg block that displays author information from WordPress users.",
   "attributes": {
     "authorId": {
       "type": "number",
