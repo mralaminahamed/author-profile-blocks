@@ -177,10 +177,17 @@ class Author_List_Block extends Author_Block_Base {
 
 		// Get the author content based on display style.
 		$display_style = $attributes['displayStyle'] ?? 'compact';
-		if ( 'detailed' === $display_style ) {
-			$author_content = $this->render_detailed_layout( $author, $attributes );
-		} else {
-			$author_content = $this->render_compact_layout( $author, $attributes );
+		switch ( $display_style ) {
+			case 'detailed':
+				$author_content = $this->render_detailed_layout( $author, $attributes );
+				break;
+			case 'minimal':
+				$author_content = $this->render_minimal_layout( $author, $attributes );
+				break;
+			case 'compact':
+			default:
+				$author_content = $this->render_compact_layout( $author, $attributes );
+				break;
 		}
 
 		// Prepare template variables.

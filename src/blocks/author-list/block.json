@@ -28,7 +28,7 @@
     "displayStyle": {
       "type": "string",
       "default": "compact",
-      "enum": ["compact", "detailed"]
+      "enum": ["compact", "detailed", "minimal"]
     },
     "listStyle": {
       "type": "string",

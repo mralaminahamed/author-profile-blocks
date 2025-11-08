@@ -1014,7 +1014,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Render centered layout for author profiles.
 	 *
-	 * @param array $author     {
+	 * @param array $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1031,24 +1031,49 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_centered_layout( array $author, array $attributes ): string {
-		// Prepare template variables.
 		$template_vars = array(
-			'author'             => $author,
-			'attributes'         => $attributes,
-			'author_image'       => $this->render_author_image( $author, 'apbl-centered-image' ),
-			'author_name'        => $this->render_author_name( $author ),
-			'author_position'    => $this->render_author_position( $author ),
-			'author_email'       => $this->render_author_email( $author ),
-			'author_description' => $this->render_author_description( $author ),
-			'registered_date'    => $this->render_registered_date( $author ),
-			'social_links'       => $this->render_social_profiles( $author['social'] ?? array(), 'apbl-centered-social' ),
+			'author'     => $author,
+			'attributes' => $attributes,
 		);
 
-		// Start output buffering.
 		ob_start();
 
 		// Load the centered layout template.
 		author_profile_blocks()->get_template( 'blocks/layouts/centered.php', $template_vars );
+
+		// Return the buffered content.
+		return ob_get_clean();
+	}
+
+	/**
+	 * Render minimal layout for author profiles.
+	 *
+	 * @param array $author {
+	 *     Author data.
+	 *
+	 *     @type int    $id             User ID.
+	 *     @type string $name           Display name.
+	 *     @type string $email          Email address.
+	 *     @type string $image          Avatar URL.
+	 *     @type string $position       Job position/title.
+	 *     @type string $description    Bio description.
+	 *     @type array  $social         Social media profiles.
+	 *     @type string $registered_date Registration date.
+	 * }
+	 * @param array $attributes Block attributes.
+	 *
+	 * @return string Rendered HTML.
+	 */
+	protected function render_minimal_layout( array $author, array $attributes ): string {
+		$template_vars = array(
+			'author'     => $author,
+			'attributes' => $attributes,
+		);
+
+		ob_start();
+
+		// Load the minimal layout template.
+		author_profile_blocks()->get_template( 'blocks/layouts/minimal.php', $template_vars );
 
 		// Return the buffered content.
 		return ob_get_clean();
