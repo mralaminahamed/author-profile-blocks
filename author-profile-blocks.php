@@ -5,7 +5,7 @@
  * @package           AuthorProfileBlocks
  * @author            Al Amin Ahamed
  * @copyright         2025 Al Amin Ahamed
- * @license           GPL-3.0-only
+ * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Author Profile Blocks
