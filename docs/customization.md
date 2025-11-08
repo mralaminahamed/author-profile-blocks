@@ -6,12 +6,14 @@ permalink: /customization/
 ---
 
 # Customization
+
 {: .no_toc }
 
 Learn how to customize the appearance and behavior of the Author Profile Blocks to match your website's design.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -59,32 +61,32 @@ These classes apply to all blocks:
 .wp-block-author-profile-blocks-author-grid,
 .wp-block-author-profile-blocks-author-carousel,
 .wp-block-author-profile-blocks-author-list {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Target all author images */
 .apb-author-image {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Target all author names */
 .apb-author-name {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Target all author positions */
 .apb-author-position {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Target all author descriptions */
 .apb-author-description {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Target all social profiles */
 .apb-social-profiles {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 ```
 
@@ -97,23 +99,23 @@ Each block type also has specific classes:
 ```css
 /* Main wrapper */
 .wp-block-author-profile-blocks-author-profile {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* More content section */
 .apb-author-more-content {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Layout-specific classes */
 .apb-author-profile .is-layout-card {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 .apb-author-profile .is-layout-compact {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 .apb-author-profile .is-layout-centered {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 ```
 
@@ -122,31 +124,31 @@ Each block type also has specific classes:
 ```css
 /* Main wrapper */
 .wp-block-author-profile-blocks-author-grid {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Grid container */
 .apb-author-grid {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Individual grid items */
 .apb-author-grid-item {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Column-specific targeting */
 .apb-columns-1 .apb-author-grid-item {
-    /* Your custom styles for 1-column grid */
+	/* Your custom styles for 1-column grid */
 }
 .apb-columns-2 .apb-author-grid-item {
-    /* Your custom styles for 2-column grid */
+	/* Your custom styles for 2-column grid */
 }
 .apb-columns-3 .apb-author-grid-item {
-    /* Your custom styles for 3-column grid */
+	/* Your custom styles for 3-column grid */
 }
 .apb-columns-4 .apb-author-grid-item {
-    /* Your custom styles for 4-column grid */
+	/* Your custom styles for 4-column grid */
 }
 ```
 
@@ -155,25 +157,25 @@ Each block type also has specific classes:
 ```css
 /* Main wrapper */
 .wp-block-author-profile-blocks-author-carousel {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Carousel container */
 .apb-author-carousel {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Individual carousel slides */
 .apb-author-carousel-slide {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Carousel navigation */
 .apb-author-carousel .slick-dots {
-    /* Your custom styles for dots */
+	/* Your custom styles for dots */
 }
 .apb-author-carousel .slick-arrow {
-    /* Your custom styles for arrows */
+	/* Your custom styles for arrows */
 }
 ```
 
@@ -182,25 +184,25 @@ Each block type also has specific classes:
 ```css
 /* Main wrapper */
 .wp-block-author-profile-blocks-author-list {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* List container */
 .apb-author-list {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Individual list items */
 .apb-author-list-item {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Style-specific targeting */
 .apb-author-list.is-style-compact .apb-author-list-item {
-    /* Your custom styles for compact list items */
+	/* Your custom styles for compact list items */
 }
 .apb-author-list.is-style-detailed .apb-author-list-item {
-    /* Your custom styles for detailed list items */
+	/* Your custom styles for detailed list items */
 }
 ```
 
@@ -211,22 +213,22 @@ You can also target specific features across blocks:
 ```css
 /* Items with shadows */
 .has-shadow {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Items with borders */
 .has-border {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Items with rounded corners */
 .is-rounded {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 
 /* Items with hover effects */
 .has-hover-effect {
-    /* Your custom styles */
+	/* Your custom styles */
 }
 ```
 
@@ -249,11 +251,11 @@ You can create consistent color schemes by combining CSS variables with the bloc
 ```css
 /* Define color scheme */
 :root {
-    --apb-primary: #3498db;
-    --apb-secondary: #2ecc71;
-    --apb-text: #333333;
-    --apb-background: #f8f9fa;
-    --apb-accent: #e74c3c;
+	--apb-primary: #3498db;
+	--apb-secondary: #2ecc71;
+	--apb-text: #333333;
+	--apb-background: #f8f9fa;
+	--apb-accent: #e74c3c;
 }
 
 /* Apply to all blocks */
@@ -261,23 +263,23 @@ You can create consistent color schemes by combining CSS variables with the bloc
 .wp-block-author-profile-blocks-author-grid,
 .wp-block-author-profile-blocks-author-carousel,
 .wp-block-author-profile-blocks-author-list {
-    color: var(--apb-text);
-    background-color: var(--apb-background);
+	color: var(--apb-text);
+	background-color: var(--apb-background);
 }
 
 /* Style author names */
 .apb-author-name {
-    color: var(--apb-primary);
+	color: var(--apb-primary);
 }
 
 /* Style positions */
 .apb-author-position {
-    color: var(--apb-secondary);
+	color: var(--apb-secondary);
 }
 
 /* Style social icons */
 .apb-social-profiles a {
-    color: var(--apb-accent);
+	color: var(--apb-accent);
 }
 ```
 
@@ -290,20 +292,20 @@ You can customize the appearance of author images:
 ```css
 /* Make all author images circular */
 .apb-author-image img {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 
 /* Add a border to images */
 .apb-author-image img {
-    border: 3px solid #3498db;
+	border: 3px solid #3498db;
 }
 
 /* Add a hover effect to images */
 .apb-author-image img {
-    transition: transform 0.3s ease;
+	transition: transform 0.3s ease;
 }
 .apb-author-image img:hover {
-    transform: scale(1.1);
+	transform: scale(1.1);
 }
 ```
 
@@ -332,25 +334,25 @@ Author Profile Blocks inherits typography settings from your theme. However, you
 ```css
 /* Customize author names */
 .apb-author-name {
-    font-family: 'Georgia', serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 0.5px;
+	font-family: "Georgia", serif;
+	font-weight: 700;
+	font-size: 1.5rem;
+	letter-spacing: 0.5px;
 }
 
 /* Customize author positions */
 .apb-author-position {
-    font-family: 'Arial', sans-serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    text-transform: uppercase;
+	font-family: "Arial", sans-serif;
+	font-style: italic;
+	font-size: 0.9rem;
+	text-transform: uppercase;
 }
 
 /* Customize author descriptions */
 .apb-author-description {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
+	font-family: "Helvetica", sans-serif;
+	font-size: 1rem;
+	line-height: 1.6;
 }
 ```
 
@@ -365,21 +367,21 @@ You can customize hover effects for all blocks:
 .apb-author-grid-item,
 .apb-author-carousel-item,
 .apb-author-list-item {
-    transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 .apb-author-grid-item:hover,
 .apb-author-carousel-item:hover,
 .apb-author-list-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Social icon hover effect */
 .apb-social-profiles a {
-    transition: color 0.2s ease;
+	transition: color 0.2s ease;
 }
 .apb-social-profiles a:hover {
-    color: #3498db;
+	color: #3498db;
 }
 ```
 
@@ -390,22 +392,22 @@ You can customize the carousel animation behavior:
 ```css
 /* Fade transition between slides */
 .apb-author-carousel .slick-slide {
-    opacity: 0;
-    transition: opacity 0.5s ease;
+	opacity: 0;
+	transition: opacity 0.5s ease;
 }
 .apb-author-carousel .slick-slide.slick-active {
-    opacity: 1;
+	opacity: 1;
 }
 
 /* Custom arrow styling */
 .apb-author-carousel .slick-arrow {
-    background-color: #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+	background-color: #3498db;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
 }
 .apb-author-carousel .slick-arrow:hover {
-    background-color: #2980b9;
+	background-color: #2980b9;
 }
 ```
 
@@ -416,31 +418,31 @@ Author Profile Blocks are responsive by default, but you can further customize t
 ```css
 /* Desktop styles (default) */
 .apb-author-grid-item {
-    padding: 30px;
+	padding: 30px;
 }
 
 /* Tablet styles */
 @media (max-width: 768px) {
-    .apb-author-grid-item {
-        padding: 20px;
-    }
-    .apb-author-description {
-        font-size: 0.9rem;
-    }
+	.apb-author-grid-item {
+		padding: 20px;
+	}
+	.apb-author-description {
+		font-size: 0.9rem;
+	}
 }
 
 /* Mobile styles */
 @media (max-width: 480px) {
-    .apb-author-grid-item {
-        padding: 15px;
-    }
-    .apb-author-image img {
-        width: 80px;
-        height: 80px;
-    }
-    .apb-author-description {
-        font-size: 0.8rem;
-    }
+	.apb-author-grid-item {
+		padding: 15px;
+	}
+	.apb-author-image img {
+		width: 80px;
+		height: 80px;
+	}
+	.apb-author-description {
+		font-size: 0.8rem;
+	}
 }
 ```
 
@@ -517,6 +519,350 @@ add_filter( 'author_profile_blocks_authors', function( $authors, $query_args ) {
 }, 10, 2 );
 ```
 
+## Real-World Customization Examples
+
+### Corporate Team Page
+
+Create a professional team page layout:
+
+```css
+/* Corporate team page styling */
+.corporate-team .wp-block-author-profile-blocks-author-grid {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	padding: 60px 20px;
+	border-radius: 20px;
+	margin: 40px 0;
+}
+
+.corporate-team .apb-author-grid-item {
+	background: white;
+	border-radius: 15px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	overflow: hidden;
+}
+
+.corporate-team .apb-author-grid-item:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.corporate-team .apb-author-image img {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 5px solid #667eea;
+	margin: 30px auto 20px;
+	display: block;
+}
+
+.corporate-team .apb-author-name {
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #2c3e50;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.corporate-team .apb-author-position {
+	color: #667eea;
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.corporate-team .apb-author-description {
+	text-align: center;
+	color: #7f8c8d;
+	font-size: 0.9rem;
+	line-height: 1.5;
+	padding: 0 20px 20px;
+}
+```
+
+### Magazine Author Bios
+
+Style for a magazine-style author bio section:
+
+```css
+/* Magazine-style author bios */
+.magazine-author-bio .wp-block-author-profile-blocks-author-profile {
+	background: #f8f9fa;
+	border-left: 5px solid #3498db;
+	padding: 30px;
+	margin: 30px 0;
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.magazine-author-bio .apb-author-image img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border: 4px solid white;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.magazine-author-bio .author-content {
+	flex: 1;
+}
+
+.magazine-author-bio .apb-author-name {
+	font-size: 2rem;
+	font-weight: 300;
+	color: #2c3e50;
+	margin-bottom: 5px;
+	font-family: "Georgia", serif;
+}
+
+.magazine-author-bio .apb-author-position {
+	color: #3498db;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 0.9rem;
+	margin-bottom: 15px;
+}
+
+.magazine-author-bio .apb-author-description {
+	font-size: 1.1rem;
+	line-height: 1.7;
+	color: #34495e;
+	margin-bottom: 20px;
+}
+
+.magazine-author-bio .apb-social-profiles {
+	margin-top: 20px;
+}
+
+.magazine-author-bio .apb-social-profiles a {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: #3498db;
+	color: white;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 40px;
+	margin-right: 10px;
+	transition: all 0.3s ease;
+}
+
+.magazine-author-bio .apb-social-profiles a:hover {
+	background: #2980b9;
+	transform: translateY(-2px);
+}
+```
+
+### Minimalist Author Cards
+
+Create clean, minimalist author cards:
+
+```css
+/* Minimalist author cards */
+.minimalist-cards .wp-block-author-profile-blocks-author-grid {
+	background: #ffffff;
+	padding: 40px 0;
+}
+
+.minimalist-cards .apb-author-grid-item {
+	background: transparent;
+	border: 1px solid #e1e8ed;
+	border-radius: 8px;
+	padding: 30px 20px;
+	text-align: center;
+	transition: all 0.3s ease;
+}
+
+.minimalist-cards .apb-author-grid-item:hover {
+	border-color: #3498db;
+	box-shadow: 0 5px 20px rgba(52, 152, 219, 0.1);
+}
+
+.minimalist-cards .apb-author-image img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin: 0 auto 20px;
+	border: 2px solid #e1e8ed;
+}
+
+.minimalist-cards .apb-author-name {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: #2c3e50;
+	margin-bottom: 5px;
+}
+
+.minimalist-cards .apb-author-position {
+	color: #7f8c8d;
+	font-size: 0.9rem;
+	margin-bottom: 15px;
+}
+
+.minimalist-cards .apb-author-description {
+	color: #34495e;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+```
+
+### Dark Mode Support
+
+Add dark mode support for modern websites:
+
+```css
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+	.wp-block-author-profile-blocks-author-profile,
+	.wp-block-author-profile-blocks-author-grid,
+	.wp-block-author-profile-blocks-author-carousel,
+	.wp-block-author-profile-blocks-author-list {
+		background-color: #1a1a1a;
+		color: #e0e0e0;
+		border-color: #333;
+	}
+
+	.apb-author-name {
+		color: #ffffff;
+	}
+
+	.apb-author-position {
+		color: #b0b0b0;
+	}
+
+	.apb-author-description {
+		color: #d0d0d0;
+	}
+
+	.apb-social-profiles a {
+		color: #e0e0e0;
+		background-color: #333;
+	}
+
+	.apb-social-profiles a:hover {
+		background-color: #444;
+	}
+}
+
+/* Manual dark mode toggle */
+.dark-mode .wp-block-author-profile-blocks-author-profile,
+.dark-mode .wp-block-author-profile-blocks-author-grid,
+.dark-mode .wp-block-author-profile-blocks-author-carousel,
+.dark-mode .wp-block-author-profile-blocks-author-list {
+	background-color: #1a1a1a;
+	color: #e0e0e0;
+	border-color: #333;
+}
+
+.dark-mode .apb-author-name {
+	color: #ffffff;
+}
+
+.dark-mode .apb-author-position {
+	color: #b0b0b0;
+}
+
+.dark-mode .apb-author-description {
+	color: #d0d0d0;
+}
+```
+
+### Interactive Author Cards
+
+Add interactive elements to author cards:
+
+```css
+/* Interactive author cards */
+.interactive-cards .apb-author-grid-item {
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.interactive-cards .apb-author-grid-item::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(45deg, #3498db, #2980b9);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 1;
+}
+
+.interactive-cards .apb-author-grid-item:hover::before {
+	opacity: 0.9;
+}
+
+.interactive-cards .apb-author-grid-item > * {
+	position: relative;
+	z-index: 2;
+}
+
+.interactive-cards .apb-author-grid-item:hover .apb-author-name,
+.interactive-cards .apb-author-grid-item:hover .apb-author-position,
+.interactive-cards .apb-author-grid-item:hover .apb-author-description {
+	color: white;
+}
+
+.interactive-cards .author-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 3;
+}
+
+.interactive-cards .apb-author-grid-item:hover .author-overlay {
+	opacity: 1;
+}
+
+.interactive-cards .author-overlay-content {
+	text-align: center;
+	color: white;
+}
+
+.interactive-cards .author-overlay-content h4 {
+	margin: 0 0 10px 0;
+	font-size: 1.2rem;
+}
+
+.interactive-cards .author-overlay-content .author-links {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+
+.interactive-cards .author-overlay-content .author-links a {
+	display: inline-block;
+	padding: 8px 16px;
+	background: rgba(255, 255, 255, 0.2);
+	color: white;
+	text-decoration: none;
+	border-radius: 20px;
+	font-size: 0.9rem;
+	transition: background 0.3s ease;
+}
+
+.interactive-cards .author-overlay-content .author-links a:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+```
+
 ## Theme Integration Examples
 
 ### Twenty Twenty-Four Theme
@@ -527,21 +873,21 @@ add_filter( 'author_profile_blocks_authors', function( $authors, $query_args ) {
 .wp-block-author-profile-blocks-author-grid,
 .wp-block-author-profile-blocks-author-carousel,
 .wp-block-author-profile-blocks-author-list {
-    --wp--preset--color--background: var(--wp--preset--color--base);
-    --wp--preset--color--foreground: var(--wp--preset--color--contrast);
-    
-    font-family: var(--wp--preset--font-family--system);
-    background-color: var(--wp--preset--color--background);
-    color: var(--wp--preset--color--foreground);
+	--wp--preset--color--background: var(--wp--preset--color--base);
+	--wp--preset--color--foreground: var(--wp--preset--color--contrast);
+
+	font-family: var(--wp--preset--font-family--system);
+	background-color: var(--wp--preset--color--background);
+	color: var(--wp--preset--color--foreground);
 }
 
 .apb-author-name {
-    font-family: var(--wp--preset--font-family--heading);
-    font-weight: var(--wp--custom--typography--font-weight--bold);
+	font-family: var(--wp--preset--font-family--heading);
+	font-weight: var(--wp--custom--typography--font-weight--bold);
 }
 
 .apb-author-description {
-    font-size: var(--wp--preset--font-size--small);
+	font-size: var(--wp--preset--font-size--small);
 }
 ```
 
@@ -553,24 +899,24 @@ add_filter( 'author_profile_blocks_authors', function( $authors, $query_args ) {
 .wp-block-author-profile-blocks-author-grid,
 .wp-block-author-profile-blocks-author-carousel,
 .wp-block-author-profile-blocks-author-list {
-    --apb-primary: var(--global-palette1);
-    --apb-secondary: var(--global-palette2);
-    --apb-text: var(--global-palette4);
-    --apb-background: var(--global-palette9);
-    --apb-accent: var(--global-palette3);
-    
-    font-family: var(--global-body-font-family);
-    background-color: var(--apb-background);
-    color: var(--apb-text);
+	--apb-primary: var(--global-palette1);
+	--apb-secondary: var(--global-palette2);
+	--apb-text: var(--global-palette4);
+	--apb-background: var(--global-palette9);
+	--apb-accent: var(--global-palette3);
+
+	font-family: var(--global-body-font-family);
+	background-color: var(--apb-background);
+	color: var(--apb-text);
 }
 
 .apb-author-name {
-    font-family: var(--global-heading-font-family);
-    color: var(--apb-primary);
+	font-family: var(--global-heading-font-family);
+	color: var(--apb-primary);
 }
 
 .apb-author-position {
-    color: var(--apb-secondary);
+	color: var(--apb-secondary);
 }
 ```
 
@@ -611,8 +957,8 @@ Author Profile Blocks are built with accessibility in mind, but you can further 
 ```css
 .apb-social-profiles a:focus,
 .apb-author-email a:focus {
-    outline: 2px solid #3498db;
-    outline-offset: 2px;
+	outline: 2px solid #3498db;
+	outline-offset: 2px;
 }
 ```
 

@@ -6,6 +6,7 @@ permalink: /
 ---
 
 # Author Profile Blocks
+
 {: .fs-9 .no_toc }
 
 A powerful collection of WordPress blocks for showcasing author profiles and team members.
@@ -21,6 +22,7 @@ A powerful collection of WordPress blocks for showcasing author profiles and tea
 </div>
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -35,6 +37,7 @@ Author Profile Blocks is a modern WordPress plugin that allows you to display us
 Unlike other plugins, Author Profile Blocks leverages your existing WordPress users rather than creating a separate custom post type. This means you can showcase all your site contributors without duplicating content.
 
 {: .callout-green }
+
 > **COMPATIBILITY**  
 > Works with WordPress 6.0 or higher and any theme that supports the block editor.
 
@@ -73,6 +76,7 @@ Unlike other plugins, Author Profile Blocks leverages your existing WordPress us
 ## Key Features
 
 ### Rich Display Options
+
 {: .no_toc }
 
 - **Author Image** - Show the author's profile picture (from Gravatar)
@@ -82,6 +86,7 @@ Unlike other plugins, Author Profile Blocks leverages your existing WordPress us
 - **Registration Date** - Show when the author joined with a customizable label
 
 ### Extensive Customization
+
 {: .no_toc }
 
 <div class="apb-features-grid">
@@ -127,6 +132,7 @@ Unlike other plugins, Author Profile Blocks leverages your existing WordPress us
 </div>
 
 ### Advanced Functionality
+
 {: .no_toc }
 
 - **Performance Optimization** - Built-in caching system for better performance
@@ -136,6 +142,7 @@ Unlike other plugins, Author Profile Blocks leverages your existing WordPress us
 - **Developer Friendly** - Extensive hooks and filters for customization
 
 {: .callout-blue }
+
 > **QUICK TIP**  
 > The Author Profile Blocks can be used with any WordPress theme that supports the block editor. For optimal results, ensure your theme has block editor support enabled.
 
@@ -163,6 +170,20 @@ Discover how to personalize the blocks to match your site's design:
 - [Block Settings]({{ site.baseurl }}{% link customization.md %}#using-block-settings) - Built-in customization options
 - [Custom CSS]({{ site.baseurl }}{% link customization.md %}#custom-css) - Advanced styling techniques
 - [Theme Integration]({{ site.baseurl }}{% link customization.md %}#theme-integration-examples) - Make blocks match your theme
+
+## Developer Resources
+
+- [Developer API Reference]({{ site.baseurl }}{% link developer-api.md %}) - Complete API documentation with hooks, filters, and examples
+- [Plugin Architecture]({{ site.baseurl }}{% link plugin-architecture.md %}) - Detailed overview of the plugin's structure and design patterns
+- [Advanced Examples]({{ site.baseurl }}{% link advanced-examples.md %}) - Advanced usage examples and integrations
+- [Performance Guide]({{ site.baseurl }}{% link performance-guide.md %}) - Optimization strategies for high-performance sites
+
+## Developer Resources
+
+- [Developer API Reference]({{ site.baseurl }}{% link developer-api.md %}) - Complete API documentation with hooks, filters, and examples
+- [Plugin Architecture]({{ site.baseurl }}{% link plugin-architecture.md %}) - Detailed overview of the plugin structure and design patterns
+- [Advanced Examples]({{ site.baseurl }}{% link advanced-examples.md %}) - Advanced usage examples and integrations
+- [Performance Guide]({{ site.baseurl }}{% link performance-guide.md %}) - Optimization strategies for high-performance sites
 
 ## Need Help?
 

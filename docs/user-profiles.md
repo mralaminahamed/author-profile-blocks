@@ -1,17 +1,19 @@
 ---
 layout: default
 title: User Profiles
-nav_order: 4
+nav_order: 5
 permalink: /user-profiles/
 ---
 
 # User Profiles
+
 {: .no_toc }
 
 This guide explains how to set up and manage author profiles for use with the Author Profile Blocks plugin.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -36,6 +38,7 @@ The Author Profile Blocks plugin extends WordPress user profiles with additional
 ### Position/Title
 
 This field allows you to specify the author's role, job title, or position within your organization. For example:
+
 - Senior Editor
 - Lead Developer
 - Content Manager
@@ -46,6 +49,7 @@ This field allows you to specify the author's role, job title, or position withi
 ### Author Description
 
 While WordPress has a built-in biographical info field, this separate description field allows you to create content specifically for the Author Profile Blocks. This can include:
+
 - Professional background
 - Areas of expertise
 - Educational background
@@ -59,6 +63,7 @@ The field includes a simple WYSIWYG editor for basic formatting.
 ### Member Since Label
 
 This field allows you to customize how the author's registration date is displayed. By default, it shows "Member since" followed by the date, but you can change it to:
+
 - "Joined our team on"
 - "Writing for us since"
 - "Contributing since"
@@ -70,6 +75,7 @@ This field allows you to customize how the author's registration date is display
 ### Social Media Profiles
 
 The plugin supports linking to the following social platforms:
+
 - Facebook
 - Twitter
 - LinkedIn
@@ -110,6 +116,7 @@ For best results, use a square image with minimum dimensions of 300x300 pixels.
 ## User Roles and Permissions
 
 By default, the Author Profile Blocks plugin can display any user with the following roles:
+
 - Administrator
 - Editor
 - Author
@@ -130,6 +137,7 @@ $author_data = AuthorProfileBlocks\Plugin::get_instance()->get_author_data($user
 ```
 
 This returns an array with all the author's information, including:
+
 - `id` - The author's user ID
 - `title` - The author's display name
 - `email` - The author's email address
@@ -156,10 +164,10 @@ Developers can filter author data using the `author_profile_blocks_author_data` 
 function my_custom_author_data( $author_data, $user ) {
     // Add custom data
     $author_data['custom_field'] = get_user_meta( $user->ID, 'my_custom_field', true );
-    
+
     // Modify existing data
     $author_data['title'] = 'Dr. ' . $author_data['title'];
-    
+
     return $author_data;
 }
 add_filter( 'author_profile_blocks_author_data', 'my_custom_author_data', 10, 2 );

@@ -6,12 +6,14 @@ permalink: /faq/
 ---
 
 # Frequently Asked Questions
+
 {: .no_toc }
 
 Common questions and answers about the Author Profile Blocks plugin.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -144,43 +146,6 @@ add_filter( 'author_profile_blocks_authors', function( $authors, $query_args ) {
 }, 10, 2 );
 ```
 
-## Troubleshooting
-
-### Why aren't my author images showing up?
-
-If author images aren't displaying:
-
-1. Make sure the authors have valid email addresses associated with their WordPress accounts
-2. Verify that those email addresses have been registered at [Gravatar.com](https://gravatar.com)
-3. Check that the "Show Author Image" option is enabled in the block settings
-4. Clear your browser cache and any server-side caching
-
-### The carousel navigation doesn't work
-
-If the carousel navigation (arrows or dots) isn't working:
-
-1. Make sure jQuery is loaded on your site
-2. Check for JavaScript console errors that might indicate conflicts with other plugins
-3. Try disabling other plugins that might be interfering with jQuery or the Slick Carousel
-4. Ensure your theme isn't removing or modifying default WordPress scripts
-
-### How do I fix styling conflicts with my theme?
-
-If you're experiencing styling conflicts:
-
-1. Use the block settings to adjust appearance (background color, text alignment, etc.)
-2. Add custom CSS targeting the specific block elements (see [Customization]({{ site.baseurl }}{% link customization.md %}))
-3. Check if your theme has custom block styles that might be overriding the plugin styles
-
-### Block editor is slow when using many author blocks
-
-If you notice performance issues in the block editor:
-
-1. Limit the number of author blocks on a single page
-2. Use the "Maximum Authors" setting to reduce the number of authors displayed
-3. Disable unused elements (description, social links, etc.)
-4. Consider using "Reduced motion" mode in your operating system if animations are sluggish
-
 ## Advanced Usage
 
 ### Can I display posts written by the author?
@@ -195,22 +160,22 @@ add_filter( 'author_profile_blocks_author_data', function( $author_data, $user )
         'posts_per_page' => 3,
         'post_status' => 'publish',
     ) );
-    
+
     if ( ! empty( $recent_posts ) ) {
         $posts_html = '<div class="apb-author-recent-posts">';
         $posts_html .= '<h4>Recent Posts</h4>';
         $posts_html .= '<ul>';
-        
+
         foreach ( $recent_posts as $post ) {
             $posts_html .= '<li><a href="' . get_permalink( $post ) . '">' . get_the_title( $post ) . '</a></li>';
         }
-        
+
         $posts_html .= '</ul></div>';
-        
+
         // Add to description or create a custom field
         $author_data['recent_posts_html'] = $posts_html;
     }
-    
+
     return $author_data;
 }, 10, 2 );
 ```

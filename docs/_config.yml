@@ -45,7 +45,7 @@ aux_links_new_tab: true
 nav_sort: case_insensitive
 
 # Footer content
-footer_content: "Copyright &copy; 2023-2025 Al Amin Ahamed. Distributed by an <a href=\"https://github.com/mralaminahamed/author-profile-blocks/blob/master/LICENSE\">GPL-2.0 license.</a>"
+footer_content: 'Copyright &copy; 2023-2025 Al Amin Ahamed. Distributed by an <a href="https://github.com/mralaminahamed/author-profile-blocks/blob/master/LICENSE">GPL-2.0 license.</a>'
 
 # Back to top link
 back_to_top: true
@@ -88,9 +88,13 @@ compress_js: true
 ga_tracking: UA-XXXXXXXXX-X
 ga_tracking_anonymize_ip: true
 
-# Custom CSS
+# Custom SCSS - APB Documentation Styles
 custom_css:
-  - assets/css/custom.css
+  - _sass/color_schemes/apb.scss
+
+# Custom head content for accessibility
+head: |
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
 # Exclude from processing
 exclude:

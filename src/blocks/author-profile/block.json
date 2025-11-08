@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "author-profile-blocks/author-profile",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Author Profile",
   "category": "widgets",
   "icon": "admin-users",
@@ -162,7 +162,15 @@
     },
     "socialLinksToShow": {
       "type": "array",
-      "default": ["facebook", "twitter", "linkedin", "instagram", "youtube", "github", "website"]
+      "default": [
+        "facebook",
+        "twitter",
+        "linkedin",
+        "instagram",
+        "youtube",
+        "github",
+        "website"
+      ]
     },
     "socialIconSize": {
       "type": "number",

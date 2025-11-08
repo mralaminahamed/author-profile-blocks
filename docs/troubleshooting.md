@@ -6,12 +6,14 @@ permalink: /troubleshooting/
 ---
 
 # Troubleshooting
+
 {: .no_toc }
 
 Solutions for common issues with the Author Profile Blocks plugin.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -119,12 +121,12 @@ If blocks don't look right on mobile or tablet devices:
 
 ```css
 @media (max-width: 768px) {
-    .apb-author-description {
-        display: none; /* Hide descriptions on mobile */
-    }
-    .apb-author-image img {
-        max-width: 80px; /* Smaller images on mobile */
-    }
+	.apb-author-description {
+		display: none; /* Hide descriptions on mobile */
+	}
+	.apb-author-image img {
+		max-width: 80px; /* Smaller images on mobile */
+	}
 }
 ```
 
@@ -307,10 +309,255 @@ If you need to contact support, provide the following information:
 7. **Screenshots**: Visual evidence of the problem
 8. **Server Environment**: PHP version, memory limits, etc.
 
-## Getting More Help
+## Modern WordPress Issues
+
+### WordPress 6.0+ Block Editor Problems
+
+#### Block Recovery Mode Issues
+
+If blocks enter recovery mode in WordPress 6.0+:
+
+1. **Check Block Validation**: Look for validation errors in the block editor
+2. **Update Block Attributes**: Some legacy attributes may need updating
+3. **Re-add Blocks**: Remove and re-add problematic blocks
+4. **Disable Plugins**: Temporarily disable other block-related plugins
+5. **Update WordPress**: Ensure you're on the latest WordPress version
+
+#### Full Site Editing Compatibility
+
+For sites using Full Site Editing (FSE):
+
+1. **Template Part Issues**: Blocks may not display correctly in template parts
+2. **Global Styles Conflicts**: Theme global styles may override block styling
+3. **Query Loop Integration**: Issues with blocks inside query loops
+4. **Navigation Block Conflicts**: Problems when blocks are used in navigation menus
+
+### Performance Issues in Modern Environments
+
+#### Hosting-Related Performance Problems
+
+1. **Shared Hosting Limitations**: Memory limits and execution timeouts
+2. **CDN Conflicts**: Issues with lazy loading and CDN configurations
+3. **Database Optimization**: Slow queries on large multisite installations
+4. **SSL/HTTPS Issues**: Mixed content warnings and SSL-related problems
+
+#### Large-Scale Site Issues
+
+For sites with many authors (100+):
+
+1. **Query Performance**: Optimize author queries with proper indexing
+2. **Memory Usage**: Monitor PHP memory consumption
+3. **Cache Invalidation**: Issues with cache clearing on large networks
+4. **API Rate Limiting**: REST API limitations on high-traffic sites
+
+### Third-Party Plugin Conflicts
+
+#### Popular Plugin Compatibility Issues
+
+**Elementor Integration:**
+
+- Blocks may not appear in Elementor editor
+- Styling conflicts with Elementor CSS
+- JavaScript conflicts with Elementor's frontend
+
+**WPBakery Page Builder:**
+
+- Block registration conflicts
+- Shortcode conversion issues
+- Admin interface conflicts
+
+**Advanced Custom Fields (ACF):**
+
+- Meta field conflicts
+- Custom field display issues
+- Integration hook conflicts
+
+**Yoast SEO:**
+
+- Schema markup conflicts
+- Meta description generation issues
+- Social media meta tag problems
+
+**WooCommerce:**
+
+- Customer/author data conflicts
+- User role integration issues
+- Product page display problems
+
+**Contact Form 7/Gravity Forms:**
+
+- Form submission conflicts
+- User data integration issues
+- AJAX loading problems
+
+### Mobile and Responsive Issues
+
+#### Advanced Mobile Problems
+
+1. **Touch Event Conflicts**: Issues with carousel touch navigation
+2. **Viewport Meta Tag**: Missing or incorrect viewport configuration
+3. **Image Optimization**: Unoptimized images causing slow mobile loading
+4. **Font Loading**: Web font loading issues on mobile networks
+5. **JavaScript Execution**: Mobile browsers blocking or delaying JavaScript
+
+#### Progressive Web App (PWA) Issues
+
+1. **Service Worker Conflicts**: Caching conflicts with PWA service workers
+2. **Offline Functionality**: Blocks not working in offline mode
+3. **App Shell Issues**: Problems with PWA app shell integration
+
+### Security and Privacy Issues
+
+#### GDPR and Privacy Compliance
+
+1. **Gravatar Privacy**: EU user consent for Gravatar image loading
+2. **Social Media Links**: Privacy implications of external link tracking
+3. **Data Export**: Including author data in user data export requests
+4. **Cookie Compliance**: Issues with cookie consent and tracking
+
+#### Security Hardening Conflicts
+
+1. **Content Security Policy (CSP)**: Inline script and style restrictions
+2. **Subresource Integrity**: SRI requirements for external resources
+3. **Mixed Content**: HTTP/HTTPS mixed content warnings
+4. **X-Frame-Options**: Issues with blocks in iframes
+
+### Internationalization and Multilingual Issues
+
+#### Advanced Multilingual Problems
+
+**WPML Integration:**
+
+- String translation issues
+- Language switcher conflicts
+- Different author data per language
+
+**Polylang Issues:**
+
+- Language-specific author assignments
+- URL structure conflicts
+- Translation synchronization problems
+
+**RTL Language Support:**
+
+- Right-to-left text direction issues
+- Icon and layout mirroring problems
+- Font loading for RTL languages
+
+### API and Integration Issues
+
+#### REST API Problems
+
+1. **Authentication Issues**: API authentication and permission problems
+2. **Rate Limiting**: API request limits and throttling
+3. **CORS Issues**: Cross-origin resource sharing problems
+4. **Endpoint Conflicts**: Conflicts with other plugins' API endpoints
+
+#### Webhook and Automation Issues
+
+1. **Real-time Updates**: Problems with real-time author data updates
+2. **Webhook Delivery**: Issues with webhook notifications
+3. **Automation Conflicts**: Problems with automation tools and workflows
+
+### Development and Debugging Issues
+
+#### Advanced Debugging Techniques
+
+**Browser Developer Tools:**
+
+- Network tab analysis for failed requests
+- Console error logging and debugging
+- Performance profiling for slow blocks
+- Memory leak detection
+
+**Server-Side Debugging:**
+
+- PHP error logging configuration
+- Database query monitoring
+- Memory usage profiling
+- Cache debugging techniques
+
+**Plugin Conflict Testing:**
+
+- Systematic plugin deactivation testing
+- Theme compatibility testing
+- Version compatibility matrices
+- Environment isolation techniques
+
+### Migration and Upgrade Issues
+
+#### Version Upgrade Problems
+
+**From Version 1.x to 2.x:**
+
+- Database migration issues
+- Block attribute changes
+- Template file updates
+- Hook and filter changes
+
+**Major WordPress Updates:**
+
+- Compatibility with new WordPress versions
+- PHP version requirement changes
+- Deprecated function usage
+- Security update conflicts
+
+### Cloud and Hosting-Specific Issues
+
+#### Managed WordPress Hosting
+
+**WP Engine:**
+
+- Specific caching and CDN issues
+- PHP worker limitations
+- Database query restrictions
+
+**Kinsta:**
+
+- Redis caching conflicts
+- APM monitoring issues
+- CDN optimization problems
+
+**SiteGround:**
+
+- SuperCacher conflicts
+- PHP-FPM issues
+- SG Optimizer conflicts
+
+#### Cloud Platforms
+
+**AWS Lightsail/ EC2:**
+
+- Server configuration issues
+- Load balancer problems
+- Auto-scaling conflicts
+
+**Google Cloud Platform:**
+
+- App Engine compatibility
+- Cloud SQL integration issues
+- Cloud CDN conflicts
+
+**Azure:**
+
+- Web App service limitations
+- Database connectivity issues
+- CDN integration problems
+
+### Getting More Help
 
 If you're still experiencing issues, you can get additional help from:
 
 - [WordPress.org Support Forums](https://wordpress.org/support/plugin/author-profile-blocks/)
 - [GitHub Issues](https://github.com/mralaminahamed/author-profile-blocks/issues)
 - [Plugin Documentation]({{ site.baseurl }}{% link readme.md %})
+- [WordPress Developer Resources](https://developer.wordpress.org/)
+
+### Contributing Fixes
+
+If you've found a solution to a problem not covered here:
+
+1. **Document Your Solution**: Create a clear description of the problem and solution
+2. **Test Thoroughly**: Ensure your solution works in multiple environments
+3. **Submit a Pull Request**: Contribute your fix back to the project
+4. **Update Documentation**: Help improve this troubleshooting guide

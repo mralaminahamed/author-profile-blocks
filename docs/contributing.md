@@ -6,12 +6,14 @@ permalink: /contributing/
 ---
 
 # Contributing to Author Profile Blocks
+
 {: .no_toc }
 
 Guidelines for contributing to the Author Profile Blocks plugin development.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
+
 {: .no_toc .text-delta }
 
 1. TOC
@@ -34,30 +36,91 @@ Before you begin, you'll need:
 
 ### Setting Up the Development Environment
 
+#### Prerequisites
+
+Before setting up the development environment, ensure you have:
+
+- **Node.js**: Version 16+ (LTS recommended)
+- **npm**: Version 7+ (comes with Node.js)
+- **PHP**: Version 7.4+ (8.0+ recommended)
+- **Composer**: Latest version
+- **Git**: Latest version
+- **Local WordPress Environment**: Local by Flywheel, MAMP, XAMPP, or Docker
+
+#### Development Setup
+
 1. **Fork the Repository**:
    Visit the [Author Profile Blocks repository](https://github.com/mralaminahamed/author-profile-blocks) and click the "Fork" button in the top-right corner.
 
 2. **Clone Your Fork**:
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/author-profile-blocks.git
-   cd author-profile-blocks
-   ```
 
-3. **Install Dependencies**:
-   ```bash
-   npm install
-   composer install
-   ```
+    ```bash
+    git clone https://github.com/YOUR-USERNAME/author-profile-blocks.git
+    cd author-profile-blocks
+    ```
 
-4. **Start Development Server**:
-   ```bash
-   npm start
-   ```
+3. **Install PHP Dependencies**:
 
-5. **Build for Production**:
-   ```bash
-   npm run build
-   ```
+    ```bash
+    composer install
+    ```
+
+4. **Install JavaScript Dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+5. **Set Up WordPress Environment**:
+
+    ```bash
+    # Create a local WordPress installation
+    # Option 1: Using WP-CLI
+    wp core download
+    wp config create --dbname=author_blocks_dev --dbuser=root --dbpass=password
+    wp core install --url=http://localhost --title="Author Blocks Dev" --admin_user=admin --admin_email=admin@example.com
+
+    # Option 2: Using Docker
+    docker run -d --name wp-dev -p 8080:80 -v $(pwd):/var/www/html/wp-content/plugins/author-profile-blocks wordpress:php8.1-apache
+    ```
+
+6. **Start Development Server**:
+
+    ```bash
+    npm start
+    ```
+
+7. **Build for Production**:
+    ```bash
+    npm run build
+    ```
+
+#### Alternative Development Environments
+
+**Using Docker:**
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR-USERNAME/author-profile-blocks.git
+cd author-profile-blocks
+
+# Start Docker environment
+docker-compose up -d
+
+# Install dependencies
+docker-compose exec wordpress composer install
+docker-compose exec wordpress npm install
+
+# Start development
+docker-compose exec wordpress npm start
+```
+
+**Using GitHub Codespaces:**
+
+1. Open the repository in GitHub
+2. Click "Code" → "Codespaces" → "Create codespace"
+3. The environment will be automatically configured
+4. Run `npm start` to begin development
 
 ## Development Workflow
 
@@ -72,11 +135,12 @@ Before you begin, you'll need:
 ### Making Changes
 
 1. **Create a Branch**:
-   ```bash
-   git checkout develop
-   git pull origin develop
-   git checkout -b feature/your-feature-name
-   ```
+
+    ```bash
+    git checkout develop
+    git pull origin develop
+    git checkout -b feature/your-feature-name
+    ```
 
 2. **Develop Your Feature**:
     - Make your changes following the coding standards
@@ -84,12 +148,13 @@ Before you begin, you'll need:
     - Update documentation as needed
 
 3. **Commit Your Changes**:
-   ```bash
-   git add .
-   git commit -m "Feature: Brief description of your changes"
-   ```
 
-   Use semantic commit messages:
+    ```bash
+    git add .
+    git commit -m "Feature: Brief description of your changes"
+    ```
+
+    Use semantic commit messages:
     - `Feature:` for new features
     - `Fix:` for bug fixes
     - `Docs:` for documentation changes
@@ -99,9 +164,10 @@ Before you begin, you'll need:
     - `Chore:` for changes to the build process or auxiliary tools
 
 4. **Push Your Changes**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
+
+    ```bash
+    git push origin feature/your-feature-name
+    ```
 
 5. **Create a Pull Request**:
     - Go to the GitHub repository
@@ -154,51 +220,554 @@ For documentation:
 
 ## Testing
 
-### Unit Tests
+### Automated Testing
 
-For PHP unit testing:
+#### PHP Unit Tests
+
+For PHP unit testing using PHPUnit:
 
 ```bash
+# Run all PHP tests
 composer test
+
+# Run specific test file
+composer test -- --filter Author_Profile_Service_Test
+
+# Run tests with coverage
+composer test:coverage
+
+# Run tests in watch mode
+composer test:watch
 ```
 
-### End-to-End Tests
+#### JavaScript Unit Tests
 
-For end-to-end testing of the blocks:
+For JavaScript/React testing using Jest:
 
 ```bash
+# Run all JS tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests for specific component
+npm test -- --testPathPattern=AuthorPicker
+```
+
+#### End-to-End Tests
+
+For end-to-end testing using Playwright:
+
+```bash
+# Run all E2E tests
 npm run test:e2e
+
+# Run tests in headed mode (visible browser)
+npm run test:e2e:headed
+
+# Run tests on specific browser
+npm run test:e2e:chromium
+npm run test:e2e:firefox
+npm run test:e2e:webkit
+
+# Run tests in debug mode
+npm run test:e2e:debug
+
+# Generate test report
+npm run test:e2e:report
+```
+
+### Visual Regression Testing
+
+Using Playwright's visual comparison:
+
+```bash
+# Update visual snapshots
+npm run test:visual:update
+
+# Run visual regression tests
+npm run test:visual
+```
+
+### Performance Testing
+
+#### Lighthouse CI
+
+```bash
+# Run Lighthouse performance tests
+npm run lighthouse
+
+# Test specific URL
+npm run lighthouse -- --url=http://localhost:3000
+```
+
+#### WebPageTest Integration
+
+```bash
+# Run WebPageTest
+npm run webpagetest
 ```
 
 ### Manual Testing Checklist
 
 Before submitting a pull request, manually test:
 
-1. All blocks in the editor
-2. Frontend rendering in various themes
-3. Responsive behavior on different screen sizes
-4. Compatibility with other popular plugins
-5. Accessibility features
+#### Core Functionality
 
-## Building and Packaging
+- [ ] All blocks render correctly in the editor
+- [ ] Block settings panels work properly
+- [ ] Author selection and filtering functions
+- [ ] Content display options toggle correctly
+- [ ] Styling controls apply changes
 
-### Building Assets
+#### Frontend Rendering
 
-To build the JavaScript and CSS assets:
+- [ ] Blocks display correctly on frontend
+- [ ] Responsive behavior on mobile/tablet/desktop
+- [ ] Theme compatibility across different themes
+- [ ] Dark mode support (if applicable)
+- [ ] Print styles work correctly
+
+#### User Experience
+
+- [ ] Loading states are handled gracefully
+- [ ] Error states display helpful messages
+- [ ] Keyboard navigation works
+- [ ] Screen reader accessibility
+- [ ] Touch interactions on mobile
+
+#### Integration Testing
+
+- [ ] Compatibility with popular page builders
+- [ ] ACF, Meta Box, and custom field integration
+- [ ] Multilingual plugin compatibility
+- [ ] Popular caching plugins
+- [ ] CDN integration
+
+#### Performance
+
+- [ ] Page load times are reasonable
+- [ ] Large author lists perform well
+- [ ] Memory usage is optimized
+- [ ] Network requests are minimized
+
+#### Security
+
+- [ ] Input sanitization works
+- [ ] Output escaping is proper
+- [ ] Nonce verification is implemented
+- [ ] SQL injection prevention
+- [ ] XSS protection
+
+### Cross-Browser Testing
+
+#### Automated Cross-Browser Testing
+
+Using BrowserStack or Sauce Labs integration:
 
 ```bash
+# Run tests on multiple browsers
+npm run test:cross-browser
+
+# Test specific browser/OS combinations
+npm run test:cross-browser -- --browsers="chrome,firefox,safari,edge"
+```
+
+#### Manual Cross-Browser Checklist
+
+- [ ] Chrome (latest 2 versions)
+- [ ] Firefox (latest 2 versions)
+- [ ] Safari (latest 2 versions)
+- [ ] Edge (latest 2 versions)
+- [ ] Mobile Safari (iOS latest)
+- [ ] Chrome Mobile (Android latest)
+
+### Accessibility Testing
+
+#### Automated Accessibility Testing
+
+```bash
+# Run axe-core accessibility tests
+npm run test:a11y
+
+# Generate accessibility report
+npm run test:a11y:report
+```
+
+#### Manual Accessibility Checklist
+
+- [ ] Keyboard navigation works
+- [ ] Screen reader compatibility
+- [ ] Color contrast meets WCAG standards
+- [ ] Focus indicators are visible
+- [ ] ARIA labels are appropriate
+- [ ] Semantic HTML structure
+- [ ] Alt text for images
+- [ ] Form labels and instructions
+
+## Development Workflow & Tools
+
+### Modern Development Tools
+
+#### Code Quality & Linting
+
+```bash
+# Run all linting tasks
+npm run lint
+
+# PHP linting with PHPCS
+composer phpcs
+
+# JavaScript/TypeScript linting
+npm run lint:js
+
+# CSS/SCSS linting
+npm run lint:css
+
+# Markdown linting
+npm run lint:md
+
+# Fix auto-fixable issues
+npm run lint:fix
+composer phpcs:fix
+```
+
+#### Code Formatting
+
+```bash
+# Format PHP code
+composer format
+
+# Format JavaScript/TypeScript
+npm run format:js
+
+# Format all code
+npm run format
+```
+
+#### Static Analysis
+
+```bash
+# PHP static analysis with PHPStan
+composer phpstan
+
+# Run Psalm (alternative static analyzer)
+composer psalm
+
+# Security analysis
+composer security:check
+```
+
+### Build System
+
+#### Development Builds
+
+```bash
+# Start development server with hot reload
+npm start
+
+# Start development server on specific port
+npm start -- --port=3001
+
+# Development build with source maps
+npm run build:dev
+```
+
+#### Production Builds
+
+```bash
+# Production build with optimizations
 npm run build
+
+# Production build with bundle analysis
+npm run build:analyze
+
+# Build for specific environment
+npm run build:staging
+npm run build:production
 ```
 
-### Creating a Release
-
-To create a release package:
+#### Build Optimization
 
 ```bash
-npm run package
+# Bundle size analysis
+npm run bundle:analyze
+
+# Generate build stats
+npm run build:stats
+
+# Optimize images
+npm run optimize:images
 ```
 
-This will create a zip file in the `dist` directory.
+### Packaging & Deployment
+
+#### Creating Releases
+
+```bash
+# Create plugin package
+npm run package
+
+# Create release with version bump
+npm run release
+
+# Create release with changelog
+npm run release:changelog
+```
+
+#### Deployment Automation
+
+```bash
+# Deploy to WordPress.org
+npm run deploy:wporg
+
+# Deploy to custom repository
+npm run deploy:custom
+
+# Create GitHub release
+npm run github:release
+```
+
+### Version Management
+
+#### Semantic Versioning
+
+The project follows [Semantic Versioning](https://semver.org/):
+
+- **MAJOR**: Breaking changes
+- **MINOR**: New features, backward compatible
+- **PATCH**: Bug fixes, backward compatible
+
+#### Version Commands
+
+```bash
+# Bump version (patch)
+npm version patch
+
+# Bump version (minor)
+npm version minor
+
+# Bump version (major)
+npm version major
+
+# Bump version with custom
+npm version 1.2.3
+```
+
+### Continuous Integration
+
+#### GitHub Actions Workflows
+
+The project uses GitHub Actions for:
+
+- **CI Pipeline**: Automated testing on push/PR
+- **Code Quality**: Linting and static analysis
+- **Security**: Automated security scanning
+- **Release**: Automated deployment on tag push
+
+#### Local CI Simulation
+
+```bash
+# Run full CI pipeline locally
+npm run ci
+
+# Run specific CI jobs
+npm run ci:test
+npm run ci:lint
+npm run ci:build
+```
+
+### Modern Development Practices
+
+#### Git Workflow
+
+```bash
+# Create feature branch
+git checkout -b feature/amazing-feature
+
+# Create bugfix branch
+git checkout -b bugfix/issue-number
+
+# Create hotfix branch
+git checkout -b hotfix/critical-fix
+
+# Interactive rebase for clean commits
+git rebase -i HEAD~3
+
+# Squash commits
+git reset --soft HEAD~3
+git commit -m "Feature: Amazing new feature"
+```
+
+#### Commit Conventions
+
+Following Conventional Commits:
+
+```bash
+# Feature commits
+git commit -m "feat: add new author carousel block"
+
+# Bug fixes
+git commit -m "fix: resolve carousel autoplay issue"
+
+# Documentation
+git commit -m "docs: update installation guide"
+
+# Style changes
+git commit -m "style: format code with prettier"
+
+# Refactoring
+git commit -m "refactor: simplify author query logic"
+
+# Performance
+git commit -m "perf: optimize image lazy loading"
+
+# Testing
+git commit -m "test: add unit tests for author service"
+
+# Build/CI
+git commit -m "ci: update github actions workflow"
+
+# Chore
+git commit -m "chore: update dependencies"
+```
+
+#### Pull Request Process
+
+1. **Create PR**: Use GitHub's "Compare & pull request" feature
+2. **PR Template**: Fill out all sections of the PR template
+3. **Branch Protection**: Ensure CI passes before requesting review
+4. **Code Review**: Address reviewer feedback
+5. **Merge**: Use "Squash and merge" for clean history
+
+### Advanced Development Tools
+
+#### Docker Development Environment
+
+```bash
+# Start full development environment
+docker-compose up -d
+
+# Run tests in container
+docker-compose exec wordpress composer test
+docker-compose exec wordpress npm test
+
+# Access WordPress admin
+open http://localhost:8080/wp-admin
+```
+
+#### VS Code Configuration
+
+Recommended VS Code extensions and settings:
+
+```json
+{
+	"recommendations": [
+		"ms-vscode.vscode-typescript-next",
+		"esbenp.prettier-vscode",
+		"ms-vscode.vscode-json",
+		"bmewburn.vscode-intelephense-client",
+		"ms-vscode.vscode-php-debug",
+		"formulahendry.auto-rename-tag",
+		"christian-kohler.path-intellisense"
+	],
+	"settings": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"php.validate.executablePath": "./vendor/bin/php",
+		"typescript.preferences.importModuleSpecifier": "relative"
+	}
+}
+```
+
+#### Pre-commit Hooks
+
+Using Husky for Git hooks:
+
+```bash
+# Install Husky
+npm run prepare
+
+# Pre-commit hooks run automatically:
+# - Lint staged files
+# - Run tests
+# - Check for secrets
+# - Validate commit messages
+```
+
+#### Dependency Management
+
+```bash
+# Check for outdated dependencies
+npm outdated
+composer outdated
+
+# Update dependencies
+npm update
+composer update
+
+# Audit dependencies for security
+npm audit
+composer audit
+
+# Fix security issues
+npm audit fix
+composer audit:fix
+```
+
+### Performance Monitoring
+
+#### Bundle Analysis
+
+```bash
+# Analyze JavaScript bundle size
+npm run bundle:analyzer
+
+# Analyze CSS bundle size
+npm run css:analyzer
+```
+
+#### Lighthouse Performance
+
+```bash
+# Run Lighthouse on development site
+npm run lighthouse:dev
+
+# Run Lighthouse on production build
+npm run lighthouse:prod
+```
+
+### Documentation
+
+#### Auto-generated Documentation
+
+```bash
+# Generate API documentation
+npm run docs:api
+
+# Generate component documentation
+npm run docs:components
+
+# Build full documentation site
+npm run docs:build
+```
+
+#### Documentation Testing
+
+```bash
+# Check for broken links
+npm run docs:links
+
+# Check documentation coverage
+npm run docs:coverage
+
+# Validate documentation structure
+npm run docs:validate
+```
 
 ## Documentation
 

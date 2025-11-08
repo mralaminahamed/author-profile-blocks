@@ -3,7 +3,7 @@
   "description": "A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.",
   "type": "wordpress-plugin",
   "license": "GPL-3.0-only",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "authors": [
     {
       "name": "Al Amin Ahamed",
@@ -14,7 +14,7 @@
   "require": {
     "php": ">=7.4"
   },
-   "autoload": {
+  "autoload": {
     "classmap": [
       "class-author-profile-blocks.php"
     ],
@@ -42,7 +42,7 @@
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
-   "scripts": {
+  "scripts": {
     "phpcs:check": [
       "vendor/bin/phpcs -p -s"
     ],
