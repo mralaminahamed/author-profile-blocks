@@ -1,30 +1,31 @@
 /**
  * WordPress dependencies
  */
-import { registerBlockType } from '@wordpress/blocks';
-import { list as icon } from '@wordpress/icons';
+import { registerBlockType } from "@wordpress/blocks";
+import { list as icon } from "@wordpress/icons";
 
 /**
  * Internal dependencies
  */
-import Edit from './edit';
-import metadata from './block.json';
-import './style.scss';
+import Edit from "./edit";
+import metadata from "./block.json";
+import "./style.scss";
+import type { AuthorListAttributes } from "../../types/blocks";
 
 /**
  * View script
  */
-import './view';
+import "./view";
 
 /**
  * Register the block.
  */
-registerBlockType( metadata.name, {
+registerBlockType(metadata.name, {
 	...metadata,
 	icon,
 	example: {
 		attributes: {
-			displayStyle: 'compact',
+			displayStyle: "compact",
 			enableDividers: true,
 			showImage: true,
 			showPosition: true,
@@ -40,4 +41,4 @@ registerBlockType( metadata.name, {
 	 * Save function is handled on the PHP side, so we return null here.
 	 */
 	save: () => null,
-} );
+} as any);

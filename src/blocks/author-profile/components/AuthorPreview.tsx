@@ -3,6 +3,8 @@
  */
 import ServerSideRender from '@wordpress/server-side-render';
 
+import React from 'react';
+
 /**
  * AuthorPreview component for showing the selected author
  *
@@ -68,18 +70,11 @@ const AuthorPreview = ( { attributes } ) => {
 	const customStyles = {
 		// Avatar styles
 		'--author-avatar-size': avatarSize ? `${ avatarSize }px` : undefined,
-		'--author-avatar-border-width': avatarBorderWidth
-			? `${ avatarBorderWidth }px`
-			: undefined,
+		'--author-avatar-border-width': avatarBorderWidth ? `${ avatarBorderWidth }px` : undefined,
 		'--author-avatar-border-color': avatarBorderColor || undefined,
-		'--author-avatar-border-radius':
-			avatarShape === 'custom' && avatarBorderRadius
-				? `${ avatarBorderRadius }px`
-				: undefined,
+		'--author-avatar-border-radius': avatarShape === 'custom' && avatarBorderRadius ? `${ avatarBorderRadius }px` : undefined,
 		'--author-avatar-align': avatarAlignment || undefined,
-		'--author-avatar-margin': avatarMargin
-			? `${ avatarMargin }px`
-			: undefined,
+		'--author-avatar-margin': avatarMargin ? `${ avatarMargin }px` : undefined,
 		// Name styles
 		'--author-name-size': nameSize ? `${ nameSize }px` : undefined,
 		'--author-name-weight': nameWeight || undefined,
@@ -88,16 +83,12 @@ const AuthorPreview = ( { attributes } ) => {
 		'--author-name-align': nameAlignment || undefined,
 		'--author-name-margin': nameMargin ? `${ nameMargin }px` : undefined,
 		// Description styles
-		'--author-description-size': descriptionSize
-			? `${ descriptionSize }px`
-			: undefined,
+		'--author-description-size': descriptionSize ? `${ descriptionSize }px` : undefined,
 		'--author-description-line-height': descriptionLineHeight || undefined,
 		'--author-description-color': descriptionColor || undefined,
 		'--author-description-style': descriptionStyle || undefined,
 		'--author-description-align': descriptionAlignment || undefined,
-		'--author-description-margin': descriptionMargin
-			? `${ descriptionMargin }px`
-			: undefined,
+		'--author-description-margin': descriptionMargin ? `${ descriptionMargin }px` : undefined,
 		// Meta styles
 		'--author-meta-size': metaSize ? `${ metaSize }px` : undefined,
 		'--author-meta-color': metaColor || undefined,
@@ -109,27 +100,18 @@ const AuthorPreview = ( { attributes } ) => {
 		'--author-email-link-color': emailLinkColor || undefined,
 		'--author-email-link-hover-color': emailHoverColor || undefined,
 		// Social icon styles
-		'--author-social-icon-size': socialIconSize
-			? `${ socialIconSize }px`
-			: undefined,
+		'--author-social-icon-size': socialIconSize ? `${ socialIconSize }px` : undefined,
 		'--author-social-icon-color': socialIconColor || undefined,
 		'--author-social-icon-hover-color': socialIconHoverColor || undefined,
 		'--author-social-icon-bg': socialIconBackground || undefined,
 		'--author-social-icon-bg-hover': socialIconBackgroundHover || undefined,
-		'--author-social-icon-spacing': socialIconSpacing
-			? `${ socialIconSpacing }px`
-			: undefined,
+		'--author-social-icon-spacing': socialIconSpacing ? `${ socialIconSpacing }px` : undefined,
 		'--author-social-icon-align': socialIconAlignment || undefined,
 		// More content section styles
-		'--author-more-content-border-color':
-			moreContentBorderColor || undefined,
-		'--author-more-content-padding': moreContentPadding
-			? `${ moreContentPadding }px`
-			: undefined,
+		'--author-more-content-border-color': moreContentBorderColor || undefined,
+		'--author-more-content-padding': moreContentPadding ? `${ moreContentPadding }px` : undefined,
 		// Spacing
-		'--author-section-spacing': sectionSpacing
-			? `${ sectionSpacing }px`
-			: undefined,
+		'--author-section-spacing': sectionSpacing ? `${ sectionSpacing }px` : undefined,
 	};
 
 	// Add data attributes for the server-side renderer
@@ -145,7 +127,7 @@ const AuthorPreview = ( { attributes } ) => {
 	};
 
 	return (
-		<div style={ customStyles } { ...dataAttributes }>
+		<div style={ customStyles as React.CSSProperties } { ...dataAttributes }>
 			<ServerSideRender
 				block="author-profile-blocks/author-profile"
 				attributes={ attributes }

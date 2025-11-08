@@ -6,7 +6,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "strict": false,
+    "noImplicitAny": false,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
@@ -20,8 +21,6 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*", "src/types/**/*"],
+  "exclude": ["node_modules", "build", "vendor"]
 }

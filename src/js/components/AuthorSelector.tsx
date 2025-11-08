@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import {
 	Placeholder,
 	Spinner,
@@ -21,7 +21,6 @@ import {
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { search, people, plusCircle, info } from '@wordpress/icons';
-import { sprintf } from '@wordpress/i18n';
 
 /**
  * AuthorSelector component for selecting an author from a dropdown with search

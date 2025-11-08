@@ -30,6 +30,7 @@
     "build": "wp-scripts build --webpack-copy-php",
     "type": "npx tsc --noEmit",
     "lint": "yarn lint:js && yarn lint:css && yarn lint:md:docs && yarn lint:pkg-json",
+    "lint:js": "wp-scripts lint-js src --ext .js,.jsx,.ts,.tsx",
     "plugin-zip": "wp-scripts plugin-zip --root-folder=author-profile-blocks",
     "wp:make-pot": "wp i18n make-pot . languages/author-profile-blocks.pot"
   },
@@ -42,6 +43,10 @@
     "@types/lodash": "^4",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/wordpress__blocks": "^12.5.18",
+    "@types/wordpress__element": "^2.14.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.3",
+    "@typescript-eslint/parser": "^8.46.3",
     "@wordpress/api-fetch": "^7.34.0",
     "@wordpress/block-editor": "^15.7.0",
     "@wordpress/blocks": "^15.7.0",

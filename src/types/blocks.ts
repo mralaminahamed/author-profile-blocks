@@ -1,0 +1,286 @@
+/**
+ * Author Carousel Block Attributes
+ */
+export interface AuthorCarouselAttributes {
+	authorIds: number[];
+	slidesToShow: number;
+	autoplay: boolean;
+	autoplaySpeed: number;
+	showDots: boolean;
+	showArrows: boolean;
+	infinite: boolean;
+	showImage: boolean;
+	showEmail: boolean;
+	showDescription: boolean;
+	showPosition: boolean;
+	showRegisteredDate: boolean;
+	showSocial: boolean;
+	layout: string;
+	backgroundColor: string;
+	textAlign: string;
+	padding: number;
+	slideSpacing: number;
+	enableShadow: boolean;
+	enableBorder: boolean;
+	borderColor: string;
+	borderWidth: number;
+	enableRounded: boolean;
+	maxAuthors: number;
+	authorRole: string;
+	layoutPreset: string;
+	animationType: string;
+	animationDuration: number;
+	hoverEffect: string;
+	customCssClass: string;
+	googleFont: string;
+	fontSizeUnit: string;
+	gradientBackground: boolean;
+	gradientStartColor: string;
+	gradientEndColor: string;
+	gradientDirection: string;
+	transformScale: number;
+	transformRotate: number;
+	filterBrightness: number;
+	filterContrast: number;
+	filterSaturate: number;
+	lazyLoad: boolean;
+	contentTabs: boolean;
+	tabLabels: {
+		bio: string;
+		contact: string;
+		social: string;
+	};
+	margin: string;
+	sectionSpacing: number;
+	boxShadow: boolean;
+	boxShadowColor: string;
+	boxShadowBlur: number;
+	boxShadowSpread: number;
+	boxShadowHorizontal: number;
+	boxShadowVertical: number;
+	borderRadius: number;
+	containerWidth: string;
+	customVar1: string;
+	customVar2: string;
+}
+
+/**
+ * Author Grid Block Attributes
+ */
+export interface AuthorGridAttributes {
+	authorIds: number[];
+	columns: number;
+	showImage: boolean;
+	showEmail: boolean;
+	showDescription: boolean;
+	showPosition: boolean;
+	showRegisteredDate: boolean;
+	showSocial: boolean;
+	layout: string;
+	backgroundColor: string;
+	textAlign: string;
+	padding: number;
+	itemSpacing: number;
+	enableShadow: boolean;
+	enableBorder: boolean;
+	borderColor: string;
+	borderWidth: number;
+	enableRounded: boolean;
+	maxAuthors: number;
+	authorRole: string;
+	layoutPreset: string;
+	animationType: string;
+	animationDuration: number;
+	hoverEffect: string;
+	customCssClass: string;
+	googleFont: string;
+	fontSizeUnit: string;
+	gradientBackground: boolean;
+	gradientStartColor: string;
+	gradientEndColor: string;
+	gradientDirection: string;
+	transformScale: number;
+	transformRotate: number;
+	filterBrightness: number;
+	filterContrast: number;
+	filterSaturate: number;
+	lazyLoad: boolean;
+	contentTabs: boolean;
+	tabLabels: {
+		bio: string;
+		contact: string;
+		social: string;
+	};
+	margin: string;
+	sectionSpacing: number;
+	boxShadow: boolean;
+	boxShadowColor: string;
+	boxShadowBlur: number;
+	boxShadowSpread: number;
+	boxShadowHorizontal: number;
+	boxShadowVertical: number;
+	borderRadius: number;
+	containerWidth: string;
+	customVar1: string;
+	customVar2: string;
+}
+
+/**
+ * Author List Block Attributes
+ */
+export interface AuthorListAttributes {
+	authorIds: number[];
+	authorRole: string;
+	maxAuthors: number;
+	displayStyle: string;
+	listStyle: string;
+	enableDividers: boolean;
+	dividerColor: string;
+	enableRounded: boolean;
+	enableHoverEffect: boolean;
+	backgroundColor: string;
+	itemBackgroundColor: string;
+	textAlign: string;
+	blockPadding: number;
+	itemPadding: number;
+	itemSpacing: number;
+	enableShadow: boolean;
+	enableBorder: boolean;
+	borderColor: string;
+	borderWidth: number;
+	showImage: boolean;
+	showEmail: boolean;
+	showDescription: boolean;
+	showPosition: boolean;
+	showRegisteredDate: boolean;
+	showSocial: boolean;
+	layout: string;
+	layoutPreset: string;
+	animationType: string;
+	animationDuration: number;
+	hoverEffect: string;
+	customCssClass: string;
+	googleFont: string;
+	fontSizeUnit: string;
+	gradientBackground: boolean;
+	gradientStartColor: string;
+	gradientEndColor: string;
+	gradientDirection: string;
+	transformScale: number;
+	transformRotate: number;
+	filterBrightness: number;
+	filterContrast: number;
+	filterSaturate: number;
+	lazyLoad: boolean;
+	contentTabs: boolean;
+	tabLabels: {
+		bio: string;
+		contact: string;
+		social: string;
+	};
+	margin: string;
+	sectionSpacing: number;
+	boxShadow: boolean;
+	boxShadowColor: string;
+	boxShadowBlur: number;
+	boxShadowSpread: number;
+	boxShadowHorizontal: number;
+	boxShadowVertical: number;
+	borderRadius: number;
+	containerWidth: string;
+	customVar1: string;
+	customVar2: string;
+}
+
+/**
+ * Author Profile Block Attributes
+ */
+export interface AuthorProfileAttributes {
+	authorId: number;
+	showImage: boolean;
+	showEmail: boolean;
+	showDescription: boolean;
+	showRegisteredDate: boolean;
+	showMoreContent: boolean;
+	moreContent: string;
+	backgroundColor: string;
+	textAlign: string;
+	padding: number;
+	avatarSize: number;
+	avatarBorderWidth: number;
+	avatarBorderColor: string;
+	avatarBorderRadius: number;
+	avatarShape: string;
+	avatarAlignment: string;
+	avatarMargin: number;
+	nameSize: number;
+	nameWeight: string;
+	nameColor: string;
+	nameTransform: string;
+	nameAlignment: string;
+	nameMargin: number;
+	descriptionSize: number;
+	descriptionLineHeight: number;
+	descriptionColor: string;
+	descriptionStyle: string;
+	descriptionAlignment: string;
+	descriptionMargin: number;
+	metaSize: number;
+	metaColor: string;
+	metaStyle: string;
+	metaBold: boolean;
+	metaAlignment: string;
+	metaMargin: number;
+	emailLinkColor: string;
+	emailHoverColor: string;
+	showSocialLinks: boolean;
+	socialLinksToShow: string[];
+	socialIconSize: number;
+	socialIconColor: string;
+	socialIconHoverColor: string;
+	socialIconBackground: string;
+	socialIconBackgroundHover: string;
+	socialIconSpacing: number;
+	socialIconAlignment: string;
+	moreContentBorderColor: string;
+	moreContentPadding: number;
+	blockStyle: string;
+	contentOrder: string;
+	layoutPreset: string;
+	animationType: string;
+	animationDuration: number;
+	hoverEffect: string;
+	customCssClass: string;
+	googleFont: string;
+	fontSizeUnit: string;
+	gradientBackground: boolean;
+	gradientStartColor: string;
+	gradientEndColor: string;
+	gradientDirection: string;
+	transformScale: number;
+	transformRotate: number;
+	filterBrightness: number;
+	filterContrast: number;
+	filterSaturate: number;
+	lazyLoad: boolean;
+	contentTabs: boolean;
+	tabLabels: {
+		bio: string;
+		contact: string;
+		social: string;
+	};
+	margin: string;
+	sectionSpacing: number;
+	boxShadow: boolean;
+	boxShadowColor: string;
+	boxShadowBlur: number;
+	boxShadowSpread: number;
+	boxShadowHorizontal: number;
+	boxShadowVertical: number;
+	borderWidth: number;
+	borderColor: string;
+	borderRadius: number;
+	containerWidth: string;
+	customVar1: string;
+	customVar2: string;
+}

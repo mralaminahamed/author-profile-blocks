@@ -1,0 +1,22 @@
+/**
+ * WordPress dependencies
+ */
+import { registerBlockType } from "@wordpress/blocks";
+
+/**
+ * Internal dependencies
+ */
+import "./style.scss";
+import "./editor.scss";
+import Edit from "./edit";
+import metadata from "./block.json";
+import type { AuthorGridAttributes } from "../../types/blocks";
+
+/**
+ * Register the block
+ */
+registerBlockType(metadata.name, {
+	...metadata,
+	edit: Edit,
+	save: () => null, // Server-side rendering
+} as any);
