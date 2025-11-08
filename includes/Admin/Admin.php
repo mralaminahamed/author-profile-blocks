@@ -76,7 +76,7 @@ class Admin {
 		register_setting(
 			'author_profile_blocks_settings',
 			'author_profile_blocks_settings',
-			array( author_profile_blocks()->settings, 'sanitize' )
+			array( author_profile_blocks()->get_settings(), 'sanitize' )
 		);
 
 		// General Settings Section
@@ -278,6 +278,6 @@ class Admin {
 	 * @return array<string, mixed> Plugin settings.
 	 */
 	public static function get_settings_rest(): array {
-		return author_profile_blocks()->settings->get_for_rest();
+		return author_profile_blocks()->get_settings()->get_for_rest();
 	}
 }

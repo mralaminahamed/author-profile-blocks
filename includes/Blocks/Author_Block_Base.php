@@ -1282,7 +1282,7 @@ abstract class Author_Block_Base implements Registerable {
 	 */
 	protected function render_social_profiles( array $profiles, string $wrapper_class = '', array $show_profiles = array() ): string {
 		// Get plugin settings to filter social platforms
-		$enabled_platforms = author_profile_blocks()->settings->get_enabled_social_platforms();
+		$enabled_platforms = author_profile_blocks()->get_settings()->get_enabled_social_platforms();
 
 		// If no specific profiles are requested, use enabled platforms from settings
 		if ( empty( $show_profiles ) ) {

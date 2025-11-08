@@ -377,7 +377,9 @@ class Abilities_Api {
 
 		// Use the Author_Profile_Block to render
 		$block = new Author_Profile_Block();
-		return $block->render_callback( $attributes, '', null );
+		// Create a minimal WP_Block object for the render callback
+		$wp_block = new \WP_Block( array( 'blockName' => 'author-profile-blocks/author-profile' ) );
+		return $block->render_callback( $attributes, '', $wp_block );
 	}
 
 	/**

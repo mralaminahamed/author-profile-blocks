@@ -25,7 +25,7 @@ class Plugin_Links {
 	 *
 	 * Sets up filters for plugin action links and row meta.
 	 */
-	public static function init() {
+	public static function init(): void {
 		add_filter( 'plugin_action_links_' . plugin_basename( APBL_PLUGIN_FILE ), array( self::class, 'add_action_links' ) );
 		add_filter( 'plugin_row_meta', array( self::class, 'add_row_meta' ), 10, 2 );
 	}

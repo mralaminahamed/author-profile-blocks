@@ -24,7 +24,10 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AuthorProfileBlocks\\Test\\": "tests/php/src"
+      "AuthorProfileBlocks\\Test\\": "tests/php/src",
+      "AuthorProfileBlocks\\Test\\Blocks\\": "tests/php/src/unit/Blocks",
+      "AuthorProfileBlocks\\Test\\Admin\\": "tests/php/src/unit/Admin",
+      "AuthorProfileBlocks\\Test\\Services\\": "tests/php/src/unit/Services"
     }
   },
   "require-dev": {

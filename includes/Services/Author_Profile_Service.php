@@ -439,7 +439,7 @@ class Author_Profile_Service {
 	 * @return int Cache duration in seconds.
 	 */
 	private function get_cache_duration(): int {
-		return author_profile_blocks()->settings->get_cache_duration_seconds();
+		return author_profile_blocks()->get_settings()->get_cache_duration_seconds();
 	}
 
 	/**
