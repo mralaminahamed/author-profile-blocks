@@ -488,13 +488,14 @@ class Author_Profile_Blocks {
 	/**
 	 * Generate appropriate values for Author Profile Blocks meta fields.
 	 *
-	 * @param mixed  $value     The current meta value.
-	 * @param string $meta_key  The meta key.
-	 * @param array  $_field    The field configuration.
+	 * @param mixed  $value       The current meta value.
+	 * @param string $meta_key    The meta key.
+	 * @param string $field_type  The field type.
+	 * @param object $_module     The FakerPress module object.
 	 *
 	 * @return mixed The generated meta value.
 	 */
-	public function generate_fakerpress_meta_value( $value, string $meta_key, array $_field ) {
+	public function generate_fakerpress_meta_value( $value, string $meta_key, string $_field_type, object $_module ) {
 		switch ( $meta_key ) {
 			case 'apbl_author_description':
 				if ( empty( $value ) ) {
