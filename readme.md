@@ -6,8 +6,6 @@
 [![Gutenberg Compatible](https://img.shields.io/badge/Gutenberg-Ready-00A0D2.svg)](https://wordpress.org/gutenberg/)
 
 > **Modern Gutenberg blocks for WordPress author profiles.**
->
-> 📖 **[Documentation Site](https://mralaminahamed.github.io/author-profile-blocks/)** | 🐛 **[Report Issues](https://github.com/mralaminahamed/author-profile-blocks/issues)** | 💬 **[Community Support](https://wordpress.org/support/plugin/author-profile-blocks/)**
 
 ## 🔧 Technical Specifications
 
