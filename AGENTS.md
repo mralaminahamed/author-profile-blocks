@@ -36,8 +36,8 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 
 - `author-profile-blocks.php`: Main plugin file with headers
 - `class-author-profile-blocks.php`: Main plugin class with initialization
-- `includes/Supports/FakerPress.php`: FakerPress integration support
-- `includes/Supports/`: WordPress Supports API integration (future-ready)
+- `includes/Supports/Abilities_Api.php`: WordPress Abilities API integration (future-ready)
+- `includes/Supports/FakerPress.php`: FakerPress plugin integration
 - `composer.json`: PHP dependencies and scripts
 - `package.json`: JavaScript dependencies and build scripts
 - `webpack.config.js`: Webpack configuration with dependency mapping
@@ -196,12 +196,21 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
     - `fakerpress.module.meta.value` - General meta value generation
     - `fakerpress.module.meta.{key}.value` - Specific meta key generation
 
-### WordPress Supports API (Future)
+### WordPress Abilities API (Future)
 
-- **Location**: `includes/Supports/` directory
-- **Purpose**: Future WordPress Supports API integration
-- **Current Status**: Prepared for when WordPress implements the Supports API
-- **Features**: AI-powered plugin capabilities and automated actions
+- **Location**: `includes/Supports/Abilities_Api.php`
+- **Purpose**: AI-powered plugin capabilities when WordPress Abilities API is released
+- **Current Status**: Prepared for future WordPress Abilities API implementation
+- **Features**:
+    - Get author data ability with structured input/output schemas
+    - Filter authors by criteria (role, capabilities, post count)
+    - Render author profile blocks with customizable options
+    - Update author metadata with proper permissions
+- **Integration Points**:
+    - `wp_feature_api_init` - Initialize abilities registration
+    - `wp_register_ability()` - Register individual abilities (when API is available)
+    - Structured JSON schemas for inputs and outputs
+    - Permission callbacks for security
 
 ## Testing & Quality Assurance
 
