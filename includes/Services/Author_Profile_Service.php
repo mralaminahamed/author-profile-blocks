@@ -279,9 +279,18 @@ class Author_Profile_Service {
 	 * }
 	 */
 	public function get_author_data( int $author_id ): ?array {
-		// Check cache first.
+		// Check in-memory cache first.
 		if ( isset( $this->author_cache[ $author_id ] ) ) {
 			return $this->author_cache[ $author_id ];
+		}
+
+		// Check persistent cache.
+		$cache_key   = 'author_profile_blocks_author_' . $author_id;
+		$cached_data = wp_cache_get( $cache_key, 'author_profile_blocks' );
+		if ( false !== $cached_data ) {
+			// Store in memory cache for faster subsequent access.
+			$this->author_cache[ $author_id ] = $cached_data;
+			return $cached_data;
 		}
 
 		$user = get_user_by( 'id', $author_id );
@@ -320,8 +329,12 @@ class Author_Profile_Service {
 		// Apply filters to allow customization of author data.
 		$author_data = apply_filters( 'author_profile_blocks_author_data', $author_data, $user );
 
-		// Cache the result.
+		// Cache the result in memory.
 		$this->author_cache[ $author_id ] = $author_data;
+
+		// Cache persistently using configurable duration.
+		$cache_duration = $this->get_cache_duration();
+		wp_cache_set( $cache_key, $author_data, 'author_profile_blocks', $cache_duration );
 
 		return $author_data;
 	}
@@ -396,8 +409,9 @@ class Author_Profile_Service {
 		// Allow filtering of authors.
 		$authors = apply_filters( 'author_profile_blocks_authors', $authors, $query_args );
 
-		// Cache the results.
-		wp_cache_set( $cache_key, $authors, 'author_profile_blocks_authors', HOUR_IN_SECONDS );
+		// Cache the results using configurable duration.
+		$cache_duration = $this->get_cache_duration();
+		wp_cache_set( $cache_key, $authors, 'author_profile_blocks_authors', $cache_duration );
 
 		return $authors;
 	}
@@ -419,6 +433,19 @@ class Author_Profile_Service {
 	}
 
 	/**
+	 * Get the cache duration from settings.
+	 *
+	 * @return int Cache duration in seconds.
+	 */
+	private function get_cache_duration(): int {
+		$settings       = get_option( 'author_profile_blocks_settings', array() );
+		$duration_hours = $settings['cache_duration'] ?? 24;
+
+		// Convert hours to seconds.
+		return $duration_hours * HOUR_IN_SECONDS;
+	}
+
+	/**
 	 * Clear the author cache.
 	 *
 	 * @param int|null $author_id Optional. The author ID to clear from cache.
@@ -428,9 +455,19 @@ class Author_Profile_Service {
 	 */
 	public function clear_cache( ?int $author_id = null ): void {
 		if ( $author_id ) {
+			// Clear specific author from memory cache.
 			unset( $this->author_cache[ $author_id ] );
+
+			// Clear specific author from persistent cache.
+			$cache_key = 'author_profile_blocks_author_' . $author_id;
+			wp_cache_delete( $cache_key, 'author_profile_blocks' );
 		} else {
+			// Clear all authors from memory cache.
 			$this->author_cache = array();
+
+			// Clear all persistent cache groups.
+			wp_cache_flush_group( 'author_profile_blocks' );
+			wp_cache_flush_group( 'author_profile_blocks_authors' );
 		}
 	}
 }

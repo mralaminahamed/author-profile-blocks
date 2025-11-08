@@ -33,7 +33,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
 
         $this->assertStringContainsString('public function get_block_name(): string', $class_content);
         $this->assertStringContainsString('protected function block_specific_init(): void', $class_content);
-        $this->assertStringContainsString('public function localize_block_script(', $class_content);
+        $this->assertStringContainsString('protected function get_render_callback(): ?callable', $class_content);
         $this->assertStringContainsString('public function render_callback(', $class_content);
     }
 
@@ -59,7 +59,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
      * Test that class contains social icons data usage.
      */
     public function test_class_contains_social_icons_usage() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Block_Base.php');
 
         $this->assertStringContainsString("'socialIcons' => \$this->get_social_icon_data()", $class_content);
     }
