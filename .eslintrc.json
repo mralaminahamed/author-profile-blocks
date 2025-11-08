@@ -4,12 +4,15 @@
         "browser": true,
         "es2021": true,
         "jquery": true,
-        "node": true,
-        "wp": true
+        "node": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:@wordpress/eslint-plugin/recommended"
+        "plugin:@wordpress/eslint-plugin/recommended",
+        "plugin:@wordpress/eslint-plugin/esnext",
+        "plugin:@wordpress/eslint-plugin/i18n",
+        "plugin:@wordpress/eslint-plugin/react",
+        "plugin:import/errors",
+        "plugin:import/warnings"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -23,7 +26,19 @@
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single"],
         "semi": ["error", "always"],
-        "no-console": "warn"
+        "no-console": "warn",
+
+        "prettier/prettier": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "alias": {
+                "map": [
+                    ["@", "./src"]
+                ],
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
     },
     "globals": {
         "wp": "readonly",

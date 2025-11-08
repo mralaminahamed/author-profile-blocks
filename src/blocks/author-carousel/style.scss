@@ -5,12 +5,192 @@
 // Import common styles
 @use '../../scss/common' as c;
 
-// Import Slick slider base styles
-@import 'slick-carousel/slick/slick.css';
-@import 'slick-carousel/slick/slick-theme.css';
+// Slick slider styles are imported in the JavaScript file
 
 // Carousel container
 .wp-block-author-profile-blocks-author-carousel {
+  // Animation classes
+  &.has-fadeIn-animation .apb-author-carousel-item {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  &.has-slideUp-animation .apb-author-carousel-item {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  &.has-slideDown-animation .apb-author-carousel-item {
+    animation: slideDown 0.6s ease-out;
+  }
+
+  &.has-slideLeft-animation .apb-author-carousel-item {
+    animation: slideLeft 0.6s ease-out;
+  }
+
+  &.has-slideRight-animation .apb-author-carousel-item {
+    animation: slideRight 0.6s ease-out;
+  }
+
+  &.has-scaleIn-animation .apb-author-carousel-item {
+    animation: scaleIn 0.6s ease-out;
+  }
+
+  &.has-bounce-animation .apb-author-carousel-item {
+    animation: bounce 0.8s ease-out;
+  }
+
+  // Hover effects
+  &.has-lift-hover .apb-author-carousel-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  &.has-glow-hover .apb-author-carousel-item:hover {
+    box-shadow: 0 0 20px rgba(0, 123, 186, 0.4);
+  }
+
+  &.has-scale-hover .apb-author-carousel-item:hover {
+    transform: scale(1.05);
+  }
+
+  &.has-rotate-hover .apb-author-carousel-item:hover {
+    transform: rotate(2deg);
+  }
+
+  &.has-shadow-hover .apb-author-carousel-item:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  // Layout presets
+  &.is-style-card .apb-author-carousel-item {
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &.is-style-minimal .apb-author-carousel-item {
+    border: none;
+    background: transparent;
+    padding: 12px 0;
+  }
+
+  &.is-style-bordered .apb-author-carousel-item {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px;
+    background: #fff;
+  }
+
+  &.is-style-shadow .apb-author-carousel-item {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+  }
+
+  &.is-style-modern-cards .apb-author-carousel-item {
+    border: 1px solid #e1e5e9;
+    border-radius: 12px;
+    padding: 24px;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    }
+  }
+
+  &.is-style-classic-carousel .apb-author-carousel-item {
+    border: 2px solid #007cba;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #007cba, #005a87);
+      border-radius: 10px;
+      z-index: -1;
+    }
+  }
+
+  &.is-style-minimal-slides .apb-author-carousel-item {
+    border: none;
+    background: transparent;
+    padding: 16px;
+    border-radius: 0;
+  }
+
+  &.is-style-elegant-profile .apb-author-carousel-item {
+    border: 1px solid #f0f0f0;
+    border-radius: 16px;
+    padding: 28px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px 16px 0 0;
+    }
+  }
+
+  &.is-style-creative-layout .apb-author-carousel-item {
+    border: none;
+    border-radius: 20px;
+    padding: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        rgba(255, 255, 255, 0.1) 0deg,
+        transparent 60deg
+      );
+      animation: rotate 20s linear infinite;
+    }
+
+    .apb-author-name,
+    .apb-author-position {
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .apb-author-description {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+
   padding: c.$spacing-md;
 
   // Main carousel wrapper
@@ -108,5 +288,94 @@
   .apb-carousel-loading {
 
     @include c.carousel-loading();
+  }
+}
+
+// Keyframe animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

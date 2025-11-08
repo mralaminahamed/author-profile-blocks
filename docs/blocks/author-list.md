@@ -47,6 +47,7 @@ The Author List Block offers a variety of settings to customize both the content
 - **Display Style**:
     - **Compact**: Space-efficient layout showing essential information
     - **Detailed**: Expanded layout with more author details
+    - **Minimal**: Clean, streamlined layout with only the most essential information
 - **List Style**:
     - **Unordered List**: Standard bulleted list format
     - **Ordered List**: Numbered list format
@@ -73,7 +74,7 @@ The Author List Block offers a variety of settings to customize both the content
 
 ## Display Styles
 
-The Author List block offers two distinct display styles to suit different needs:
+The Author List block offers three distinct display styles to suit different needs:
 
 ### Compact Style
 
@@ -97,6 +98,27 @@ This style is perfect for more in-depth team directories where you want to showc
 
 ![Detailed Style]({{ site.baseurl }}/assets/images/author-list-detailed-style.png)
 
+### Minimal Style
+
+The Minimal style provides the cleanest, most streamlined presentation:
+- Author image on the left
+- Name and position only (no email, description, or social links)
+
+This style is perfect for situations where you want to showcase team members with minimal information, creating a clean and professional appearance.
+
+![Minimal Style]({{ site.baseurl }}/assets/images/author-list-minimal-style.png)
+
+
+### Minimal Style
+
+The Minimal style provides the cleanest, most streamlined presentation:
+- Author image on the left
+- Name and position only (no email, description, or social links)
+
+This style is perfect for situations where you want to showcase team members with minimal information, creating a clean and professional appearance.
+
+![Minimal Style]({{ site.baseurl }}/assets/images/author-list-minimal-style.png)
+
 ## List Style Options
 
 Choose between two list formats:
@@ -118,6 +140,22 @@ The Author List block automatically adapts to different screen sizes:
 ### Team Directory (Detailed Style)
 
 ```
+
+### Clean Team List (Minimal Style)
+
+```
+<!-- wp:author-profile-blocks/author-list {
+  "authorIds": [1, 2, 3, 4, 5],
+  "displayStyle": "minimal",
+  "listStyle": "ul",
+  "enableDividers": false,
+  "enableRounded": true,
+  "showImage": true,
+  "showPosition": true,
+  "itemSpacing": 15,
+  "itemPadding": 10
+} /-->
+```
 <!-- wp:author-profile-blocks/author-list {
   "authorIds": [1, 2, 3, 4, 5],
   "displayStyle": "detailed",
@@ -134,8 +172,40 @@ The Author List block automatically adapts to different screen sizes:
 } /-->
 ```
 
+### Clean Team List (Minimal Style)
+
+```
+<!-- wp:author-profile-blocks/author-list {
+  "authorIds": [1, 2, 3, 4, 5],
+  "displayStyle": "minimal",
+  "listStyle": "ul",
+  "enableDividers": false,
+  "enableRounded": true,
+  "showImage": true,
+  "showPosition": true,
+  "itemSpacing": 15,
+  "itemPadding": 10
+} /-->
+```
+
 ### Contributors List (Compact Style)
 
+```
+
+### Clean Team List (Minimal Style)
+
+```
+<!-- wp:author-profile-blocks/author-list {
+  "authorIds": [1, 2, 3, 4, 5],
+  "displayStyle": "minimal",
+  "listStyle": "ul",
+  "enableDividers": false,
+  "enableRounded": true,
+  "showImage": true,
+  "showPosition": true,
+  "itemSpacing": 15,
+  "itemPadding": 10
+} /-->
 ```
 <!-- wp:author-profile-blocks/author-list {
   "authorIds": [1, 2, 3, 4, 5, 6, 7, 8],
@@ -150,8 +220,40 @@ The Author List block automatically adapts to different screen sizes:
 } /-->
 ```
 
+### Clean Team List (Minimal Style)
+
+```
+<!-- wp:author-profile-blocks/author-list {
+  "authorIds": [1, 2, 3, 4, 5],
+  "displayStyle": "minimal",
+  "listStyle": "ul",
+  "enableDividers": false,
+  "enableRounded": true,
+  "showImage": true,
+  "showPosition": true,
+  "itemSpacing": 15,
+  "itemPadding": 10
+} /-->
+```
+
 ### Numbered Author List
 
+```
+
+### Clean Team List (Minimal Style)
+
+```
+<!-- wp:author-profile-blocks/author-list {
+  "authorIds": [1, 2, 3, 4, 5],
+  "displayStyle": "minimal",
+  "listStyle": "ul",
+  "enableDividers": false,
+  "enableRounded": true,
+  "showImage": true,
+  "showPosition": true,
+  "itemSpacing": 15,
+  "itemPadding": 10
+} /-->
 ```
 <!-- wp:author-profile-blocks/author-list {
   "authorIds": [1, 2, 3],
@@ -171,8 +273,25 @@ The Author List block automatically adapts to different screen sizes:
 } /-->
 ```
 
+### Clean Team List (Minimal Style)
+
+```
+<!-- wp:author-profile-blocks/author-list {
+  "authorIds": [1, 2, 3, 4, 5],
+  "displayStyle": "minimal",
+  "listStyle": "ul",
+  "enableDividers": false,
+  "enableRounded": true,
+  "showImage": true,
+  "showPosition": true,
+  "itemSpacing": 15,
+  "itemPadding": 10
+} /-->
+```
+
 ## Tips and Best Practices
 
+- Use the minimal style for clean, professional listings with essential information only
 - Use consistent image sizes for all authors to maintain visual harmony
 - For long lists, the compact style works best
 - Enable dividers for improved readability, especially with detailed items

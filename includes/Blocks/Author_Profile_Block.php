@@ -4,11 +4,12 @@
  * Author Profile Block class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
-namespace APBL\AuthorProfileBlocks\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
-use APBL\AuthorProfileBlocks\Common\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -39,25 +40,6 @@ class Author_Profile_Block extends Author_Block_Base {
 	}
 
 	/**
-	 * Localize block script with necessary data
-	 *
-	 * @return void
-	 */
-	public function localize_block_script(): void {
-		wp_localize_script(
-			'author-profile-blocks-author-profile-editor-script',
-			'AuthorProfileBlocksData',
-			array(
-				'adminUrl'    => admin_url(),
-				'restNonce'   => wp_create_nonce( 'wp_rest' ),
-				'restUrl'     => rest_url(),
-				'pluginUrl'   => APBL_PLUGIN_URL,
-				'socialIcons' => $this->get_social_icon_data(),
-			)
-		);
-	}
-
-	/**
 	 * Get render callback for the block.
 	 *
 	 * @return callable|null Block render callback.
@@ -69,9 +51,9 @@ class Author_Profile_Block extends Author_Block_Base {
 	/**
 	 * Render callback for the block.
 	 *
-	 * @param array    $attributes Block attributes.
-	 * @param string   $content    Block content.
-	 * @param WP_Block $block      Block instance.
+	 * @param array<string, mixed> $attributes Block attributes.
+	 * @param string               $content    Block content.
+	 * @param WP_Block             $block      Block instance.
 	 *
 	 * @return string Rendered block output.
 	 */
@@ -79,7 +61,7 @@ class Author_Profile_Block extends Author_Block_Base {
 		$author_id = $attributes['authorId'] ?? 0;
 
 		if ( empty( $author_id ) ) {
-			return $this->render_error_message( __( 'Please select an author.', 'author-profile-blocks' ) );
+			return $this->render_error_message( $this->get_no_author_selected_message() );
 		}
 
 		// Check cache first.
@@ -93,8 +75,11 @@ class Author_Profile_Block extends Author_Block_Base {
 		$author_data = $this->get_author_data( $author_id );
 
 		if ( ! $author_data ) {
-			return $this->render_error_message( __( 'Author not found.', 'author-profile-blocks' ) );
+			return $this->render_error_message( $this->get_author_not_found_message() );
 		}
+
+		// Add styling properties to author data
+		$this->add_style_properties_to_author_data( $author_data, $attributes );
 
 		// Generate styles for the block.
 		$styles          = $this->get_block_styles( $attributes );
@@ -112,95 +97,209 @@ class Author_Profile_Block extends Author_Block_Base {
 			)
 		);
 
-		// Build the HTML.
-		$html = '<div ' . $wrapper_attributes . '>';
+		// Determine layout based on content order
+		$content_order = $attributes['contentOrder'] ?? 'image-content';
 
-		// Add profile layout based on selected template.
-		$layout = $attributes['layout'] ?? 'default';
-		switch ( $layout ) {
-			case 'compact':
-				$html .= $this->render_compact_layout( $author_data, $attributes );
-				break;
+		// Pre-render content for template
+		$author_image       = $this->render_author_image( $author_data );
+		$author_name        = $this->render_author_name( $author_data );
+		$author_position    = $this->render_author_position( $author_data );
+		$author_email       = $this->render_author_email( $author_data );
+		$registered_date    = $this->render_registered_date( $author_data );
+		$author_description = $this->render_author_description( $author_data );
+		$social_links       = ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
+			? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
+			: '';
+		$more_content       = ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) )
+			? $this->render_more_content( $attributes['moreContent'], $author_data )
+			: '';
 
-			case 'card':
-				$html .= $this->render_card_layout( $author_data, $attributes );
-				break;
+		// Build the HTML using template.
+		ob_start();
+		author_profile_blocks()->get_template(
+			'blocks/author-profile/wrapper.php',
+			array(
+				'author'             => $author_data,
+				'attributes'         => $attributes,
+				'wrapper_attributes' => $wrapper_attributes,
+				'content_order'      => $content_order,
+				'author_image'       => $author_image,
+				'author_name'        => $author_name,
+				'author_position'    => $author_position,
+				'author_email'       => $author_email,
+				'registered_date'    => $registered_date,
+				'author_description' => $author_description,
+				'social_links'       => $social_links,
+				'more_content'       => $more_content,
+				'block_instance'     => $this,
+			)
+		);
+		$html = ob_get_clean();
 
-			case 'centered':
-				$html .= $this->render_centered_layout( $author_data, $attributes );
-				break;
-
-			case 'default':
-			default:
-				$html .= $this->render_default_layout( $author_data, $attributes );
-				break;
-		}
-
-		// Add optional more content if enabled.
-		if ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) ) {
-			$html .= $this->render_more_content( $attributes['moreContent'] );
-		}
-
-		$html .= '</div>';
+		// Ensure we have valid HTML content
+		$content = $html !== false ? $html : '';
 
 		// Cache the result.
-		$this->set_cached_render( $cache_key, $html );
+		$this->set_cached_render( $cache_key, $content );
 
-		return $html;
+		return $content;
 	}
 
 	/**
-	 * Render default author profile layout.
+	 * Adds styling properties from attributes to author data
 	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> &$author_data Author data reference to modify.
+	 * @param array<string, mixed> $attributes  Block attributes.
 	 *
-	 * @return string Rendered HTML.
+	 * @return void
 	 */
-	private function render_default_layout( array $author, array $attributes ): string {
-		$html = '<div class="apb-author-profile-content">';
-
-		// Author image - only if image display is enabled in attributes.
-		if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) {
-			$html .= $this->render_author_image( $author );
+	private function add_style_properties_to_author_data( array &$author_data, array $attributes ): void {
+		// Avatar styles
+		if ( isset( $attributes['avatarSize'] ) ) {
+			$author_data['avatarSize'] = $attributes['avatarSize'];
 		}
 
-		// Author info.
-		$html .= '<div class="apb-author-info">';
-
-		// Author name.
-		if ( ! empty( $author['title'] ) ) {
-			$html .= $this->render_author_name( $author );
+		if ( isset( $attributes['avatarShape'] ) ) {
+			$author_data['avatarShape'] = $attributes['avatarShape'];
 		}
 
-		// Author position if available and display is enabled.
-		if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) {
-			$html .= $this->render_author_position( $author );
+		if ( isset( $attributes['avatarBorderWidth'] ) ) {
+			$author_data['avatarBorderWidth'] = $attributes['avatarBorderWidth'];
 		}
 
-		// Author email - only if email display is enabled in attributes.
-		if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) {
-			$html .= $this->render_author_email( $author );
+		if ( isset( $attributes['avatarBorderColor'] ) ) {
+			$author_data['avatarBorderColor'] = $attributes['avatarBorderColor'];
 		}
 
-		// Registration date - only if registered date display is enabled in attributes.
-		if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) {
-			$html .= $this->render_registered_date( $author );
+		if ( isset( $attributes['avatarBorderRadius'] ) ) {
+			$author_data['avatarBorderRadius'] = $attributes['avatarBorderRadius'];
 		}
 
-		// Author description - only if description display is enabled in attributes.
-		if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) {
-			$html .= $this->render_author_description( $author );
+		if ( isset( $attributes['avatarAlignment'] ) ) {
+			$author_data['avatarAlignment'] = $attributes['avatarAlignment'];
 		}
 
-		// Social profiles - only if display is enabled in attributes.
-		if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) {
-			$html .= $this->render_social_profiles( $author['social'] );
+		if ( isset( $attributes['avatarMargin'] ) ) {
+			$author_data['avatarMargin'] = $attributes['avatarMargin'];
 		}
 
-		$html .= '</div>'; // Close .apb-author-info.
-		$html .= '</div>'; // Close .apb-author-profile-content.
+		// Typography styles
+		if ( isset( $attributes['nameColor'] ) ) {
+			$author_data['nameColor'] = $attributes['nameColor'];
+		}
 
-		return $html;
+		if ( isset( $attributes['nameSize'] ) ) {
+			$author_data['nameSize'] = $attributes['nameSize'];
+		}
+
+		if ( isset( $attributes['nameWeight'] ) ) {
+			$author_data['nameWeight'] = $attributes['nameWeight'];
+		}
+
+		if ( isset( $attributes['nameTransform'] ) ) {
+			$author_data['nameTransform'] = $attributes['nameTransform'];
+		}
+
+		if ( isset( $attributes['nameAlignment'] ) ) {
+			$author_data['nameAlignment'] = $attributes['nameAlignment'];
+		}
+
+		if ( isset( $attributes['nameMargin'] ) ) {
+			$author_data['nameMargin'] = $attributes['nameMargin'];
+		}
+
+		if ( isset( $attributes['descriptionColor'] ) ) {
+			$author_data['descriptionColor'] = $attributes['descriptionColor'];
+		}
+
+		if ( isset( $attributes['descriptionSize'] ) ) {
+			$author_data['descriptionSize'] = $attributes['descriptionSize'];
+		}
+
+		if ( isset( $attributes['descriptionLineHeight'] ) ) {
+			$author_data['descriptionLineHeight'] = $attributes['descriptionLineHeight'];
+		}
+
+		if ( isset( $attributes['descriptionStyle'] ) ) {
+			$author_data['descriptionStyle'] = $attributes['descriptionStyle'];
+		}
+
+		if ( isset( $attributes['descriptionAlignment'] ) ) {
+			$author_data['descriptionAlignment'] = $attributes['descriptionAlignment'];
+		}
+
+		if ( isset( $attributes['descriptionMargin'] ) ) {
+			$author_data['descriptionMargin'] = $attributes['descriptionMargin'];
+		}
+
+		if ( isset( $attributes['metaColor'] ) ) {
+			$author_data['metaColor'] = $attributes['metaColor'];
+		}
+
+		if ( isset( $attributes['metaSize'] ) ) {
+			$author_data['metaSize'] = $attributes['metaSize'];
+		}
+
+		if ( isset( $attributes['metaStyle'] ) ) {
+			$author_data['metaStyle'] = $attributes['metaStyle'];
+		}
+
+		if ( isset( $attributes['metaBold'] ) ) {
+			$author_data['metaBold'] = $attributes['metaBold'];
+		}
+
+		if ( isset( $attributes['metaAlignment'] ) ) {
+			$author_data['metaAlignment'] = $attributes['metaAlignment'];
+		}
+
+		if ( isset( $attributes['metaMargin'] ) ) {
+			$author_data['metaMargin'] = $attributes['metaMargin'];
+		}
+
+		if ( isset( $attributes['emailLinkColor'] ) ) {
+			$author_data['emailLinkColor'] = $attributes['emailLinkColor'];
+		}
+
+		if ( isset( $attributes['emailHoverColor'] ) ) {
+			$author_data['emailHoverColor'] = $attributes['emailHoverColor'];
+		}
+
+		// Social media styles
+		if ( isset( $attributes['socialIconSize'] ) ) {
+			$author_data['socialIconSize'] = $attributes['socialIconSize'];
+		}
+
+		if ( isset( $attributes['socialIconColor'] ) ) {
+			$author_data['socialIconColor'] = $attributes['socialIconColor'];
+		}
+
+		if ( isset( $attributes['socialIconHoverColor'] ) ) {
+			$author_data['socialIconHoverColor'] = $attributes['socialIconHoverColor'];
+		}
+
+		if ( isset( $attributes['socialIconBackground'] ) ) {
+			$author_data['socialIconBackground'] = $attributes['socialIconBackground'];
+		}
+
+		if ( isset( $attributes['socialIconBackgroundHover'] ) ) {
+			$author_data['socialIconBackgroundHover'] = $attributes['socialIconBackgroundHover'];
+		}
+
+		if ( isset( $attributes['socialIconSpacing'] ) ) {
+			$author_data['socialIconSpacing'] = $attributes['socialIconSpacing'];
+		}
+
+		if ( isset( $attributes['socialIconAlignment'] ) ) {
+			$author_data['socialIconAlignment'] = $attributes['socialIconAlignment'];
+		}
+
+		// More content styles
+		if ( isset( $attributes['moreContentBorderColor'] ) ) {
+			$author_data['moreContentBorderColor'] = $attributes['moreContentBorderColor'];
+		}
+
+		if ( isset( $attributes['moreContentPadding'] ) ) {
+			$author_data['moreContentPadding'] = $attributes['moreContentPadding'];
+		}
 	}
 }

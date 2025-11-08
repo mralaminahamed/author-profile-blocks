@@ -1,0 +1,89 @@
+---
+name: 🔒 Security Issue
+description: Report a security vulnerability (DO NOT include details in public issues)
+title: "[Security]: "
+labels: ["security"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🔒 Security Issue
+
+        **⚠️ IMPORTANT:** Do not include any sensitive security details in this public issue.
+
+        If you have discovered a security vulnerability in Author Profile Blocks, please report it responsibly through our [Security Policy](https://github.com/mralaminahamed/author-profile-blocks/security/policy).
+
+  - type: markdown
+    attributes:
+      value: |
+        ### How to Report Security Issues
+
+        1. **GitHub Security Advisories** (Recommended):
+           - Go to [Security Advisories](https://github.com/mralaminahamed/author-profile-blocks/security/advisories/new)
+           - Create a private security advisory
+           - Include detailed information about the vulnerability
+
+        2. **Email** (Alternative):
+           - Contact the maintainer directly at the email listed in SECURITY.md
+
+        ### What to Include in Your Report
+
+        - A clear description of the vulnerability
+        - Steps to reproduce (in private advisory only)
+        - Potential impact and severity
+        - Any suggested fixes or mitigations
+        - Your contact information for coordination
+
+  - type: dropdown
+    id: vulnerability-type
+    attributes:
+      label: Vulnerability Type (General Category)
+      description: What type of security issue is this? (High-level only - do not include details)
+      options:
+        - Cross-Site Scripting (XSS)
+        - SQL Injection
+        - Cross-Site Request Forgery (CSRF)
+        - Authentication/Authorization Bypass
+        - Information Disclosure
+        - Code Injection
+        - File Inclusion
+        - Other (please specify in private report)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity Estimate
+      description: Your estimate of the severity (we will assess this properly)
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+        - Informational
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      description: Please confirm the following
+      options:
+        - label: I understand that security issues should not be reported in public GitHub issues
+          required: true
+        - label: I will report this through the proper security channels listed above
+          required: true
+        - label: I have not shared any sensitive vulnerability details in this public issue
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ### Next Steps
+
+        After submitting this issue, you will be contacted through the private security advisory system to provide detailed information about the vulnerability.
+
+        Thank you for helping keep Author Profile Blocks secure! 🛡️

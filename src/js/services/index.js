@@ -1,4 +1,5 @@
 /**
- * Re-export all services for simpler imports
+ * Services for Author Profile Blocks
  */
+
 export * from './api';

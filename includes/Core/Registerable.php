@@ -4,9 +4,10 @@
  * Registerable interface
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
-namespace APBL\AuthorProfileBlocks\Core;
+namespace AuthorProfileBlocks\Core;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {

@@ -4,9 +4,10 @@
  * User Meta Provider class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
-namespace APBL\AuthorProfileBlocks\Core;
+namespace AuthorProfileBlocks\Core;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,11 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that implements the Meta_Data_Provider interface for WordPress user meta.
  */
-class User_Meta_Provider extends Base implements Meta_Data_Provider {
+class User_Meta_Provider implements Meta_Data_Provider {
 	/**
 	 * User meta fields configuration.
 	 *
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected array $meta_fields = array();
 
@@ -28,7 +29,7 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_meta_fields' ) );
+		// Meta field registration is handled by the main plugin.
 	}
 
 	/**
@@ -37,8 +38,7 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 * @return void
 	 */
 	public function init(): void {
-		// Set initialized state.
-		$this->set_initialized();
+		// Initialization complete
 	}
 
 	/**
@@ -60,8 +60,17 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	/**
 	 * Add a meta field configuration.
 	 *
-	 * @param string $key    The meta key.
-	 * @param array  $config The meta configuration.
+	 * @param string               $key   The meta field key.
+	 * @param array<string, mixed> $config {
+	 *     The field configuration for register_meta().
+	 *
+	 *     @type string   $type              Data type (string, integer, etc.).
+	 *     @type bool     $single            Whether to return single value.
+	 *     @type mixed    $default           Default value.
+	 *     @type callable $sanitize_callback Sanitization callback.
+	 *     @type callable $auth_callback     Authorization callback.
+	 *     @type bool     $show_in_rest      Whether to show in REST API.
+	 * }
 	 *
 	 * @return User_Meta_Provider This instance for method chaining.
 	 */
@@ -95,38 +104,5 @@ class User_Meta_Provider extends Base implements Meta_Data_Provider {
 	 */
 	public function update_meta( int $item_id, string $key, $value ) {
 		return update_user_meta( $item_id, $key, $value );
-	}
-
-	/**
-	 * Delete meta data for a specific user.
-	 *
-	 * @param int    $item_id The user ID.
-	 * @param string $key     The meta key.
-	 * @param mixed  $value   Optional. The meta value to delete.
-	 *
-	 * @return bool True on success, false on failure.
-	 */
-	public function delete_meta( int $item_id, string $key, $value = '' ): bool {
-		return delete_user_meta( $item_id, $key, $value );
-	}
-
-	/**
-	 * Check if a meta field exists.
-	 *
-	 * @param string $key The meta key.
-	 *
-	 * @return bool True if the meta field exists, false otherwise.
-	 */
-	public function has_meta_field( string $key ): bool {
-		return isset( $this->meta_fields[ $key ] );
-	}
-
-	/**
-	 * Get all registered meta fields.
-	 *
-	 * @return array The meta fields.
-	 */
-	public function get_meta_fields(): array {
-		return $this->meta_fields;
 	}
 }

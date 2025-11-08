@@ -14,7 +14,7 @@ import metadata from './block.json';
 /**
  * Register the block
  */
-registerBlockType(metadata.name, {
-    edit: Edit,
-    save: () => null, // Server-side rendering
-});
+registerBlockType( metadata.name, {
+	edit: Edit,
+	save: () => null, // Server-side rendering
+} );

@@ -1,0 +1,81 @@
+---
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for Author Profile Blocks
+title: "[Feature]: "
+labels: ["enhancement", "feature-request"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ✨ Feature Request
+
+        Thanks for suggesting a new feature! Your ideas help make Author Profile Blocks better for everyone.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Feature Summary
+      description: A brief description of the feature you'd like to see
+      placeholder: What would you like to be able to do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem/Use Case
+      description: What problem would this feature solve?
+      placeholder: Describe the current limitation or issue this feature would address
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this feature to work?
+      placeholder: Describe your proposed solution in detail
+    validations:
+      required: true
+
+  - type: dropdown
+    id: block-type
+    attributes:
+      label: Block Type
+      description: Which block(s) would this feature affect?
+      multiple: true
+      options:
+        - Author Profile Block
+        - Author Grid Block
+        - Author List Block
+        - Author Carousel Block
+        - All blocks
+        - New block type
+        - Admin interface
+        - Other (please specify)
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternative approaches?
+      placeholder: Describe any alternative solutions you've thought of
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any additional information, screenshots, or examples
+      placeholder: Add any other context, screenshots, or examples about the feature request
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please check the following
+      options:
+        - label: I have searched existing issues to make sure this is not a duplicate
+          required: true
+        - label: This feature would benefit other users, not just me
+        - label: I am willing to help test this feature when it's implemented

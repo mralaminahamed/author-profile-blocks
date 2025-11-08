@@ -6,6 +6,64 @@
 // Import common styles
 @use '../../scss/common' as c;
 
+// Editor-specific animation and effect previews
+.wp-block-author-profile-blocks-author-list {
+  // Animation preview in editor
+  &.has-fadeIn-animation,
+  &.has-slideUp-animation,
+  &.has-slideDown-animation,
+  &.has-slideLeft-animation,
+  &.has-slideRight-animation,
+  &.has-scaleIn-animation,
+  &.has-bounce-animation {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+
+  // Hover effect preview in editor
+  &.has-lift-hover:hover,
+  &.has-glow-hover:hover,
+  &.has-scale-hover:hover,
+  &.has-rotate-hover:hover,
+  &.has-shadow-hover:hover {
+    transition-duration: 0.2s;
+  }
+
+  // Layout preset previews
+  &.is-style-card .apb-author-list-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #fff;
+  }
+
+  &.is-style-minimal .apb-author-list-item {
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+  }
+
+  &.is-style-bordered .apb-author-list-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  &.is-style-shadow .apb-author-list-item {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #fff;
+  }
+
+  &.is-style-alternating .apb-author-list-item:nth-child(even) {
+    background: #f8f9fa;
+  }
+}
+
 .wp-block-author-profile-blocks-author-list {
   // Visual indicator in editor
   @include c.editor-border();

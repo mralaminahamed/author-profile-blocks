@@ -32,3 +32,4 @@ languages/*.pot~
 # Compilation Source Maps
 *.css.map
 *.js.map
+.*.result.cache

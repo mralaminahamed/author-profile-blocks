@@ -1,19 +1,28 @@
 <?php
 /**
+ * Author Profile Blocks
+ *
+ * @package           AuthorProfileBlocks
+ * @author            Al Amin Ahamed
+ * @copyright         2025 Al Amin Ahamed
+ * @license           GPL-3.0-only
+ *
+ * @wordpress-plugin
  * Plugin Name:       Author Profile Blocks
  * Plugin URI:        https://github.com/mralaminahamed/author-profile-blocks
- * Description:       A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.
+ * Description:       Gutenberg blocks for displaying author profiles and team members with customizable layouts.
  * Version:           1.0.0
  * Requires at least: 6.0
+ * Tested up to:      6.7
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
  * Author URI:        https://github.com/mralaminahamed
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       author-profile-blocks
  * Domain Path:       /languages
+ * License:           GPL-3.0-only
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  *
- * @package AuthorProfileBlocks
+ * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed
  */
 
 // Exit if accessed directly.
@@ -23,25 +32,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Define plugin constants.
 define( 'APBL_VERSION', '1.0.0' );
-define( 'APBL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'APBL_PLUGIN_FILE', __FILE__ );
+define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'APBL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
-if ( ! file_exists( APBL_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+// Load Composer autoloader for PSR-4 classes
+if ( ! file_exists( APBL_PLUGIN_PATH . 'vendor/autoload.php' ) ) {
 	return;
 }
 
-// Autoload classes.
-require_once APBL_PLUGIN_DIR . 'vendor/autoload.php';
+require_once APBL_PLUGIN_PATH . 'vendor/autoload.php';
 
 /**
- * Get the plugin instance.
+ * Get main plugin instance
  *
- * @return APBL\AuthorProfileBlocks\Plugin The plugin instance.
+ * @since 1.0.0
+ * @return Author_Profile_Blocks Plugin instance.
  */
-function apbl(): APBL\AuthorProfileBlocks\Plugin {
-	return APBL\AuthorProfileBlocks\Plugin::get_instance();
+function author_profile_blocks(): Author_Profile_Blocks {
+	return Author_Profile_Blocks::get_instance();
 }
 
-// Take off.
-apbl()->init();
+// Initialize plugin
+author_profile_blocks()->init();

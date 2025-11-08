@@ -1,0 +1,151 @@
+---
+name: 🐛 Bug Report
+description: Report a bug or issue with the Author Profile Blocks plugin
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐛 Bug Report
+
+        Thanks for taking the time to report a bug! Please fill out the information below to help us understand and reproduce the issue.
+
+  - type: dropdown
+    id: block-type
+    attributes:
+      label: Block Type
+      description: Which block is experiencing the issue?
+      options:
+        - Author Profile Block
+        - Author Grid Block
+        - Author List Block
+        - Author Carousel Block
+        - All blocks
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug
+      placeholder: Describe what happened, what you expected to happen, and any error messages
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+      placeholder: A clear description of what you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: A clear description of what actually happened
+    validations:
+      required: true
+
+  - type: input
+    id: wordpress-version
+    attributes:
+      label: WordPress Version
+      description: What version of WordPress are you using?
+      placeholder: e.g., 6.4.2
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP Version
+      description: What version of PHP are you using?
+      placeholder: e.g., 8.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin Version
+      description: What version of Author Profile Blocks are you using?
+      placeholder: e.g., 1.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: What browser are you using?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: input
+    id: browser-version
+    attributes:
+      label: Browser Version
+      description: What version of the browser are you using?
+      placeholder: e.g., 120.0.0
+
+  - type: input
+    id: theme
+    attributes:
+      label: Active Theme
+      description: What theme are you using?
+      placeholder: e.g., Twenty Twenty-Four
+
+  - type: checkboxes
+    id: other-plugins
+    attributes:
+      label: Other Active Plugins
+      description: Do you have other plugins active that might be related?
+      options:
+        - label: Yes, I have other plugins active
+        - label: No, only Author Profile Blocks is active
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any additional information that might be helpful
+      placeholder: Screenshots, console errors, server logs, etc.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please check the following
+      options:
+        - label: I have searched existing issues to make sure this is not a duplicate
+          required: true
+        - label: I have tried disabling other plugins to isolate the issue
+        - label: I have tried switching to a default WordPress theme
+        - label: I can reproduce this issue consistently

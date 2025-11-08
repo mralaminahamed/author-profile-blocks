@@ -4,12 +4,12 @@
  * Author Profile Service class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
-namespace APBL\AuthorProfileBlocks\Services;
+namespace AuthorProfileBlocks\Services;
 
-use APBL\AuthorProfileBlocks\Core\Base;
-use APBL\AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Core\User_Meta_Provider;
 use WP_User_Query;
 
 // Exit if accessed directly.
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles author profile data operations.
  */
-class Author_Profile_Service extends Base {
+class Author_Profile_Service {
 	/**
 	 * User Meta Provider instance.
 	 *
@@ -31,7 +31,7 @@ class Author_Profile_Service extends Base {
 	/**
 	 * Cache for author data.
 	 *
-	 * @var array
+	 * @var array<int|string, mixed>
 	 */
 	private array $author_cache = array();
 
@@ -58,8 +58,7 @@ class Author_Profile_Service extends Base {
 		add_action( 'user_register', array( $this, 'clear_user_cache' ) );
 		add_action( 'deleted_user', array( $this, 'clear_user_cache' ) );
 
-		// Set initialized state.
-		$this->set_initialized();
+		// Initialization complete
 	}
 
 	/**
@@ -152,37 +151,28 @@ class Author_Profile_Service extends Base {
 			)
 		);
 
-		// Register additional fields as needed.
-		$this->register_custom_rest_fields();
-
 		// Allow other components to register additional fields.
 		do_action( 'author_profile_blocks_register_rest_fields', $this );
 	}
 
-	/**
-	 * Register custom REST API fields.
-	 *
-	 * @return void
-	 */
-	protected function register_custom_rest_fields(): void {
-		// Add other custom fields here.
-	}
+
 
 	/**
 	 * Get user avatar URL for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Avatar URL.
 	 */
 	public function get_avatar_url( array $user ): string {
-		return get_avatar_url( $user['id'], array( 'size' => 150 ) );
+		$url = get_avatar_url( $user['id'], array( 'size' => 150 ) );
+		return $url !== false ? $url : '';
 	}
 
 	/**
 	 * Get author position for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Author position.
 	 */
@@ -193,7 +183,7 @@ class Author_Profile_Service extends Base {
 	/**
 	 * Get author description for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Author description.
 	 */
@@ -204,9 +194,9 @@ class Author_Profile_Service extends Base {
 	/**
 	 * Get social profiles for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
-	 * @return array Social profiles.
+	 * @return array<string, string> Social profiles.
 	 */
 	public function get_social_profiles( array $user ): array {
 		$profiles = $this->meta_provider->get_meta( $user['id'], 'apbl_social_profiles', true );
@@ -227,7 +217,7 @@ class Author_Profile_Service extends Base {
 	/**
 	 * Get user registration date for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Formatted registration date.
 	 */
@@ -244,7 +234,7 @@ class Author_Profile_Service extends Base {
 	/**
 	 * Get custom member since label for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Member since label.
 	 */
@@ -260,16 +250,48 @@ class Author_Profile_Service extends Base {
 	}
 
 	/**
-	 * Get author data by ID
+	 * Get author data by ID.
+	 *
+	 * Retrieves comprehensive author information including profile data,
+	 * social links, avatar, and metadata from the user meta provider.
 	 *
 	 * @param int $author_id User ID.
 	 *
-	 * @return array|null Author data or null if not found
+	 * @return array<string, mixed>|null {
+	 *     Author data array or null if user not found.
+	 *
+	 *     @type int    $id             User ID.
+	 *     @type string $name           Display name.
+	 *     @type string $email          Email address.
+	 *     @type string $image          Avatar URL.
+	 *     @type string $position       Job position/title.
+	 *     @type string $description    Bio description.
+	 *     @type array  $social         {
+	 *         Social media profiles.
+	 *
+	 *         @type string $facebook  Facebook profile URL.
+	 *         @type string $twitter   Twitter profile URL.
+	 *         @type string $linkedin  LinkedIn profile URL.
+	 *         @type string $instagram Instagram profile URL.
+	 *         @type string $website   Personal website URL.
+	 *     }
+	 *     @type string $registered_date Registration date.
+	 *     @type string $role           User role.
+	 * }
 	 */
 	public function get_author_data( int $author_id ): ?array {
-		// Check cache first.
+		// Check in-memory cache first.
 		if ( isset( $this->author_cache[ $author_id ] ) ) {
 			return $this->author_cache[ $author_id ];
+		}
+
+		// Check persistent cache.
+		$cache_key   = 'author_profile_blocks_author_' . $author_id;
+		$cached_data = wp_cache_get( $cache_key, 'author_profile_blocks' );
+		if ( false !== $cached_data ) {
+			// Store in memory cache for faster subsequent access.
+			$this->author_cache[ $author_id ] = $cached_data;
+			return $cached_data;
 		}
 
 		$user = get_user_by( 'id', $author_id );
@@ -308,8 +330,12 @@ class Author_Profile_Service extends Base {
 		// Apply filters to allow customization of author data.
 		$author_data = apply_filters( 'author_profile_blocks_author_data', $author_data, $user );
 
-		// Cache the result.
+		// Cache the result in memory.
 		$this->author_cache[ $author_id ] = $author_data;
+
+		// Cache persistently using configurable duration.
+		$cache_duration = $this->get_cache_duration();
+		wp_cache_set( $cache_key, $author_data, 'author_profile_blocks', $cache_duration );
 
 		return $author_data;
 	}
@@ -317,10 +343,19 @@ class Author_Profile_Service extends Base {
 	/**
 	 * Get all authors with specific roles.
 	 *
-	 * @param array $roles Optional. Roles to include. Default is all author-type roles.
-	 * @param array $args  Optional. Additional arguments for WP_User_Query.
+	 * @param string[]             $roles Optional. Roles to include. Default is all author-type roles.
+	 * @param array<string, mixed> $args  {
+	 *     Optional. Additional arguments for WP_User_Query.
 	 *
-	 * @return array Array of author data.
+	 *     @type int    $number   Maximum number of users to retrieve.
+	 *     @type int    $offset   Number of users to offset the query.
+	 *     @type string $orderby  Field to order users by.
+	 *     @type string $order    Order direction (ASC or DESC).
+	 *     @type array  $include  Array of user IDs to include.
+	 *     @type array  $exclude  Array of user IDs to exclude.
+	 * }
+	 *
+	 * @return array<int|string, mixed> Array of author data. Each item contains complete author information.
 	 */
 	public function get_authors( array $roles = array(), array $args = array() ): array {
 		// Set default roles if none provided.
@@ -345,15 +380,15 @@ class Author_Profile_Service extends Base {
 		}
 
 		// Merge with default arguments.
-		$query_args = array_merge(
+		$query_args = wp_parse_args(
+			$args,
 			array(
 				'role__in'    => $roles,
 				'orderby'     => 'display_name',
 				'order'       => 'ASC',
 				'count_total' => false,
 				'number'      => - 1, // Get all users.
-			),
-			$args
+			)
 		);
 
 		// Allow filtering of query args.
@@ -375,51 +410,16 @@ class Author_Profile_Service extends Base {
 		// Allow filtering of authors.
 		$authors = apply_filters( 'author_profile_blocks_authors', $authors, $query_args );
 
-		// Cache the results.
-		wp_cache_set( $cache_key, $authors, 'author_profile_blocks_authors', HOUR_IN_SECONDS );
+		// Cache the results using configurable duration.
+		$cache_duration = $this->get_cache_duration();
+		wp_cache_set( $cache_key, $authors, 'author_profile_blocks_authors', $cache_duration );
 
 		return $authors;
 	}
 
-	/**
-	 * Get featured authors based on a meta flag.
-	 *
-	 * @param int $number Optional. Number of authors to get. Default is -1 (all).
-	 *
-	 * @return array Array of featured author data.
-	 */
-	public function get_featured_authors( int $number = - 1 ): array {
-		// Query for users with the featured meta flag.
-		$args = array(
-			'meta_key'     => 'apbl_is_featured', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-			'meta_value'   => '1', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-			'meta_compare' => '=',
-			'number'       => $number,
-		);
 
-		return $this->get_authors( array(), $args );
-	}
 
-	/**
-	 * Search authors by name or metadata.
-	 *
-	 * @param string $search_term The search term.
-	 * @param array  $args        Optional. Additional arguments for WP_User_Query.
-	 *
-	 * @return array Array of author data matching the search.
-	 */
-	public function search_authors( string $search_term, array $args = array() ): array {
-		// Merge with default arguments for search.
-		$query_args = array_merge(
-			array(
-				'search'         => '*' . sanitize_text_field( $search_term ) . '*',
-				'search_columns' => array( 'display_name', 'user_email' ),
-			),
-			$args
-		);
 
-		return $this->get_authors( array(), $query_args );
-	}
 
 	/**
 	 * Clear the author cache when a user is updated.
@@ -434,17 +434,41 @@ class Author_Profile_Service extends Base {
 	}
 
 	/**
+	 * Get the cache duration from settings.
+	 *
+	 * @return int Cache duration in seconds.
+	 */
+	private function get_cache_duration(): int {
+		$settings       = get_option( 'author_profile_blocks_settings', array() );
+		$duration_hours = $settings['cache_duration'] ?? 24;
+
+		// Convert hours to seconds.
+		return $duration_hours * HOUR_IN_SECONDS;
+	}
+
+	/**
 	 * Clear the author cache.
 	 *
 	 * @param int|null $author_id Optional. The author ID to clear from cache.
+	 *                           If null, clears entire cache.
 	 *
 	 * @return void
 	 */
 	public function clear_cache( ?int $author_id = null ): void {
-		if ( $author_id ) {
+		if ( $author_id && isset( $this->author_cache[ $author_id ] ) ) {
+			// Clear specific author from memory cache.
 			unset( $this->author_cache[ $author_id ] );
+
+			// Clear specific author from persistent cache.
+			$cache_key = 'author_profile_blocks_author_' . $author_id;
+			wp_cache_delete( $cache_key, 'author_profile_blocks' );
 		} else {
+			// Clear all authors from memory cache.
 			$this->author_cache = array();
+
+			// Clear all persistent cache groups.
+			wp_cache_flush_group( 'author_profile_blocks' );
+			wp_cache_flush_group( 'author_profile_blocks_authors' );
 		}
 	}
 }

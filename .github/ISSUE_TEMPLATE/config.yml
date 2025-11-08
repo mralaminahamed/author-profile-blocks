@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://github.com/mralaminahamed/author-profile-blocks/tree/main/docs
+    about: Check our documentation for guides and troubleshooting
+  - name: 💬 Discussions
+    url: https://github.com/mralaminahamed/author-profile-blocks/discussions
+    about: Ask questions and discuss ideas in our community discussions
+  - name: 🐛 WordPress.org Support
+    url: https://wordpress.org/support/plugin/author-profile-blocks/
+    about: Get support from the WordPress.org community

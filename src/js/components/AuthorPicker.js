@@ -2,261 +2,151 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { sprintf } from '@wordpress/i18n';
-import { 
-    Button, 
-    SelectControl, 
-    Spinner, 
-    TextControl,
-    Icon,
-    Notice,
-    Flex,
-    FlexItem,
-    Tooltip
-} from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
-import { store as coreStore } from '@wordpress/core-data';
-import { search, people, info } from '@wordpress/icons';
+import { SelectControl, Button, Flex, FlexItem } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 
 /**
  * AuthorPicker component for selecting multiple authors
  *
- * @param {Object} props                 Component props
- * @param {Array}  props.selectedAuthorIds List of selected author IDs
- * @param {Function} props.onChange      Callback when authors selection changes
- * @param {string} props.buttonLabel     Optional. Custom label for the add button
- * @param {number} props.perPage         Optional. Number of authors to fetch per page
- * @param {boolean} props.showAvatars    Optional. Whether to show author avatars
+ * @param {Object}   props                 Component props
+ * @param {Array}    props.authors         Available authors list
+ * @param {Array}    props.selectedAuthors Currently selected authors
+ * @param {Function} props.onAuthorsChange Callback when authors change
+ * @param {number}   props.maxAuthors      Maximum number of authors (0 = unlimited)
  * @return {JSX.Element} Component to render
  */
-const AuthorPicker = ({ 
-    selectedAuthorIds = [], 
-    onChange, 
-    buttonLabel,
-    perPage = 100,
-    showAvatars = true
-}) => {
-    const [authorId, setAuthorId] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState('');
+const AuthorPicker = ( {
+	authors = [],
+	selectedAuthors = [],
+	onAuthorsChange,
+	maxAuthors = 0,
+} ) => {
+	const [ currentAuthorId, setCurrentAuthorId ] = useState( '' );
 
-    // Get all authors from WordPress
-    const { authors, loadingAuthors } = useSelect((select) => {
-        const { getUsers, isResolving } = select(coreStore);
-        const query = { per_page: perPage, who: 'authors' };
-        return {
-            authors: getUsers(query) || [],
-            loadingAuthors: isResolving('getUsers', [query])
-        };
-    }, [perPage]);
+	// Filter available authors (exclude already selected)
+	const availableAuthors = authors.filter(
+		( author ) =>
+			! selectedAuthors.find( ( selected ) => selected.id === author.id ),
+	);
 
-    // Update loading state when data is fetched
-    useEffect(() => {
-        if (!loadingAuthors) {
-            setIsLoading(false);
-        }
-    }, [loadingAuthors]);
+	// Check if we've reached the max limit
+	const hasReachedMax =
+		maxAuthors > 0 && selectedAuthors.length >= maxAuthors;
 
-    // Filter authors based on search term
-    const filteredAuthors = authors.filter(author => 
-        author.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+	// Prepare options for select
+	const authorOptions = [
+		{ label: __( 'Select an author…', 'author-profile-blocks' ), value: '' },
+		...availableAuthors.map( ( author ) => ( {
+			label: author.name || author.display_name || `User ${ author.id }`,
+			value: author.id.toString(),
+		} ) ),
+	];
 
-    // Filter out already selected authors from the available options
-    const availableAuthors = filteredAuthors.filter(author => 
-        !selectedAuthorIds.includes(author.id)
-    );
+	// Handle adding author
+	const handleAddAuthor = () => {
+		if ( ! currentAuthorId ) {
+			return;
+		}
 
-    // Handle author selection
-    const handleAddAuthor = () => {
-        if (!authorId) return;
+		const authorId = parseInt( currentAuthorId );
+		const author = authors.find( ( a ) => a.id === authorId );
 
-        const newSelectedIds = [...selectedAuthorIds, parseInt(authorId)];
-        onChange(newSelectedIds);
-        setAuthorId(''); // Reset selection
-    };
+		if (
+			author &&
+			! selectedAuthors.find( ( selected ) => selected.id === authorId )
+		) {
+			onAuthorsChange( [ ...selectedAuthors, author ] );
+			setCurrentAuthorId( '' );
+		}
+	};
 
-    // Handle author removal
-    const handleRemoveAuthor = (id) => {
-        const newSelectedIds = selectedAuthorIds.filter(authorId => authorId !== id);
-        onChange(newSelectedIds);
-    };
+	// Handle removing author
+	const handleRemoveAuthor = ( authorId ) => {
+		const newSelection = selectedAuthors.filter(
+			( author ) => author.id !== authorId,
+		);
+		onAuthorsChange( newSelection );
+	};
 
-    // Get author data by ID
-    const getAuthorById = (id) => {
-        return authors.find(author => author.id === id);
-    };
+	return (
+		<div className="apbl-author-picker">
+			{ ! hasReachedMax && availableAuthors.length > 0 && (
+				<Flex className="apbl-author-picker-controls">
+					<FlexItem>
+						<SelectControl
+							value={ currentAuthorId }
+							options={ authorOptions }
+							onChange={ setCurrentAuthorId }
+							className="apbl-author-select"
+						/>
+					</FlexItem>
+					<FlexItem>
+						<Button
+							variant="secondary"
+							onClick={ handleAddAuthor }
+							disabled={ ! currentAuthorId }
+						>
+							{ __( 'Add Author', 'author-profile-blocks' ) }
+						</Button>
+					</FlexItem>
+				</Flex>
+			) }
 
-    // Clear search
-    const clearSearch = () => {
-        setSearchTerm('');
-    };
+			{ hasReachedMax && (
+				<p className="apbl-max-reached">
+					{ __(
+						'Maximum number of authors reached.',
+						'author-profile-blocks',
+					) }
+				</p>
+			) }
 
-    // Handle key press in search field
-    const handleSearchKeyPress = (e) => {
-        if (e.key === 'Enter' && authorId) {
-            handleAddAuthor();
-            e.preventDefault();
-        }
-    };
+			{ availableAuthors.length === 0 && selectedAuthors.length > 0 && (
+				<p className="apbl-all-selected">
+					{ __(
+						'All available authors have been selected.',
+						'author-profile-blocks',
+					) }
+				</p>
+			) }
 
-    if (isLoading) {
-        return (
-            <div className="apbl-loading">
-                <Spinner className="apbl-spinner" />
-                <p>{__('Loading authors...', 'author-profile-blocks')}</p>
-            </div>
-        );
-    }
+			{ selectedAuthors.length > 0 && (
+				<div className="apbl-selected-authors">
+					<h4>{ __( 'Selected Authors:', 'author-profile-blocks' ) }</h4>
+					<ul className="apbl-selected-authors-list">
+						{ selectedAuthors.map( ( author ) => (
+							<li
+								key={ author.id }
+								className="apbl-selected-author"
+							>
+								<span className="apbl-author-name">
+									{ author.name ||
+										author.display_name ||
+										`User ${ author.id }` }
+								</span>
+								<Button
+									variant="link"
+									isDestructive
+									onClick={ () =>
+										handleRemoveAuthor( author.id )
+									}
+									className="apbl-remove-author"
+								>
+									{ __( 'Remove', 'author-profile-blocks' ) }
+								</Button>
+							</li>
+						) ) }
+					</ul>
+				</div>
+			) }
 
-    // Custom button label or default
-    const addButtonLabel = buttonLabel || __('Add Author', 'author-profile-blocks');
-
-    return (
-        <div className="apbl-author-picker-wrapper">
-            <div className="apbl-author-header">
-                <Flex justify="space-between" align="center">
-                    <FlexItem>
-                        <Flex align="center" gap={2}>
-                            <Icon icon={people} size={24} />
-                            <h4>{__('Author Selection', 'author-profile-blocks')}</h4>
-                        </Flex>
-                    </FlexItem>
-                    <FlexItem>
-                        <div className="apbl-author-count">
-                            <span>{authors.length}</span>
-                            <Tooltip text={__('Total number of available authors', 'author-profile-blocks')}>
-                                <Icon icon={info} size={16} />
-                            </Tooltip>
-                        </div>
-                    </FlexItem>
-                </Flex>
-            </div>
-
-            <div className="apbl-author-content">
-                {/* Show selected authors */}
-                {selectedAuthorIds.length > 0 && (
-                    <div className="apbl-authors-selected-wrapper">
-                        <p>{__('Selected Authors:', 'author-profile-blocks')}</p>
-                        <div className="apbl-selected-authors-list">
-                            {selectedAuthorIds.map(id => {
-                                const author = getAuthorById(id);
-                                if (!author) return null;
-
-                                return (
-                                    <div key={id} className="apbl-selected-author">
-                                        {showAvatars && author.avatar_urls && (
-                                            <img
-                                                src={author.avatar_urls['24']}
-                                                alt={author.name}
-                                            />
-                                        )}
-                                        <span>{author.name}</span>
-                                        <span
-                                            className="apbl-remove-author dashicons dashicons-no-alt"
-                                            onClick={() => handleRemoveAuthor(id)}
-                                            title={__('Remove', 'author-profile-blocks')}
-                                        ></span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-
-                {/* Search field */}
-                <div className="apbl-search-field">
-                    <Icon icon={search} className="apbl-search-icon" />
-                    <TextControl
-                        value={searchTerm}
-                        onChange={setSearchTerm}
-                        placeholder={__('Search authors...', 'author-profile-blocks')}
-                        className="apbl-author-search"
-                        onKeyDown={handleSearchKeyPress}
-                    />
-                    {searchTerm && (
-                        <Button
-                            className="apbl-clear-search"
-                            isSmall
-                            isSecondary
-                            onClick={clearSearch}
-                            aria-label={__('Clear search', 'author-profile-blocks')}
-                        >
-                            <span className="dashicons dashicons-no-alt"></span>
-                        </Button>
-                    )}
-                </div>
-
-                {/* Author selection dropdown */}
-                <div className="apbl-select-field">
-                    <SelectControl
-                        label={__('Select Author', 'author-profile-blocks')}
-                        value={authorId}
-                        options={[
-                            { label: __('-- Select an author --', 'author-profile-blocks'), value: '' },
-                            ...availableAuthors.map(author => ({
-                                label: author.name,
-                                value: author.id
-                            }))
-                        ]}
-                        onChange={(value) => setAuthorId(value)}
-                        className="apbl-author-select"
-                        __nextHasNoMarginBottom
-                    />
-                </div>
-
-                {/* Filter information */}
-                {filteredAuthors.length === 0 && searchTerm !== '' ? (
-                    <Notice
-                        className="apbl-notice"
-                        status="warning"
-                        isDismissible={false}
-                    >
-                        {__('No authors match your search criteria.', 'author-profile-blocks')}
-                    </Notice>
-                ) : (filteredAuthors.length < authors.length && searchTerm !== '') && (
-                    <div className="apbl-filter-info">
-                        <Icon icon={info} size={16} />
-                        <span>
-                            {sprintf(
-                                /* translators: %1$d: filtered authors count, %2$d: total authors count */
-                                __('Showing %1$d of %2$d authors', 'author-profile-blocks'),
-                                filteredAuthors.length,
-                                authors.length
-                            )}
-                        </span>
-                    </div>
-                )}
-            </div>
-
-            <div className="apb-author-footer">
-                <Flex justify="space-between" align="center">
-                    <FlexItem>
-                        {selectedAuthorIds.length > 0 && (
-                            <Button
-                                variant="tertiary"
-                                onClick={() => onChange([])}
-                                className="apb-reset-btn"
-                            >
-                                {__('Clear All', 'author-profile-blocks')}
-                            </Button>
-                        )}
-                    </FlexItem>
-                    <FlexItem>
-                        <Button
-                            variant="primary"
-                            onClick={handleAddAuthor}
-                            disabled={!authorId}
-                            className="apb-add-author-btn"
-                        >
-                            {addButtonLabel}
-                        </Button>
-                    </FlexItem>
-                </Flex>
-            </div>
-        </div>
-    );
+			{ authors.length === 0 && (
+				<p className="apbl-no-authors">
+					{ __( 'No authors available.', 'author-profile-blocks' ) }
+				</p>
+			) }
+		</div>
+	);
 };
 
 export default AuthorPicker;

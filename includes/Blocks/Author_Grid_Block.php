@@ -4,11 +4,12 @@
  * Author Grid Block class
  *
  * @package AuthorProfileBlocks
+ * @license GPL-3.0-only
  */
 
-namespace APBL\AuthorProfileBlocks\Blocks;
+namespace AuthorProfileBlocks\Blocks;
 
-use APBL\AuthorProfileBlocks\Common\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -41,17 +42,17 @@ class Author_Grid_Block extends Author_Block_Base {
 	/**
 	 * Render callback for the block.
 	 *
-	 * @param array    $attributes Block attributes.
-	 * @param string   $content    Block content.
-	 * @param WP_Block $block      Block instance.
+	 * @param array<string, mixed> $attributes Block attributes.
+	 * @param string               $content    Block content.
+	 * @param WP_Block             $block      Block instance.
 	 *
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
-		$author_ids = $attributes['authorIds'] ?? array();
+		$author_ids = $this->extract_author_ids( $attributes );
 
 		if ( empty( $author_ids ) ) {
-			return $this->render_error_message( __( 'Please select authors for the grid.', 'author-profile-blocks' ) );
+			return $this->render_error_message( sprintf( $this->get_no_authors_selected_message(), 'grid' ) );
 		}
 
 		// Check cache first.
@@ -62,21 +63,18 @@ class Author_Grid_Block extends Author_Block_Base {
 		}
 
 		// Apply author role filter if specified.
-		$roles = array();
-		if ( ! empty( $attributes['authorRole'] ) ) {
-			$roles = array( $attributes['authorRole'] );
-		}
+		$roles = $this->extract_author_roles( $attributes );
 
 		// Get authors data.
 		$authors = $this->get_authors_data( $author_ids, $roles );
 
 		// Apply maximum authors limit if specified.
-		$max_authors = isset( $attributes['maxAuthors'] ) ? (int) $attributes['maxAuthors'] : 0;
+		$max_authors = $this->extract_max_authors( $attributes );
 		$authors     = $this->apply_author_limit( $authors, $max_authors );
 
 		// If no authors found after filtering.
 		if ( empty( $authors ) ) {
-			return $this->render_error_message( __( 'No authors found matching the specified criteria.', 'author-profile-blocks' ) );
+			return $this->render_error_message( $this->get_no_authors_found_message() );
 		}
 
 		// Generate styles for the block.
@@ -95,47 +93,38 @@ class Author_Grid_Block extends Author_Block_Base {
 			)
 		);
 
-		// Build the HTML.
-		$html = '<div ' . $wrapper_attributes . '>';
+		// Build the HTML using template.
+		ob_start();
+		author_profile_blocks()->get_template(
+			'blocks/author-grid/grid.php',
+			array(
+				'authors'            => $authors,
+				'attributes'         => $attributes,
+				'block_instance'     => $this,
+				'wrapper_attributes' => $wrapper_attributes,
+			)
+		);
+		$html = ob_get_clean();
 
-		// Create grid container with column class.
-		$grid_class = 'apb-author-grid';
-		if ( isset( $attributes['columns'] ) ) {
-			$grid_class .= ' apb-columns-' . (int) $attributes['columns'];
-		}
-
-		// Add item spacing as inline style.
-		$grid_style = '';
-		if ( isset( $attributes['itemSpacing'] ) ) {
-			$grid_style = 'gap: ' . (int) $attributes['itemSpacing'] . 'px;';
-		}
-
-		$html .= '<div class="' . esc_attr( $grid_class ) . '" style="' . esc_attr( $grid_style ) . '">';
-
-		// Add each author profile.
-		foreach ( $authors as $author ) {
-			$html .= $this->render_author_item( $author, $attributes );
-		}
-
-		$html .= '</div>'; // Close grid container.
-		$html .= '</div>'; // Close block wrapper.
+		// Ensure we have valid HTML content
+		$content = $html !== false ? $html : '';
 
 		// Cache the result.
-		$this->set_cached_render( $cache_key, $html );
+		$this->set_cached_render( $cache_key, $content );
 
-		return $html;
+		return $content;
 	}
 
 	/**
 	 * Render an individual author item within the grid.
 	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $author     Author data.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
-	private function render_author_item( array $author, array $attributes ): string {
-		// Get item styles.
+	public function render_author_item( array $author, array $attributes ): string {
+		// Pre-render all HTML content to avoid calling protected methods from templates.
 		$item_styles     = $this->get_item_styles( $attributes );
 		$style_attribute = '';
 
@@ -144,11 +133,31 @@ class Author_Grid_Block extends Author_Block_Base {
 		}
 
 		// Item classes based on layout and options.
-		$item_classes = array( 'apb-author-grid-item' );
+		$item_classes = array( 'apbl-author-grid-item' );
 
 		// Add layout class.
 		$layout         = $attributes['layout'] ?? 'card';
 		$item_classes[] = 'is-layout-' . $layout;
+
+		// Add layout preset class.
+		if ( ! empty( $attributes['layoutPreset'] ) ) {
+			$item_classes[] = $attributes['layoutPreset'];
+		}
+
+		// Add animation classes.
+		if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['animationType'] . '-animation';
+		}
+
+		// Add hover effect class.
+		if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+			$item_classes[] = 'has-' . $attributes['hoverEffect'] . '-hover';
+		}
+
+		// Add Google Font class.
+		if ( ! empty( $attributes['googleFont'] ) ) {
+			$item_classes[] = 'has-' . sanitize_title( $attributes['googleFont'] ) . '-font';
+		}
 
 		// Add shadow class if enabled.
 		if ( ! empty( $attributes['enableShadow'] ) ) {
@@ -165,27 +174,39 @@ class Author_Grid_Block extends Author_Block_Base {
 			$item_classes[] = 'is-rounded';
 		}
 
-		// Build the author item.
-		$html = '<div class="' . esc_attr( implode( ' ', $item_classes ) ) . '"' . $style_attribute . '>';
+		$item_class = esc_attr( implode( ' ', $item_classes ) );
 
-		// Use the appropriate layout template based on the selected layout.
-		switch ( $layout ) {
-			case 'compact':
-				$html .= $this->render_compact_layout( $author, $attributes );
-				break;
+		// Pre-render author content.
+		$author_image       = $this->render_author_image( $author );
+		$author_name        = $this->render_author_name( $author );
+		$author_position    = $this->render_author_position( $author );
+		$author_email       = $this->render_author_email( $author );
+		$registered_date    = $this->render_registered_date( $author );
+		$author_description = $this->render_author_description( $author );
+		$social_links       = ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocial'] )
+			? $this->render_social_profiles( $author['social'] )
+			: '';
 
-			case 'centered':
-				$html .= $this->render_centered_layout( $author, $attributes );
-				break;
-
-			case 'card':
-			default:
-				$html .= $this->render_card_layout( $author, $attributes );
-				break;
-		}
-
-		$html .= '</div>'; // Close grid item.
-
-		return $html;
+		ob_start();
+		author_profile_blocks()->get_template(
+			'blocks/author-grid/item.php',
+			array(
+				'author'             => $author,
+				'attributes'         => $attributes,
+				'item_class'         => $item_class,
+				'style_attribute'    => $style_attribute,
+				'layout'             => $layout,
+				'author_image'       => $author_image,
+				'author_name'        => $author_name,
+				'author_position'    => $author_position,
+				'author_email'       => $author_email,
+				'registered_date'    => $registered_date,
+				'author_description' => $author_description,
+				'social_links'       => $social_links,
+				'block_instance'     => $this,
+			)
+		);
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 }

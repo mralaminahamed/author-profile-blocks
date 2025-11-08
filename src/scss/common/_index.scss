@@ -1,16 +1,9 @@
 /**
- * Common Styles Index
+ * Common SCSS modules index
  * 
- * This file imports all common style modules for easy inclusion
+ * This file re-exports all common modules for easy importing
  */
 
+// Forward all modules
 @forward 'variables';
 @forward 'mixins';
-@forward 'author-components';
-@forward 'layouts';
-@forward 'social-profiles';
-@forward 'visual-modifiers';
-@forward 'carousel';
-@forward 'editor';
-@forward 'author-picker';
-@forward 'admin-components';

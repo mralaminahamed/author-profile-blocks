@@ -1,8 +1,0 @@
-
-// Import common styles
-@use '../../scss/common' as c;
-
-.apbl-author-picker-wrapper {
-
-  @include c.author-picker-component();
-}

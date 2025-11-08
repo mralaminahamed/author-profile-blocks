@@ -2,135 +2,130 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Placeholder, Spinner } from '@wordpress/components';
-import { list as listIcon } from '@wordpress/icons';
 
 /**
- * Internal dependencies
- */
-import AuthorItem from './AuthorItem';
-
-/**
- * Author list preview component for the editor.
+ * AuthorsListPreview component for previewing author list in editor
  *
- * @param {Object} props Component props.
- * @return {JSX.Element} Element to render.
+ * @param {Object} props            Component props
+ * @param {Array}  props.authors    Array of author objects
+ * @param {Object} props.attributes Block attributes
+ * @return {JSX.Element} Component to render
  */
-const AuthorsListPreview = ({
-    isLoading,
-    authors,
-    attributes,
-    error
-}) => {
-    if (isLoading) {
-        return (
-            <Placeholder>
-                <Spinner />
-                <p>{__('Loading authors...', 'author-profile-blocks')}</p>
-            </Placeholder>
-        );
-    }
+const AuthorsListPreview = ( { authors = [], attributes = {} } ) => {
+	if ( ! authors.length ) {
+		return (
+			<div className="apbl-authors-list-preview apbl-no-authors">
+				<p>{ __( 'No authors to display.', 'author-profile-blocks' ) }</p>
+			</div>
+		);
+	}
 
-    if (error) {
-        return (
-            <Placeholder
-                icon={listIcon}
-                label={__('Author List', 'author-profile-blocks')}
-                instructions={error}
-            />
-        );
-    }
+	const {
+		displayStyle = 'compact',
+		showImage = true,
+		showPosition = true,
+		showEmail = false,
+		showDescription = false,
+		showSocial = true,
+		listStyle = 'ul',
+		enableDividers = true,
+		textAlign = 'left',
+	} = attributes;
 
-    if (!authors || !authors.length) {
-        return (
-            <div className="apb-author-list-empty">
-                {__('No authors available to display.', 'author-profile-blocks')}
-            </div>
-        );
-    }
+	const ListTag = listStyle;
+	const classes = [
+		'apbl-authors-list-preview',
+		`apbl-display-${ displayStyle }`,
+		`apbl-text-align-${ textAlign }`,
+		enableDividers ? 'apbl-has-dividers' : '',
+	]
+		.filter( Boolean )
+		.join( ' ' );
 
-    const {
-        displayStyle = 'compact',
-        listStyle = 'ul',
-        enableDividers = false,
-        dividerColor = '#e0e0e0',
-        enableRounded = false,
-        enableHoverEffect = false,
-        backgroundColor,
-        itemBackgroundColor,
-        textAlign,
-        blockPadding,
-        itemPadding,
-        itemSpacing,
-        showImage = true,
-        showPosition = true,
-        showEmail = false,
-        showDescription = false,
-        showSocial = false,
-    } = attributes;
+	return (
+		<div className={ classes }>
+			<ListTag className="apbl-authors-list">
+				{ authors.map( ( author, index ) => (
+					<li
+						key={ author.id || index }
+						className="apbl-author-list-item"
+					>
+						<div className="apbl-author-content">
+							{ showImage && author.avatar && (
+								<div className="apbl-author-avatar">
+									<img
+										src={ author.avatar }
+										alt={
+											author.name ||
+											author.display_name ||
+											''
+										}
+										width="60"
+										height="60"
+									/>
+								</div>
+							) }
 
-    // Block level styles
-    const blockStyles = {
-        backgroundColor: backgroundColor || undefined,
-        padding: blockPadding ? `${blockPadding}px` : undefined,
-        textAlign: textAlign || undefined,
-    };
+							<div className="apbl-author-info">
+								<h3 className="apbl-author-name">
+									{ author.name ||
+										author.display_name ||
+										`User ${ author.id }` }
+								</h3>
 
-    // List styles
-    const listStyles = {
-        gap: itemSpacing ? `${itemSpacing}px` : undefined,
-    };
+								{ showPosition && author.position && (
+									<div className="apbl-author-position">
+										{ author.position }
+									</div>
+								) }
 
-    // Item styles
-    const itemStyles = {
-        backgroundColor: itemBackgroundColor || undefined,
-        padding: itemPadding ? `${itemPadding}px` : undefined,
-        borderColor: enableDividers ? dividerColor : undefined,
-    };
+								{ showEmail && author.email && (
+									<div className="apbl-author-email">
+										<a href={ `mailto:${ author.email }` }>
+											{ author.email }
+										</a>
+									</div>
+								) }
 
-    // List classes
-    const listClasses = [
-        'apb-author-list',
-        enableDividers ? 'has-dividers' : '',
-    ].filter(Boolean).join(' ');
+								{ showDescription &&
+									author.description &&
+									displayStyle === 'detailed' && (
+									<div className="apbl-author-description">
+										{ author.description.length > 150
+											? `${ author.description.substring( 0, 150 ) }...`
+											: author.description }
+									</div>
+								) }
+							</div>
+						</div>
 
-    // Render author item
-    const renderAuthorItem = (author) => {
-        const itemClasses = [
-            'apb-author-list-item',
-            enableRounded ? 'is-rounded' : '',
-            enableHoverEffect ? 'has-hover-effect' : '',
-        ].filter(Boolean).join(' ');
-
-        return (
-            <li key={author.id} className={itemClasses} style={itemStyles}>
-                <div className="apb-author-list-item-content">
-                    <AuthorItem 
-                        author={author}
-                        layout={displayStyle}
-                        options={{
-                            showImage,
-                            showPosition,
-                            showEmail,
-                            showDescription,
-                            showSocial
-                        }}
-                    />
-                </div>
-            </li>
-        );
-    };
-
-    // Determine list tag based on listStyle
-    const ListTag = listStyle === 'ol' ? 'ol' : 'ul';
-
-    return (
-        <div className="wp-block-author-profile-blocks-author-list" style={blockStyles}>
-            <ListTag className={listClasses} style={listStyles}>
-                {authors.map((author) => renderAuthorItem(author))}
-            </ListTag>
-        </div>
-    );
+						{ showSocial &&
+							author.social &&
+							Object.keys( author.social ).some(
+								( key ) => author.social[ key ],
+							) && (
+							<div className="apbl-author-social">
+								{ Object.entries( author.social ).map(
+									( [ network, url ] ) =>
+										url && (
+											<a
+												key={ network }
+												href={ url }
+												className={ `apbl-social-${ network }` }
+												target="_blank"
+												rel="noopener noreferrer"
+											>
+												{ network }
+											</a>
+										),
+								) }
+							</div>
+						) }
+					</li>
+				) ) }
+			</ListTag>
+		</div>
+	);
 };
 
 export default AuthorsListPreview;

@@ -2,85 +2,45 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Card, CardHeader, CardBody, CardFooter, Flex, FlexItem, Icon, Tooltip } from '@wordpress/components';
-import { info } from '@wordpress/icons';
+import { Placeholder, Spinner, Icon } from '@wordpress/components';
+import { people } from '@wordpress/icons';
 
 /**
- * Internal dependencies
- */
-import { AuthorPicker } from '../index';
-import './../../scss/common/_placeholder.scss';
-
-/**
- * Unified placeholder component for author blocks (list, grid, carousel)
+ * AuthorBlockPlaceholder component - loading/empty state placeholder
  *
- * @param {Object} props Component props
- * @param {string} props.icon The icon to display in the placeholder
- * @param {string} props.title The title of the placeholder
- * @param {string} props.instructions Instructions displayed in the placeholder
- * @param {Array} props.selectedAuthorIds Currently selected author IDs
- * @param {Function} props.onChange Callback when authors selection changes
- * @param {string} props.buttonLabel Custom label for the add button
- * @param {JSX.Element} props.layoutSelector Optional layout selector component
- * @param {JSX.Element} props.additionalControls Any additional controls to include in the placeholder
- * @param {string} props.className Additional CSS class for placeholder
- * @return {JSX.Element} Element to render
+ * @param {Object}      props              Component props
+ * @param {string}      props.title        Title for the placeholder
+ * @param {string}      props.instructions Instructions text
+ * @param {boolean}     props.isLoading    Whether the placeholder is in loading state
+ * @param {JSX.Element} props.children     Optional children to render inside placeholder
+ * @return {JSX.Element} Component to render
  */
-export default function AuthorBlockPlaceholder({
-    icon,
-    title,
-    instructions,
-    selectedAuthorIds = [],
-    onChange,
-    buttonLabel,
-    layoutSelector = null,
-    additionalControls = null,
-    className = '',
-}) {
-    const placeholderClass = `apbl-author-block-placeholder ${className}`.trim();
+const AuthorBlockPlaceholder = ( {
+	title = __( 'Author Block', 'author-profile-blocks' ),
+	instructions = __(
+		'Configure your author block settings.',
+		'author-profile-blocks',
+	),
+	isLoading = false,
+	children,
+} ) => {
+	return (
+		<Placeholder
+			icon={ <Icon icon={ people } /> }
+			label={ title }
+			instructions={ instructions }
+			className="apbl-block-placeholder"
+		>
+			{ isLoading ? (
+				<div className="apbl-placeholder-loading">
+					<Spinner />
+					<p>{ __( 'Loading…', 'author-profile-blocks' ) }</p>
+				</div>
+			) : (
+				children
+			) }
+		</Placeholder>
+	);
+};
 
-    return (
-        <Card className={placeholderClass} elevation={2}>
-            <CardHeader className="apbl-placeholder-header">
-                <Flex justify="space-between" align="center">
-                    <FlexItem>
-                        <Flex align="center" gap={2}>
-                            <Icon icon={icon} size={24} />
-                            <h4>{title}</h4>
-                        </Flex>
-                    </FlexItem>
-                    <FlexItem>
-                        <Tooltip text={__('Placeholder for author block', 'author-profile-blocks')}>
-                            <Icon icon={info} size={16} />
-                        </Tooltip>
-                    </FlexItem>
-                </Flex>
-            </CardHeader>
-
-            <CardBody>
-                <p className="apbl-placeholder-instructions">{instructions}</p>
-                <AuthorPicker
-                    selectedAuthorIds={selectedAuthorIds}
-                    onChange={onChange}
-                    buttonLabel={buttonLabel}
-                />
-                {layoutSelector && (
-                    <div className="apb-layout-selector-wrapper">
-                        {layoutSelector}
-                    </div>
-                )}
-            </CardBody>
-
-            {(additionalControls || layoutSelector) && (
-                <CardFooter className="apb-placeholder-footer">
-                    {additionalControls && (
-                        <div className="apb-additional-controls">
-                            {additionalControls}
-                        </div>
-                    )}
-                </CardFooter>
-            )}
-        </Card>
-    );
-}
-
+export default AuthorBlockPlaceholder;

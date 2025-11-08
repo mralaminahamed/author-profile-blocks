@@ -1,0 +1,30 @@
+# Code owners for Author Profile Blocks
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owners
+* @mralaminahamed
+
+# PHP backend code
+/includes/ @mralaminahamed
+*.php @mralaminahamed
+
+# JavaScript/React frontend code
+/src/ @mralaminahamed
+*.js @mralaminahamed
+*.jsx @mralaminahamed
+*.ts @mralaminahamed
+*.tsx @mralaminahamed
+
+# Build and configuration files
+/package.json @mralaminahamed
+/composer.json @mralaminahamed
+/webpack.config.js @mralaminahamed
+/tsconfig.json @mralaminahamed
+/tailwind.config.js @mralaminahamed
+
+# GitHub workflows and configuration
+/.github/ @mralaminahamed
+
+# Documentation
+*.md @mralaminahamed
+/docs/ @mralaminahamed

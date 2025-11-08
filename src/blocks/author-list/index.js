@@ -19,25 +19,25 @@ import './view';
 /**
  * Register the block.
  */
-registerBlockType(metadata.name, {
-    ...metadata,
-    icon,
-    example: {
-        attributes: {
-            displayStyle: 'compact',
-            enableDividers: true,
-            showImage: true,
-            showPosition: true,
-            showSocial: true,
-        },
-    },
-    /**
-     * @see ./edit.js
-     */
-    edit: Edit,
+registerBlockType( metadata.name, {
+	...metadata,
+	icon,
+	example: {
+		attributes: {
+			displayStyle: 'compact',
+			enableDividers: true,
+			showImage: true,
+			showPosition: true,
+			showSocial: true,
+		},
+	},
+	/**
+	 * @see ./edit.js
+	 */
+	edit: Edit,
 
-    /**
-     * Save function is handled on the PHP side, so we return null here.
-     */
-    save: () => null,
-});
+	/**
+	 * Save function is handled on the PHP side, so we return null here.
+	 */
+	save: () => null,
+} );

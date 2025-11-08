@@ -6,6 +6,143 @@
 @use '../../scss/common' as c;
 
 .wp-block-author-profile-blocks-author-carousel {
+  // Animation preview in editor
+  &.has-fadeIn-animation,
+  &.has-slideUp-animation,
+  &.has-slideDown-animation,
+  &.has-slideLeft-animation,
+  &.has-slideRight-animation,
+  &.has-scaleIn-animation,
+  &.has-bounce-animation {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+
+  // Hover effect preview in editor
+  &.has-lift-hover:hover,
+  &.has-glow-hover:hover,
+  &.has-scale-hover:hover,
+  &.has-rotate-hover:hover,
+  &.has-shadow-hover:hover {
+    transition-duration: 0.2s;
+  }
+
+  // Layout preset previews
+  &.is-style-card .apb-author-carousel-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fff;
+  }
+
+  &.is-style-minimal .apb-author-carousel-item {
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+  }
+
+  &.is-style-bordered .apb-author-carousel-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  &.is-style-shadow .apb-author-carousel-item {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #fff;
+  }
+
+  &.is-style-modern-cards .apb-author-carousel-item {
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  &.is-style-classic-carousel .apb-author-carousel-item {
+    border: 2px solid #007cba;
+    border-radius: 6px;
+    padding: 18px;
+    background: #fff;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #007cba, #005a87);
+      border-radius: 8px;
+      z-index: -1;
+    }
+  }
+
+  &.is-style-minimal-slides .apb-author-carousel-item {
+    border: none;
+    background: transparent;
+    padding: 12px;
+    border-radius: 0;
+  }
+
+  &.is-style-elegant-profile .apb-author-carousel-item {
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 24px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px 12px 0 0;
+    }
+  }
+
+  &.is-style-creative-layout .apb-author-carousel-item {
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        rgba(255, 255, 255, 0.1) 0deg,
+        transparent 60deg
+      );
+      animation: rotate 20s linear infinite;
+    }
+
+    .apb-author-name,
+    .apb-author-position {
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
   // Visual indicator in editor
   @include c.editor-border();
 

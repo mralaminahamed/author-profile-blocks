@@ -5,6 +5,146 @@
 // Import common styles
 @use '../../scss/common' as c;
 
+// Animation keyframes
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideLeft {
+	from {
+		opacity: 0;
+		transform: translateX(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideRight {
+	from {
+		opacity: 0;
+		transform: translateX(-30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes bounce {
+	0%, 20%, 53%, 80%, 100% {
+		transform: translate3d(0, 0, 0);
+	}
+	40%, 43% {
+		transform: translate3d(0, -30px, 0);
+	}
+	70% {
+		transform: translate3d(0, -15px, 0);
+	}
+	90% {
+		transform: translate3d(0, -4px, 0);
+	}
+}
+
+// Animation classes
+.has-fadeIn-animation {
+	animation: fadeIn var(--animation-duration, 300ms) ease-out;
+}
+
+.has-slideUp-animation {
+	animation: slideUp var(--animation-duration, 300ms) ease-out;
+}
+
+.has-slideDown-animation {
+	animation: slideDown var(--animation-duration, 300ms) ease-out;
+}
+
+.has-slideLeft-animation {
+	animation: slideLeft var(--animation-duration, 300ms) ease-out;
+}
+
+.has-slideRight-animation {
+	animation: slideRight var(--animation-duration, 300ms) ease-out;
+}
+
+.has-scaleIn-animation {
+	animation: scaleIn var(--animation-duration, 300ms) ease-out;
+}
+
+.has-bounce-animation {
+	animation: bounce var(--animation-duration, 300ms) ease-out;
+}
+
+// Hover effects
+.has-lift-hover:hover {
+	transform: translateY(-5px);
+	transition: transform 0.3s ease;
+}
+
+.has-glow-hover:hover {
+	box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+	transition: box-shadow 0.3s ease;
+}
+
+.has-scale-hover:hover {
+	transform: scale(1.05);
+	transition: transform 0.3s ease;
+}
+
+.has-rotate-hover:hover {
+	transform: rotate(2deg);
+	transition: transform 0.3s ease;
+}
+
+.has-shadow-hover:hover {
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	transition: box-shadow 0.3s ease;
+}
+
+// Google Font support
+[class*="has-"][class*="-font"] {
+	font-family: var(--google-font-family, inherit);
+}
+
 // Grid container
 .wp-block-author-profile-blocks-author-grid {
   padding: c.$spacing-md;
@@ -87,6 +227,106 @@
   .apb-social-profiles {
 
     @include c.social-profiles-center();
+  }
+
+  // Layout presets
+  &.is-style-card {
+    .apb-author-grid-item {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.is-style-minimal {
+    .apb-author-grid-item {
+      border: none;
+      background: transparent;
+      padding: 12px 0;
+    }
+  }
+
+  &.is-style-bordered {
+    .apb-author-grid-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+  }
+
+  &.is-style-shadow {
+    .apb-author-grid-item {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: #ffffff;
+    }
+  }
+
+  &.is-style-mosaic {
+    .apb-author-grid-item {
+      &:nth-child(odd) {
+        transform: scale(1.05);
+      }
+      &:nth-child(even) {
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  // Advanced styling
+  &[style*="--author-grid-margin"] {
+    margin: var(--author-grid-margin);
+  }
+
+  &[style*="--author-grid-section-spacing"] {
+    .apb-author-grid-item {
+      margin-bottom: var(--author-grid-section-spacing);
+    }
+  }
+
+  &[style*="--author-grid-container-width"] {
+    max-width: var(--author-grid-container-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Gradient backgrounds
+  .has-gradient-background {
+    background: linear-gradient(
+      var(--gradient-direction, to bottom),
+      var(--gradient-start-color, #ffffff),
+      var(--gradient-end-color, #f8f9fa)
+    );
+  }
+
+  // Transform effects
+  .has-transform {
+    transform: scale(var(--transform-scale, 1)) rotate(var(--transform-rotate, 0) + deg);
+  }
+
+  // CSS filters
+  .has-filters {
+    filter: brightness(var(--filter-brightness, 100) + %)
+            contrast(var(--filter-contrast, 100) + %)
+            saturate(var(--filter-saturate, 100) + %);
+  }
+
+  // Box shadow
+  .has-box-shadow {
+    box-shadow: var(--box-shadow-horizontal, 0) var(--box-shadow-vertical, 4px) var(--box-shadow-blur, 8px) var(--box-shadow-spread, 0) var(--box-shadow-color, rgba(0,0,0,0.2));
+  }
+
+  // Border styling
+  .has-border {
+    border-width: var(--border-width, 1px);
+    border-color: var(--border-color, #e0e0e0);
+    border-radius: var(--border-radius, 0);
   }
 
   // Visual style modifiers
