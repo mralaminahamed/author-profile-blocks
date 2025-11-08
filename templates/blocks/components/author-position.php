@@ -34,5 +34,5 @@ if ( isset( $author['metaMargin'] ) ) {
 }
 ?>
 <div class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
-	<?php echo esc_html( $author['position'] ); ?>
+	<?php echo esc_html( $author['position'] ?? '' ); ?>
 </div>

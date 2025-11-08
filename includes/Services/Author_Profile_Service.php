@@ -31,7 +31,7 @@ class Author_Profile_Service {
 	/**
 	 * Cache for author data.
 	 *
-	 * @var array
+	 * @var array<int|string, mixed>
 	 */
 	private array $author_cache = array();
 
@@ -160,18 +160,19 @@ class Author_Profile_Service {
 	/**
 	 * Get user avatar URL for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Avatar URL.
 	 */
 	public function get_avatar_url( array $user ): string {
-		return get_avatar_url( $user['id'], array( 'size' => 150 ) );
+		$url = get_avatar_url( $user['id'], array( 'size' => 150 ) );
+		return $url !== false ? $url : '';
 	}
 
 	/**
 	 * Get author position for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Author position.
 	 */
@@ -182,7 +183,7 @@ class Author_Profile_Service {
 	/**
 	 * Get author description for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Author description.
 	 */
@@ -193,9 +194,9 @@ class Author_Profile_Service {
 	/**
 	 * Get social profiles for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
-	 * @return array Social profiles.
+	 * @return array<string, string> Social profiles.
 	 */
 	public function get_social_profiles( array $user ): array {
 		$profiles = $this->meta_provider->get_meta( $user['id'], 'apbl_social_profiles', true );
@@ -216,7 +217,7 @@ class Author_Profile_Service {
 	/**
 	 * Get user registration date for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Formatted registration date.
 	 */
@@ -233,7 +234,7 @@ class Author_Profile_Service {
 	/**
 	 * Get custom member since label for REST API.
 	 *
-	 * @param array $user User data.
+	 * @param array<string, mixed> $user User data.
 	 *
 	 * @return string Member since label.
 	 */
@@ -256,7 +257,7 @@ class Author_Profile_Service {
 	 *
 	 * @param int $author_id User ID.
 	 *
-	 * @return array|null {
+	 * @return array<string, mixed>|null {
 	 *     Author data array or null if user not found.
 	 *
 	 *     @type int    $id             User ID.
@@ -342,8 +343,8 @@ class Author_Profile_Service {
 	/**
 	 * Get all authors with specific roles.
 	 *
-	 * @param string[] $roles Optional. Roles to include. Default is all author-type roles.
-	 * @param array    $args  {
+	 * @param string[]             $roles Optional. Roles to include. Default is all author-type roles.
+	 * @param array<string, mixed> $args  {
 	 *     Optional. Additional arguments for WP_User_Query.
 	 *
 	 *     @type int    $number   Maximum number of users to retrieve.
@@ -354,7 +355,7 @@ class Author_Profile_Service {
 	 *     @type array  $exclude  Array of user IDs to exclude.
 	 * }
 	 *
-	 * @return array Array of author data. Each item contains complete author information.
+	 * @return array<int|string, mixed> Array of author data. Each item contains complete author information.
 	 */
 	public function get_authors( array $roles = array(), array $args = array() ): array {
 		// Set default roles if none provided.
@@ -454,7 +455,7 @@ class Author_Profile_Service {
 	 * @return void
 	 */
 	public function clear_cache( ?int $author_id = null ): void {
-		if ( $author_id ) {
+		if ( $author_id && isset( $this->author_cache[ $author_id ] ) ) {
 			// Clear specific author from memory cache.
 			unset( $this->author_cache[ $author_id ] );
 

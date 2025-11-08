@@ -21,7 +21,7 @@ class User_Meta_Provider implements Meta_Data_Provider {
 	/**
 	 * User meta fields configuration.
 	 *
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected array $meta_fields = array();
 
@@ -60,8 +60,8 @@ class User_Meta_Provider implements Meta_Data_Provider {
 	/**
 	 * Add a meta field configuration.
 	 *
-	 * @param string $key   The meta field key.
-	 * @param array  $config {
+	 * @param string               $key   The meta field key.
+	 * @param array<string, mixed> $config {
 	 *     The field configuration for register_meta().
 	 *
 	 *     @type string   $type              Data type (string, integer, etc.).

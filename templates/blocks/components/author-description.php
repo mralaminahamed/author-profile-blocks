@@ -34,5 +34,5 @@ if ( isset( $author['descriptionMargin'] ) ) {
 }
 ?>
 <div class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
-	<?php echo wp_kses_post( $author['description'] ); ?>
+	<?php echo wp_kses_post( $author['description'] ?? '' ); ?>
 </div>

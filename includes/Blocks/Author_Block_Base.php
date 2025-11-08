@@ -26,7 +26,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Cache for rendered content.
 	 *
-	 * @var array
+	 * @var array<string, string>
 	 */
 	protected array $render_cache = array();
 
@@ -135,13 +135,13 @@ abstract class Author_Block_Base implements Registerable {
 	 * This is a final processing step after the block renders. Applies both
 	 * block-specific and general filters to allow customization of output.
 	 *
-	 * @param string $block_content The rendered block content.
-	 * @param array  $block         {
+	 * @param string               $block_content The rendered block content.
+	 * @param array<string, mixed> $block         {
 	 *     The block data including attributes and inner content.
 	 *
-	 *     @type array  $attributes Block attributes.
-	 *     @type string $innerHTML  Block inner HTML content.
-	 *     @type array  $innerBlocks Array of inner blocks.
+	 *     @type array<string, mixed> $attributes Block attributes.
+	 *     @type string              $innerHTML  Block inner HTML content.
+	 *     @type array<string, mixed> $innerBlocks Array of inner blocks.
 	 * }
 	 *
 	 * @return string The filtered content.
@@ -211,7 +211,7 @@ abstract class Author_Block_Base implements Registerable {
 	 *
 	 * @param int $author_id The author ID.
 	 *
-	 * @return array|null The author data or null if not found.
+	 * @return array<string, mixed>|null The author data or null if not found.
 	 */
 	protected function get_author_data( int $author_id ): ?array {
 		if ( empty( $author_id ) ) {
@@ -249,7 +249,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Extract author IDs from block attributes.
 	 *
-	 * @param array $attributes {
+	 * @param array<string, mixed> $attributes {
 	 *     Block attributes containing authorIds.
 	 *
 	 *     @type int[] $authorIds Array of author user IDs.
@@ -264,7 +264,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Extract author roles from block attributes.
 	 *
-	 * @param array $attributes {
+	 * @param array<string, mixed> $attributes {
 	 *     Block attributes containing authorRole.
 	 *
 	 *     @type string $authorRole Single author role to filter by.
@@ -282,7 +282,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Extract max authors limit from block attributes.
 	 *
-	 * @param array $attributes {
+	 * @param array<string, mixed> $attributes {
 	 *     Block attributes containing maxAuthors.
 	 *
 	 *     @type int $maxAuthors Maximum number of authors to display.
@@ -297,11 +297,11 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Get multiple authors data from the service.
 	 *
-	 * @param int[]    $author_ids Array of author IDs.
-	 * @param string[] $roles   Optional. Roles to filter by. Default empty array.
-	 * @param array    $args       Optional. Additional arguments for filtering. Default empty array.
+	 * @param int[]                $author_ids Array of author IDs.
+	 * @param string[]             $roles      Optional. Roles to filter by. Default empty array.
+	 * @param array<string, mixed> $args      Optional. Additional arguments for filtering. Default empty array.
 	 *
-	 * @return array Array of author data. Each item contains author information.
+	 * @return array<int, array<string, mixed>> Array of author data. Each item contains author information.
 	 */
 	protected function get_authors_data( array $author_ids, array $roles = array(), array $args = array() ): array {
 		if ( empty( $author_ids ) ) {
@@ -328,10 +328,10 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Apply maximum author limit.
 	 *
-	 * @param array $authors     Array of author data. Each item contains author information.
-	 * @param int   $max_authors Maximum number of authors to include. 0 means no limit.
+	 * @param array<int, array<string, mixed>> $authors     Array of author data. Each item contains author information.
+	 * @param int                              $max_authors Maximum number of authors to include. 0 means no limit.
 	 *
-	 * @return array Limited author data.
+	 * @return array<int, array<string, mixed>> Limited author data.
 	 */
 	protected function apply_author_limit( array $authors, int $max_authors ): array {
 		if ( $max_authors > 0 && count( $authors ) > $max_authors ) {
@@ -367,8 +367,8 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Generate a cache key based on data and attributes.
 	 *
-	 * @param mixed $identifier A unique identifier (like author ID or array of IDs).
-	 * @param array $attributes The block attributes.
+	 * @param mixed                $identifier A unique identifier (like author ID or array of IDs).
+	 * @param array<string, mixed> $attributes The block attributes.
 	 *
 	 * @return string The cache key.
 	 */
@@ -387,8 +387,8 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Get block classes based on attributes.
 	 *
-	 * @param array  $attributes Block attributes.
-	 * @param string $block_type The block type identifier. Default empty string.
+	 * @param array<string, mixed> $attributes Block attributes.
+	 * @param string               $block_type The block type identifier. Default empty string.
 	 *
 	 * @return string Space-separated CSS classes.
 	 */
@@ -515,9 +515,9 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Get block styles based on attributes.
 	 *
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
-	 * @return array {
+	 * @return array<string, string> {
 	 *     CSS styles as associative array.
 	 *
 	 *     @type string $property CSS property name.
@@ -796,9 +796,9 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Get styles for individual items like list items or grid items.
 	 *
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
-	 * @return array {
+	 * @return array<string, string> {
 	 *     CSS styles as associative array.
 	 *
 	 *     @type string $property CSS property name.
@@ -861,7 +861,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Convert styles array to inline style string.
 	 *
-	 * @param array $styles {
+	 * @param array<string, string> $styles {
 	 *     Array of CSS property:value pairs.
 	 *
 	 *     @type string $property CSS property name.
@@ -886,7 +886,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Render compact layout for author profiles.
 	 *
-	 * @param array $author     {
+	 * @param array<string, mixed> $author     {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -898,7 +898,7 @@ abstract class Author_Block_Base implements Registerable {
 	 *     @type array  $social         Social media profiles.
 	 *     @type string $registered_date Registration date.
 	 * }
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -922,13 +922,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/layouts/compact.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render detailed layout for author profiles.
 	 *
-	 * @param array $author     {
+	 * @param array<string, mixed> $author     {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -940,7 +941,7 @@ abstract class Author_Block_Base implements Registerable {
 	 *     @type array  $social         Social media profiles.
 	 *     @type string $registered_date Registration date.
 	 * }
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -965,7 +966,8 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/layouts/detailed.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
@@ -1008,13 +1010,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/layouts/card.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
-	 * Render centered layout for author profiles.
+	 * Render card layout for author profiles.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1026,7 +1029,7 @@ abstract class Author_Block_Base implements Registerable {
 	 *     @type array  $social         Social media profiles.
 	 *     @type string $registered_date Registration date.
 	 * }
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -1042,25 +1045,24 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/layouts/centered.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render minimal layout for author profiles.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
 	 *     @type string $name           Display name.
 	 *     @type string $email          Email address.
-	 *     @type string $image          Avatar URL.
-	 *     @type string $position       Job position/title.
 	 *     @type string $description    Bio description.
 	 *     @type array  $social         Social media profiles.
 	 *     @type string $registered_date Registration date.
 	 * }
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -1076,13 +1078,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/layouts/minimal.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render author image section.
 	 *
-	 * @param array  $author        {
+	 * @param array<string, mixed> $author        {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1094,7 +1097,7 @@ abstract class Author_Block_Base implements Registerable {
 	 *     @type array  $social         Social media profiles.
 	 *     @type string $registered_date Registration date.
 	 * }
-	 * @param string $wrapper_class Optional. Additional CSS class for the image container. Default empty string.
+	 * @param string               $wrapper_class Optional. Additional CSS class for the image container. Default empty string.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -1113,13 +1116,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/author-image.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render author name section.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1148,13 +1152,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/author-name.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render author position section.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1183,13 +1188,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/author-position.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render author email section.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1218,13 +1224,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/author-email.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render author description section.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1253,13 +1260,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/author-description.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render social profiles section.
 	 *
-	 * @param array    $profiles      {
+	 * @param array<string, mixed> $profiles      {
 	 *       Social profile URLs.
 	 *
 	 *     @type string $facebook  Facebook profile URL.
@@ -1268,8 +1276,8 @@ abstract class Author_Block_Base implements Registerable {
 	 *     @type string $instagram Instagram profile URL.
 	 *     @type string $website   Personal website URL.
 	 * }
-	 * @param string   $wrapper_class Optional. Additional CSS class for the social profiles container. Default empty string.
-	 * @param string[] $show_profiles Optional. List of specific profiles to show. Default empty array.
+	 * @param string               $wrapper_class Optional. Additional CSS class for the social profiles container. Default empty string.
+	 * @param string[]             $show_profiles Optional. List of specific profiles to show. Default empty array.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -1288,13 +1296,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/social-profiles.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render registered date section.
 	 *
-	 * @param array $author {
+	 * @param array<string, mixed> $author {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -1323,14 +1332,15 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/registered-date.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Render more content section.
 	 *
-	 * @param string $content The content.
-	 * @param array  $author  {
+	 * @param string               $content The content.
+	 * @param array<string, mixed> $author  {
 	 *     Optional. Author data with style attributes. Default empty array.
 	 *
 	 *     @type int    $id             User ID.
@@ -1363,13 +1373,14 @@ abstract class Author_Block_Base implements Registerable {
 		author_profile_blocks()->get_template( 'blocks/components/more-content.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 
 	/**
 	 * Get social icon data for frontend display.
 	 *
-	 * @return array {
+	 * @return array<string, string> {
 	 *     Social icon data with platform names and dashicon classes.
 	 *
 	 *     @type string $platform Dashicon class name for the platform.
@@ -1388,7 +1399,7 @@ abstract class Author_Block_Base implements Registerable {
 	/**
 	 * Get social icon data for block editor.
 	 *
-	 * @return array {
+	 * @return array<string, array<string, string>> {
 	 *     Social icon data with platform names and icon identifiers for the editor.
 	 *
 	 *     @type array $platform {

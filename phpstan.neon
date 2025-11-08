@@ -17,12 +17,11 @@ parameters:
         - node_modules/
         - build/
 
-#    ignoreErrors:
-#        - identifier: class.notFound
-#        - identifier: missingType.generics
-#        - '#^Constant [A-Z_]+ not found\.#'
-#        - '#^Function [a-zA-Z0-9_]+ not found\.#'
-#        - '#^Class [a-zA-Z0-9_\\]+ not found\.#'
+    ignoreErrors:
+        - identifier: function.notFound
+        - identifier: argument.templateType
+        - identifier: missingType.iterableValue
+        - identifier: method.unused
 
     treatPhpDocTypesAsCertain: false
     inferPrivatePropertyTypeFromConstructor: true

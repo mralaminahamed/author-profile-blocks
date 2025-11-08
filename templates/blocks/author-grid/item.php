@@ -18,6 +18,8 @@
  * @var Author_Grid_Block $block_instance Block instance
  */
 
+use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

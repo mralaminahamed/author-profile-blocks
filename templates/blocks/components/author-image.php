@@ -64,13 +64,22 @@ if ( ! empty( $author['avatarMargin'] ) ) {
 // Object fit to ensure proper sizing
 $apbl_avatar_styles[] = 'object-fit: cover';
 
-$apbl_image_attr = array(
-	'class'   => ! empty( $apbl_image_classes ) ? implode( ' ', $apbl_image_classes ) : '',
-	'alt'     => esc_attr( $author['title'] ),
-	'loading' => 'lazy',
-	'style'   => implode( '; ', $apbl_avatar_styles ),
-);
+// Safely extract author data
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+$author_name = $author['title'] ?? $author['name'] ?? $author['display_name'] ?? '';
+$image_url   = $author['image'] ?? '';
+
+if ( empty( $image_url ) ) {
+	return;
+}
+
+$apbl_image_classes = ! empty( $apbl_image_classes ) ? implode( ' ', $apbl_image_classes ) : '';
+$apbl_image_style   = implode( '; ', $apbl_avatar_styles );
 ?>
 <div class="<?php echo esc_attr( $apbl_classes ); ?>">
-	<?php echo wp_get_attachment_image( $author['image'], 'full', false, $apbl_image_attr ); ?>
+	<img src="<?php echo esc_url( $image_url ); ?>"
+		alt="<?php echo esc_attr( $author_name ); ?>"
+		class="<?php echo esc_attr( $apbl_image_classes ); ?>"
+		style="<?php echo esc_attr( $apbl_image_style ); ?>"
+		loading="lazy" />
 </div>

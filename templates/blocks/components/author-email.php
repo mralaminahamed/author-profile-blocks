@@ -37,9 +37,15 @@ $apbl_link_style = '';
 if ( ! empty( $author['emailLinkColor'] ) ) {
 	$apbl_link_style .= 'color: ' . esc_attr( $author['emailLinkColor'] ) . ';';
 }
+
+// Add hover color as a CSS custom property for safer styling
+$apbl_hover_style = '';
+if ( ! empty( $author['emailHoverColor'] ) ) {
+	$apbl_hover_style .= '--apbl-email-hover-color: ' . esc_attr( $author['emailHoverColor'] ) . ';';
+}
 ?>
-<div class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
-	<a href="<?php echo esc_url( 'mailto:' . $author['email'] ); ?>"<?php echo ! empty( $apbl_link_style ) ? ' style="' . esc_attr( $apbl_link_style ) . '"' : ''; ?><?php echo ! empty( $author['emailHoverColor'] ) ? ' onmouseover="this.style.color=\'' . esc_attr( $author['emailHoverColor'] ) . '\'" onmouseout="this.style.color=\'' . esc_attr( ! empty( $author['emailLinkColor'] ) ? $author['emailLinkColor'] : '' ) . '\'"' : ''; ?>>
+<div class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?><?php echo ! empty( $apbl_hover_style ) ? ' style="' . esc_attr( $apbl_hover_style ) . '"' : ''; ?>>
+	<a href="<?php echo esc_url( 'mailto:' . $author['email'] ); ?>"<?php echo ! empty( $apbl_link_style ) ? ' style="' . esc_attr( $apbl_link_style ) . '"' : ''; ?> class="apbl-email-link">
 		<?php echo esc_html( $author['email'] ); ?>
 	</a>
 </div>

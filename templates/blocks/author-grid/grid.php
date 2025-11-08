@@ -9,6 +9,8 @@
  * @var string $wrapper_attributes Block wrapper attributes
  */
 
+use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

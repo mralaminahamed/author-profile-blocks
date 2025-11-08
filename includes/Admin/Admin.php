@@ -160,7 +160,7 @@ class Admin {
 	/**
 	 * Sanitize settings before saving.
 	 *
-	 * @param array $input {
+	 * @param array<string, mixed> $input {
 	 *     Raw input data from the settings form.
 	 *
 	 *     @type string[] $author_roles   Array of selected author roles.
@@ -170,7 +170,7 @@ class Admin {
 	 *     @type string   $cache_duration Cache duration in hours.
 	 * }
 	 *
-	 * @return array {
+	 * @return array<string, mixed> {
 	 *     Sanitized data ready for database storage.
 	 *
 	 *     @type string[] $author_roles   Array of sanitized author roles.
@@ -201,7 +201,8 @@ class Admin {
 		}
 
 		// Sanitize show email using WordPress boolean function
-		$sanitized['show_email'] = rest_sanitize_boolean( wp_unslash( $input['show_email'] ?? false ) ) ? 1 : 0;
+		$show_email_value        = wp_unslash( $input['show_email'] ?? false );
+		$sanitized['show_email'] = rest_sanitize_boolean( $show_email_value ) ? 1 : 0;
 
 		// Sanitize cache duration
 		if ( isset( $input['cache_duration'] ) ) {
@@ -292,7 +293,8 @@ class Admin {
 	 */
 	public function settings_page(): void {
 		// Check if settings were updated using WordPress function
-		if ( isset( $_GET['settings-updated'] ) && rest_sanitize_boolean( wp_unslash( $_GET['settings-updated'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$settings_updated = wp_unslash( $_GET['settings-updated'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( isset( $_GET['settings-updated'] ) && rest_sanitize_boolean( $settings_updated ) ) {
 			add_settings_error(
 				'author_profile_blocks_settings',
 				'settings_updated',
@@ -334,7 +336,7 @@ class Admin {
 	/**
 	 * Get default settings
 	 *
-	 * @return array Default settings array.
+	 * @return array<string, mixed> Default settings array.
 	 */
 	public static function get_default_settings(): array {
 		return array(
@@ -349,7 +351,7 @@ class Admin {
 	/**
 	 * Get plugin settings with defaults
 	 *
-	 * @return array Plugin settings merged with defaults.
+	 * @return array<string, mixed> Plugin settings merged with defaults.
 	 */
 	public static function get_settings(): array {
 		return wp_parse_args(

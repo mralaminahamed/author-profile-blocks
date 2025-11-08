@@ -42,9 +42,9 @@ class Author_Grid_Block extends Author_Block_Base {
 	/**
 	 * Render callback for the block.
 	 *
-	 * @param array    $attributes Block attributes.
-	 * @param string   $content    Block content.
-	 * @param WP_Block $block      Block instance.
+	 * @param array<string, mixed> $attributes Block attributes.
+	 * @param string               $content    Block content.
+	 * @param WP_Block             $block      Block instance.
 	 *
 	 * @return string Rendered block output.
 	 */
@@ -106,17 +106,20 @@ class Author_Grid_Block extends Author_Block_Base {
 		);
 		$html = ob_get_clean();
 
-		// Cache the result.
-		$this->set_cached_render( $cache_key, $html );
+		// Ensure we have valid HTML content
+		$content = $html !== false ? $html : '';
 
-		return $html;
+		// Cache the result.
+		$this->set_cached_render( $cache_key, $content );
+
+		return $content;
 	}
 
 	/**
 	 * Render an individual author item within the grid.
 	 *
-	 * @param array $author     Author data.
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $author     Author data.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -203,6 +206,7 @@ class Author_Grid_Block extends Author_Block_Base {
 				'block_instance'     => $this,
 			)
 		);
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 }

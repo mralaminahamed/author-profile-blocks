@@ -51,9 +51,9 @@ class Author_Profile_Block extends Author_Block_Base {
 	/**
 	 * Render callback for the block.
 	 *
-	 * @param array    $attributes Block attributes.
-	 * @param string   $content    Block content.
-	 * @param WP_Block $block      Block instance.
+	 * @param array<string, mixed> $attributes Block attributes.
+	 * @param string               $content    Block content.
+	 * @param WP_Block             $block      Block instance.
 	 *
 	 * @return string Rendered block output.
 	 */
@@ -136,17 +136,20 @@ class Author_Profile_Block extends Author_Block_Base {
 		);
 		$html = ob_get_clean();
 
-		// Cache the result.
-		$this->set_cached_render( $cache_key, $html );
+		// Ensure we have valid HTML content
+		$content = $html !== false ? $html : '';
 
-		return $html;
+		// Cache the result.
+		$this->set_cached_render( $cache_key, $content );
+
+		return $content;
 	}
 
 	/**
 	 * Adds styling properties from attributes to author data
 	 *
-	 * @param array &$author_data Author data reference to modify.
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> &$author_data Author data reference to modify.
+	 * @param array<string, mixed> $attributes  Block attributes.
 	 *
 	 * @return void
 	 */

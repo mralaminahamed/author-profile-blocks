@@ -42,9 +42,9 @@ class Author_List_Block extends Author_Block_Base {
 	/**
 	 * Render callback for the block.
 	 *
-	 * @param array    $attributes Block attributes.
-	 * @param string   $content    Block content.
-	 * @param WP_Block $block      Block instance.
+	 * @param array<string, mixed> $attributes Block attributes.
+	 * @param string               $content    Block content.
+	 * @param WP_Block             $block      Block instance.
 	 *
 	 * @return string Rendered block output.
 	 */
@@ -106,16 +106,19 @@ class Author_List_Block extends Author_Block_Base {
 		);
 		$html = ob_get_clean();
 
-		// Cache the result.
-		$this->set_cached_render( $cache_key, $html );
+		// Ensure we have valid HTML content
+		$content = $html !== false ? $html : '';
 
-		return $html;
+		// Cache the result.
+		$this->set_cached_render( $cache_key, $content );
+
+		return $content;
 	}
 
 	/**
 	 * Render an individual author item within the list.
 	 *
-	 * @param array $author     {
+	 * @param array<string, mixed> $author     {
 	 *     Author data.
 	 *
 	 *     @type int    $id             User ID.
@@ -127,7 +130,7 @@ class Author_List_Block extends Author_Block_Base {
 	 *     @type array  $social         Social media profiles.
 	 *     @type string $registered_date Registration date.
 	 * }
-	 * @param array $attributes Block attributes.
+	 * @param array<string, mixed> $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
 	 */
@@ -207,6 +210,7 @@ class Author_List_Block extends Author_Block_Base {
 		author_profile_blocks()->get_template( 'blocks/author-list/item.php', $template_vars );
 
 		// Return the buffered content.
-		return ob_get_clean();
+		$content = ob_get_clean();
+		return $content !== false ? $content : '';
 	}
 }

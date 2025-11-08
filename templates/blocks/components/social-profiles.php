@@ -97,8 +97,8 @@ if ( ! empty( $show_profiles ) ) {
 			<?php if ( ! empty( $apbl_url ) && isset( $apbl_social_icons[ $apbl_network ] ) ) : ?>
 				<li class="apbl-social-item apbl-social-<?php echo esc_attr( $apbl_network ); ?>">
 					<a href="<?php echo esc_url( $apbl_url ); ?>" target="_blank" rel="noopener noreferrer">
-						<span class="dashicons <?php echo esc_attr( $apbl_social_icons[ $network ] ); ?>" aria-hidden="true"></span>
-						<span class="screen-reader-text"><?php echo esc_html( ucfirst( $network ) ); ?></span>
+						<span class="dashicons <?php echo esc_attr( $apbl_social_icons[ $apbl_network ] ); ?>" aria-hidden="true"></span>
+						<span class="screen-reader-text"><?php echo esc_html( ucfirst( $apbl_network ) ); ?></span>
 					</a>
 				</li>
 			<?php endif; ?>

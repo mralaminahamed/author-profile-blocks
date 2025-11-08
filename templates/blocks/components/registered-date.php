@@ -34,7 +34,9 @@ if ( isset( $author['metaMargin'] ) ) {
 }
 
 $apbl_label = $author['member_since_label'] ?? __( 'Member since', 'author-profile-blocks' );
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+$registered_date = $author['registered_date'] ?? '';
 ?>
 <div class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
-	<span class="apbl-registered-date-label"><?php echo esc_html( $apbl_label ); ?></span> <span class="apbl-registered-date-value"><?php echo esc_html( $author['registered_date'] ); ?></span>
+	<span class="apbl-registered-date-label"><?php echo esc_html( $apbl_label ); ?></span> <span class="apbl-registered-date-value"><?php echo esc_html( $registered_date ); ?></span>
 </div>

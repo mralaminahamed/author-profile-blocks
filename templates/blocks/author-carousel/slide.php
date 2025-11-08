@@ -18,6 +18,8 @@
  * @var Author_Carousel_Block $block_instance Block instance
  */
 
+use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
