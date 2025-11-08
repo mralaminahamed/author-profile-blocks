@@ -11,8 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$apbl_options    = get_option( 'author_profile_blocks_settings', array() );
-$apbl_show_email = $apbl_options['show_email'] ?? 0;
+$apbl_show_email = author_profile_blocks()->settings->show_email_enabled() ? 1 : 0;
 ?>
 <label>
 	<input type="checkbox" name="author_profile_blocks_settings[show_email]" value="1" <?php checked( $apbl_show_email, 1 ); ?> />

@@ -5,7 +5,10 @@
  * @package AuthorProfileBlocks
  */
 
-namespace AuthorProfileBlocks;
+namespace AuthorProfileBlocks\Supports;
+
+use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -19,8 +22,8 @@ class Abilities_Api {
 	/**
 	 * Initialize the abilities registration
 	 */
-	public static function init() {
-		add_action( 'wp_feature_api_init', array( self::class, 'register_abilities' ), 20 );
+	public static function init(): void {
+		add_action( 'wp_abilities_api_init', array( self::class, 'register_abilities' ), 20 );
 	}
 
 	/**
@@ -30,13 +33,9 @@ class Abilities_Api {
 	 * Currently, the wp_register_ability function does not exist in WordPress core.
 	 * When the Abilities API is released, this code will automatically become active.
 	 */
-	public static function register_abilities() {
+	public static function register_abilities(): void {
 		// Check if the Abilities API is available (future WordPress feature)
 		if ( ! function_exists( 'wp_register_ability' ) ) {
-			// Log that we're waiting for the Abilities API to be available
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				error_log( 'Author Profile Blocks: WordPress Abilities API not yet available. Abilities registration skipped.' );
-			}
 			return;
 		}
 
@@ -276,8 +275,7 @@ class Abilities_Api {
 				),
 				'permission_callback' => function ( $params ) {
 					// Only allow updating your own metadata or if you have edit_users capability
-					return current_user_can( 'edit_users' ) ||
-							( get_current_user_id() === $params['author_id'] && current_user_can( 'edit_posts' ) );
+					return current_user_can( 'edit_users' ) || ( get_current_user_id() === $params['author_id'] && current_user_can( 'edit_posts' ) );
 				},
 			)
 		);
@@ -287,23 +285,22 @@ class Abilities_Api {
 	 * Execute the get-author-data ability
 	 *
 	 * @param array $params Input parameters.
-	 * @return array Author data.
+	 *
+	 * @return array|WP_Error Author data.
 	 */
-	public static function get_author_data_ability( $params ) {
+	public static function get_author_data_ability( array $params ) {
 		$author_id    = $params['author_id'];
 		$include_meta = $params['include_meta'] ?? true;
 
-		$plugin      = author_profile_blocks();
-		$author_data = $plugin->get_author_data( $author_id );
+		$author_data = author_profile_blocks()->get_author_data( $author_id );
 
 		if ( ! $author_data ) {
-			return new \WP_Error( 'author_not_found', __( 'Author not found.', 'author-profile-blocks' ) );
+			return new WP_Error( 'author_not_found', __( 'Author not found.', 'author-profile-blocks' ) );
 		}
 
 		// Remove sensitive data if not including meta
 		if ( ! $include_meta ) {
-			unset( $author_data['email'] );
-			unset( $author_data['social'] );
+			unset( $author_data['email'], $author_data['social'] );
 		}
 
 		return $author_data;
@@ -313,11 +310,10 @@ class Abilities_Api {
 	 * Execute the filter-authors ability
 	 *
 	 * @param array $params Input parameters.
+	 *
 	 * @return array Filtered authors list.
 	 */
-	public static function filter_authors_ability( $params ) {
-		$plugin = author_profile_blocks();
-
+	public static function filter_authors_ability( array $params ): array {
 		$roles = array();
 		if ( ! empty( $params['role'] ) ) {
 			$roles = array( $params['role'] );
@@ -328,13 +324,13 @@ class Abilities_Api {
 			$args['capability'] = $params['capability'];
 		}
 
-		$authors = $plugin->get_authors( $roles, $args );
+		$authors = author_profile_blocks()->get_authors( $roles, $args );
 
 		// Filter by has_posts if specified
 		if ( ! empty( $params['has_posts'] ) ) {
 			$authors = array_filter(
 				$authors,
-				function ( $author ) {
+				static function ( $author ) {
 					return count_user_posts( $author['id'], 'post', true ) > 0;
 				}
 			);
@@ -348,15 +344,13 @@ class Abilities_Api {
 
 		// Simplify the output for AI consumption
 		return array_map(
-			function ( $author ) {
-				return array(
-					'id'     => $author['id'],
-					'name'   => $author['title'],
-					'email'  => $author['email'],
-					'role'   => $author['role'],
-					'avatar' => $author['image'],
-				);
-			},
+			static fn( $author ) => array(
+				'id'     => $author['id'],
+				'name'   => $author['title'],
+				'email'  => $author['email'],
+				'role'   => $author['role'],
+				'avatar' => $author['image'],
+			),
 			$authors
 		);
 	}
@@ -365,9 +359,10 @@ class Abilities_Api {
 	 * Execute the render-author-profile ability
 	 *
 	 * @param array $params Input parameters.
+	 *
 	 * @return string HTML output.
 	 */
-	public static function render_author_profile_ability( $params ) {
+	public static function render_author_profile_ability( array $params ): string {
 		$author_id = $params['author_id'];
 
 		// Create mock attributes based on input
@@ -381,7 +376,7 @@ class Abilities_Api {
 		);
 
 		// Use the Author_Profile_Block to render
-		$block = new \AuthorProfileBlocks\Blocks\Author_Profile_Block();
+		$block = new Author_Profile_Block();
 		return $block->render_callback( $attributes, '', null );
 	}
 
@@ -389,28 +384,27 @@ class Abilities_Api {
 	 * Execute the update-author-meta ability
 	 *
 	 * @param array $params Input parameters.
-	 * @return bool Success status.
+	 *
+	 * @return bool|WP_Error Success status.
 	 */
-	public static function update_author_meta_ability( $params ) {
+	public static function update_author_meta_ability( array $params ) {
 		$author_id  = $params['author_id'];
 		$meta_key   = $params['meta_key'];
 		$meta_value = $params['meta_value'];
 
-		$plugin = author_profile_blocks();
-
 		// Validate meta key
 		$allowed_keys = array( 'apbl_author_description', 'apbl_author_position', 'apbl_social_profiles' );
 		if ( ! in_array( $meta_key, $allowed_keys, true ) ) {
-			return new \WP_Error( 'invalid_meta_key', __( 'Invalid metadata key.', 'author-profile-blocks' ) );
+			return new WP_Error( 'invalid_meta_key', __( 'Invalid metadata key.', 'author-profile-blocks' ) );
 		}
 
 		// For social profiles, ensure it's an array
-		if ( $meta_key === 'apbl_social_profiles' && ! is_array( $meta_value ) ) {
-			return new \WP_Error( 'invalid_social_data', __( 'Social profiles must be an array.', 'author-profile-blocks' ) );
+		if ( 'apbl_social_profiles' === $meta_key && ! is_array( $meta_value ) ) {
+			return new WP_Error( 'invalid_social_data', __( 'Social profiles must be an array.', 'author-profile-blocks' ) );
 		}
 
 		// Update the metadata
-		$result = $plugin->get_user_meta_provider()->update_meta( $author_id, $meta_key, $meta_value );
+		$result = author_profile_blocks()->get_user_meta_provider()->update_meta( $author_id, $meta_key, $meta_value );
 
 		return (bool) $result;
 	}

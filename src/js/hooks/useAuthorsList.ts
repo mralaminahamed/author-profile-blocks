@@ -1,12 +1,18 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import { fetchAuthors, fetchAuthorsByIds, Author } from "../services";
+import {
+	fetchAuthors,
+	fetchAuthorsByIds,
+	fetchPluginSettings,
+	Author,
+	PluginSettings,
+} from '../services';
 
 /**
  * Hook return type
@@ -15,6 +21,7 @@ interface UseAuthorsListReturn {
 	authors: Author[];
 	isLoading: boolean;
 	error: string | null;
+	pluginSettings: PluginSettings | null;
 }
 
 /**
@@ -28,12 +35,15 @@ interface UseAuthorsListOptions {
 
 const useAuthorsList = ({
 	authorIds = [],
-	role = "",
+	role = '',
 	maxAuthors = 0,
 }: UseAuthorsListOptions = {}): UseAuthorsListReturn => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [authors, setAuthors] = useState<Author[]>([]);
-	const [error, setError] = useState<string | null>(null);
+	const [ isLoading, setIsLoading ] = useState(false);
+	const [ authors, setAuthors ] = useState<Author[]>([]);
+	const [ error, setError ] = useState<string | null>(null);
+	const [ pluginSettings, setPluginSettings ] = useState<PluginSettings | null>(
+		null,
+	);
 
 	useEffect(() => {
 		const loadAuthors = async () => {
@@ -41,6 +51,10 @@ const useAuthorsList = ({
 			setError(null);
 
 			try {
+				// Fetch plugin settings first
+				const settings = await fetchPluginSettings();
+				setPluginSettings(settings);
+
 				let authorsData = [];
 
 				if (authorIds.length > 0) {
@@ -52,9 +66,9 @@ const useAuthorsList = ({
 						{};
 					if (role) {
 						fetchOptions.roles = role;
-					}
-					if (maxAuthors > 0) {
-						fetchOptions.perPage = maxAuthors;
+					} else {
+						// Use configured roles from settings if no specific role provided
+						fetchOptions.roles = settings.author_roles.join(',');
 					}
 					if (maxAuthors > 0) {
 						fetchOptions.perPage = maxAuthors;
@@ -70,20 +84,21 @@ const useAuthorsList = ({
 
 				setAuthors(authorsData);
 			} catch (err) {
-				setError(err.message || "Failed to load authors");
-				console.error("Error loading authors:", err);
+				setError(err.message || 'Failed to load authors');
+				console.error('Error loading authors:', err);
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
 		void loadAuthors();
-	}, [authorIds.join(","), role, maxAuthors]); // Dependencies
+	}, [ authorIds.join(','), role, maxAuthors ]); // Dependencies
 
 	return {
 		authors,
 		isLoading,
 		error,
+		pluginSettings,
 	};
 };
 

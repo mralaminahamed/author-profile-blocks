@@ -43,6 +43,7 @@
     "@types/lodash": "^4",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/wordpress__block-editor": "^14.21.2",
     "@types/wordpress__blocks": "^12.5.18",
     "@types/wordpress__element": "^2.14.1",
     "@typescript-eslint/eslint-plugin": "^8.46.3",

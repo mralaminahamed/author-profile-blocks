@@ -11,8 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$apbl_options        = get_option( 'author_profile_blocks_settings', array() );
-$apbl_selected_roles = $apbl_options['author_roles'] ?? array( 'administrator', 'editor', 'author' );
+$apbl_selected_roles = author_profile_blocks()->settings->get_enabled_author_roles();
 
 $apbl_roles = wp_roles()->roles;
 ?>

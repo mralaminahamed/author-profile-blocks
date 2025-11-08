@@ -11,8 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$apbl_options            = get_option( 'author_profile_blocks_settings', array() );
-$apbl_selected_platforms = $apbl_options['social_platforms'] ?? array( 'facebook', 'twitter', 'linkedin', 'instagram' );
+$apbl_selected_platforms = author_profile_blocks()->settings->get_enabled_social_platforms();
 
 $apbl_platforms = array(
 	'facebook'  => __( 'Facebook', 'author-profile-blocks' ),

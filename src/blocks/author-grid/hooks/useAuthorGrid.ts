@@ -1,12 +1,17 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import { fetchAuthors, Author } from "../../../js/services";
+import {
+	fetchAuthors,
+	fetchPluginSettings,
+	Author,
+	PluginSettings,
+} from '../../../js/services';
 
 /**
  * Hook return type
@@ -17,6 +22,7 @@ interface UseAuthorGridReturn {
 	setSelectedAuthorIds: (ids: number[]) => void;
 	getSelectedAuthors: () => Author[];
 	isLoading: boolean;
+	pluginSettings: PluginSettings | null;
 }
 
 /**
@@ -28,26 +34,35 @@ interface UseAuthorGridReturn {
 const useAuthorGrid = (
 	initialAuthorIds: number[] = [],
 ): UseAuthorGridReturn => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [authors, setAuthors] = useState<Author[]>([]);
-	const [selectedAuthorIds, setSelectedAuthorIds] =
+	const [ isLoading, setIsLoading ] = useState(false);
+	const [ authors, setAuthors ] = useState<Author[]>([]);
+	const [ selectedAuthorIds, setSelectedAuthorIds ] =
 		useState(initialAuthorIds);
+	const [ pluginSettings, setPluginSettings ] = useState<PluginSettings | null>(
+		null,
+	);
 
-	// Load all authors on mount
+	// Load plugin settings and authors on mount
 	useEffect(() => {
-		const loadAuthors = async () => {
+		const loadData = async () => {
 			setIsLoading(true);
 			try {
-				const authorsData = await fetchAuthors();
+				// Fetch plugin settings first
+				const settings = await fetchPluginSettings();
+				setPluginSettings(settings);
+
+				// Fetch authors using the configured roles from settings
+				const roles = settings.author_roles.join(',');
+				const authorsData = await fetchAuthors({ roles });
 				setAuthors(authorsData);
 			} catch (error) {
-				console.error("Error fetching authors:", error);
+				console.error('Error fetching data:', error);
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
-		loadAuthors();
+		loadData();
 	}, []);
 
 	// Update selected authors when initialAuthorIds changes
@@ -55,7 +70,7 @@ const useAuthorGrid = (
 		if (initialAuthorIds?.length) {
 			setSelectedAuthorIds(initialAuthorIds);
 		}
-	}, [initialAuthorIds]);
+	}, [ initialAuthorIds ]);
 
 	// Get selected authors data
 	const getSelectedAuthors = () => {
@@ -70,6 +85,7 @@ const useAuthorGrid = (
 		setSelectedAuthorIds,
 		getSelectedAuthors,
 		isLoading,
+		pluginSettings,
 	};
 };
 

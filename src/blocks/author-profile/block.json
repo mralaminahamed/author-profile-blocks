@@ -24,6 +24,10 @@
       "type": "boolean",
       "default": true
     },
+    "showPosition": {
+      "type": "boolean",
+      "default": true
+    },
     "showRegisteredDate": {
       "type": "boolean",
       "default": true

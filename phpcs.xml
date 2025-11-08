@@ -24,17 +24,14 @@
 
     <!-- WordPress standards -->
     <rule ref="WordPress">
-        <!-- Customize rules as needed -->
+        <exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
+        <exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_value"/>
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-        <!-- Allow camelCase for JS interop and modern patterns -->
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
-        <!-- Allow inline comments without punctuation -->
         <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
-        <!-- Allow parameter comments without full stops -->
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
-        <!-- Allow Yoda conditions flexibility for readability -->
-        <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
     </rule>
 
     <!-- Security specific rules -->
@@ -89,5 +86,9 @@
 
     <rule ref="WordPress.PHP.DevelopmentFunctions">
         <exclude-pattern>*/includes/Common/*</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed">
+        <exclude-pattern>*/includes/Supports/*</exclude-pattern>
     </rule>
 </ruleset>

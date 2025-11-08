@@ -1,12 +1,17 @@
 /**
  * WordPress dependencies
  */
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import { fetchAuthors, Author } from "../services/api";
+import {
+	fetchAuthors,
+	fetchPluginSettings,
+	Author,
+	PluginSettings,
+} from '../services/api';
 
 /**
  * Hook return type
@@ -16,6 +21,7 @@ interface UseAuthorsReturn {
 	selectedAuthor: Author | null;
 	setSelectedAuthor: (author: Author | null) => void;
 	isLoading: boolean;
+	pluginSettings: PluginSettings | null;
 }
 
 /**
@@ -25,16 +31,25 @@ interface UseAuthorsReturn {
  * @return {UseAuthorsReturn} Authors data and functions
  */
 const useAuthors = (initialAuthorId = 0): UseAuthorsReturn => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [authors, setAuthors] = useState<Author[]>([]);
-	const [selectedAuthor, setSelectedAuthor] = useState<Author | null>(null);
+	const [ isLoading, setIsLoading ] = useState(false);
+	const [ authors, setAuthors ] = useState<Author[]>([]);
+	const [ selectedAuthor, setSelectedAuthor ] = useState<Author | null>(null);
+	const [ pluginSettings, setPluginSettings ] = useState<PluginSettings | null>(
+		null,
+	);
 
-	// Load all authors on mount
+	// Load plugin settings and authors on mount
 	useEffect(() => {
-		const loadAuthors = async () => {
+		const loadData = async () => {
 			setIsLoading(true);
 			try {
-				const authorsData = await fetchAuthors();
+				// Fetch plugin settings first
+				const settings = await fetchPluginSettings();
+				setPluginSettings(settings);
+
+				// Fetch authors using the configured roles from settings
+				const roles = settings.author_roles.join(',');
+				const authorsData = await fetchAuthors({ roles });
 				setAuthors(authorsData);
 
 				// Find selected author if we have an initialAuthorId
@@ -49,14 +64,15 @@ const useAuthors = (initialAuthorId = 0): UseAuthorsReturn => {
 			}
 		};
 
-		void loadAuthors();
-	}, [initialAuthorId]);
+		void loadData();
+	}, [ initialAuthorId ]);
 
 	return {
 		authors,
 		selectedAuthor,
 		setSelectedAuthor,
 		isLoading,
+		pluginSettings,
 	};
 };
 

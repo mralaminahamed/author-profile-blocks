@@ -17,7 +17,7 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 ### Key Directories
 
 - `includes/`: PSR-4 autoloaded PHP classes
-    - `Admin/`: Admin interface classes (Admin, Plugin_Links)
+    - `Admin/`: Admin interface classes (admin, plugin-links)
     - `Blocks/`: Gutenberg block classes (Author_Profile_Block, Author_Grid_Block, etc.)
     - `Core/`: Core functionality (Meta_Data_Provider, User_Meta_Provider, Registerable)
     - `Services/`: Service layer classes (Author_Profile_Service)

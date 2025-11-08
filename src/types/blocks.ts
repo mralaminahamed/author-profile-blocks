@@ -200,6 +200,7 @@ export interface AuthorProfileAttributes {
 	showImage: boolean;
 	showEmail: boolean;
 	showDescription: boolean;
+	showPosition: boolean;
 	showRegisteredDate: boolean;
 	showMoreContent: boolean;
 	moreContent: string;

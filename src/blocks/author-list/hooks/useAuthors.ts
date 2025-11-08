@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { useAuthorsList } from "../../../js/hooks";
+import { useAuthorsList } from '../../../js/hooks';
 
 /**
  * Custom hook wrapper to fetch and manage authors data.
@@ -13,7 +13,7 @@ import { useAuthorsList } from "../../../js/hooks";
  */
 export default function useAuthors(
 	authorIds: number[],
-	role = "",
+	role = '',
 	maxAuthors = 0,
 ) {
 	return useAuthorsList({

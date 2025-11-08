@@ -32,13 +32,10 @@ class FakerPress {
 		}
 
 		// Hook into FakerPress to register our custom meta types.
-		add_filter( 'fakerpress/fields/meta_types', array( self::class, 'register_fakerpress_meta_types' ) );
+		add_filter( 'fakerpress/fields/meta_types', array( self::class, 'register_meta_types' ) );
 
 		// Hook into user generation to set default values for our meta fields.
-		add_action( 'fakerpress.module.user.before_save', array( self::class, 'set_fakerpress_user_defaults' ), 10, 2 );
-
-		// Hook into meta value generation for our specific fields.
-		add_filter( 'fakerpress.module.meta.value', array( self::class, 'generate_fakerpress_meta_value' ), 10, 4 );
+		add_action( 'fakerpress.module.user.before_save', array( self::class, 'set_user_defaults' ), 10, 2 );
 
 		// Hook into specific meta key filters for more targeted generation.
 		add_filter( 'fakerpress.module.meta.apbl_author_description.value', array( self::class, 'generate_author_description_value' ), 10, 3 );
@@ -54,7 +51,7 @@ class FakerPress {
 	 *
 	 * @return mixed Modified meta types.
 	 */
-	public static function register_fakerpress_meta_types( $meta_types ) {
+	public static function register_meta_types( $meta_types ) {
 		$meta_types->apbl_author_description = (object) array(
 			'value'       => '',
 			'text'        => __( 'Author Description', 'author-profile-blocks' ),
@@ -95,7 +92,7 @@ class FakerPress {
 	 *
 	 * @return void
 	 */
-	public static function set_fakerpress_user_defaults( WP_User $user, array $_user_data ): void {
+	public static function set_user_defaults( WP_User $user, array $_user_data ): void {
 		// Set default member since label if not already set.
 		if ( ! metadata_exists( 'user', $user->ID, 'apbl_member_since_label' ) ) {
 			update_user_meta( $user->ID, 'apbl_member_since_label', __( 'Member since', 'author-profile-blocks' ) );
@@ -118,55 +115,15 @@ class FakerPress {
 	}
 
 	/**
-	 * Generate appropriate values for Author Profile Blocks meta fields.
-	 *
-	 * @param mixed  $value       The current meta value.
-	 * @param string $meta_key    The meta key.
-	 * @param string $_field_type  The field type.
-	 * @param object $_module     The FakerPress module object.
-	 *
-	 * @return mixed The generated meta value.
-	 */
-	public static function generate_fakerpress_meta_value( $value, string $meta_key, string $_field_type, object $_module ) {
-		switch ( $meta_key ) {
-			case 'apbl_author_description':
-				if ( empty( $value ) ) {
-					$value = self::generate_author_description();
-				}
-				break;
-
-			case 'apbl_author_position':
-				if ( empty( $value ) ) {
-					$value = self::generate_author_position();
-				}
-				break;
-
-			case 'apbl_social_profiles':
-				if ( empty( $value ) || ! is_array( $value ) ) {
-					$value = self::generate_social_profiles();
-				}
-				break;
-
-			case 'apbl_member_since_label':
-				if ( empty( $value ) ) {
-					$value = self::generate_member_since_label();
-				}
-				break;
-		}
-
-		return $value;
-	}
-
-	/**
 	 * Generate value for apbl_author_description meta key.
 	 *
-	 * @param mixed  $value The current meta value.
-	 * @param string $type  The field type.
-	 * @param object $module The FakerPress module object.
+	 * @param mixed  $value  The current meta value.
+	 * @param string $_type  The field type.
+	 * @param object $_module The FakerPress module object.
 	 *
 	 * @return string The generated author description.
 	 */
-	public static function generate_author_description_value( $value, string $type, object $module ) {
+	public static function generate_author_description_value( $value, string $_type, object $_module ): string {
 		if ( empty( $value ) ) {
 			return self::generate_author_description();
 		}
@@ -176,13 +133,13 @@ class FakerPress {
 	/**
 	 * Generate value for apbl_author_position meta key.
 	 *
-	 * @param mixed  $value The current meta value.
-	 * @param string $type  The field type.
-	 * @param object $module The FakerPress module object.
+	 * @param mixed  $value  The current meta value.
+	 * @param string $_type  The field type.
+	 * @param object $_module The FakerPress module object.
 	 *
 	 * @return string The generated author position.
 	 */
-	public static function generate_author_position_value( $value, string $type, object $module ) {
+	public static function generate_author_position_value( $value, string $_type, object $_module ): string {
 		if ( empty( $value ) ) {
 			return self::generate_author_position();
 		}
@@ -192,13 +149,13 @@ class FakerPress {
 	/**
 	 * Generate value for apbl_social_profiles meta key.
 	 *
-	 * @param mixed  $value The current meta value.
-	 * @param string $type  The field type.
-	 * @param object $module The FakerPress module object.
+	 * @param mixed  $value  The current meta value.
+	 * @param string $_type  The field type.
+	 * @param object $_module The FakerPress module object.
 	 *
 	 * @return array The generated social profiles.
 	 */
-	public static function generate_social_profiles_value( $value, string $type, object $module ) {
+	public static function generate_social_profiles_value( $value, string $_type, object $_module ): array {
 		if ( empty( $value ) || ! is_array( $value ) ) {
 			return self::generate_social_profiles();
 		}
@@ -208,13 +165,13 @@ class FakerPress {
 	/**
 	 * Generate value for apbl_member_since_label meta key.
 	 *
-	 * @param mixed  $value The current meta value.
-	 * @param string $type  The field type.
-	 * @param object $module The FakerPress module object.
+	 * @param mixed  $value  The current meta value.
+	 * @param string $_type  The field type.
+	 * @param object $_module The FakerPress module object.
 	 *
 	 * @return string The generated member since label.
 	 */
-	public static function generate_member_since_label_value( $value, string $type, object $module ) {
+	public static function generate_member_since_label_value( $value, string $_type, object $_module ): string {
 		if ( empty( $value ) ) {
 			return self::generate_member_since_label();
 		}

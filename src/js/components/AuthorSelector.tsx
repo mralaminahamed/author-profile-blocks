@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from "@wordpress/i18n";
 import {
 	Placeholder,
 	Spinner,
@@ -18,9 +18,9 @@ import {
 	FlexItem,
 	Dashicon,
 	Tooltip,
-} from '@wordpress/components';
-import { useState, useEffect } from '@wordpress/element';
-import { search, people, plusCircle, info } from '@wordpress/icons';
+} from "@wordpress/components";
+import { useState, useEffect } from "@wordpress/element";
+import { search, people, plusCircle, info } from "@wordpress/icons";
 
 /**
  * AuthorSelector component for selecting an author from a dropdown with search
@@ -35,89 +35,108 @@ import { search, people, plusCircle, info } from '@wordpress/icons';
  * @param {boolean}        props.showAddAuthorButton Whether to show the "Add New User" button
  * @return {JSX.Element} Component to render
  */
-const AuthorSelector = ( {
+const AuthorSelector = ({
 	authors = [],
 	onSelectAuthor,
 	isLoading = false,
-	title = __( 'Author Selection', 'author-profile-blocks' ),
-	instructions = __( 'Select an author to display in your content.', 'author-profile-blocks' ),
+	title = __("Author Selection", "author-profile-blocks"),
+	instructions = __(
+		"Select an author to display in your content.",
+		"author-profile-blocks",
+	),
 	placeholderIcon = people,
 	showAddAuthorButton = true,
-} ) => {
-	const [ selectedAuthorId, setSelectedAuthorId ] = useState( '' );
-	const [ searchTerm, setSearchTerm ] = useState( '' );
-	const [ authorCount, setAuthorCount ] = useState( 0 );
+}) => {
+	const [selectedAuthorId, setSelectedAuthorId] = useState("");
+	const [searchTerm, setSearchTerm] = useState("");
+	const [authorCount, setAuthorCount] = useState(0);
 
 	// Update author count when authors array changes
-	useEffect( () => {
-		setAuthorCount( authors.length );
-	}, [ authors ] );
+	useEffect(() => {
+		setAuthorCount(authors.length);
+	}, [authors]);
 
 	// Filter authors based on search term
-	const filteredAuthors = authors.filter( ( author ) =>
-		author.name.toLowerCase().includes( searchTerm.toLowerCase() ),
+	const filteredAuthors = authors.filter((author) =>
+		(author.name || author.title || "")
+			.toLowerCase()
+			.includes(searchTerm.toLowerCase()),
 	);
 
 	// Prepare options for select control
 	const authorOptions = [
-		{ label: __( 'Select an author…', 'author-profile-blocks' ), value: '' },
-		...filteredAuthors.map( ( author ) => ( {
-			label: author.name,
+		{ label: __("Select an author…", "author-profile-blocks"), value: "" },
+		...filteredAuthors.map((author) => ({
+			label: author.name || author.title || `User ${author.id}`,
 			value: author.id.toString(),
-		} ) ),
+		})),
 	];
 
 	// Handle selection change
-	const handleAuthorChange = ( authorId ) => {
-		setSelectedAuthorId( authorId );
+	const handleAuthorChange = (authorId) => {
+		setSelectedAuthorId(authorId);
 
-		if ( authorId ) {
-			const selectedAuthor = authors.find( ( author ) => author.id.toString() === authorId );
-			if ( selectedAuthor ) {
-				onSelectAuthor( selectedAuthor );
+		if (authorId) {
+			const selectedAuthor = authors.find(
+				(author) => author.id.toString() === authorId,
+			);
+			if (selectedAuthor) {
+				onSelectAuthor(selectedAuthor);
 			}
 		}
 	};
 
 	// Handle search input change
-	const handleSearchChange = ( value ) => {
-		setSearchTerm( value );
+	const handleSearchChange = (value) => {
+		setSearchTerm(value);
 	};
 
 	// Reset search term
 	const clearSearch = () => {
-		setSearchTerm( '' );
+		setSearchTerm("");
 	};
 
 	return (
 		<div className="apbl-author-selector-wrapper">
 			<Placeholder
-				icon={ <Icon icon={ placeholderIcon } className="apbl-author-icon" /> }
-				label={ title }
-				instructions={ instructions }
+				icon={
+					<Icon icon={placeholderIcon} className="apbl-author-icon" />
+				}
+				label={title}
+				instructions={instructions}
 				className="apbl-author-selector"
-				isColumnLayout={ true }
+				isColumnLayout={true}
 			>
-				{ isLoading ? (
+				{isLoading ? (
 					<div className="apbl-loading-container">
 						<Spinner />
-						<p>{ __( 'Loading authors…', 'author-profile-blocks' ) }</p>
+						<p>{__("Loading authors…", "author-profile-blocks")}</p>
 					</div>
 				) : authors.length > 0 ? (
-					<Card className="apbl-author-card" elevation={ 2 }>
+					<Card className="apbl-author-card" elevation={2}>
 						<CardHeader className="apbl-card-header">
 							<Flex justify="space-between" align="center">
 								<FlexItem>
-									<Flex align="center" gap={ 2 }>
-										<Icon icon={ people } size={ 24 } />
-										<h4>{ __( 'Author Selection', 'author-profile-blocks' ) }</h4>
+									<Flex align="center" gap={2}>
+										<Icon icon={people} size={24} />
+										<h4>
+											{__(
+												"Author Selection",
+												"author-profile-blocks",
+											)}
+										</h4>
 									</Flex>
 								</FlexItem>
 								<FlexItem>
 									<div className="apbl-author-count">
-										<span>{ authorCount }</span>
-										<Tooltip text={ __( 'Total number of available authors', 'author-profile-blocks' ) }>
-											<Icon icon={ info } size={ 16 } />
+										<span>{authorCount}</span>
+										<Tooltip
+											text={__(
+												"Total number of available authors",
+												"author-profile-blocks",
+											)}
+										>
+											<Icon icon={info} size={16} />
 										</Tooltip>
 									</div>
 								</FlexItem>
@@ -126,105 +145,145 @@ const AuthorSelector = ( {
 
 						<CardBody>
 							<div className="apbl-search-field">
-								<Icon icon={ search } className="apbl-search-icon" />
+								<Icon
+									icon={search}
+									className="apbl-search-icon"
+								/>
 								<TextControl
-									value={ searchTerm }
-									onChange={ handleSearchChange }
-									placeholder={ __( 'Search authors…', 'author-profile-blocks' ) }
+									value={searchTerm}
+									onChange={handleSearchChange}
+									placeholder={__(
+										"Search authors…",
+										"author-profile-blocks",
+									)}
 									className="apbl-author-search"
 								/>
-								{ searchTerm && (
+								{searchTerm && (
 									<Button
 										className="apbl-clear-search"
 										isSmall
 										isSecondary
-										onClick={ clearSearch }
-										aria-label={ __( 'Clear search', 'author-profile-blocks' ) }
+										onClick={clearSearch}
+										aria-label={__(
+											"Clear search",
+											"author-profile-blocks",
+										)}
 									>
 										<Dashicon icon="no-alt" />
 									</Button>
-								) }
+								)}
 							</div>
 
 							<div className="apbl-select-field">
 								<SelectControl
-									label={ __( 'Select Author', 'author-profile-blocks' ) }
-									value={ selectedAuthorId }
-									options={ authorOptions }
-									onChange={ handleAuthorChange }
+									label={__(
+										"Select Author",
+										"author-profile-blocks",
+									)}
+									value={selectedAuthorId}
+									options={authorOptions}
+									onChange={handleAuthorChange}
 									className="apbl-author-select"
 									__nextHasNoMarginBottom
 								/>
 							</div>
 
-							{ filteredAuthors.length === 0 && searchTerm !== '' ? (
+							{filteredAuthors.length === 0 &&
+							searchTerm !== "" ? (
 								<Notice
 									className="apbl-notice"
 									status="warning"
-									isDismissible={ false }
+									isDismissible={false}
 								>
-									{ __( 'No authors match your search criteria.', 'author-profile-blocks' ) }
+									{__(
+										"No authors match your search criteria.",
+										"author-profile-blocks",
+									)}
 								</Notice>
 							) : (
-								filteredAuthors.length < authors.length && searchTerm !== '' && (
+								filteredAuthors.length < authors.length &&
+								searchTerm !== "" && (
 									<div className="apbl-filter-info">
-										<Icon icon={ info } size={ 16 } />
+										<Icon icon={info} size={16} />
 										<span>
-											{ sprintf(
+											{sprintf(
 												/* translators: %1$d: filtered authors count, %2$d: total authors count */
-												__( 'Showing %1$d of %2$d authors', 'author-profile-blocks' ),
+												__(
+													"Showing %1$d of %2$d authors",
+													"author-profile-blocks",
+												),
 												filteredAuthors.length,
 												authors.length,
-											) }
+											)}
 										</span>
 									</div>
 								)
-							) }
+							)}
 						</CardBody>
 
 						<CardFooter className="apbl-card-footer">
 							<Flex justify="space-between" align="center">
 								<FlexItem>
-									{ selectedAuthorId && (
+									{selectedAuthorId && (
 										<Button
 											variant="tertiary"
-											onClick={ () => {
-												setSelectedAuthorId( '' );
-												setSearchTerm( '' );
-											} }
+											onClick={() => {
+												setSelectedAuthorId("");
+												setSearchTerm("");
+											}}
 											className="apbl-reset-btn"
 										>
-											{ __( 'Reset', 'author-profile-blocks' ) }
+											{__(
+												"Reset",
+												"author-profile-blocks",
+											)}
 										</Button>
-									) }
+									)}
 								</FlexItem>
 							</Flex>
 						</CardFooter>
 					</Card>
 				) : (
 					<div className="apbl-no-results">
-						<Card className="apbl-empty-state-card" elevation={ 2 }>
+						<Card className="apbl-empty-state-card" elevation={2}>
 							<CardBody>
 								<div className="apbl-empty-state">
-									<Icon icon={ people } size={ 48 } className="apbl-empty-icon" />
-									<h3>{ __( 'No Users Found', 'author-profile-blocks' ) }</h3>
-									<p>{ __( 'You need to create users with appropriate roles before you can use this block.', 'author-profile-blocks' ) }</p>
-									{ showAddAuthorButton && (
+									<Icon
+										icon={people}
+										size={48}
+										className="apbl-empty-icon"
+									/>
+									<h3>
+										{__(
+											"No Users Found",
+											"author-profile-blocks",
+										)}
+									</h3>
+									<p>
+										{__(
+											"You need to create users with appropriate roles before you can use this block.",
+											"author-profile-blocks",
+										)}
+									</p>
+									{showAddAuthorButton && (
 										<Button
 											variant="primary"
-											href={ `${ window.AuthorProfileBlocks?.adminUrl || '/wp-admin/' }user-new.php` }
+											href={`${window.AuthorProfileBlocks?.adminUrl || "/wp-admin/"}user-new.php`}
 											target="_blank"
 											className="apbl-create-author-btn"
-											icon={ plusCircle }
+											icon={plusCircle}
 										>
-											{ __( 'Create New User', 'author-profile-blocks' ) }
+											{__(
+												"Create New User",
+												"author-profile-blocks",
+											)}
 										</Button>
-									) }
+									)}
 								</div>
 							</CardBody>
 						</Card>
 					</div>
-				) }
+				)}
 			</Placeholder>
 		</div>
 	);

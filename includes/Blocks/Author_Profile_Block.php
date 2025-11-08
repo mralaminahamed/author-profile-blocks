@@ -1,4 +1,4 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+<?php
 
 /**
  * Author Profile Block class
@@ -103,10 +103,18 @@ class Author_Profile_Block extends Author_Block_Base {
 		// Pre-render content for template
 		$author_image       = $this->render_author_image( $author_data );
 		$author_name        = $this->render_author_name( $author_data );
-		$author_position    = $this->render_author_position( $author_data );
-		$author_email       = $this->render_author_email( $author_data );
-		$registered_date    = $this->render_registered_date( $author_data );
-		$author_description = $this->render_author_description( $author_data );
+		$author_position    = ( ! empty( $attributes['showPosition'] ) && ! empty( $author_data['position'] ) )
+			? $this->render_author_position( $author_data )
+			: '';
+		$author_email       = ( ! empty( $attributes['showEmail'] ) && ! empty( $author_data['email'] ) )
+			? $this->render_author_email( $author_data )
+			: '';
+		$registered_date    = ( ! empty( $attributes['showRegisteredDate'] ) && ! empty( $author_data['registered_date'] ) )
+			? $this->render_registered_date( $author_data )
+			: '';
+		$author_description = ( ! empty( $attributes['showDescription'] ) && ! empty( $author_data['description'] ) )
+			? $this->render_author_description( $author_data )
+			: '';
 		$social_links       = ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
 			? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
 			: '';

@@ -1,5 +1,4 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
-
+<?php
 /**
  * Author Block Base
  *
@@ -421,12 +420,12 @@ abstract class Author_Block_Base implements Registerable {
 		}
 
 		// Add animation classes
-		if ( ! empty( $attributes['animationType'] ) && $attributes['animationType'] !== 'none' ) {
+		if ( ! empty( $attributes['animationType'] ) && 'none' !== $attributes['animationType'] ) {
 			$classes[] = 'has-' . $attributes['animationType'] . '-animation';
 		}
 
 		// Add hover effect class
-		if ( ! empty( $attributes['hoverEffect'] ) && $attributes['hoverEffect'] !== 'none' ) {
+		if ( ! empty( $attributes['hoverEffect'] ) && 'none' !== $attributes['hoverEffect'] ) {
 			$classes[] = 'has-' . $attributes['hoverEffect'] . '-hover';
 		}
 
@@ -585,24 +584,24 @@ abstract class Author_Block_Base implements Registerable {
 		}
 
 		// Transform properties
-		if ( isset( $attributes['transformScale'] ) && $attributes['transformScale'] !== 1 ) {
+		if ( isset( $attributes['transformScale'] ) && 1 !== $attributes['transformScale'] ) {
 			$styles['--author-transform-scale'] = $attributes['transformScale'];
 		}
 
-		if ( isset( $attributes['transformRotate'] ) && $attributes['transformRotate'] !== 0 ) {
+		if ( isset( $attributes['transformRotate'] ) && 0 !== $attributes['transformRotate'] ) {
 			$styles['--author-transform-rotate'] = $attributes['transformRotate'] . 'deg';
 		}
 
 		// Filter properties
-		if ( isset( $attributes['filterBrightness'] ) && $attributes['filterBrightness'] !== 100 ) {
+		if ( isset( $attributes['filterBrightness'] ) && 100 !== $attributes['filterBrightness'] ) {
 			$styles['--author-filter-brightness'] = $attributes['filterBrightness'] . '%';
 		}
 
-		if ( isset( $attributes['filterContrast'] ) && $attributes['filterContrast'] !== 100 ) {
+		if ( isset( $attributes['filterContrast'] ) && 100 !== $attributes['filterContrast'] ) {
 			$styles['--author-filter-contrast'] = $attributes['filterContrast'] . '%';
 		}
 
-		if ( isset( $attributes['filterSaturate'] ) && $attributes['filterSaturate'] !== 100 ) {
+		if ( isset( $attributes['filterSaturate'] ) && 100 !== $attributes['filterSaturate'] ) {
 			$styles['--author-filter-saturate'] = $attributes['filterSaturate'] . '%';
 		}
 
@@ -637,7 +636,7 @@ abstract class Author_Block_Base implements Registerable {
 			$styles['--author-avatar-border-color'] = $attributes['avatarBorderColor'];
 		}
 
-		if ( ! empty( $attributes['avatarShape'] ) && $attributes['avatarShape'] === 'custom' && isset( $attributes['avatarBorderRadius'] ) ) {
+		if ( ! empty( $attributes['avatarShape'] ) && 'custom' === $attributes['avatarShape'] && isset( $attributes['avatarBorderRadius'] ) ) {
 			$styles['--author-avatar-border-radius'] = $attributes['avatarBorderRadius'] . 'px';
 		}
 
@@ -829,12 +828,12 @@ abstract class Author_Block_Base implements Registerable {
 		}
 
 		// Transform scale
-		if ( isset( $attributes['transformScale'] ) && $attributes['transformScale'] !== 1 ) {
+		if ( isset( $attributes['transformScale'] ) && 1 !== $attributes['transformScale'] ) {
 			$styles['transform'] = 'scale(' . $attributes['transformScale'] . ')';
 		}
 
 		// Transform rotate
-		if ( isset( $attributes['transformRotate'] ) && $attributes['transformRotate'] !== 0 ) {
+		if ( isset( $attributes['transformRotate'] ) && 0 !== $attributes['transformRotate'] ) {
 			$current_transform   = $styles['transform'] ?? '';
 			$rotate_transform    = 'rotate(' . $attributes['transformRotate'] . 'deg)';
 			$styles['transform'] = $current_transform ? $current_transform . ' ' . $rotate_transform : $rotate_transform;
@@ -842,13 +841,13 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Filter properties
 		$filters = array();
-		if ( isset( $attributes['filterBrightness'] ) && $attributes['filterBrightness'] !== 100 ) {
+		if ( isset( $attributes['filterBrightness'] ) && 100 !== $attributes['filterBrightness'] ) {
 			$filters[] = 'brightness(' . $attributes['filterBrightness'] . '%)';
 		}
-		if ( isset( $attributes['filterContrast'] ) && $attributes['filterContrast'] !== 100 ) {
+		if ( isset( $attributes['filterContrast'] ) && 100 !== $attributes['filterContrast'] ) {
 			$filters[] = 'contrast(' . $attributes['filterContrast'] . '%)';
 		}
-		if ( isset( $attributes['filterSaturate'] ) && $attributes['filterSaturate'] !== 100 ) {
+		if ( isset( $attributes['filterSaturate'] ) && 100 !== $attributes['filterSaturate'] ) {
 			$filters[] = 'saturate(' . $attributes['filterSaturate'] . '%)';
 		}
 		if ( ! empty( $filters ) ) {
@@ -923,7 +922,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -967,7 +966,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1011,7 +1010,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1046,7 +1045,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1079,7 +1078,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1117,7 +1116,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1153,7 +1152,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1189,7 +1188,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1225,7 +1224,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1261,7 +1260,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1282,6 +1281,17 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_social_profiles( array $profiles, string $wrapper_class = '', array $show_profiles = array() ): string {
+		// Get plugin settings to filter social platforms
+		$enabled_platforms = author_profile_blocks()->settings->get_enabled_social_platforms();
+
+		// If no specific profiles are requested, use enabled platforms from settings
+		if ( empty( $show_profiles ) ) {
+			$show_profiles = $enabled_platforms;
+		} else {
+			// If specific profiles are requested, filter them by enabled platforms
+			$show_profiles = array_intersect( $show_profiles, $enabled_platforms );
+		}
+
 		// Prepare template variables.
 		$template_vars = array(
 			'social_profiles'  => $profiles,
@@ -1297,7 +1307,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1333,7 +1343,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**
@@ -1374,7 +1384,7 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Return the buffered content.
 		$content = ob_get_clean();
-		return $content !== false ? $content : '';
+		return false !== $content ? $content : '';
 	}
 
 	/**

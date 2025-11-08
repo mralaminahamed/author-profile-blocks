@@ -1,5 +1,4 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
-
+<?php
 /**
  * Author Profile Service class
  *
@@ -155,8 +154,6 @@ class Author_Profile_Service {
 		do_action( 'author_profile_blocks_register_rest_fields', $this );
 	}
 
-
-
 	/**
 	 * Get user avatar URL for REST API.
 	 *
@@ -166,7 +163,7 @@ class Author_Profile_Service {
 	 */
 	public function get_avatar_url( array $user ): string {
 		$url = get_avatar_url( $user['id'], array( 'size' => 150 ) );
-		return $url !== false ? $url : '';
+		return false !== $url ? $url : '';
 	}
 
 	/**
@@ -318,6 +315,9 @@ class Author_Profile_Service {
 		// Get registration date.
 		$registered_date = date_i18n( get_option( 'date_format' ), strtotime( $user->user_registered ) );
 
+		// Get avatar URL.
+		$image = get_avatar_url( $author_id, array( 'size' => 150 ) );
+
 		$author_data = array(
 			'id'                 => $author_id,
 			'title'              => $user->display_name,
@@ -421,10 +421,6 @@ class Author_Profile_Service {
 		return $authors;
 	}
 
-
-
-
-
 	/**
 	 * Clear the author cache when a user is updated.
 	 *
@@ -443,11 +439,7 @@ class Author_Profile_Service {
 	 * @return int Cache duration in seconds.
 	 */
 	private function get_cache_duration(): int {
-		$settings       = get_option( 'author_profile_blocks_settings', array() );
-		$duration_hours = $settings['cache_duration'] ?? 24;
-
-		// Convert hours to seconds.
-		return $duration_hours * HOUR_IN_SECONDS;
+		return author_profile_blocks()->settings->get_cache_duration_seconds();
 	}
 
 	/**

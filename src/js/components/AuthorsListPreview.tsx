@@ -127,7 +127,7 @@ const AuthorsListPreview = ({
 											url && (
 												<a
 													key={ network }
-													href={ url as string }
+													href={ url }
 													className={ `apbl-social-${ network }` }
 													target="_blank"
 													rel="noopener noreferrer"
@@ -196,7 +196,7 @@ const AuthorsListPreview = ({
 												([ network, url ]) => (
 													<a
 														key={ network }
-														href={ url as string }
+														href={ url }
 														target="_blank"
 														rel="noopener noreferrer"
 														className={ `apbl-social-link apbl-social-${ network }` }
