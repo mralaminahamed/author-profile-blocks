@@ -7,9 +7,9 @@
  * @license GPL-3.0-only
  */
 
-use AuthorProfileBlocks\Abilities_Api as AbilitiesApi;
+use AuthorProfileBlocks\Abilities_Api;
 use AuthorProfileBlocks\Admin\Admin;
-use AuthorProfileBlocks\Admin\PluginLinks;
+use AuthorProfileBlocks\Admin\Plugin_Links;
 use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
@@ -95,7 +95,7 @@ class Author_Profile_Blocks {
 	 */
 	private function register_admin(): void {
 		new Admin();
-		new PluginLinks();
+		new Plugin_Links();
 	}
 
 	/**
@@ -255,11 +255,11 @@ class Author_Profile_Blocks {
 		$this->initialize_blocks();
 
 		// Initialize Abilities API.
-		AbilitiesApi::init();
+        Abilities_Api::init();
 
 		// Initialize admin components.
 		if ( is_admin() ) {
-			new PluginLinks();
+			new Plugin_Links();
 			new Admin();
 		}
 

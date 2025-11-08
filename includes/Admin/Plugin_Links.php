@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Adds settings links to the plugin listing page and provides
  * documentation and GitHub links in the plugin row meta.
  */
-class PluginLinks {
+class Plugin_Links {
 
 	/**
 	 * Constructor.

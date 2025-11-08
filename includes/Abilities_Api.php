@@ -7,8 +7,6 @@
 
 namespace AuthorProfileBlocks;
 
-use Author_Profile_Blocks;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
