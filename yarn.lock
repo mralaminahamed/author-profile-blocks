@@ -2587,7 +2587,7 @@ __metadata:
     postcss: "npm:^8.5.6"
     postcss-loader: "npm:^8.2.0"
     prettier: "npm:^3.6.2"
-    react: "npm:^18.2.0"
+    react: "npm:^19.2.0"
     react-dom: "npm:^18.2.0"
     react-router-dom: "npm:^7.9.5"
     sass-loader: "npm:^16.0.6"
@@ -15385,12 +15385,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0, react@npm:^18.3.0":
+"react@npm:^18.3.0":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
   checksum: 10/261137d3f3993eaa2368a83110466fc0e558bc2c7f7ae7ca52d94f03aac945f45146bd85e5f481044db1758a1dbb57879e2fcdd33924e2dde1bdc550ce73f7bf
+  languageName: node
+  linkType: hard
+
+"react@npm:^19.2.0":
+  version: 19.2.0
+  resolution: "react@npm:19.2.0"
+  checksum: 10/e13bcdb8e994c3cfa922743cb75ca8deb60531bf02f584d2d8dab940a8132ce8a2e6ef16f8ed7f372b4072e7a7eeff589b2812dabbedfa73e6e46201dac8a9d0
   languageName: node
   linkType: hard
 
