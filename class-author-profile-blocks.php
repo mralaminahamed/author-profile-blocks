@@ -4,7 +4,7 @@
  * Main Plugin Class
  *
  * @package AuthorProfileBlocks
- * @license GPL-2.0-or-later
+ * @license GPL-3.0-only
  */
 
 use AuthorProfileBlocks\Admin\Admin;

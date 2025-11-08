@@ -5,8 +5,8 @@ Tested up to:      6.8
 Stable tag:        1.1.0
 Requires at least: 6.0
 Requires PHP:      7.4
-License:           GPL-2.0-or-later
-License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+License:           GPL-3.0-only
+License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
 Modern Gutenberg blocks for showcasing WordPress author profiles and team members. Display users in beautiful, customizable layouts without creating duplicate content.
 
@@ -280,7 +280,7 @@ We welcome contributions! Please see our [Contributing Guide](https://github.com
 ### Credits
 
 **Developed by:** [Al Amin Ahamed](https://profiles.wordpress.org/mralaminahamed/)
-**License:** GPL v2 or later
+**License:** GPL v3 or later
 **Repository:** [GitHub](https://github.com/mralaminahamed/author-profile-blocks/)
 
 ### Privacy & Security

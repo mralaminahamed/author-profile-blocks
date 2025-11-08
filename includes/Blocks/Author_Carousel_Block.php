@@ -4,7 +4,7 @@
  * Author Carousel Block class
  *
  * @package AuthorProfileBlocks
- * @license GPL-2.0-or-later
+ * @license GPL-3.0-only
  */
 
 namespace AuthorProfileBlocks\Blocks;

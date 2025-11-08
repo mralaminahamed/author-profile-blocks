@@ -2,7 +2,7 @@
   "name": "mralaminahamed/author-profile-blocks",
   "description": "A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.",
   "type": "wordpress-plugin",
-  "license": "GPL-2.0-or-later",
+  "license": "GPL-3.0-only",
   "version": "1.1.0",
   "authors": [
     {
