@@ -10,6 +10,8 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
 Modern Gutenberg blocks for showcasing WordPress author profiles and team members. Display users in beautiful, customizable layouts without creating duplicate content.
 
+📖 **[Documentation Site](https://mralaminahamed.github.io/author-profile-blocks/)** | 🐛 **[GitHub Issues](https://github.com/mralaminahamed/author-profile-blocks/issues)** | 💬 **[WordPress Support](https://wordpress.org/support/plugin/author-profile-blocks/)**
+
 == Description ==
 
 **Author Profile Blocks** is a modern, lightweight WordPress plugin that provides powerful Gutenberg blocks for displaying author profiles and team members. Built with modern PHP 7.4+, React/TypeScript, and WordPress 6.0+ standards.
@@ -267,7 +269,8 @@ The plugin enhances standard WordPress user profiles with additional fields:
 * [GitHub Discussions](https://github.com/mralaminahamed/author-profile-blocks/discussions) - General discussions and Q&A
 
 **Documentation:**
-* [Complete User Guide](https://github.com/mralaminahamed/author-profile-blocks/tree/main/docs) - Comprehensive documentation
+* **[📖 Documentation Site](https://mralaminahamed.github.io/author-profile-blocks/)** - Complete user guides and documentation
+* [GitHub Docs](https://github.com/mralaminahamed/author-profile-blocks/tree/main/docs) - Source documentation files
 * [Developer API Reference](https://github.com/mralaminahamed/author-profile-blocks/blob/main/docs/developer-api.md) - Technical documentation
 
 ### Contributing

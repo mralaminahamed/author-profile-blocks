@@ -5,7 +5,9 @@
 [![License](https://img.shields.io/badge/License-GPL%20v2%2B-green.svg)](http://www.gnu.org/licenses/gpl-2.0.txt)
 [![Gutenberg Compatible](https://img.shields.io/badge/Gutenberg-Ready-00A0D2.svg)](https://wordpress.org/gutenberg/)
 
-> **Modern Gutenberg blocks for WordPress author profiles. PHP 7.4+, WordPress 6.0+, full TypeScript/React implementation.**
+> **Modern Gutenberg blocks for WordPress author profiles.**
+>
+> 📖 **[Documentation Site](https://mralaminahamed.github.io/author-profile-blocks/)** | 🐛 **[Report Issues](https://github.com/mralaminahamed/author-profile-blocks/issues)** | 💬 **[Community Support](https://wordpress.org/support/plugin/author-profile-blocks/)**
 
 ## 🔧 Technical Specifications
 
@@ -66,6 +68,8 @@ AuthorProfileBlocks\Blocks\Author_List_Block
 - **Performance Caching**: Query optimization and transients
 
 ## 📚 Documentation
+
+📖 **[Full Documentation Site](https://mralaminahamed.github.io/author-profile-blocks/)** - Complete user guides, API reference, and developer documentation.
 
 ### Getting Started
 
@@ -150,11 +154,4 @@ GPL v2 or later - See [LICENSE](./LICENSE) for details.
 
 ## 👨‍💻 Credits
 
-Developed by Al Amin Ahamed for the WordPress community.
-
-**Contributors:** [mralaminahamed](https://profiles.wordpress.org/mralaminahamed/)
-**Tags:** block, author, profile, gutenberg, team, user, biography, team-members
-**Tested up to:** 6.8
-**Stable tag:** 1.0.0
-**Requires at least:** 6.0
-**Requires PHP:** 7.4
+Developed by [Al Amin Ahamed](https://github.com/mralaminahamed) for the WordPress community.
