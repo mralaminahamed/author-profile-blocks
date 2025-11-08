@@ -7,6 +7,7 @@
  * @license GPL-3.0-only
  */
 
+use AuthorProfileBlocks\Abilities_Api as AbilitiesApi;
 use AuthorProfileBlocks\Admin\Admin;
 use AuthorProfileBlocks\Admin\PluginLinks;
 use AuthorProfileBlocks\Blocks\Author_Block_Base;
@@ -15,7 +16,6 @@ use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Profile_Block;
 use AuthorProfileBlocks\Core\User_Meta_Provider;
-use AuthorProfileBlocks\Frontend\Assets as FrontendAssets;
 use AuthorProfileBlocks\Services\Author_Profile_Service;
 
 // Exit if accessed directly.
@@ -253,6 +253,9 @@ class Author_Profile_Blocks {
 
 		// Initialize blocks.
 		$this->initialize_blocks();
+
+		// Initialize Abilities API.
+		AbilitiesApi::init();
 
 		// Initialize admin components.
 		if ( is_admin() ) {
