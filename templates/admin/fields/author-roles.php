@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$options = get_option( 'author_profile_blocks_settings', array() );
-$selected_roles = isset( $options['author_roles'] ) ? $options['author_roles'] : array( 'administrator', 'editor', 'author' );
+$apbl_options        = get_option( 'author_profile_blocks_settings', array() );
+$apbl_selected_roles = $apbl_options['author_roles'] ?? array( 'administrator', 'editor', 'author' );
 
-$roles = wp_roles()->roles;
+$apbl_roles = wp_roles()->roles;
 ?>
 <select name="author_profile_blocks_settings[author_roles][]" multiple="multiple" class="regular-text">
-	<?php foreach ( $roles as $role_key => $role ) : ?>
-		<option value="<?php echo esc_attr( $role_key ); ?>" <?php echo in_array( $role_key, $selected_roles, true ) ? 'selected' : ''; ?>>
-			<?php echo esc_html( $role['name'] ); ?>
+	<?php foreach ( $apbl_roles as $apbl_role_key => $apbl_role ) : ?>
+		<option value="<?php echo esc_attr( $apbl_role_key ); ?>" <?php echo in_array( $apbl_role_key, $apbl_selected_roles, true ) ? 'selected' : ''; ?>>
+			<?php echo esc_html( $apbl_role['name'] ); ?>
 		</option>
 	<?php endforeach; ?>
 </select>

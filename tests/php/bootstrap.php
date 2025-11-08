@@ -7,8 +7,8 @@ require_once TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/vendor/autoload.php';
 
 // Check if this is a unit test that doesn't require WordPress
 if ( getenv( 'UNIT_TEST' ) === 'true' ) {
-    // For unit tests, just load the autoloader and exit
-    return;
+	// For unit tests, just load the autoloader and exit
+	return;
 }
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : getenv( 'WP_PHPUNIT__DIR' );

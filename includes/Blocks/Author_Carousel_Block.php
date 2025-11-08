@@ -119,37 +119,29 @@ class Author_Carousel_Block extends Author_Block_Base {
 			)
 		);
 
-		// Build the HTML.
+		// Create carousel settings for Slick initialization.
+		$carousel_settings = array(
+			'slidesToShow'   => isset( $attributes['slidesToShow'] ) ? (int) $attributes['slidesToShow'] : 3,
+			'slidesToScroll' => 1,
+			'autoplay'       => ! isset( $attributes['autoplay'] ) || (bool) $attributes['autoplay'],
+			'autoplaySpeed'  => isset( $attributes['autoplaySpeed'] ) ? (int) $attributes['autoplaySpeed'] : 3000,
+			'dots'           => ! isset( $attributes['showDots'] ) || (bool) $attributes['showDots'],
+			'arrows'         => ! isset( $attributes['showArrows'] ) || (bool) $attributes['showArrows'],
+			'infinite'       => ! isset( $attributes['infinite'] ) || (bool) $attributes['infinite'],
+		);
+
+		// Build the HTML using template.
 		ob_start();
-		?>
-		<div 
-		<?php
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
-		echo $wrapper_attributes;
-		?>
-		>
-			<?php
-			// Create carousel container and prepare JSON settings for Slick initialization.
-			$carousel_settings = array(
-				'slidesToShow'   => isset( $attributes['slidesToShow'] ) ? (int) $attributes['slidesToShow'] : 3,
-				'slidesToScroll' => 1,
-				'autoplay'       => ! isset( $attributes['autoplay'] ) || (bool) $attributes['autoplay'],
-				'autoplaySpeed'  => isset( $attributes['autoplaySpeed'] ) ? (int) $attributes['autoplaySpeed'] : 3000,
-				'dots'           => ! isset( $attributes['showDots'] ) || (bool) $attributes['showDots'],
-				'arrows'         => ! isset( $attributes['showArrows'] ) || (bool) $attributes['showArrows'],
-				'infinite'       => ! isset( $attributes['infinite'] ) || (bool) $attributes['infinite'],
-			);
-			?>
-			<div class="apbl-author-carousel" data-settings="<?php echo esc_attr( wp_json_encode( $carousel_settings ) ); ?>">
-				<?php foreach ( $authors as $author ) : ?>
-					<?php
-					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_author_slide() returns properly escaped HTML
-					echo $this->render_author_slide( $author, $attributes );
-					?>
-				<?php endforeach; ?>
-			</div>
-		</div>
-		<?php
+		author_profile_blocks()->get_template(
+			'blocks/author-carousel/frontend.php',
+			array(
+				'authors'            => $authors,
+				'attributes'         => $attributes,
+				'block_instance'     => $this,
+				'wrapper_attributes' => $wrapper_attributes,
+				'carousel_settings'  => $carousel_settings,
+			)
+		);
 		$html = ob_get_clean();
 
 		// Cache the result.
@@ -219,37 +211,39 @@ class Author_Carousel_Block extends Author_Block_Base {
 
 		$item_class = esc_attr( implode( ' ', $item_classes ) );
 
-		// Get the author content based on layout.
-		switch ( $layout ) {
-			case 'compact':
-				$author_content = $this->render_compact_layout( $author, $attributes );
-				break;
-
-			case 'centered':
-				$author_content = $this->render_centered_layout( $author, $attributes );
-				break;
-
-			case 'card':
-			default:
-				$author_content = $this->render_card_layout( $author, $attributes );
-				break;
-		}
+		// Pre-render author content components.
+		$author_image       = $this->render_author_image( $author );
+		$author_name        = $this->render_author_name( $author );
+		$author_position    = $this->render_author_position( $author );
+		$author_email       = $this->render_author_email( $author );
+		$registered_date    = $this->render_registered_date( $author );
+		$author_description = $this->render_author_description( $author );
+		$social_links       = ! empty( $author['social'] ) && is_array( $author['social'] ) && ! empty( $attributes['showSocial'] )
+			? $this->render_social_profiles( $author['social'] )
+			: '';
 
 		// Prepare template variables.
 		$template_vars = array(
-			'author'          => $author,
-			'attributes'      => $attributes,
-			'item_class'      => $item_class,
-			'style_attribute' => $style_attribute,
-			'layout'          => $layout,
-			'author_content'  => $author_content,
+			'author'             => $author,
+			'attributes'         => $attributes,
+			'item_class'         => $item_class,
+			'style_attribute'    => $style_attribute,
+			'layout'             => $layout,
+			'author_image'       => $author_image,
+			'author_name'        => $author_name,
+			'author_position'    => $author_position,
+			'author_email'       => $author_email,
+			'registered_date'    => $registered_date,
+			'author_description' => $author_description,
+			'social_links'       => $social_links,
+			'block_instance'     => $this,
 		);
 
 		// Start output buffering.
 		ob_start();
 
 		// Load the carousel slide template.
-		$this->load_template( 'blocks/carousel/slide.php', $template_vars );
+		author_profile_blocks()->get_template( 'blocks/author-carousel/slide.php', $template_vars );
 
 		// Return the buffered content.
 		return ob_get_clean();

@@ -11,28 +11,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$class_attr = 'apbl-author-description';
+$apbl_class_attr = 'apbl-author-description';
 
-$style = '';
+$apbl_style = '';
 if ( isset( $author['descriptionSize'] ) ) {
-	$style .= 'font-size: ' . (int) $author['descriptionSize'] . 'px;';
+	$apbl_style .= 'font-size: ' . (int) $author['descriptionSize'] . 'px;';
 }
 if ( isset( $author['descriptionLineHeight'] ) ) {
-	$style .= 'line-height: ' . esc_attr( $author['descriptionLineHeight'] ) . ';';
+	$apbl_style .= 'line-height: ' . esc_attr( $author['descriptionLineHeight'] ) . ';';
 }
 if ( ! empty( $author['descriptionColor'] ) ) {
-	$style .= 'color: ' . esc_attr( $author['descriptionColor'] ) . ';';
+	$apbl_style .= 'color: ' . esc_attr( $author['descriptionColor'] ) . ';';
 }
 if ( ! empty( $author['descriptionStyle'] ) ) {
-	$style .= 'font-style: ' . esc_attr( $author['descriptionStyle'] ) . ';';
+	$apbl_style .= 'font-style: ' . esc_attr( $author['descriptionStyle'] ) . ';';
 }
 if ( ! empty( $author['descriptionAlignment'] ) ) {
-	$style .= 'text-align: ' . esc_attr( $author['descriptionAlignment'] ) . ';';
+	$apbl_style .= 'text-align: ' . esc_attr( $author['descriptionAlignment'] ) . ';';
 }
 if ( isset( $author['descriptionMargin'] ) ) {
-	$style .= 'margin: ' . (int) $author['descriptionMargin'] . 'px;';
+	$apbl_style .= 'margin: ' . (int) $author['descriptionMargin'] . 'px;';
 }
 ?>
-<div class="<?php echo esc_attr( $class_attr ); ?>"<?php echo ! empty( $style ) ? ' style="' . esc_attr( $style ) . '"' : ''; ?>>
+<div class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
 	<?php echo wp_kses_post( $author['description'] ); ?>
 </div>

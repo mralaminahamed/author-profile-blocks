@@ -663,4 +663,128 @@ class Author_Profile_Blocks {
 	public function get_author_profile_service(): Author_Profile_Service {
 		return $this->author_profile_service;
 	}
+
+	/**
+	 * Get template part (for templates in loop).
+	 *
+	 * @param string $slug Template slug.
+	 * @param string $name Template name (optional).
+	 *
+	 * @return void
+	 */
+	public function get_template_part( string $slug, string $name = '' ): void {
+		$template = '';
+
+		// Look in yourtheme/slug-name.php and yourtheme/author-profile-blocks/slug-name.php.
+		if ( $name ) {
+			$template = $this->locate_template( "{$slug}-{$name}.php" );
+		}
+
+		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/author-profile-blocks/slug.php.
+		if ( ! $template ) {
+			$template = $this->locate_template( "{$slug}.php" );
+		}
+
+		// Allow 3rd party plugins to filter template file from their plugin.
+		$template = apply_filters( 'author_profile_blocks_get_template_part', $template, $slug, $name );
+
+		if ( $template ) {
+			load_template( $template, false );
+		}
+	}
+
+	/**
+	 * Get other templates (e.g. product attributes) passing attributes and including the file.
+	 *
+	 * @param string $template_name Template name.
+	 * @param array  $args          Arguments. (default: array).
+	 * @param string $template_path Template path. (default: '').
+	 * @param string $default_path  Default path. (default: '').
+	 *
+	 * @return void
+	 */
+	public function get_template( string $template_name, array $args = array(), string $template_path = '', string $default_path = '' ): void {
+		$template = $this->locate_template( $template_name, $template_path, $default_path );
+
+		// Allow 3rd party plugin filter template file from their plugin.
+		$filter_template = apply_filters( 'author_profile_blocks_get_template', $template, $template_name, $args, $template_path, $default_path );
+
+		if ( $filter_template !== $template ) {
+			$template = $filter_template;
+		}
+
+		if ( ! empty( $args ) && is_array( $args ) ) {
+			extract( $args, EXTR_SKIP ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+		}
+
+		$action_args = array(
+			'template_name' => $template_name,
+			'template_path' => $template_path,
+			'located'       => $template,
+			'args'          => $args,
+		);
+
+		if ( ! empty( $template ) ) {
+			do_action( 'author_profile_blocks_before_template_part', $action_args );
+			include $template;
+			do_action( 'author_profile_blocks_after_template_part', $action_args );
+		}
+	}
+
+	/**
+	 * Like wc_get_template, but returns the HTML instead of outputting.
+	 *
+	 * @param string $template_name Template name.
+	 * @param array  $args          Arguments. (default: array).
+	 * @param string $template_path Template path. (default: '').
+	 * @param string $default_path  Default path. (default: '').
+	 *
+	 * @return string
+	 */
+	public function get_template_html( string $template_name, array $args = array(), string $template_path = '', string $default_path = '' ): string {
+		ob_start();
+		$this->get_template( $template_name, $args, $template_path, $default_path );
+		return ob_get_clean();
+	}
+
+	/**
+	 * Locate a template and return the path for inclusion.
+	 *
+	 * This is the load order:
+	 *
+	 * yourtheme/$template_path/$template_name
+	 * yourtheme/author-profile-blocks/$template_name
+	 * $default_path/$template_name
+	 *
+	 * @param string $template_name Template name.
+	 * @param string $template_path Template path. (default: '').
+	 * @param string $default_path  Default path. (default: '').
+	 *
+	 * @return string
+	 */
+	public function locate_template( string $template_name, string $template_path = '', string $default_path = '' ): string {
+		if ( ! $template_path ) {
+			$template_path = 'author-profile-blocks/';
+		}
+
+		if ( ! $default_path ) {
+			$default_path = plugin_dir_path( APBL_PLUGIN_FILE ) . 'templates/';
+		}
+
+		// Look within passed path within the theme - this is priority.
+		$template = locate_template(
+			array(
+				trailingslashit( $template_path ) . $template_name,
+				$template_name,
+			)
+		);
+
+		// Get default template/.
+		if ( ! $template ) {
+			$template = $default_path . $template_name;
+		}
+
+		// Return what we found.
+		return apply_filters( 'author_profile_blocks_locate_template', $template, $template_name, $template_path );
+	}
 }

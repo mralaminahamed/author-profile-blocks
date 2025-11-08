@@ -93,27 +93,17 @@ class Author_List_Block extends Author_Block_Base {
 			)
 		);
 
-		// Build the HTML.
+		// Build the HTML using template.
 		ob_start();
-		?>
-		<div 
-		<?php
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
-		echo $wrapper_attributes;
-		?>
-		>
-			<?php
-			$this->load_template(
-				'blocks/author-list/list.php',
-				array(
-					'authors'        => $authors,
-					'attributes'     => $attributes,
-					'block_instance' => $this,
-				)
-			);
-			?>
-		</div>
-		<?php
+		author_profile_blocks()->get_template(
+			'blocks/author-list/list.php',
+			array(
+				'authors'            => $authors,
+				'attributes'         => $attributes,
+				'block_instance'     => $this,
+				'wrapper_attributes' => $wrapper_attributes,
+			)
+		);
 		$html = ob_get_clean();
 
 		// Cache the result.
@@ -125,7 +115,18 @@ class Author_List_Block extends Author_Block_Base {
 	/**
 	 * Render an individual author item within the list.
 	 *
-	 * @param array $author     Author data.
+	 * @param array $author     {
+	 *     Author data.
+	 *
+	 *     @type int    $id             User ID.
+	 *     @type string $name           Display name.
+	 *     @type string $email          Email address.
+	 *     @type string $image          Avatar URL.
+	 *     @type string $position       Job position/title.
+	 *     @type string $description    Bio description.
+	 *     @type array  $social         Social media profiles.
+	 *     @type string $registered_date Registration date.
+	 * }
 	 * @param array $attributes Block attributes.
 	 *
 	 * @return string Rendered HTML.
@@ -196,7 +197,7 @@ class Author_List_Block extends Author_Block_Base {
 		ob_start();
 
 		// Load the list item template.
-		$this->load_template( 'blocks/list/item.php', $template_vars );
+		author_profile_blocks()->get_template( 'blocks/author-list/item.php', $template_vars );
 
 		// Return the buffered content.
 		return ob_get_clean();

@@ -249,11 +249,34 @@ class Author_Profile_Service {
 	}
 
 	/**
-	 * Get author data by ID
+	 * Get author data by ID.
+	 *
+	 * Retrieves comprehensive author information including profile data,
+	 * social links, avatar, and metadata from the user meta provider.
 	 *
 	 * @param int $author_id User ID.
 	 *
-	 * @return array|null Author data or null if not found
+	 * @return array|null {
+	 *     Author data array or null if user not found.
+	 *
+	 *     @type int    $id             User ID.
+	 *     @type string $name           Display name.
+	 *     @type string $email          Email address.
+	 *     @type string $image          Avatar URL.
+	 *     @type string $position       Job position/title.
+	 *     @type string $description    Bio description.
+	 *     @type array  $social         {
+	 *         Social media profiles.
+	 *
+	 *         @type string $facebook  Facebook profile URL.
+	 *         @type string $twitter   Twitter profile URL.
+	 *         @type string $linkedin  LinkedIn profile URL.
+	 *         @type string $instagram Instagram profile URL.
+	 *         @type string $website   Personal website URL.
+	 *     }
+	 *     @type string $registered_date Registration date.
+	 *     @type string $role           User role.
+	 * }
 	 */
 	public function get_author_data( int $author_id ): ?array {
 		// Check cache first.
@@ -306,10 +329,19 @@ class Author_Profile_Service {
 	/**
 	 * Get all authors with specific roles.
 	 *
-	 * @param array $roles Optional. Roles to include. Default is all author-type roles.
-	 * @param array $args  Optional. Additional arguments for WP_User_Query.
+	 * @param string[] $roles Optional. Roles to include. Default is all author-type roles.
+	 * @param array    $args  {
+	 *     Optional. Additional arguments for WP_User_Query.
 	 *
-	 * @return array Array of author data.
+	 *     @type int    $number   Maximum number of users to retrieve.
+	 *     @type int    $offset   Number of users to offset the query.
+	 *     @type string $orderby  Field to order users by.
+	 *     @type string $order    Order direction (ASC or DESC).
+	 *     @type array  $include  Array of user IDs to include.
+	 *     @type array  $exclude  Array of user IDs to exclude.
+	 * }
+	 *
+	 * @return array Array of author data. Each item contains complete author information.
 	 */
 	public function get_authors( array $roles = array(), array $args = array() ): array {
 		// Set default roles if none provided.
@@ -390,6 +422,7 @@ class Author_Profile_Service {
 	 * Clear the author cache.
 	 *
 	 * @param int|null $author_id Optional. The author ID to clear from cache.
+	 *                           If null, clears entire cache.
 	 *
 	 * @return void
 	 */

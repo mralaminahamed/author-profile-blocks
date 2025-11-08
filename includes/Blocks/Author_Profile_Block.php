@@ -40,18 +40,6 @@ class Author_Profile_Block extends Author_Block_Base {
 	}
 
 	/**
-	 * Localize block script with necessary data
-	 *
-	 * @return void
-	 */
-	public function localize_block_script(): void {
-		$profile_data = array(
-			'socialIcons' => $this->get_social_icon_data(),
-		);
-		parent::localize_block_script( $profile_data );
-	}
-
-	/**
 	 * Get render callback for the block.
 	 *
 	 * @return callable|null Block render callback.
@@ -109,100 +97,43 @@ class Author_Profile_Block extends Author_Block_Base {
 			)
 		);
 
-		// Build the HTML.
-		ob_start();
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
-		echo '<div ' . $wrapper_attributes . '>';
-
 		// Determine layout based on content order
 		$content_order = $attributes['contentOrder'] ?? 'image-content';
 
-		switch ( $content_order ) {
-			case 'content-image':
-				$this->load_template(
-					'blocks/profile/content-image.php',
-					array(
-						'author'             => $author_data,
-						'attributes'         => $attributes,
-						'author_image'       => $this->render_author_image( $author_data ),
-						'author_name'        => $this->render_author_name( $author_data ),
-						'author_position'    => $this->render_author_position( $author_data ),
-						'author_email'       => $this->render_author_email( $author_data ),
-						'registered_date'    => $this->render_registered_date( $author_data ),
-						'author_description' => $this->render_author_description( $author_data ),
-						'social_links'       => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
-							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
-							: '',
-					)
-				);
-				break;
+		// Pre-render content for template
+		$author_image       = $this->render_author_image( $author_data );
+		$author_name        = $this->render_author_name( $author_data );
+		$author_position    = $this->render_author_position( $author_data );
+		$author_email       = $this->render_author_email( $author_data );
+		$registered_date    = $this->render_registered_date( $author_data );
+		$author_description = $this->render_author_description( $author_data );
+		$social_links       = ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
+			? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
+			: '';
+		$more_content       = ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) )
+			? $this->render_more_content( $attributes['moreContent'], $author_data )
+			: '';
 
-			case 'image-top':
-				$this->load_template(
-					'blocks/profile/image-top.php',
-					array(
-						'author'             => $author_data,
-						'attributes'         => $attributes,
-						'author_image'       => $this->render_author_image( $author_data ),
-						'author_name'        => $this->render_author_name( $author_data ),
-						'author_position'    => $this->render_author_position( $author_data ),
-						'author_email'       => $this->render_author_email( $author_data ),
-						'registered_date'    => $this->render_registered_date( $author_data ),
-						'author_description' => $this->render_author_description( $author_data ),
-						'social_links'       => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
-							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
-							: '',
-					)
-				);
-				break;
-
-			case 'content-top':
-				$this->load_template(
-					'blocks/profile/content-top.php',
-					array(
-						'author'             => $author_data,
-						'attributes'         => $attributes,
-						'author_image'       => $this->render_author_image( $author_data ),
-						'author_name'        => $this->render_author_name( $author_data ),
-						'author_position'    => $this->render_author_position( $author_data ),
-						'author_email'       => $this->render_author_email( $author_data ),
-						'registered_date'    => $this->render_registered_date( $author_data ),
-						'author_description' => $this->render_author_description( $author_data ),
-						'social_links'       => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
-							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
-							: '',
-					)
-				);
-				break;
-
-			case 'image-content':
-			default:
-				$this->load_template(
-					'blocks/profile/image-content.php',
-					array(
-						'author'             => $author_data,
-						'attributes'         => $attributes,
-						'author_image'       => $this->render_author_image( $author_data ),
-						'author_name'        => $this->render_author_name( $author_data ),
-						'author_position'    => $this->render_author_position( $author_data ),
-						'author_email'       => $this->render_author_email( $author_data ),
-						'registered_date'    => $this->render_registered_date( $author_data ),
-						'author_description' => $this->render_author_description( $author_data ),
-						'social_links'       => ! empty( $author_data['social'] ) && is_array( $author_data['social'] ) && ! empty( $attributes['showSocialLinks'] )
-							? $this->render_social_profiles( $author_data['social'], '', $attributes['socialLinksToShow'] ?? array() )
-							: '',
-					)
-				);
-				break;
-		}
-
-		// Add optional more content if enabled.
-		if ( ! empty( $attributes['showMoreContent'] ) && ! empty( $attributes['moreContent'] ) ) {
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_more_content() returns properly escaped HTML
-			echo $this->render_more_content( $attributes['moreContent'], $author_data );
-		}
-
-		echo '</div>';
+		// Build the HTML using template.
+		ob_start();
+		author_profile_blocks()->get_template(
+			'blocks/author-profile/wrapper.php',
+			array(
+				'author'             => $author_data,
+				'attributes'         => $attributes,
+				'wrapper_attributes' => $wrapper_attributes,
+				'content_order'      => $content_order,
+				'author_image'       => $author_image,
+				'author_name'        => $author_name,
+				'author_position'    => $author_position,
+				'author_email'       => $author_email,
+				'registered_date'    => $registered_date,
+				'author_description' => $author_description,
+				'social_links'       => $social_links,
+				'more_content'       => $more_content,
+				'block_instance'     => $this,
+			)
+		);
 		$html = ob_get_clean();
 
 		// Cache the result.

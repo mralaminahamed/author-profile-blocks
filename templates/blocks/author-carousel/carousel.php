@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Generate a simple placeholder in the editor instead of trying to initialize Slick
 // The real carousel will be rendered on the frontend
 if ( ! empty( $authors ) ) :
-	$slides_to_show = $attributes['slidesToShow'] ?? 3;
-	$max_slides     = min( $slides_to_show, count( $authors ) );
+	$apbl_slides_to_show = $attributes['slidesToShow'] ?? 3;
+	$apbl_max_slides     = min( $apbl_slides_to_show, count( $authors ) );
 	?>
 <div class="apbl-carousel-placeholder">
-	<?php for ( $i = 0; $i < $max_slides; $i++ ) : ?>
+	<?php for ( $apbl_i = 0; $apbl_i < $apbl_max_slides; $apbl_i++ ) : ?>
 		<div class="apbl-carousel-slide-placeholder">
 			<?php if ( ! empty( $attributes['showImage'] ) ) : ?>
 				<div class="apbl-placeholder-image"></div>

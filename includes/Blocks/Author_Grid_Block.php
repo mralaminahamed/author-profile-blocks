@@ -93,27 +93,17 @@ class Author_Grid_Block extends Author_Block_Base {
 			)
 		);
 
-		// Build the HTML.
+		// Build the HTML using template.
 		ob_start();
-		?>
-		<div 
-		<?php
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() returns properly escaped HTML
-		echo $wrapper_attributes;
-		?>
-		>
-			<?php
-			$this->load_template(
-				'blocks/author-grid/grid.php',
-				array(
-					'authors'        => $authors,
-					'attributes'     => $attributes,
-					'block_instance' => $this,
-				)
-			);
-			?>
-		</div>
-		<?php
+		author_profile_blocks()->get_template(
+			'blocks/author-grid/grid.php',
+			array(
+				'authors'            => $authors,
+				'attributes'         => $attributes,
+				'block_instance'     => $this,
+				'wrapper_attributes' => $wrapper_attributes,
+			)
+		);
 		$html = ob_get_clean();
 
 		// Cache the result.
@@ -195,7 +185,7 @@ class Author_Grid_Block extends Author_Block_Base {
 			: '';
 
 		ob_start();
-		$this->load_template(
+		author_profile_blocks()->get_template(
 			'blocks/author-grid/item.php',
 			array(
 				'author'             => $author,
@@ -210,6 +200,7 @@ class Author_Grid_Block extends Author_Block_Base {
 				'registered_date'    => $registered_date,
 				'author_description' => $author_description,
 				'social_links'       => $social_links,
+				'block_instance'     => $this,
 			)
 		);
 		return ob_get_clean();

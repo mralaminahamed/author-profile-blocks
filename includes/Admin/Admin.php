@@ -13,12 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Admin Class
+ * Admin Class for managing plugin settings and admin interface.
+ *
+ * Handles the admin settings page, enqueues admin scripts/styles,
+ * and manages plugin configuration options.
  */
 class Admin {
 
 	/**
-	 * Constructor
+	 * Constructor.
+	 *
+	 * Initializes the admin functionality by setting up hooks and actions.
 	 */
 	public function __construct() {
 		$this->init();
@@ -153,10 +158,27 @@ class Admin {
 	}
 
 	/**
-	 * Sanitize settings before saving
+	 * Sanitize settings before saving.
 	 *
-	 * @param array $input Raw input data.
-	 * @return array Sanitized data.
+	 * @param array $input {
+	 *     Raw input data from the settings form.
+	 *
+	 *     @type string[] $author_roles   Array of selected author roles.
+	 *     @type string   $avatar_size    Avatar size in pixels.
+	 *     @type string[] $social_platforms Array of enabled social platforms.
+	 *     @type string   $show_email     Whether to show email addresses.
+	 *     @type string   $cache_duration Cache duration in hours.
+	 * }
+	 *
+	 * @return array {
+	 *     Sanitized data ready for database storage.
+	 *
+	 *     @type string[] $author_roles   Array of sanitized author roles.
+	 *     @type int      $avatar_size    Sanitized avatar size.
+	 *     @type string[] $social_platforms Array of sanitized social platforms.
+	 *     @type int      $show_email     Boolean as integer (0 or 1).
+	 *     @type int      $cache_duration Sanitized cache duration.
+	 * }
 	 */
 	public function sanitize_settings( array $input ): array {
 		$sanitized = array();
@@ -224,7 +246,7 @@ class Admin {
 	 * @return void
 	 */
 	public function author_roles_field_callback(): void {
-		$this->load_admin_template( 'fields/author-roles.php' );
+		author_profile_blocks()->get_template( 'admin/fields/author-roles.php' );
 	}
 
 	/**
@@ -233,7 +255,7 @@ class Admin {
 	 * @return void
 	 */
 	public function avatar_size_field_callback(): void {
-		$this->load_admin_template( 'fields/avatar-size.php' );
+		author_profile_blocks()->get_template( 'admin/fields/avatar-size.php' );
 	}
 
 	/**
@@ -242,7 +264,7 @@ class Admin {
 	 * @return void
 	 */
 	public function social_platforms_field_callback(): void {
-		$this->load_admin_template( 'fields/social-platforms.php' );
+		author_profile_blocks()->get_template( 'admin/fields/social-platforms.php' );
 	}
 
 	/**
@@ -251,7 +273,7 @@ class Admin {
 	 * @return void
 	 */
 	public function show_email_field_callback(): void {
-		$this->load_admin_template( 'fields/show-email.php' );
+		author_profile_blocks()->get_template( 'admin/fields/show-email.php' );
 	}
 
 	/**
@@ -260,7 +282,7 @@ class Admin {
 	 * @return void
 	 */
 	public function cache_duration_field_callback(): void {
-		$this->load_admin_template( 'fields/cache-duration.php' );
+		author_profile_blocks()->get_template( 'admin/fields/cache-duration.php' );
 	}
 
 	/**
@@ -279,25 +301,11 @@ class Admin {
 			);
 		}
 
-		$this->load_admin_template( 'settings-page.php' );
+		author_profile_blocks()->get_template( 'admin/settings-page.php' );
 	}
 
-	/**
-	 * Load admin template
-	 *
-	 * @param string $template Template file name.
-	 * @param array  $data     Optional data to pass to template.
-	 * @return void
-	 */
-	private function load_admin_template( string $template, array $data = array() ): void {
-		$template_path = APBL_PLUGIN_PATH . 'templates/admin/' . ltrim( $template, '/' );
-        if ( ! file_exists( $template_path ) || ! is_readable( $template_path ) ) {
-            return;
-        }
 
-        // Use WordPress load_template function for better security
-        load_template( $template_path, false, $data );
-    }
+
 
 	/**
 	 * Render settings page fallback
@@ -330,11 +338,11 @@ class Admin {
 	 */
 	public static function get_default_settings(): array {
 		return array(
-			'author_roles'    => array( 'administrator', 'editor', 'author' ),
-			'avatar_size'     => 150,
+			'author_roles'     => array( 'administrator', 'editor', 'author' ),
+			'avatar_size'      => 150,
 			'social_platforms' => array( 'facebook', 'twitter', 'linkedin', 'instagram' ),
-			'show_email'      => 0,
-			'cache_duration'  => 24,
+			'show_email'       => 0,
+			'cache_duration'   => 24,
 		);
 	}
 

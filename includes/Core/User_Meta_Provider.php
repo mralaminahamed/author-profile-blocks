@@ -61,7 +61,16 @@ class User_Meta_Provider implements Meta_Data_Provider {
 	 * Add a meta field configuration.
 	 *
 	 * @param string $key   The meta field key.
-	 * @param array  $config The field configuration.
+	 * @param array  $config {
+	 *     The field configuration for register_meta().
+	 *
+	 *     @type string   $type              Data type (string, integer, etc.).
+	 *     @type bool     $single            Whether to return single value.
+	 *     @type mixed    $default           Default value.
+	 *     @type callable $sanitize_callback Sanitization callback.
+	 *     @type callable $auth_callback     Authorization callback.
+	 *     @type bool     $show_in_rest      Whether to show in REST API.
+	 * }
 	 *
 	 * @return User_Meta_Provider This instance for method chaining.
 	 */

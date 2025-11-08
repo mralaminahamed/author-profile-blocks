@@ -12,48 +12,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$classes = 'apbl-social-profiles';
+$apbl_classes = 'apbl-social-profiles';
 if ( ! empty( $additional_class ) ) {
-	$classes .= ' ' . esc_attr( $additional_class );
+	$apbl_classes .= ' ' . esc_attr( $additional_class );
 }
 
 // Get social icon alignment if available
 if ( ! empty( $social_profiles['socialIconAlignment'] ) ) {
-	$classes .= ' apbl-social-align-' . esc_attr( $social_profiles['socialIconAlignment'] );
+	$apbl_classes .= ' apbl-social-align-' . esc_attr( $social_profiles['socialIconAlignment'] );
 }
 
 // Generate styles for icons
-$icon_styles = array();
+$apbl_icon_styles = array();
 
 if ( ! empty( $social_profiles['socialIconSize'] ) ) {
-	$icon_styles[] = '--author-social-icon-size: ' . esc_attr( $social_profiles['socialIconSize'] ) . 'px';
+	$apbl_icon_styles[] = '--author-social-icon-size: ' . esc_attr( $social_profiles['socialIconSize'] ) . 'px';
 }
 
 if ( ! empty( $social_profiles['socialIconColor'] ) ) {
-	$icon_styles[] = '--author-social-icon-color: ' . esc_attr( $social_profiles['socialIconColor'] );
+	$apbl_icon_styles[] = '--author-social-icon-color: ' . esc_attr( $social_profiles['socialIconColor'] );
 }
 
 if ( ! empty( $social_profiles['socialIconHoverColor'] ) ) {
-	$icon_styles[] = '--author-social-icon-hover-color: ' . esc_attr( $social_profiles['socialIconHoverColor'] );
+	$apbl_icon_styles[] = '--author-social-icon-hover-color: ' . esc_attr( $social_profiles['socialIconHoverColor'] );
 }
 
 if ( ! empty( $social_profiles['socialIconBackground'] ) ) {
-	$icon_styles[] = '--author-social-icon-bg: ' . esc_attr( $social_profiles['socialIconBackground'] );
+	$apbl_icon_styles[] = '--author-social-icon-bg: ' . esc_attr( $social_profiles['socialIconBackground'] );
 }
 
 if ( ! empty( $social_profiles['socialIconBackgroundHover'] ) ) {
-	$icon_styles[] = '--author-social-icon-bg-hover: ' . esc_attr( $social_profiles['socialIconBackgroundHover'] );
+	$apbl_icon_styles[] = '--author-social-icon-bg-hover: ' . esc_attr( $social_profiles['socialIconBackgroundHover'] );
 }
 
 if ( ! empty( $social_profiles['socialIconSpacing'] ) ) {
-	$icon_styles[] = '--author-social-icon-spacing: ' . esc_attr( $social_profiles['socialIconSpacing'] ) . 'px';
+	$apbl_icon_styles[] = '--author-social-icon-spacing: ' . esc_attr( $social_profiles['socialIconSpacing'] ) . 'px';
 }
 
 // Build style attribute
-$style_html = ! empty( $icon_styles ) ? ' style="' . implode( '; ', $icon_styles ) . '"' : '';
+$apbl_style_html = ! empty( $apbl_icon_styles ) ? ' style="' . implode( '; ', $apbl_icon_styles ) . '"' : '';
 
 // Get social icons mapping
-$social_icons = array(
+$apbl_social_icons = array(
 	'facebook'  => 'dashicons-facebook',
 	'twitter'   => 'dashicons-twitter',
 	'linkedin'  => 'dashicons-linkedin',
@@ -62,42 +62,42 @@ $social_icons = array(
 );
 
 // Filter profiles to show
-$filtered_profiles = array();
+$apbl_filtered_profiles = array();
 if ( ! empty( $show_profiles ) ) {
-	foreach ( $social_profiles as $network => $url ) {
-		if ( $network !== 'socialIconSize' &&
-			$network !== 'socialIconColor' &&
-			$network !== 'socialIconHoverColor' &&
-			$network !== 'socialIconBackground' &&
-			$network !== 'socialIconBackgroundHover' &&
-			$network !== 'socialIconSpacing' &&
-			$network !== 'socialIconAlignment' &&
-			in_array( $network, $show_profiles, true ) ) {
-			$filtered_profiles[ $network ] = $url;
+	foreach ( $social_profiles as $apbl_network => $apbl_url ) {
+		if ( $apbl_network !== 'socialIconSize' &&
+			$apbl_network !== 'socialIconColor' &&
+			$apbl_network !== 'socialIconHoverColor' &&
+			$apbl_network !== 'socialIconBackground' &&
+			$apbl_network !== 'socialIconBackgroundHover' &&
+			$apbl_network !== 'socialIconSpacing' &&
+			$apbl_network !== 'socialIconAlignment' &&
+			in_array( $apbl_network, $show_profiles, true ) ) {
+			$apbl_filtered_profiles[ $apbl_network ] = $apbl_url;
 		}
 	}
 } else {
 	// Filter out the style properties from profiles
-	foreach ( $social_profiles as $network => $url ) {
-		if ( $network !== 'socialIconSize' &&
-			$network !== 'socialIconColor' &&
-			$network !== 'socialIconHoverColor' &&
-			$network !== 'socialIconBackground' &&
-			$network !== 'socialIconBackgroundHover' &&
-			$network !== 'socialIconSpacing' &&
-			$network !== 'socialIconAlignment' ) {
-			$filtered_profiles[ $network ] = $url;
+	foreach ( $social_profiles as $apbl_network => $apbl_url ) {
+		if ( $apbl_network !== 'socialIconSize' &&
+			$apbl_network !== 'socialIconColor' &&
+			$apbl_network !== 'socialIconHoverColor' &&
+			$apbl_network !== 'socialIconBackground' &&
+			$apbl_network !== 'socialIconBackgroundHover' &&
+			$apbl_network !== 'socialIconSpacing' &&
+			$apbl_network !== 'socialIconAlignment' ) {
+			$apbl_filtered_profiles[ $apbl_network ] = $apbl_url;
 		}
 	}
 }
 ?>
-<div class="<?php echo esc_attr( $classes ); ?>"<?php echo $style_html; ?>>
+<div class="<?php echo esc_attr( $apbl_classes ); ?>"<?php echo esc_attr( $apbl_style_html ); ?>>
 	<ul class="apbl-social-list">
-		<?php foreach ( $filtered_profiles as $network => $url ) : ?>
-			<?php if ( ! empty( $url ) && isset( $social_icons[ $network ] ) ) : ?>
-				<li class="apbl-social-item apbl-social-<?php echo esc_attr( $network ); ?>">
-					<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer">
-						<span class="dashicons <?php echo esc_attr( $social_icons[ $network ] ); ?>" aria-hidden="true"></span>
+		<?php foreach ( $apbl_filtered_profiles as $apbl_network => $apbl_url ) : ?>
+			<?php if ( ! empty( $apbl_url ) && isset( $apbl_social_icons[ $apbl_network ] ) ) : ?>
+				<li class="apbl-social-item apbl-social-<?php echo esc_attr( $apbl_network ); ?>">
+					<a href="<?php echo esc_url( $apbl_url ); ?>" target="_blank" rel="noopener noreferrer">
+						<span class="dashicons <?php echo esc_attr( $apbl_social_icons[ $network ] ); ?>" aria-hidden="true"></span>
 						<span class="screen-reader-text"><?php echo esc_html( ucfirst( $network ) ); ?></span>
 					</a>
 				</li>

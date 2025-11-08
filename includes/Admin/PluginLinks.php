@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Links Settings Class
  *
@@ -14,18 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Plugin Links Settings Class
+ * Plugin Links Settings Class for managing plugin action links and row meta.
  *
- * @package AuthorProfileBlocks
- */
-
-/**
- * Plugin Links Settings Class
+ * Adds settings links to the plugin listing page and provides
+ * documentation and GitHub links in the plugin row meta.
  */
 class PluginLinks {
 
 	/**
-	 * Constructor
+	 * Constructor.
+	 *
+	 * Sets up filters for plugin action links and row meta.
 	 */
 	public function __construct() {
 		add_filter( 'plugin_action_links_' . plugin_basename( APBL_PLUGIN_FILE ), array( $this, 'add_action_links' ) );

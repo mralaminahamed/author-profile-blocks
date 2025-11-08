@@ -43,13 +43,13 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
    "scripts": {
-    "phpcs": [
+    "phpcs:check": [
       "vendor/bin/phpcs -p -s"
     ],
     "phpcs:report": [
       "vendor/bin/phpcs --report-file='phpcs-report.txt'"
     ],
-    "phpcbf": [
+    "phpcbf:fix": [
       "vendor/bin/phpcbf -p"
     ],
     "phpcs:plugin-review": [

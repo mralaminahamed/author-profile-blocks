@@ -11,43 +11,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$class_attr = 'apbl-author-name';
+$apbl_class_attr = 'apbl-author-name';
 
-$style = '';
+$apbl_style = '';
 if ( isset( $author['nameSize'] ) ) {
-	$style .= 'font-size: ' . (int) $author['nameSize'] . 'px;';
+	$apbl_style .= 'font-size: ' . (int) $author['nameSize'] . 'px;';
 }
 if ( ! empty( $author['nameWeight'] ) ) {
-	$style .= 'font-weight: ' . esc_attr( $author['nameWeight'] ) . ';';
+	$apbl_style .= 'font-weight: ' . esc_attr( $author['nameWeight'] ) . ';';
 }
 if ( ! empty( $author['nameColor'] ) ) {
-	$style .= 'color: ' . esc_attr( $author['nameColor'] ) . ';';
+	$apbl_style .= 'color: ' . esc_attr( $author['nameColor'] ) . ';';
 }
 if ( ! empty( $author['nameTransform'] ) ) {
-	$style .= 'text-transform: ' . esc_attr( $author['nameTransform'] ) . ';';
+	$apbl_style .= 'text-transform: ' . esc_attr( $author['nameTransform'] ) . ';';
 }
 if ( ! empty( $author['nameAlignment'] ) ) {
-	$style .= 'text-align: ' . esc_attr( $author['nameAlignment'] ) . ';';
+	$apbl_style .= 'text-align: ' . esc_attr( $author['nameAlignment'] ) . ';';
 }
 if ( isset( $author['nameMargin'] ) ) {
-	$style .= 'margin: ' . (int) $author['nameMargin'] . 'px;';
+	$apbl_style .= 'margin: ' . (int) $author['nameMargin'] . 'px;';
 }
 
-$name = $author['title'] ?? $author['name'] ?? $author['display_name'] ?? '';
-$link = ! empty( $author['url'] ) ? $author['url'] : '';
+$apbl_name = $author['title'] ?? $author['name'] ?? $author['display_name'] ?? '';
+$apbl_link = ! empty( $author['url'] ) ? $author['url'] : '';
 
-if ( ! empty( $link ) ) {
+if ( ! empty( $apbl_link ) ) {
 	?>
-	<h3 class="<?php echo esc_attr( $class_attr ); ?>"<?php echo ! empty( $style ) ? ' style="' . esc_attr( $style ) . '"' : ''; ?>>
-		<a href="<?php echo esc_url( $link ); ?>"<?php echo ! empty( $author['linkTarget'] ) ? ' target="' . esc_attr( $author['linkTarget'] ) . '"' : ''; ?><?php echo ! empty( $author['linkRel'] ) ? ' rel="' . esc_attr( $author['linkRel'] ) . '"' : ''; ?>>
-			<?php echo esc_html( $name ); ?>
+	<h3 class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
+		<a href="<?php echo esc_url( $apbl_link ); ?>"<?php echo ! empty( $author['linkTarget'] ) ? ' target="' . esc_attr( $author['linkTarget'] ) . '"' : ''; ?><?php echo ! empty( $author['linkRel'] ) ? ' rel="' . esc_attr( $author['linkRel'] ) . '"' : ''; ?>>
+			<?php echo esc_html( $apbl_name ); ?>
 		</a>
 	</h3>
 	<?php
 } else {
 	?>
-	<h3 class="<?php echo esc_attr( $class_attr ); ?>"<?php echo ! empty( $style ) ? ' style="' . esc_attr( $style ) . '"' : ''; ?>>
-		<?php echo esc_html( $name ); ?>
+	<h3 class="<?php echo esc_attr( $apbl_class_attr ); ?>"<?php echo ! empty( $apbl_style ) ? ' style="' . esc_attr( $apbl_style ) . '"' : ''; ?>>
+		<?php echo esc_html( $apbl_name ); ?>
 	</h3>
 	<?php
 }

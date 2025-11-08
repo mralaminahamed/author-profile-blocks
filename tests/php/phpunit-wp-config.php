@@ -2,7 +2,7 @@
 
 $wordpress_dir = dirname( __DIR__, 2 ) . '/wordpress/';
 if ( ! is_dir( $wordpress_dir ) ) {
-    $wordpress_dir = dirname( __DIR__, 5 ) . '/';
+	$wordpress_dir = dirname( __DIR__, 5 ) . '/';
 }
 
 /* Path to the WordPress codebase you'd like to test. Add a forward slash in the end. */

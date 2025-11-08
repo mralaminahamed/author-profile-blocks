@@ -11,10 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$options = get_option( 'author_profile_blocks_settings', array() );
-$selected_platforms = isset( $options['social_platforms'] ) ? $options['social_platforms'] : array( 'facebook', 'twitter', 'linkedin', 'instagram' );
+$apbl_options            = get_option( 'author_profile_blocks_settings', array() );
+$apbl_selected_platforms = $apbl_options['social_platforms'] ?? array( 'facebook', 'twitter', 'linkedin', 'instagram' );
 
-$platforms = array(
+$apbl_platforms = array(
 	'facebook'  => __( 'Facebook', 'author-profile-blocks' ),
 	'twitter'   => __( 'Twitter/X', 'author-profile-blocks' ),
 	'linkedin'  => __( 'LinkedIn', 'author-profile-blocks' ),
@@ -24,10 +24,10 @@ $platforms = array(
 );
 ?>
 <div class="social-platforms-checkboxes">
-	<?php foreach ( $platforms as $platform_key => $platform_name ) : ?>
+	<?php foreach ( $apbl_platforms as $apbl_platform_key => $apbl_platform_name ) : ?>
 		<label style="display: block; margin-bottom: 5px;">
-			<input type="checkbox" name="author_profile_blocks_settings[social_platforms][]" value="<?php echo esc_attr( $platform_key ); ?>" <?php echo in_array( $platform_key, $selected_platforms, true ) ? 'checked' : ''; ?> />
-			<?php echo esc_html( $platform_name ); ?>
+			<input type="checkbox" name="author_profile_blocks_settings[social_platforms][]" value="<?php echo esc_attr( $apbl_platform_key ); ?>" <?php echo in_array( $apbl_platform_key, $apbl_selected_platforms, true ) ? 'checked' : ''; ?> />
+			<?php echo esc_html( $apbl_platform_name ); ?>
 		</label>
 	<?php endforeach; ?>
 </div>

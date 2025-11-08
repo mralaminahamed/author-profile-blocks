@@ -19,32 +19,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="apbl-author-centered">
 	<?php if ( ! empty( $author['image'] ) && ( ! isset( $attributes['showImage'] ) || $attributes['showImage'] ) ) : ?>
-		<?php echo $author_image; ?>
+		<?php echo wp_kses_post( $author_image ); ?>
 	<?php endif; ?>
 
 	<div class="apbl-author-centered-info">
 		<?php if ( ! empty( $author['title'] ) ) : ?>
-			<?php echo $author_name; ?>
+			<?php echo wp_kses_post( $author_name ); ?>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $author['position'] ) && ( ! isset( $attributes['showPosition'] ) || $attributes['showPosition'] ) ) : ?>
-			<?php echo $author_position; ?>
+			<?php echo wp_kses_post( $author_position ); ?>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $author['email'] ) && ( ! isset( $attributes['showEmail'] ) || $attributes['showEmail'] ) ) : ?>
-			<?php echo $author_email; ?>
+			<?php echo wp_kses_post( $author_email ); ?>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $author['registered_date'] ) && ( ! isset( $attributes['showRegisteredDate'] ) || $attributes['showRegisteredDate'] ) ) : ?>
-			<?php echo $registered_date; ?>
+			<?php echo wp_kses_post( $registered_date ); ?>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $author['description'] ) && ( ! isset( $attributes['showDescription'] ) || $attributes['showDescription'] ) ) : ?>
-			<?php echo $author_description; ?>
+			<?php echo wp_kses_post( $author_description ); ?>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $author['social'] ) && is_array( $author['social'] ) && ( ! isset( $attributes['showSocial'] ) || $attributes['showSocial'] ) ) : ?>
-			<?php echo $social_links; ?>
+			<?php echo wp_kses_post( $social_links ); ?>
 		<?php endif; ?>
 	</div>
 </div>
