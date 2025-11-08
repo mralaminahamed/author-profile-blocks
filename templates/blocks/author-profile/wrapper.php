@@ -18,6 +18,8 @@
  * @var Author_Profile_Block $block_instance Block instance
  */
 
+use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
