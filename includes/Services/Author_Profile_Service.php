@@ -303,7 +303,11 @@ class Author_Profile_Service {
 		$description     = $this->meta_provider->get_meta( $author_id, 'apbl_author_description', true );
 		$position        = $this->meta_provider->get_meta( $author_id, 'apbl_author_position', true );
 		$social_profiles = $this->meta_provider->get_meta( $author_id, 'apbl_social_profiles', true );
-		$image           = get_avatar_url( $author_id, array( 'size' => 150 ) );
+
+		// Ensure social profiles is always an array
+		if ( ! is_array( $social_profiles ) ) {
+			$social_profiles = array();
+		}
 
 		// Get member since label (use default if custom label is not set).
 		$member_since_label = $this->meta_provider->get_meta( $author_id, 'apbl_member_since_label', true );
