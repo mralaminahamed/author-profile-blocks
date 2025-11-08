@@ -418,38 +418,70 @@ class Author_Profile_Blocks {
 	/**
 	 * Register custom meta types with FakerPress.
 	 *
-	 * @param array $meta_types Existing meta types.
+	 * @param mixed $meta_types Existing meta types (array or stdClass).
 	 *
-	 * @return array Modified meta types array.
+	 * @return mixed Modified meta types.
 	 */
-	public function register_fakerpress_meta_types( array $meta_types ): array {
-		$meta_types['apbl_author_description'] = array(
-			'label'       => __( 'Author Description', 'author-profile-blocks' ),
-			'description' => __( 'A detailed description for the author profile.', 'author-profile-blocks' ),
-			'category'    => 'author-profile-blocks',
-			'group'       => 'Author Profile Blocks',
-		);
+	public function register_fakerpress_meta_types( $meta_types ) {
+		// Handle both array and stdClass formats
+		if ( is_object( $meta_types ) ) {
+			$meta_types->apbl_author_description = array(
+				'label'       => __( 'Author Description', 'author-profile-blocks' ),
+				'description' => __( 'A detailed description for the author profile.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
 
-		$meta_types['apbl_author_position'] = array(
-			'label'       => __( 'Author Position/Title', 'author-profile-blocks' ),
-			'description' => __( 'The author\'s position or job title.', 'author-profile-blocks' ),
-			'category'    => 'author-profile-blocks',
-			'group'       => 'Author Profile Blocks',
-		);
+			$meta_types->apbl_author_position = array(
+				'label'       => __( 'Author Position/Title', 'author-profile-blocks' ),
+				'description' => __( 'The author\'s position or job title.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
 
-		$meta_types['apbl_social_profiles'] = array(
-			'label'       => __( 'Social Media Profiles', 'author-profile-blocks' ),
-			'description' => __( 'Social media profile URLs for the author.', 'author-profile-blocks' ),
-			'category'    => 'author-profile-blocks',
-			'group'       => 'Author Profile Blocks',
-		);
+			$meta_types->apbl_social_profiles = array(
+				'label'       => __( 'Social Media Profiles', 'author-profile-blocks' ),
+				'description' => __( 'Social media profile URLs for the author.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
 
-		$meta_types['apbl_member_since_label'] = array(
-			'label'       => __( 'Member Since Label', 'author-profile-blocks' ),
-			'description' => __( 'Custom label for the member since date.', 'author-profile-blocks' ),
-			'category'    => 'author-profile-blocks',
-			'group'       => 'Author Profile Blocks',
-		);
+			$meta_types->apbl_member_since_label = array(
+				'label'       => __( 'Member Since Label', 'author-profile-blocks' ),
+				'description' => __( 'Custom label for the member since date.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
+		} else {
+			// Handle array format (fallback)
+			$meta_types['apbl_author_description'] = array(
+				'label'       => __( 'Author Description', 'author-profile-blocks' ),
+				'description' => __( 'A detailed description for the author profile.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
+
+			$meta_types['apbl_author_position'] = array(
+				'label'       => __( 'Author Position/Title', 'author-profile-blocks' ),
+				'description' => __( 'The author\'s position or job title.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
+
+			$meta_types['apbl_social_profiles'] = array(
+				'label'       => __( 'Social Media Profiles', 'author-profile-blocks' ),
+				'description' => __( 'Social media profile URLs for the author.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
+
+			$meta_types['apbl_member_since_label'] = array(
+				'label'       => __( 'Member Since Label', 'author-profile-blocks' ),
+				'description' => __( 'Custom label for the member since date.', 'author-profile-blocks' ),
+				'category'    => 'author-profile-blocks',
+				'group'       => 'Author Profile Blocks',
+			);
+		}
 
 		return $meta_types;
 	}
