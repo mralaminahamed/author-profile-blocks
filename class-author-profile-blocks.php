@@ -255,7 +255,7 @@ class Author_Profile_Blocks {
 		$this->initialize_blocks();
 
 		// Initialize Abilities API.
-        Abilities_Api::init();
+		Abilities_Api::init();
 
 		// Initialize admin components.
 		if ( is_admin() ) {
@@ -266,6 +266,7 @@ class Author_Profile_Blocks {
 		// Register hooks in groups for better organization.
 		$this->register_user_profile_hooks();
 		$this->register_admin_hooks();
+		$this->init_fakerpress_integration();
 
 		/**
 		 * Fires after the Author Profile Blocks plugin has been fully initialized.
@@ -389,6 +390,226 @@ class Author_Profile_Blocks {
 	private function register_admin_hooks(): void {
 		// Add admin styles for the user profile fields.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
+	}
+
+	/**
+	 * Initialize FakerPress integration.
+	 *
+	 * Registers custom meta fields with FakerPress for automatic user generation.
+	 *
+	 * @return void
+	 */
+	private function init_fakerpress_integration(): void {
+		// Only proceed if FakerPress is active.
+		if ( ! class_exists( 'FakerPress\Plugin' ) ) {
+			return;
+		}
+
+		// Hook into FakerPress to register our custom meta types.
+		add_filter( 'fakerpress/fields/meta_types', array( $this, 'register_fakerpress_meta_types' ) );
+
+		// Hook into user generation to set default values for our meta fields.
+		add_action( 'fakerpress.module.user.before_save', array( $this, 'set_fakerpress_user_defaults' ), 10, 2 );
+
+		// Hook into meta value generation for our specific fields.
+		add_filter( 'fakerpress.module.meta.value', array( $this, 'generate_fakerpress_meta_value' ), 10, 3 );
+	}
+
+	/**
+	 * Register custom meta types with FakerPress.
+	 *
+	 * @param array $meta_types Existing meta types.
+	 *
+	 * @return array Modified meta types array.
+	 */
+	public function register_fakerpress_meta_types( array $meta_types ): array {
+		$meta_types['apbl_author_description'] = array(
+			'label'       => __( 'Author Description', 'author-profile-blocks' ),
+			'description' => __( 'A detailed description for the author profile.', 'author-profile-blocks' ),
+			'category'    => 'author-profile-blocks',
+			'group'       => 'Author Profile Blocks',
+		);
+
+		$meta_types['apbl_author_position'] = array(
+			'label'       => __( 'Author Position/Title', 'author-profile-blocks' ),
+			'description' => __( 'The author\'s position or job title.', 'author-profile-blocks' ),
+			'category'    => 'author-profile-blocks',
+			'group'       => 'Author Profile Blocks',
+		);
+
+		$meta_types['apbl_social_profiles'] = array(
+			'label'       => __( 'Social Media Profiles', 'author-profile-blocks' ),
+			'description' => __( 'Social media profile URLs for the author.', 'author-profile-blocks' ),
+			'category'    => 'author-profile-blocks',
+			'group'       => 'Author Profile Blocks',
+		);
+
+		$meta_types['apbl_member_since_label'] = array(
+			'label'       => __( 'Member Since Label', 'author-profile-blocks' ),
+			'description' => __( 'Custom label for the member since date.', 'author-profile-blocks' ),
+			'category'    => 'author-profile-blocks',
+			'group'       => 'Author Profile Blocks',
+		);
+
+		return $meta_types;
+	}
+
+	/**
+	 * Set default values for Author Profile Blocks meta fields during FakerPress user generation.
+	 *
+	 * @param WP_User $user     The user object being generated.
+	 * @param array   $_user_data The user data array.
+	 *
+	 * @return void
+	 */
+	public function set_fakerpress_user_defaults( WP_User $user, array $_user_data ): void {
+		// Set default member since label if not already set.
+		if ( ! metadata_exists( 'user', $user->ID, 'apbl_member_since_label' ) ) {
+			update_user_meta( $user->ID, 'apbl_member_since_label', __( 'Member since', 'author-profile-blocks' ) );
+		}
+
+		// Initialize empty social profiles array if not already set.
+		if ( ! metadata_exists( 'user', $user->ID, 'apbl_social_profiles' ) ) {
+			update_user_meta(
+				$user->ID,
+				'apbl_social_profiles',
+				array(
+					'facebook'  => '',
+					'twitter'   => '',
+					'linkedin'  => '',
+					'instagram' => '',
+					'website'   => '',
+				)
+			);
+		}
+	}
+
+	/**
+	 * Generate appropriate values for Author Profile Blocks meta fields.
+	 *
+	 * @param mixed  $value     The current meta value.
+	 * @param string $meta_key  The meta key.
+	 * @param array  $_field    The field configuration.
+	 *
+	 * @return mixed The generated meta value.
+	 */
+	public function generate_fakerpress_meta_value( $value, string $meta_key, array $_field ) {
+		switch ( $meta_key ) {
+			case 'apbl_author_description':
+				if ( empty( $value ) ) {
+					$value = $this->generate_author_description();
+				}
+				break;
+
+			case 'apbl_author_position':
+				if ( empty( $value ) ) {
+					$value = $this->generate_author_position();
+				}
+				break;
+
+			case 'apbl_social_profiles':
+				if ( empty( $value ) || ! is_array( $value ) ) {
+					$value = $this->generate_social_profiles();
+				}
+				break;
+
+			case 'apbl_member_since_label':
+				if ( empty( $value ) ) {
+					$value = $this->generate_member_since_label();
+				}
+				break;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Generate a realistic author description.
+	 *
+	 * @return string The generated author description.
+	 */
+	private function generate_author_description(): string {
+		$descriptions = array(
+			__( 'Passionate content creator with over 5 years of experience in digital marketing and creative writing. Specializes in crafting compelling narratives that engage audiences and drive results.', 'author-profile-blocks' ),
+			__( 'Experienced developer and tech enthusiast who loves building innovative solutions. Always staying up-to-date with the latest technologies and sharing knowledge with the community.', 'author-profile-blocks' ),
+			__( 'Creative designer with an eye for detail and a passion for user experience. Combines artistic vision with technical expertise to create beautiful, functional designs.', 'author-profile-blocks' ),
+			__( 'Dedicated educator and lifelong learner committed to sharing knowledge and helping others grow. Believes in the power of education to transform lives and communities.', 'author-profile-blocks' ),
+			__( 'Strategic thinker and business professional with a track record of driving growth and innovation. Passionate about helping organizations achieve their goals through smart strategies.', 'author-profile-blocks' ),
+		);
+
+		return $descriptions[ array_rand( $descriptions ) ];
+	}
+
+	/**
+	 * Generate a realistic author position/title.
+	 *
+	 * @return string The generated author position.
+	 */
+	private function generate_author_position(): string {
+		$positions = array(
+			__( 'Senior Content Writer', 'author-profile-blocks' ),
+			__( 'Lead Developer', 'author-profile-blocks' ),
+			__( 'Creative Director', 'author-profile-blocks' ),
+			__( 'Marketing Manager', 'author-profile-blocks' ),
+			__( 'Product Manager', 'author-profile-blocks' ),
+			__( 'UX Designer', 'author-profile-blocks' ),
+			__( 'Technical Writer', 'author-profile-blocks' ),
+			__( 'Community Manager', 'author-profile-blocks' ),
+			__( 'Business Analyst', 'author-profile-blocks' ),
+			__( 'Project Coordinator', 'author-profile-blocks' ),
+		);
+
+		return $positions[ array_rand( $positions ) ];
+	}
+
+	/**
+	 * Generate realistic social media profiles.
+	 *
+	 * @return array The generated social profiles array.
+	 */
+	private function generate_social_profiles(): array {
+		$profiles = array(
+			'facebook'  => '',
+			'twitter'   => '',
+			'linkedin'  => '',
+			'instagram' => '',
+			'website'   => '',
+		);
+
+		// Randomly populate some social profiles (70% chance for each).
+		if ( wp_rand( 0, 9 ) < 7 ) {
+			$profiles['facebook'] = 'https://facebook.com/example' . wp_rand( 1000, 9999 );
+		}
+		if ( wp_rand( 0, 9 ) < 7 ) {
+			$profiles['twitter'] = 'https://twitter.com/example' . wp_rand( 1000, 9999 );
+		}
+		if ( wp_rand( 0, 9 ) < 7 ) {
+			$profiles['linkedin'] = 'https://linkedin.com/in/example' . wp_rand( 1000, 9999 );
+		}
+		if ( wp_rand( 0, 9 ) < 7 ) {
+			$profiles['instagram'] = 'https://instagram.com/example' . wp_rand( 1000, 9999 );
+		}
+		if ( wp_rand( 0, 9 ) < 7 ) {
+			$profiles['website'] = 'https://example' . wp_rand( 1000, 9999 ) . '.com';
+		}
+
+		return $profiles;
+	}
+
+	/**
+	 * Generate a member since label.
+	 *
+	 * @return string The generated member since label.
+	 */
+	private function generate_member_since_label(): string {
+		$labels = array(
+			__( 'Member since', 'author-profile-blocks' ),
+			__( 'Joined', 'author-profile-blocks' ),
+			__( 'With us since', 'author-profile-blocks' ),
+			__( 'Active since', 'author-profile-blocks' ),
+		);
+
+		return $labels[ array_rand( $labels ) ];
 	}
 
 	/**
