@@ -1,5 +1,7 @@
 # Contributing to Author Profile Blocks
 
+📖 **[View Full Contributing Guide on Documentation Site](https://mralaminahamed.github.io/author-profile-blocks/contributing/)**
+
 Thank you for your interest in contributing to Author Profile Blocks! We welcome contributions from the community.
 
 ## Development Setup
