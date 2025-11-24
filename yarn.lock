@@ -2560,7 +2560,7 @@ __metadata:
     "@wordpress/core-data": "npm:^7.34.0"
     "@wordpress/data": "npm:^10.34.0"
     "@wordpress/dependency-extraction-webpack-plugin": "npm:^6.34.0"
-    "@wordpress/dom-ready": "npm:^4.34.0"
+    "@wordpress/dom-ready": "npm:^4.35.0"
     "@wordpress/element": "npm:^6.34.0"
     "@wordpress/eslint-plugin": "npm:^22.20.0"
     "@wordpress/html-entities": "npm:^4.34.0"
@@ -5824,6 +5824,13 @@ __metadata:
   version: 4.34.0
   resolution: "@wordpress/dom-ready@npm:4.34.0"
   checksum: 10/836598f05d2c5e0bfd5e06a588ea814d59e3523dcda4e97802c7afcbc1ea17cdf53a6566d2d3c87b2592d9e19a89b544f14c680d6977215e387bdb5fb6d7cbbb
+  languageName: node
+  linkType: hard
+
+"@wordpress/dom-ready@npm:^4.35.0":
+  version: 4.35.0
+  resolution: "@wordpress/dom-ready@npm:4.35.0"
+  checksum: 10/845be3a533fb36ab75c8352cc2b8b1699167d472fab19a7c386ac6719b56638157204e6e02c9d1bfd2c08241df8f6124d34dd48eb590cd4668e88d6baabc3a5e
   languageName: node
   linkType: hard
 
