@@ -2561,7 +2561,7 @@ __metadata:
     "@wordpress/data": "npm:^10.34.0"
     "@wordpress/dependency-extraction-webpack-plugin": "npm:^6.34.0"
     "@wordpress/dom-ready": "npm:^4.34.0"
-    "@wordpress/element": "npm:^6.34.0"
+    "@wordpress/element": "npm:^6.35.0"
     "@wordpress/eslint-plugin": "npm:^22.20.0"
     "@wordpress/html-entities": "npm:^4.34.0"
     "@wordpress/i18n": "npm:^6.7.0"
@@ -5867,10 +5867,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wordpress/element@npm:^6.35.0":
+  version: 6.35.0
+  resolution: "@wordpress/element@npm:6.35.0"
+  dependencies:
+    "@types/react": "npm:^18.2.79"
+    "@types/react-dom": "npm:^18.2.25"
+    "@wordpress/escape-html": "npm:^3.35.0"
+    change-case: "npm:^4.1.2"
+    is-plain-object: "npm:^5.0.0"
+    react: "npm:^18.3.0"
+    react-dom: "npm:^18.3.0"
+  checksum: 10/c4b0a9337ce60caff088750a2fd668a3642ecd2eaeea4775f8e1de1582f958df0287b46e52149bbef6429f853f56efa56713e49f006cf3d0d4fd3426679e77bb
+  languageName: node
+  linkType: hard
+
 "@wordpress/escape-html@npm:^3.34.0":
   version: 3.34.0
   resolution: "@wordpress/escape-html@npm:3.34.0"
   checksum: 10/393976bde742f07e13034590949a89060d02a184829a40c265f184a58b481cafc43e770d09c3768d2f7c8832c259150d51b472cc3e92846718eff5233057b6e9
+  languageName: node
+  linkType: hard
+
+"@wordpress/escape-html@npm:^3.35.0":
+  version: 3.35.0
+  resolution: "@wordpress/escape-html@npm:3.35.0"
+  checksum: 10/0bba875d4b5e857f2bfe313d637ce7ecb1474951bc6b9cdd22468501cbfda56264c63c5b6b0f4faac4c4c4356de57410ec8dd8c282bd2bc5214307fb6733059b
   languageName: node
   linkType: hard
 
