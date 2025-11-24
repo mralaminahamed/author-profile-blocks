@@ -2582,7 +2582,7 @@ __metadata:
     framer-motion: "npm:^12.23.24"
     jquery: "npm:^3.7.1"
     lodash: "npm:^4.17.21"
-    lucide-react: "npm:^0.552.0"
+    lucide-react: "npm:^0.554.0"
     mini-css-extract-plugin: "npm:^2.9.4"
     postcss: "npm:^8.5.6"
     postcss-loader: "npm:^8.2.0"
@@ -12901,12 +12901,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.552.0":
-  version: 0.552.0
-  resolution: "lucide-react@npm:0.552.0"
+"lucide-react@npm:^0.554.0":
+  version: 0.554.0
+  resolution: "lucide-react@npm:0.554.0"
   peerDependencies:
     react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/999bf595f65f0a94ab42383cdd61bb903c4c333cb96efc618f8ab9539b5c9892e1ab231f8698a7be3d430a1331d56c0f79cc75d2b50ddba884f74721dc5eff03
+  checksum: 10/3f21ca482ca0b73ae30da06675c2f064c27f0ba165e55a064318443a6d92c6affc8b6ffefc94a8d082d27aaaf34f45df281ca21087d58c2361f7cfae16daba08
   languageName: node
   linkType: hard
 
