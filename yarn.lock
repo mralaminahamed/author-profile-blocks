@@ -2559,7 +2559,7 @@ __metadata:
     "@wordpress/compose": "npm:^7.34.0"
     "@wordpress/core-data": "npm:^7.34.0"
     "@wordpress/data": "npm:^10.34.0"
-    "@wordpress/dependency-extraction-webpack-plugin": "npm:^6.34.0"
+    "@wordpress/dependency-extraction-webpack-plugin": "npm:^6.35.0"
     "@wordpress/dom-ready": "npm:^4.34.0"
     "@wordpress/element": "npm:^6.34.0"
     "@wordpress/eslint-plugin": "npm:^22.20.0"
@@ -5808,6 +5808,17 @@ __metadata:
   peerDependencies:
     webpack: ^5.0.0
   checksum: 10/f5ccee5a12c4c87457b9fcf62e43e90dd00dcdc457b9329d46bfca3a393ab796f1c9aa6d536ed9392313d2c37d5e074c1d7d6d99d915288b107cc6877df90b3b
+  languageName: node
+  linkType: hard
+
+"@wordpress/dependency-extraction-webpack-plugin@npm:^6.35.0":
+  version: 6.35.0
+  resolution: "@wordpress/dependency-extraction-webpack-plugin@npm:6.35.0"
+  dependencies:
+    json2php: "npm:^0.0.7"
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: 10/2978e54c4665362cfbdb3df7dee931cc950e69c2abb65ba4e84927ebb155c1178c48ed5e5c9b174a4e9f2a3dcaa0e1d2ce3e44ea760d92b668e639b19856f795
   languageName: node
   linkType: hard
 
