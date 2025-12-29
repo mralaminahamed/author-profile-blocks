@@ -2568,7 +2568,7 @@ __metadata:
     "@wordpress/icons": "npm:^11.1.0"
     "@wordpress/scripts": "npm:^30.27.0"
     "@wordpress/server-side-render": "npm:^6.10.0"
-    "@wordpress/stylelint-config": "npm:^23.26.0"
+    "@wordpress/stylelint-config": "npm:^23.29.0"
     "@wordpress/url": "npm:^4.34.0"
     autoprefixer: "npm:^10.4.21"
     class-variance-authority: "npm:^0.7.1"
@@ -6270,6 +6270,20 @@ __metadata:
     stylelint: ^16.8.2
     stylelint-scss: ^6.4.0
   checksum: 10/fd0c3675c5203833ab9acec3760ba05930f0b0bac447db76773dc2641529efe75cfb8bd2505776f145bb382a0dc39aa1046cea147df739d3155616ca670fde7e
+  languageName: node
+  linkType: hard
+
+"@wordpress/stylelint-config@npm:^23.29.0":
+  version: 23.29.0
+  resolution: "@wordpress/stylelint-config@npm:23.29.0"
+  dependencies:
+    "@stylistic/stylelint-plugin": "npm:^3.0.1"
+    stylelint-config-recommended: "npm:^14.0.1"
+    stylelint-config-recommended-scss: "npm:^14.1.0"
+  peerDependencies:
+    stylelint: ^16.8.2
+    stylelint-scss: ^6.4.0
+  checksum: 10/a4142d1246b44cdecfab8cfe0d9e892929131521ebcede368ad9b9d75f70ffdf3a7492f216f8b9df352c411d9d4011fed8760b3259a09313b9179bafeb31ccf2
   languageName: node
   linkType: hard
 
