@@ -78,7 +78,7 @@
 		"sass-loader": "^16.0.6",
 		"slick-carousel": "^1.8.1",
 		"style-loader": "^4.0.0",
-		"stylelint": "^16.25.0",
+		"stylelint": "^16.26.1",
 		"stylelint-config-prettier-scss": "^1.0.0",
 		"stylelint-config-recess-order": "^7.4.0",
 		"stylelint-order": "^7.0.0",
