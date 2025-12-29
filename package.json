@@ -63,7 +63,7 @@
 		"autoprefixer": "^10.4.21",
 		"classnames": "^2.5.1",
 		"css-loader": "^7.1.2",
-		"eslint": "^8.57.1",
+		"eslint": "^9.39.2",
 		"eslint-import-resolver-alias": "^1.1.2",
 		"eslint-plugin-import": "^2.32.0",
 		"file-loader": "^6.2.0",
