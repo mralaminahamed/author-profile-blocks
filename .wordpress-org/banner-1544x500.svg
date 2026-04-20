@@ -1,101 +1,94 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1544 500" width="1544" height="500">
-	<!-- Gradient background -->
-	<defs>
-		<linearGradient id="bg-gradient-hd" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#1e4d92" />
-			<stop offset="100%" stop-color="#2271b1" />
-		</linearGradient>
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1729"/>
+      <stop offset="100%" stop-color="#1a1f3a"/>
+    </linearGradient>
+    <!-- Panel glow -->
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Card shimmer -->
+    <linearGradient id="shimmer" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Dot pattern -->
+    <pattern id="dots" x="469" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="14" cy="14" r="2" fill="#ffffff" opacity="0.04"/>
+    </pattern>
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.22"/>
+    </filter>
+  </defs>
 
-		<!-- Frosted glass effect -->
-		<filter id="blur-filter-hd" x="-50%" y="-50%" width="200%" height="200%">
-			<feGaussianBlur in="SourceGraphic" stdDeviation="20" />
-		</filter>
+  <!-- Background -->
+  <rect width="1544" height="500" fill="url(#bg)"/>
 
-		<!-- Title gradient -->
-		<linearGradient id="title-gradient-hd" x1="0%" y1="0%" x2="100%" y2="0%">
-			<stop offset="0%" stop-color="#ffffff" />
-			<stop offset="100%" stop-color="#f0f6fc" />
-		</linearGradient>
+  <!-- Dot grid (right panel) -->
+  <rect x="469" y="0" width="1075" height="500" fill="url(#dots)"/>
 
-		<!-- Glass card inner shadow -->
-		<filter id="inner-shadow" x="-50%" y="-50%" width="200%" height="200%">
-			<feOffset dx="0" dy="2" />
-			<feGaussianBlur stdDeviation="3" result="offset-blur" />
-			<feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
-			<feFlood flood-color="black" flood-opacity="0.2" result="color" />
-			<feComposite operator="in" in="color" in2="inverse" result="shadow" />
-			<feComposite operator="over" in="shadow" in2="SourceGraphic" />
-		</filter>
-	</defs>
+  <!-- Left panel -->
+  <rect x="0" y="0" width="463" height="500" fill="#090e1e"/>
+  <!-- Glow -->
+  <ellipse cx="231.5" cy="250" rx="212.98" ry="212.98" fill="url(#glow)"/>
 
-	<!-- Main background -->
-	<rect width="1544" height="500" fill="url(#bg-gradient-hd)" />
+  <!-- Separator -->
+  <rect x="463" y="0" width="6" height="500" fill="#6366f1"/>
 
-	<!-- Decorative blurred shapes for glassmorphism effect -->
-	<circle cx="200" cy="100" r="240" fill="#4d8ac8" opacity="0.3" filter="url(#blur-filter-hd)" />
-	<circle cx="1300" cy="400" r="200" fill="#90c2ef" opacity="0.2" filter="url(#blur-filter-hd)" />
-	<circle cx="800" cy="550" r="300" fill="#1a3a6a" opacity="0.15" filter="url(#blur-filter-hd)" />
+  <!-- Back card -->
+  <rect x="110" y="161" width="324" height="260" rx="26" fill="#312e81" filter="url(#shadow)"/>
+  <!-- Front card -->
+  <rect x="69" y="120" width="324" height="260" rx="26" fill="#4f46e5"/>
+  <!-- Shimmer -->
+  <rect x="69" y="120" width="324" height="72" rx="26" fill="url(#shimmer)"/>
 
-	<!-- Glass card container -->
-	<rect x="372" y="100" width="800" height="300" rx="30"
-		  fill="rgba(255, 255, 255, 0.15)"
-		  stroke="rgba(255, 255, 255, 0.5)"
-		  stroke-width="2"
-		  filter="url(#inner-shadow)" />
+  <!-- Avatar circle -->
+  <circle cx="159" cy="229" r="52" fill="#818cf8"/>
+  <!-- Head -->
+  <circle cx="159" cy="220" r="19" fill="#ffffff"/>
+  <!-- Shoulders -->
+  <ellipse cx="159" cy="250" rx="31" ry="16" fill="#ffffff"/>
 
-	<!-- Plugin name with gradient -->
-	<text x="772" y="180" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="url(#title-gradient-hd)" text-anchor="middle">Author Profile Blocks</text>
+  <!-- Name line -->
+      <rect x="243" y="198" width="117" height="15" rx="7" fill="#ffffff"/>
+  <!-- Subtitle lines -->
+  <rect x="243" y="239" width="91" height="15" rx="7" fill="#c7d2fe"/>
+  <rect x="243" y="276" width="91" height="15" rx="7" fill="#c7d2fe"/>
+  <!-- Social dots -->
+    <circle cx="166" cy="328" r="13" fill="#a5b4fc"/>
+    <circle cx="211" cy="328" r="13" fill="#a5b4fc"/>
+    <circle cx="256" cy="328" r="13" fill="#a5b4fc"/>
+  
+  <!-- Title -->
+  <text x="521" y="212"
+        font-family="Liberation Sans, Arial, sans-serif" font-weight="bold"
+        font-size="80" fill="#f8fafc">Author Profile Blocks</text>
 
-	<!-- Modern tagline -->
-	<text x="772" y="240" font-family="Arial, sans-serif" font-size="30" fill="#ffffff" text-anchor="middle" letter-spacing="0.8">Beautiful author profiles for WordPress</text>
+  <!-- Underline -->
+    <rect x="521" y="226" width="965" height="8" rx="4" fill="#6366f1"/>
 
-	<!-- Feature points -->
-	<g transform="translate(500, 300)">
-		<circle cx="0" cy="0" r="8" fill="#ffffff" />
-		<text x="20" y="5" font-family="Arial, sans-serif" font-size="20" fill="#ffffff">Custom Author Blocks</text>
-
-		<circle cx="0" cy="40" r="8" fill="#ffffff" />
-		<text x="20" y="45" font-family="Arial, sans-serif" font-size="20" fill="#ffffff">Team Member Profiles</text>
-
-		<circle cx="350" cy="0" r="8" fill="#ffffff" />
-		<text x="370" y="5" font-family="Arial, sans-serif" font-size="20" fill="#ffffff">Easy Customization</text>
-
-		<circle cx="350" cy="40" r="8" fill="#ffffff" />
-		<text x="370" y="45" font-family="Arial, sans-serif" font-size="20" fill="#ffffff">Responsive Design</text>
-	</g>
-
-	<!-- Stylized author icon with glassmorphism -->
-	<g transform="translate(230, 150)">
-		<circle cx="60" cy="60" r="80" fill="rgba(255, 255, 255, 0.2)" stroke="rgba(255, 255, 255, 0.6)" stroke-width="2" />
-		<circle cx="60" cy="40" r="30" fill="rgba(255, 255, 255, 0.9)" />
-		<path d="M0,110 Q60,70 120,110" stroke="rgba(255, 255, 255, 0.9)" stroke-width="10" fill="none" stroke-linecap="round" />
-	</g>
-
-	<!-- Right side decoration - block icons -->
-	<g transform="translate(1250, 200)">
-		<rect x="-50" y="-50" width="60" height="60" rx="8"
-			  fill="rgba(255, 255, 255, 0.1)"
-			  stroke="rgba(255, 255, 255, 0.3)"
-			  stroke-width="2" />
-		<rect x="20" y="-30" width="60" height="60" rx="8"
-			  fill="rgba(255, 255, 255, 0.15)"
-			  stroke="rgba(255, 255, 255, 0.3)"
-			  stroke-width="2" />
-		<rect x="-20" y="20" width="60" height="60" rx="8"
-			  fill="rgba(255, 255, 255, 0.2)"
-			  stroke="rgba(255, 255, 255, 0.4)"
-			  stroke-width="2" />
-	</g>
-
-	<!-- Version badge -->
-	<g transform="translate(1400, 60)">
-		<rect x="0" y="0" width="100" height="40" rx="20" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
-		<text x="50" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">v1.0.0</text>
-	</g>
-
-	<!-- WordPress compatibility badge -->
-	<g transform="translate(1250, 60)">
-		<rect x="0" y="0" width="130" height="40" rx="20" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2" />
-		<text x="65" y="28" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle">WP 6.8+ Ready</text>
-	</g>
-</svg>
+  <!-- Pills -->
+        <rect x="521" y="278" width="256" height="66" rx="33" fill="#4f46e5"/>
+    <text x="541" y="322"
+          font-family="Liberation Sans, Arial, sans-serif" font-size="30" fill="#ffffff">Profile Block</text>
+          <rect x="790" y="278" width="223" height="66" rx="33"
+          fill="#1e2545" fill-opacity="0.55" stroke="#4a5080" stroke-width="1"/>
+    <text x="810" y="322"
+          font-family="Liberation Sans, Arial, sans-serif" font-size="30" fill="#94a3b8">Author Grid</text>
+          <rect x="1026" y="278" width="206" height="66" rx="33"
+          fill="#1e2545" fill-opacity="0.55" stroke="#4a5080" stroke-width="1"/>
+    <text x="1046" y="322"
+          font-family="Liberation Sans, Arial, sans-serif" font-size="30" fill="#94a3b8">Team Cards</text>
+          <rect x="1245" y="278" width="239" height="66" rx="33"
+          fill="#1e2545" fill-opacity="0.55" stroke="#4a5080" stroke-width="1"/>
+    <text x="1265" y="322"
+          font-family="Liberation Sans, Arial, sans-serif" font-size="30" fill="#94a3b8">Social Links</text>
+          <rect x="1497" y="278" width="206" height="66" rx="33"
+          fill="#1e2545" fill-opacity="0.55" stroke="#4a5080" stroke-width="1"/>
+    <text x="1517" y="322"
+          font-family="Liberation Sans, Arial, sans-serif" font-size="30" fill="#94a3b8">Responsive</text>
+    </svg>

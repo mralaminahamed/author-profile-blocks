@@ -1,114 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 800" width="400" height="800">
-	<defs>
-		<!-- Gradients and filters -->
-		<linearGradient id="mobile-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#ffffff" />
-			<stop offset="100%" stop-color="#f9f9f9" />
-		</linearGradient>
-		<linearGradient id="mobile-header-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-			<stop offset="0%" stop-color="#ffffff" />
-			<stop offset="100%" stop-color="#f5f5f5" />
-		</linearGradient>
-		<linearGradient id="mobile-profile-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-			<stop offset="0%" stop-color="#f8f9fa" />
-			<stop offset="100%" stop-color="#f0f2f5" />
-		</linearGradient>
-		<filter id="mobile-shadow" x="-10%" y="-10%" width="120%" height="120%">
-			<feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.1" />
-		</filter>
-		<filter id="mobile-glass" x="-10%" y="-10%" width="120%" height="120%">
-			<feGaussianBlur in="SourceGraphic" stdDeviation="0.5" />
-		</filter>
-	</defs>
-
-	<!-- Mobile background -->
-	<rect width="400" height="800" fill="url(#mobile-gradient)" />
-
-	<!-- Mobile header -->
-	<rect x="0" y="0" width="400" height="60" fill="url(#mobile-header-gradient)" />
-	<rect x="20" y="15" width="120" height="30" rx="4" fill="#23282d" />
-	<text x="80" y="35" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Site Title</text>
-
-	<!-- Mobile menu -->
-	<rect x="350" y="15" width="30" height="30" rx="4" fill="transparent" />
-	<rect x="355" y="20" width="20" height="3" rx="1.5" fill="#23282d" />
-	<rect x="355" y="28" width="20" height="3" rx="1.5" fill="#23282d" />
-	<rect x="355" y="36" width="20" height="3" rx="1.5" fill="#23282d" />
-
-	<!-- Page title -->
-	<text x="20" y="90" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#23282d">Meet Our Team</text>
-	<text x="20" y="120" font-family="Arial, sans-serif" font-size="14" fill="#555555">Get to know our amazing people</text>
-
-	<!-- Author profile with glassmorphism - Mobile layout (stacked) -->
-	<g transform="translate(20, 150)">
-		<!-- Main card with shadow and glass effect -->
-		<rect x="0" y="0" width="360" height="500" rx="15"
-			  fill="rgba(255, 255, 255, 0.8)"
-			  stroke="rgba(230, 235, 240, 0.9)"
-			  stroke-width="1"
-			  filter="url(#mobile-shadow)" />
-
-		<!-- Card inner area with gradient -->
-		<rect x="15" y="15" width="330" height="470" rx="10"
-			  fill="url(#mobile-profile-gradient)"
-			  stroke="rgba(255, 255, 255, 0.8)"
-			  stroke-width="1" />
-
-		<!-- Author image with glass frame - centered on mobile -->
-		<g transform="translate(115, 30)">
-			<circle cx="50" cy="50" r="50" fill="rgba(255, 255, 255, 0.9)"
-					stroke="rgba(230, 235, 240, 0.9)" stroke-width="2" />
-			<circle cx="50" cy="50" r="44" fill="#f0f6fc" />
-			<circle cx="50" cy="40" r="20" fill="#d2dbe5" />
-			<path d="M30,65 Q50,55 70,65" stroke="#d2dbe5" stroke-width="6" fill="none" stroke-linecap="round" />
-		</g>
-
-		<!-- Author information - centered for mobile -->
-		<text x="165" y="150" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#23282d" text-anchor="middle">John Smith</text>
-
-		<rect x="90" y="165" width="150" height="30" rx="15"
-			  fill="rgba(0, 115, 170, 0.1)"
-			  stroke="rgba(0, 115, 170, 0.3)"
-			  stroke-width="1" />
-		<text x="165" y="185" font-family="Arial, sans-serif" font-size="12" fill="#0073aa" text-anchor="middle">Lead Developer</text>
-
-		<text x="165" y="220" font-family="Arial, sans-serif" font-size="14" fill="#0073aa" text-anchor="middle">john.smith@example.com</text>
-
-		<!-- Description text - narrower for mobile -->
-		<text x="30" y="260" font-family="Arial, sans-serif" font-size="14" fill="#555555">John is a senior developer with over 10</text>
-		<text x="30" y="285" font-family="Arial, sans-serif" font-size="14" fill="#555555">years of experience building web</text>
-		<text x="30" y="310" font-family="Arial, sans-serif" font-size="14" fill="#555555">applications. He specializes in WordPress</text>
-		<text x="30" y="335" font-family="Arial, sans-serif" font-size="14" fill="#555555">development and has contributed to</text>
-		<text x="30" y="360" font-family="Arial, sans-serif" font-size="14" fill="#555555">numerous open-source projects.</text>
-
-		<!-- Social media icons in glass containers - centered for mobile -->
-		<g transform="translate(90, 400)">
-			<circle cx="30" cy="20" r="20" fill="rgba(255, 255, 255, 0.7)"
-					stroke="rgba(230, 235, 240, 0.9)" stroke-width="1" />
-			<text x="30" y="25" font-family="Arial, sans-serif" font-size="14" fill="#0073aa" text-anchor="middle">in</text>
-
-			<circle cx="90" cy="20" r="20" fill="rgba(255, 255, 255, 0.7)"
-					stroke="rgba(230, 235, 240, 0.9)" stroke-width="1" />
-			<text x="90" y="25" font-family="Arial, sans-serif" font-size="14" fill="#0073aa" text-anchor="middle">t</text>
-
-			<circle cx="150" cy="20" r="20" fill="rgba(255, 255, 255, 0.7)"
-					stroke="rgba(230, 235, 240, 0.9)" stroke-width="1" />
-			<text x="150" y="25" font-family="Arial, sans-serif" font-size="14" fill="#0073aa" text-anchor="middle">g</text>
-		</g>
-	</g>
-
-	<!-- More content section with glassmorphism -->
-	<g transform="translate(20, 670)">
-		<rect x="0" y="0" width="360" height="120" rx="15"
-			  fill="rgba(255, 255, 255, 0.5)"
-			  stroke="rgba(230, 235, 240, 0.7)"
-			  stroke-width="1"
-			  filter="url(#mobile-glass)" />
-
-		<text x="20" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#23282d">More About John</text>
-
-		<text x="20" y="60" font-family="Arial, sans-serif" font-size="12" fill="#555555">John regularly speaks at WordPress conferences</text>
-		<text x="20" y="80" font-family="Arial, sans-serif" font-size="12" fill="#555555">and contributes to open source projects.</text>
-		<text x="20" y="100" font-family="Arial, sans-serif" font-size="12" fill="#555555">Connect to discuss your WordPress needs.</text>
-	</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <rect width="1280" height="800" fill="#f8fafc"/>
+  <rect x="0" y="0" width="1280" height="800" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="640" y="388"
+        font-family="Liberation Sans, Arial, sans-serif" font-size="18" fill="#94a3b8"
+        text-anchor="middle">Screenshot 5</text>
+  <text x="640" y="416"
+        font-family="Liberation Sans, Arial, sans-serif" font-size="14" fill="#cbd5e1"
+        text-anchor="middle">Author Grid block — 3-column team grid</text>
+  <text x="640" y="444"
+        font-family="Liberation Sans, Arial, sans-serif" font-size="12" fill="#e2e8f0"
+        text-anchor="middle">See screenshot-5.png for the full rendered version</text>
 </svg>
