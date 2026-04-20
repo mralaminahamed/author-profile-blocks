@@ -1,10 +1,12 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+<?php
+declare(strict_types=1);
+ // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
 /**
  * Author List Block class
  *
  * @package AuthorProfileBlocks
- * @license GPL-3.0-only
+ * @license GPL-2.0-or-later
  */
 
 namespace AuthorProfileBlocks\Blocks;

@@ -1,10 +1,12 @@
-<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+<?php
+declare(strict_types=1);
+ // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
 
 /**
  * Main Plugin Class
  *
  * @package AuthorProfileBlocks
- * @license GPL-3.0-only
+ * @license GPL-2.0-or-later
  */
 
 use AuthorProfileBlocks\Admin\Admin;
@@ -15,7 +17,6 @@ use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Profile_Block;
 use AuthorProfileBlocks\Core\User_Meta_Provider;
-use AuthorProfileBlocks\Frontend\Assets as FrontendAssets;
 use AuthorProfileBlocks\Services\Author_Profile_Service;
 
 // Exit if accessed directly.

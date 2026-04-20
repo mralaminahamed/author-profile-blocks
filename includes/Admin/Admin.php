@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 /**
  * Admin Class
  *
  * @package AuthorProfileBlocks
- * @license GPL-3.0-only
+ * @license GPL-2.0-or-later
  */
 
 namespace AuthorProfileBlocks\Admin;
@@ -292,6 +293,10 @@ class Admin {
 	 * @return void
 	 */
 	public function settings_page(): void {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'author-profile-blocks' ) );
+		}
+
 		// Check if settings were updated using WordPress function
 		$settings_updated = wp_unslash( $_GET['settings-updated'] ?? '' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( isset( $_GET['settings-updated'] ) && rest_sanitize_boolean( $settings_updated ) ) {
