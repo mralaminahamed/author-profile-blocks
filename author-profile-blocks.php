@@ -5,7 +5,7 @@
  * @package           AuthorProfileBlocks
  * @author            Al Amin Ahamed
  * @copyright         2025 Al Amin Ahamed
- * @license           GPL-3.0-only
+ * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Author Profile Blocks
@@ -13,14 +13,14 @@
  * Description:       Gutenberg blocks for displaying author profiles and team members with customizable layouts.
  * Version:           1.0.0
  * Requires at least: 6.0
- * Tested up to:      6.7
+ * Tested up to:      7.0
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
  * Author URI:        https://github.com/mralaminahamed
  * Text Domain:       author-profile-blocks
  * Domain Path:       /languages
- * License:           GPL-3.0-only
- * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed
  */

@@ -1,7 +1,7 @@
 === Author Profile Blocks ===
 Contributors:      mralaminahamed
 Tags:              block, author, profile, gutenberg, team
-Tested up to:      6.8
+Tested up to:      7.0
 Stable tag:        1.0.0
 Requires at least: 6.0
 Requires PHP:      7.4
@@ -113,12 +113,11 @@ Yes, Author Profile Blocks is fully internationalized and translation-ready. All
 
 == Screenshots ==
 
-1. Author Profile block in the Gutenberg editor
-2. Author Grid block displaying team members
-3. Author Carousel block with card layout
-4. Author List block with compact layout
-5. Block settings and customization options
-6. Enhanced user profile fields
+1. Author Profile block in the Gutenberg editor with block settings panel.
+2. Block display and style settings — layout, colors, alignment, and visibility toggles.
+3. Author Profiles admin list — manage all author entries from one place.
+4. Frontend card layout — author card with position badge, email, bio, and social links.
+5. Responsive mobile view of the author card layout.
 
 == Changelog ==
 
