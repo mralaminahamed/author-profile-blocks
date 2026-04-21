@@ -1,8 +1,6 @@
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 import { Button, PanelBody } from '@wordpress/components';
+import { Contact, Sparkles, Moon, Palette, Quote, Briefcase } from 'lucide-react';
 
 /**
  * Preset styles component for the Author Profile block
@@ -16,8 +14,8 @@ export function PresetStyles( { onApplyPreset } ) {
 		{
 			id: 'classic',
 			name: __( 'Classic Card', 'author-profile-blocks' ),
-			description: __( 'Traditional card layout with clean styling' ),
-			icon: '📄',
+			description: __( 'Traditional card layout with clean styling', 'author-profile-blocks' ),
+			icon: Contact,
 			settings: {
 				backgroundColor: '#ffffff',
 				borderWidth: 1,
@@ -37,8 +35,8 @@ export function PresetStyles( { onApplyPreset } ) {
 		{
 			id: 'modern',
 			name: __( 'Modern Minimal', 'author-profile-blocks' ),
-			description: __( 'Clean, minimal design with subtle shadows' ),
-			icon: '✨',
+			description: __( 'Clean, minimal design with subtle shadows', 'author-profile-blocks' ),
+			icon: Sparkles,
 			settings: {
 				backgroundColor: '#ffffff',
 				borderWidth: 0,
@@ -61,8 +59,8 @@ export function PresetStyles( { onApplyPreset } ) {
 		{
 			id: 'dark',
 			name: __( 'Dark Theme', 'author-profile-blocks' ),
-			description: __( 'Dark background with light text' ),
-			icon: '🌙',
+			description: __( 'Dark background with light text', 'author-profile-blocks' ),
+			icon: Moon,
 			settings: {
 				backgroundColor: '#1a1a1a',
 				borderWidth: 0,
@@ -82,8 +80,8 @@ export function PresetStyles( { onApplyPreset } ) {
 		{
 			id: 'gradient',
 			name: __( 'Gradient Style', 'author-profile-blocks' ),
-			description: __( 'Beautiful gradient background with modern styling' ),
-			icon: '🌈',
+			description: __( 'Beautiful gradient background with modern styling', 'author-profile-blocks' ),
+			icon: Palette,
 			settings: {
 				gradientBackground: true,
 				gradientStartColor: '#667eea',
@@ -107,8 +105,8 @@ export function PresetStyles( { onApplyPreset } ) {
 		{
 			id: 'testimonial',
 			name: __( 'Testimonial', 'author-profile-blocks' ),
-			description: __( 'Quote-style layout perfect for testimonials' ),
-			icon: '💬',
+			description: __( 'Quote-style layout perfect for testimonials', 'author-profile-blocks' ),
+			icon: Quote,
 			settings: {
 				backgroundColor: '#f8f9fa',
 				borderWidth: 0,
@@ -131,8 +129,8 @@ export function PresetStyles( { onApplyPreset } ) {
 		{
 			id: 'business',
 			name: __( 'Business Card', 'author-profile-blocks' ),
-			description: __( 'Professional business card layout' ),
-			icon: '💼',
+			description: __( 'Professional business card layout', 'author-profile-blocks' ),
+			icon: Briefcase,
 			settings: {
 				backgroundColor: '#ffffff',
 				borderWidth: 1,
@@ -165,19 +163,13 @@ export function PresetStyles( { onApplyPreset } ) {
 				) }
 			</p>
 
-			<div
-				style={ {
-					display: 'grid',
-					gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-					gap: '12px',
-				} }
-			>
-				{ presets.map( ( preset ) => (
+			<div style={ { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' } }>
+				{ presets.map( ( { id, name, description, icon: Icon, settings } ) => (
 					<Button
-						key={ preset.id }
+						key={ id }
 						variant="secondary"
 						className="apb-preset-button"
-						onClick={ () => onApplyPreset( preset.settings ) }
+						onClick={ () => onApplyPreset( settings ) }
 						style={ {
 							display: 'flex',
 							flexDirection: 'column',
@@ -190,40 +182,19 @@ export function PresetStyles( { onApplyPreset } ) {
 							backgroundColor: '#fff',
 							transition: 'all 0.2s ease',
 						} }
-						title={ preset.description }
+						title={ description }
 					>
-						<div
-							style={ {
-								fontSize: '24px',
-								marginBottom: '8px',
-								lineHeight: '1',
-							} }
-						>
-							{ preset.icon }
+						<div style={ { marginBottom: '8px', lineHeight: 1, color: '#4f46e5' } }>
+							<Icon size={ 22 } strokeWidth={ 1.75 } />
 						</div>
-						<div
-							style={ {
-								fontSize: '12px',
-								fontWeight: '600',
-								color: '#333',
-								lineHeight: '1.2',
-							} }
-						>
-							{ preset.name }
+						<div style={ { fontSize: '12px', fontWeight: '600', color: '#333', lineHeight: '1.2' } }>
+							{ name }
 						</div>
 					</Button>
 				) ) }
 			</div>
 
-			<div
-				style={ {
-					marginTop: '16px',
-					padding: '12px',
-					backgroundColor: '#f0f7fc',
-					borderRadius: '4px',
-					border: '1px solid #c3e6fb',
-				} }
-			>
+			<div style={ { marginTop: '16px', padding: '12px', backgroundColor: '#f0f7fc', borderRadius: '4px', border: '1px solid #c3e6fb' } }>
 				<p style={ { margin: '0', fontSize: '12px', color: '#0066cc' } }>
 					<strong>{ __( 'Tip:', 'author-profile-blocks' ) }</strong>{ ' ' }
 					{ __(

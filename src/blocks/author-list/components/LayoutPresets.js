@@ -1,8 +1,6 @@
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
+import { AlignJustify, Layers, Minus, Square, Layers2, Rows3 } from 'lucide-react';
 
 /**
  * Layout presets component for the Author List block
@@ -17,56 +15,56 @@ export function LayoutPresets( { selectedLayout, onChange } ) {
 		{
 			id: 'default',
 			label: __( 'Default', 'author-profile-blocks' ),
-			icon: '📋',
-			description: __( 'Standard list layout with clean styling' ),
+			icon: AlignJustify,
+			description: __( 'Standard list layout with clean styling', 'author-profile-blocks' ),
 		},
 		{
 			id: 'is-style-card',
 			label: __( 'Card', 'author-profile-blocks' ),
-			icon: '🃏',
-			description: __( 'Card-based list with individual item containers' ),
+			icon: Layers,
+			description: __( 'Card-based list with individual item containers', 'author-profile-blocks' ),
 		},
 		{
 			id: 'is-style-minimal',
 			label: __( 'Minimal', 'author-profile-blocks' ),
-			icon: '⚪',
-			description: __( 'Clean, minimal list design' ),
+			icon: Minus,
+			description: __( 'Clean, minimal list design', 'author-profile-blocks' ),
 		},
 		{
 			id: 'is-style-bordered',
 			label: __( 'Bordered', 'author-profile-blocks' ),
-			icon: '🔲',
-			description: __( 'List with visible borders around items' ),
+			icon: Square,
+			description: __( 'List with visible borders around items', 'author-profile-blocks' ),
 		},
 		{
 			id: 'is-style-shadow',
 			label: __( 'Shadow', 'author-profile-blocks' ),
-			icon: '🌑',
-			description: __( 'List with shadow effects on items' ),
+			icon: Layers2,
+			description: __( 'List with shadow effects on items', 'author-profile-blocks' ),
 		},
 		{
 			id: 'is-style-alternating',
 			label: __( 'Alternating', 'author-profile-blocks' ),
-			icon: '🔄',
-			description: __( 'Alternating background colors for list items' ),
+			icon: Rows3,
+			description: __( 'Alternating background colors for list items', 'author-profile-blocks' ),
 		},
 	];
 
 	return (
 		<div className="apb-layout-presets">
 			<div className="apb-layout-grid">
-				{ layouts.map( ( layout ) => (
+				{ layouts.map( ( { id, label, description, icon: Icon } ) => (
 					<Button
-						key={ layout.id }
-						variant={ selectedLayout === layout.id ? 'primary' : 'secondary' }
-						className={ `apb-layout-preset ${
-							selectedLayout === layout.id ? 'is-selected' : ''
-						}` }
-						onClick={ () => onChange( layout.id ) }
-						title={ layout.description }
+						key={ id }
+						variant={ selectedLayout === id ? 'primary' : 'secondary' }
+						className={ `apb-layout-preset ${ selectedLayout === id ? 'is-selected' : '' }` }
+						onClick={ () => onChange( id ) }
+						title={ description }
 					>
-						<div className="apb-layout-icon">{ layout.icon }</div>
-						<div className="apb-layout-label">{ layout.label }</div>
+						<div className="apb-layout-icon">
+							<Icon size={ 18 } strokeWidth={ 1.75 } />
+						</div>
+						<div className="apb-layout-label">{ label }</div>
 					</Button>
 				) ) }
 			</div>

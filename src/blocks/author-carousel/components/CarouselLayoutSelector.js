@@ -1,13 +1,6 @@
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 import { ButtonGroup, Button } from '@wordpress/components';
-
-/**
- * WordPress global
- */
-const { AuthorProfileBlocks = { adminUrl: '/wp-admin/' } } = window;
+import { Layers, Columns, AlignCenter } from 'lucide-react';
 
 /**
  * Carousel layout selector component
@@ -18,37 +11,36 @@ const { AuthorProfileBlocks = { adminUrl: '/wp-admin/' } } = window;
  * @return {JSX.Element} Component to render
  */
 const CarouselLayoutSelector = ( { selectedLayout, onSelectLayout } ) => {
-	// Layout options
 	const layouts = [
 		{
 			name: 'card',
 			label: __( 'Card', 'author-profile-blocks' ),
-			icon: 'dashicons-cover-image',
+			icon: Layers,
 		},
 		{
 			name: 'compact',
 			label: __( 'Compact', 'author-profile-blocks' ),
-			icon: 'dashicons-id',
+			icon: Columns,
 		},
 		{
 			name: 'centered',
 			label: __( 'Centered', 'author-profile-blocks' ),
-			icon: 'dashicons-align-center',
+			icon: AlignCenter,
 		},
 	];
 
 	return (
 		<div className="apb-layout-options">
 			<ButtonGroup>
-				{ layouts.map( ( layout ) => (
+				{ layouts.map( ( { name, label, icon: Icon } ) => (
 					<Button
-						key={ layout.name }
-						className={ `apb-layout-option ${ selectedLayout === layout.name ? 'is-selected' : '' }` }
-						isPressed={ selectedLayout === layout.name }
-						onClick={ () => onSelectLayout( layout.name ) }
+						key={ name }
+						className={ `apb-layout-option ${ selectedLayout === name ? 'is-selected' : '' }` }
+						isPressed={ selectedLayout === name }
+						onClick={ () => onSelectLayout( name ) }
 					>
-						<span className={ `dashicons ${ layout.icon }` }></span>
-						<span>{ layout.label }</span>
+						<Icon size={ 16 } strokeWidth={ 1.75 } style={ { marginRight: '4px', verticalAlign: 'middle' } } />
+						<span>{ label }</span>
 					</Button>
 				) ) }
 			</ButtonGroup>
