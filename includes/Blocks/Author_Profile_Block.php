@@ -60,7 +60,7 @@ class Author_Profile_Block extends Author_Block_Base {
 	 * @return string Rendered block output.
 	 */
 	public function render_callback( array $attributes, string $content, $block ): string {
-		$author_id = $attributes['authorId'] ?? 0;
+		$author_id = (int) ( $attributes['authorId'] ?? 0 );
 
 		if ( empty( $author_id ) ) {
 			return $this->render_error_message( $this->get_no_author_selected_message() );

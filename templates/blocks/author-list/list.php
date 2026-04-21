@@ -23,7 +23,7 @@ echo $wrapper_attributes;
 >
 	<?php
 	// List classes based on style and options.
-	$apbl_list_classes   = array( 'apbl-authors-list-preview' );
+	$apbl_list_classes   = array( 'apbl-author-list' );
 	$apbl_list_classes[] = 'apbl-display-' . ( $attributes['displayStyle'] ?? 'compact' );
 	$apbl_list_classes[] = 'apbl-text-align-' . ( $attributes['textAlign'] ?? 'left' );
 
@@ -48,7 +48,7 @@ echo $wrapper_attributes;
 	}
 
 	if ( ! empty( $attributes['enableDividers'] ) ) {
-		$apbl_list_classes[] = 'apbl-has-dividers';
+		$apbl_list_classes[] = 'has-dividers';
 	}
 
 	// Add section spacing custom property.
@@ -68,7 +68,7 @@ echo $wrapper_attributes;
 	$apbl_list_tag = $attributes['listStyle'] ?? 'ul';
 	?>
 	<div class="<?php echo esc_attr( implode( ' ', $apbl_list_classes ) ); ?>"<?php echo ! empty( $apbl_list_style ) ? ' style="' . esc_attr( $apbl_list_style ) . '"' : ''; ?>>
-		<<?php echo esc_attr( $apbl_list_tag ); ?> class="apbl-authors-list">
+		<<?php echo esc_attr( $apbl_list_tag ); ?> class="apbl-author-list-items">
 			<?php foreach ( $authors as $apbl_author ) : ?>
 				<?php echo wp_kses_post( $block_instance->render_author_item( $apbl_author, $attributes ) ); ?>
 			<?php endforeach; ?>

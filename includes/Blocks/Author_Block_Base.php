@@ -260,7 +260,7 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return int[] Array of author IDs.
 	 */
 	protected function extract_author_ids( array $attributes ): array {
-		return $attributes['authorIds'] ?? array();
+		return array_map( 'intval', $attributes['authorIds'] ?? array() );
 	}
 
 	/**
@@ -914,7 +914,7 @@ abstract class Author_Block_Base implements Registerable {
 			'author_position'    => $this->render_author_position( $author ),
 			'author_email'       => $this->render_author_email( $author ),
 			'author_description' => $this->render_author_description( $author ),
-			'social_links'       => $this->render_social_profiles( $author['social'] ?? array(), 'apbl-compact-social' ),
+			'social_links'       => $this->render_social_profiles( is_array( $author['social'] ?? null ) ? $author['social'] : array(), 'apbl-compact-social' ),
 		);
 
 		// Start output buffering.
@@ -958,7 +958,7 @@ abstract class Author_Block_Base implements Registerable {
 			'author_email'       => $this->render_author_email( $author ),
 			'author_description' => $this->render_author_description( $author ),
 			'registered_date'    => $this->render_registered_date( $author ),
-			'social_links'       => $this->render_social_profiles( $author['social'] ?? array(), 'apbl-detailed-social' ),
+			'social_links'       => $this->render_social_profiles( is_array( $author['social'] ?? null ) ? $author['social'] : array(), 'apbl-detailed-social' ),
 		);
 
 		// Start output buffering.
@@ -1002,7 +1002,7 @@ abstract class Author_Block_Base implements Registerable {
 			'author_email'       => $this->render_author_email( $author ),
 			'author_description' => $this->render_author_description( $author ),
 			'registered_date'    => $this->render_registered_date( $author ),
-			'social_links'       => $this->render_social_profiles( $author['social'] ?? array() ),
+			'social_links'       => $this->render_social_profiles( is_array( $author['social'] ?? null ) ? $author['social'] : array() ),
 		);
 
 		// Start output buffering.
