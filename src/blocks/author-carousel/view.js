@@ -6,8 +6,10 @@
 // Import jQuery since Slick depends on it
 import jQuery from 'jquery';
 
-// Import Slick Carousel
+// Import Slick Carousel JS + core layout CSS
 import 'slick-carousel';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 /**
  * Initialize carousels when the DOM is ready
@@ -21,7 +23,7 @@ jQuery( document ).ready( function( $ ) {
 		return;
 	}
 	// Initialize all author carousels on the page
-	$( '.apb-author-carousel' ).each( function() {
+	$( '.apbl-author-carousel' ).each( function() {
 		const $carousel = $( this );
 		const settings = $carousel.data( 'settings' ) || {};
 

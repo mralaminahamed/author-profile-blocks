@@ -18,28 +18,28 @@ const AuthorCarouselPreview = ( { attributes } ) => {
 		const slidesToShow = attributes.slidesToShow || 3;
 
 		return (
-			<div className="apb-carousel-placeholder">
+			<div className="apbl-carousel-placeholder">
 				{ Array.from( {
 					length: Math.min( slidesToShow, attributes.authorIds.length ),
 				} ).map( ( _, index ) => (
-					<div key={ index } className="apb-carousel-slide-placeholder">
+					<div key={ index } className="apbl-carousel-slide-placeholder">
 						{ attributes.showImage && (
-							<div className="apb-placeholder-image"></div>
+							<div className="apbl-placeholder-image"></div>
 						) }
-						<div className="apb-placeholder-line apb-placeholder-title"></div>
+						<div className="apbl-placeholder-line apb-placeholder-title"></div>
 						{ attributes.showPosition && (
-							<div className="apb-placeholder-line"></div>
+							<div className="apbl-placeholder-line"></div>
 						) }
 						{ attributes.showDescription && (
 							<>
-								<div className="apb-placeholder-line apb-placeholder-text"></div>
-								<div className="apb-placeholder-line apb-placeholder-text"></div>
-								<div className="apb-placeholder-line apb-placeholder-text"></div>
+								<div className="apbl-placeholder-line apb-placeholder-text"></div>
+								<div className="apbl-placeholder-line apb-placeholder-text"></div>
+								<div className="apbl-placeholder-line apb-placeholder-text"></div>
 							</>
 						) }
 					</div>
 				) ) }
-				<div className="apb-editor-note">
+				<div className="apbl-editor-note">
 					<em>
 						{ __(
 							'Carousel preview - will be fully functional on the frontend',
