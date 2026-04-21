@@ -1,190 +1,51 @@
-// APB Color Scheme for Author Profile Blocks Documentation
-// This file should be placed in _sass/color_schemes/apb.scss
+// ─── Author Profile Blocks — Indigo Editorial Color Scheme ──────────────────
+// just-the-docs v0.5.3 color scheme override
+// All variables without !default to ensure they override theme defaults
 
-// Base colors
-$blue-100: #f0f4ff !default;
-$blue-200: #d9e2ff !default;
-$blue-300: #a6c1ff !default;
-$blue-400: #598bff !default;
-$blue-500: #3e7bfa !default;
-$blue-600: #2c5cd1 !default;
-$blue-700: #2145a0 !default;
-$blue-800: #183072 !default;
-$blue-900: #101c44 !default;
+// Indigo palette
+$indigo-950: #1e1b4b;
+$indigo-900: #312e81;
+$indigo-800: #3730a3;
+$indigo-700: #4338ca;
+$indigo-600: #4f46e5;
+$indigo-500: #6366f1;
+$indigo-400: #818cf8;
+$indigo-300: #a5b4fc;
+$indigo-200: #c7d2fe;
+$indigo-100: #e0e7ff;
+$indigo-50:  #eef2ff;
 
-$green-100: #effcf6 !default;
-$green-200: #d0f0e0 !default;
-$green-300: #a1e3c6 !default;
-$green-400: #5dd6a5 !default;
-$green-500: #2ecc71 !default;
-$green-600: #25a75c !default;
-$green-700: #1e8549 !default;
-$green-800: #166337 !default;
-$green-900: #0f4025 !default;
+// Neutrals
+$neutral-950: #0a0a0f;
+$neutral-900: #111118;
+$neutral-800: #1c1c27;
+$neutral-700: #2d2d3f;
+$neutral-600: #4a4a64;
+$neutral-500: #6b6b85;
+$neutral-400: #9898b0;
+$neutral-300: #c4c4d4;
+$neutral-200: #e2e2ec;
+$neutral-100: #f1f1f6;
+$neutral-50:  #f8f8fc;
 
-$grey-100: #f8f9fa !default;
-$grey-200: #e9ecef !default;
-$grey-300: #dee2e6 !default;
-$grey-400: #ced4da !default;
-$grey-500: #adb5bd !default;
-$grey-600: #6c757d !default;
-$grey-700: #495057 !default;
-$grey-800: #343a40 !default;
-$grey-900: #212529 !default;
+// ─── just-the-docs theme variables ──────────────────────────────────────────
+$body-background-color:      $neutral-50;
+$sidebar-color:              $indigo-950;
+$search-background-color:    rgba(255,255,255,0.07);
+$table-background-color:     #ffffff;
+$code-background-color:      $neutral-100;
+$feedback-color:             #16133e;
+$body-heading-color:         #0f0f1a;
+$body-text-color:            #1a1a2e;
+$link-color:                 $indigo-600;
+$nav-child-link-color:       #a8b4d0;
+$btn-primary-color:          $indigo-600;
+$base-button-color:          $neutral-200;
+$border-color:               $neutral-200;
 
-// Theme color variables
-$body-background-color: $grey-100 !default;
-$body-heading-color: $grey-900 !default;
-$body-text-color: $grey-700 !default;
-$link-color: $blue-600 !default;
-$nav-child-link-color: $blue-600 !default;
-$sidebar-color: $grey-100 !default;
-$base-button-color: $grey-200 !default;
-$btn-primary-color: $blue-600 !default;
-$code-background-color: $grey-200 !default;
-$feedback-color: darken($sidebar-color, 3%) !default;
-$table-background-color: $grey-100 !default;
-$search-background-color: $grey-100 !default;
-$search-result-preview-color: $grey-600 !default;
-
-// Custom callout colors
-$callouts-note-color: $blue-300 !default;
-$callouts-warning-color: #FFCD00 !default;
-$callouts-important-color: #DD2E44 !default;
-$callouts-tip-color: $green-400 !default;
-$callouts-new-color: #9B59B6 !default;
-
-// Custom styling
-.apb-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.apb-card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  }
-
-  .apb-card-title {
-    margin-top: 0;
-    color: $grey-900;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  .apb-card-description {
-    color: $grey-700;
-    margin-bottom: 1rem;
-  }
-
-  img {
-    max-width: 100%;
-    display: block;
-    margin: 1rem 0;
-    border-radius: 4px;
-    border: 1px solid $grey-200;
-  }
-
-  .apb-card-link {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-weight: 500;
-    text-decoration: none;
-
-    &:after {
-      content: " →";
-      transition: transform 0.2s ease;
-    }
-
-    &:hover:after {
-      transform: translateX(3px);
-    }
-  }
-}
-
-.apb-features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.apb-feature {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-
-  .apb-feature-icon {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $blue-100;
-    border-radius: 8px;
-    color: $blue-600;
-  }
-
-  .apb-feature-content {
-    h4 {
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
-    }
-
-    p {
-      margin: 0;
-      color: $grey-700;
-    }
-  }
-}
-
-.apb-header-banner {
-  margin: 2rem 0;
-  text-align: center;
-
-  img {
-    max-width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-}
-
-// Callout styling
-.callout-blue {
-  background-color: $blue-100;
-  border-left: 4px solid $blue-500;
-  padding: 0.8rem 1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 4px 4px 0;
-}
-
-.callout-green {
-  background-color: $green-100;
-  border-left: 4px solid $green-500;
-  padding: 0.8rem 1rem;
-  margin: 1.5rem 0;
-  border-radius: 0 4px 4px 0;
-}
-
-// Responsive adjustments
-@media (max-width: 800px) {
-  .apb-features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .apb-grid {
-    grid-template-columns: 1fr;
-  }
-}
+// Callout colors
+$callouts-note-color:        #a5b4fc;
+$callouts-warning-color:     #fbbf24;
+$callouts-important-color:   #f87171;
+$callouts-tip-color:         #6ee7b7;
+$callouts-new-color:         #c4b5fd;

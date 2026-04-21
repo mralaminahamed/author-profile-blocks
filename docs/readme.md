@@ -8,165 +8,204 @@ permalink: /
 # Author Profile Blocks
 {: .fs-9 .no_toc }
 
-A powerful collection of WordPress blocks for showcasing author profiles and team members.
+<span class="apbl-eyebrow">
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  WordPress Gutenberg Plugin
+</span>
+
+Four production-ready Gutenberg blocks for showcasing WordPress users — profile, grid, list, and carousel — with an indigo editorial design system.
 {: .fs-6 .fw-300 }
 
 [Get Started]({{ site.baseurl }}{% link getting-started.md %}){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/mralaminahamed/author-profile-blocks){: .btn .fs-5 .mb-4 .mb-md-0 }
 
----
-
-<div class="apbl-header-banner" markdown="1">
-![Author Profile Blocks Banner]({{ site.baseurl }}/assets/images/banner.svg)
+<div class="apbl-version-badge">
+  <span class="apbl-version-tag">v1.0.1</span>
+  <span>Tested on WordPress 6.7 · PHP 7.4+</span>
 </div>
-
-## Table of contents
-{: .no_toc .text-delta }
-
-1. TOC
-   {:toc}
 
 ---
 
-## What is Author Profile Blocks?
-
-Author Profile Blocks is a modern WordPress plugin that allows you to display user profiles in various layouts using Gutenberg blocks. It's perfect for showcasing team members, contributors, authors, or any WordPress users you want to feature on your website.
-
-Unlike other plugins, Author Profile Blocks leverages your existing WordPress users rather than creating a separate custom post type. This means you can showcase all your site contributors without duplicating content.
-
-{: .callout-green }
-> **COMPATIBILITY**  
-> Works with WordPress 6.0 or higher and any theme that supports the block editor.
-
-## Core Blocks
-
-<div class="apbl-grid">
-  <div class="apbl-card">
-    <h3 class="apbl-card-title">Author Profile</h3>
-    <p class="apbl-card-description">Display detailed information about a single author with customizable layouts.</p>
-    <img src="{{ site.baseurl }}/assets/images/author-profile-block-thumb.svg" alt="Author Profile Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-profile.md %}" class="apbl-card-link">Learn More →</a>
-  </div>
-
-  <div class="apbl-card">
-    <h3 class="apbl-card-title">Author Grid</h3>
-    <p class="apbl-card-description">Present multiple authors in a responsive grid layout with various customization options.</p>
-    <img src="{{ site.baseurl }}/assets/images/author-grid-block-thumb.svg" alt="Author Grid Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-grid.md %}" class="apbl-card-link">Learn More →</a>
-  </div>
-
-  <div class="apbl-card">
-    <h3 class="apbl-card-title">Author Carousel</h3>
-    <p class="apbl-card-description">Showcase multiple authors in an interactive sliding carousel with navigation controls.</p>
-    <img src="{{ site.baseurl }}/assets/images/author-carousel-block-thumb.svg" alt="Author Carousel Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-carousel.md %}" class="apbl-card-link">Learn More →</a>
-  </div>
-
-  <div class="apbl-card">
-    <h3 class="apbl-card-title">Author List</h3>
-    <p class="apbl-card-description">Display multiple authors in a customizable list format for team directories or contributor listings.</p>
-    <img src="{{ site.baseurl }}/assets/images/author-list-block-thumb.svg" alt="Author List Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-list.md %}" class="apbl-card-link">Learn More →</a>
+<div class="apbl-palette">
+  <span class="apbl-palette-label">Design palette</span>
+  <div class="apbl-palette-swatches">
+    <div class="apbl-swatch" style="background:#1e1b4b" title="indigo-950"></div>
+    <div class="apbl-swatch" style="background:#3730a3" title="indigo-800"></div>
+    <div class="apbl-swatch" style="background:#4f46e5" title="indigo-600 — primary"></div>
+    <div class="apbl-swatch" style="background:#818cf8" title="indigo-400"></div>
+    <div class="apbl-swatch" style="background:#c7d2fe" title="indigo-200"></div>
+    <div class="apbl-swatch" style="background:#eef2ff" title="indigo-50"></div>
+    <div class="apbl-swatch" style="background:#f59e0b" title="amber-500 — accent"></div>
+    <div class="apbl-swatch" style="background:#f1f1f6" title="neutral-100"></div>
+    <div class="apbl-swatch" style="background:#ffffff" title="white"></div>
   </div>
 </div>
 
-## Key Features
+<div class="apbl-section-heading">
+  <h2>Blocks</h2>
+  <div class="apbl-section-line"></div>
+</div>
 
-### Rich Display Options
-{: .no_toc }
+<div class="apbl-blocks-grid">
 
-- **Author Image** - Show the author's profile picture (from Gravatar)
-- **Author Position** - Display the author's role or title within your organization
-- **Contact Information** - Show email addresses and social media profiles
-- **Biographical Info** - Include detailed author descriptions and backgrounds
-- **Registration Date** - Show when the author joined with a customizable label
+  <a href="{{ site.baseurl }}{% link blocks/author-profile.md %}" class="apbl-block-card apbl-card-profile">
+    <div class="apbl-block-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+    </div>
+    <h3>Author Profile</h3>
+    <p>Single-author display with card, compact, and centered layouts. Perfect for about pages and post signatures.</p>
+    <div class="apbl-block-card-footer">
+      <span class="apbl-block-card-slug">author-profile-blocks/author-profile</span>
+      <div class="apbl-block-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </a>
 
-### Extensive Customization
-{: .no_toc }
+  <a href="{{ site.baseurl }}{% link blocks/author-grid.md %}" class="apbl-block-card apbl-card-grid">
+    <div class="apbl-block-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    </div>
+    <h3>Author Grid</h3>
+    <p>Responsive 1–4 column grid with author picker and role filter. Ideal for team and contributor pages.</p>
+    <div class="apbl-block-card-footer">
+      <span class="apbl-block-card-slug">author-profile-blocks/author-grid</span>
+      <div class="apbl-block-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <a href="{{ site.baseurl }}{% link blocks/author-carousel.md %}" class="apbl-block-card apbl-card-carousel">
+    <div class="apbl-block-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/><path d="m15 18 6-6-6-6"/></svg>
+    </div>
+    <h3>Author Carousel</h3>
+    <p>Slick-powered sliding carousel with autoplay, arrows, dots, and responsive breakpoints (3 → 2 → 1).</p>
+    <div class="apbl-block-card-footer">
+      <span class="apbl-block-card-slug">author-profile-blocks/author-carousel</span>
+      <div class="apbl-block-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <a href="{{ site.baseurl }}{% link blocks/author-list.md %}" class="apbl-block-card apbl-card-list">
+    <div class="apbl-block-card-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    </div>
+    <h3>Author List</h3>
+    <p>Vertical flex directory with compact and detailed display styles, gap, dividers, and hover effects.</p>
+    <div class="apbl-block-card-footer">
+      <span class="apbl-block-card-slug">author-profile-blocks/author-list</span>
+      <div class="apbl-block-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="apbl-section-heading">
+  <h2>Key Features</h2>
+  <div class="apbl-section-line"></div>
+</div>
 
 <div class="apbl-features-grid">
-  <div class="apbl-feature">
-    <div class="apbl-feature-icon">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><path d="M9 9h.01"></path><path d="M15 9h.01"></path></svg>
-    </div>
-    <div class="apbl-feature-content">
-      <h4>Visual Styling</h4>
-      <p>Customize background colors, text alignment, borders, shadows, rounded corners, and more.</p>
+
+  <div class="apbl-feature-item">
+    <div class="apbl-feature-dot" style="background:#4f46e5"></div>
+    <div>
+      <h4>No Custom Post Types</h4>
+      <p>Uses native WordPress users — no duplicate content, no migration, no extra DB tables.</p>
     </div>
   </div>
 
-  <div class="apbl-feature">
-    <div class="apbl-feature-icon">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-    </div>
-    <div class="apbl-feature-content">
-      <h4>Multiple Layouts</h4>
-      <p>Choose from Card, Compact, Centered, and Detailed layouts to match your design.</p>
+  <div class="apbl-feature-item">
+    <div class="apbl-feature-dot" style="background:#0891b2"></div>
+    <div>
+      <h4>Server-side Rendering</h4>
+      <p>All blocks use PHP <code>render_callback</code> — always-fresh output, no client hydration.</p>
     </div>
   </div>
 
-  <div class="apbl-feature">
-    <div class="apbl-feature-icon">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-    </div>
-    <div class="apbl-feature-content">
-      <h4>User Filtering</h4>
-      <p>Select specific authors or filter by WordPress user roles.</p>
+  <div class="apbl-feature-item">
+    <div class="apbl-feature-dot" style="background:#7c3aed"></div>
+    <div>
+      <h4>Indigo Design System</h4>
+      <p>Consistent <code>#4f46e5</code> palette, CSS custom properties, editorial card hover animations.</p>
     </div>
   </div>
 
-  <div class="apbl-feature">
-    <div class="apbl-feature-icon">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"></path><path d="M19.5 12.572 12 20.072"></path><path d="M4.5 12.572H12v7.5"></path></svg>
+  <div class="apbl-feature-item">
+    <div class="apbl-feature-dot" style="background:#059669"></div>
+    <div>
+      <h4>Animations &amp; Hover Effects</h4>
+      <p>7 entry animations, 5 hover effects — all durations controlled by CSS custom property.</p>
     </div>
-    <div class="apbl-feature-content">
-      <h4>Interactive Elements</h4>
-      <p>Add hover effects, carousel navigation, and other interactive features.</p>
+  </div>
+
+  <div class="apbl-feature-item">
+    <div class="apbl-feature-dot" style="background:#f59e0b"></div>
+    <div>
+      <h4>Lucide React Icons</h4>
+      <p>Editor controls use crisp SVG Lucide icons — no emoji, no Dashicons in the block UI.</p>
     </div>
+  </div>
+
+  <div class="apbl-feature-item">
+    <div class="apbl-feature-dot" style="background:#db2777"></div>
+    <div>
+      <h4>Social Profiles</h4>
+      <p>Facebook, Twitter, LinkedIn, Instagram, website — stored in <code>apbl_social_profiles</code> user meta.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="apbl-quickstart">
+  <div class="apbl-quickstart-label">Quick Start</div>
+  <h3>Up and running in 3 steps</h3>
+  <ol class="apbl-quickstart-steps">
+    <li class="apbl-step">
+      <div class="apbl-step-num">1</div>
+      <div class="apbl-step-text"><strong>Install</strong> from WP.org or upload the ZIP via <em>Plugins → Add New → Upload Plugin</em>.</div>
+    </li>
+    <li class="apbl-step">
+      <div class="apbl-step-num">2</div>
+      <div class="apbl-step-text"><strong>Enrich profiles</strong> — edit any user, fill in <em>Author Profile Information</em> (position, bio, social links).</div>
+    </li>
+    <li class="apbl-step">
+      <div class="apbl-step-num">3</div>
+      <div class="apbl-step-text"><strong>Insert a block</strong> — open the block inserter, search <code>Author</code>, pick a block, configure in the sidebar.</div>
+    </li>
+  </ol>
+</div>
+
+<div class="apbl-callout apbl-callout-info">
+  <svg class="apbl-callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div class="apbl-callout-body">
+    <strong>Requirements</strong>
+    WordPress 6.0+, PHP 7.4+, any theme with block editor support. The carousel block requires jQuery (bundled in WordPress core).
   </div>
 </div>
 
-### Advanced Functionality
-{: .no_toc }
+<div class="apbl-section-heading">
+  <h2>Need Help?</h2>
+  <div class="apbl-section-line"></div>
+</div>
 
-- **Performance Optimization** - Built-in caching system for better performance
-- **Responsive Design** - All blocks adapt beautifully to different screen sizes
-- **Accessibility** - Follows WordPress accessibility guidelines for an inclusive experience
-- **Translation Ready** - Fully translatable for multilingual sites
-- **Developer Friendly** - Extensive hooks and filters for customization
-
-{: .callout-blue }
-> **QUICK TIP**  
-> The Author Profile Blocks can be used with any WordPress theme that supports the block editor. For optimal results, ensure your theme has block editor support enabled.
-
-## Getting Started
-
-New to Author Profile Blocks? Get up and running quickly:
-
-1. [Installation Guide]({{ site.baseurl }}{% link getting-started.md %}#installation) - How to install the plugin
-2. [Initial Setup]({{ site.baseurl }}{% link getting-started.md %}#initial-setup) - Configure user profiles and settings
-3. [Adding Blocks]({{ site.baseurl }}{% link getting-started.md %}#adding-blocks-to-your-content) - Start using the blocks in your content
-
-## User Profile Management
-
-Learn how to enhance user profiles with additional information:
-
-- [Position/Title]({{ site.baseurl }}{% link user-profiles.md %}#positiontitle) - Add job titles or roles
-- [Author Description]({{ site.baseurl }}{% link user-profiles.md %}#author-description) - Create rich biographical content
-- [Social Media Profiles]({{ site.baseurl }}{% link user-profiles.md %}#social-media-profiles) - Connect social accounts
-- [Member Since Label]({{ site.baseurl }}{% link user-profiles.md %}#member-since-label) - Customize how registration dates appear
-
-## Customization
-
-Discover how to personalize the blocks to match your site's design:
-
-- [Block Settings]({{ site.baseurl }}{% link customization.md %}#using-block-settings) - Built-in customization options
-- [Custom CSS]({{ site.baseurl }}{% link customization.md %}#custom-css) - Advanced styling techniques
-- [Theme Integration]({{ site.baseurl }}{% link customization.md %}#theme-integration-examples) - Make blocks match your theme
-
-## Need Help?
-
-- [FAQ]({{ site.baseurl }}{% link faq.md %}) - Answers to common questions
-- [Troubleshooting]({{ site.baseurl }}{% link troubleshooting.md %}) - Solutions to common issues
-- [GitHub Issues](https://github.com/mralaminahamed/author-profile-blocks/issues) - Report bugs or request features
-- [WordPress.org Support](https://wordpress.org/support/plugin/author-profile-blocks/) - Get help from the community
+<div class="apbl-help-grid">
+  <a href="{{ site.baseurl }}{% link faq.md %}" class="apbl-help-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+    FAQ
+  </a>
+  <a href="{{ site.baseurl }}{% link troubleshooting.md %}" class="apbl-help-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Troubleshooting
+  </a>
+  <a href="https://github.com/mralaminahamed/author-profile-blocks/issues" class="apbl-help-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+    GitHub Issues
+  </a>
+</div>

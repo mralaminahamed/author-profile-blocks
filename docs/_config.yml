@@ -5,7 +5,7 @@ remote_theme: just-the-docs/just-the-docs@v0.5.3
 
 # Color scheme
 # Either use a standard scheme or comment this out if using custom scheme
-color_scheme: light
+color_scheme: apb
 
 # Enable dark mode toggle
 enable_dark_mode_toggle: true
