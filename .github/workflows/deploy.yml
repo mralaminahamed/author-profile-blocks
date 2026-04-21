@@ -138,5 +138,5 @@ jobs:
             Release ${{ steps.version_check.outputs.version }} of ${{ steps.plugin_name.outputs.plugin_name }}.
             Refer to CHANGELOG.md for full details.
           files: ${{ steps.deploy.outputs.zip-path }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
