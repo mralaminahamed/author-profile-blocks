@@ -1,14 +1,16 @@
 /**
- * The following styles get applied inside the editor only.
- * Author List block editor styles
+ * Author List Block — Editor styles
  */
 
-// Import common styles
+@use 'sass:color';
+@use 'sass:math';
 @use '../../scss/common' as c;
 
-// Editor-specific animation and effect previews
 .wp-block-author-profile-blocks-author-list {
-  // Animation preview in editor
+  @include c.editor-border;
+  @include c.color-picker-section;
+
+  // Animation previews
   &.has-fadeIn-animation,
   &.has-slideUp-animation,
   &.has-slideDown-animation,
@@ -16,73 +18,65 @@
   &.has-slideRight-animation,
   &.has-scaleIn-animation,
   &.has-bounce-animation {
-    animation-duration: 0.5s;
+    animation-duration: 0.4s;
     animation-fill-mode: both;
   }
 
-  // Hover effect preview in editor
   &.has-lift-hover:hover,
   &.has-glow-hover:hover,
   &.has-scale-hover:hover,
   &.has-rotate-hover:hover,
   &.has-shadow-hover:hover {
-    transition-duration: 0.2s;
+    transition-duration: 0.15s;
   }
 
-  // Layout preset previews
-  &.is-style-card .apb-author-list-item {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 12px;
-    background: #fff;
+  // ─── Style preset editor previews ─────────────────────────────────────────
+
+  &.is-style-card .apbl-author-list-item {
+    padding: 1.25rem 1.5rem;
+    margin-bottom: c.$spacing-sm;
+    background: c.$white;
+    border: 1px solid c.$border-color;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-sm;
   }
 
-  &.is-style-minimal .apb-author-list-item {
-    border: none;
+  &.is-style-minimal .apbl-author-list-item {
+    padding: c.$spacing-md 0;
     background: transparent;
-    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid c.$border-color-light;
   }
 
-  &.is-style-bordered .apb-author-list-item {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 12px;
+  &.is-style-bordered .apbl-author-list-item {
+    padding: 1rem 1.25rem;
+    margin-bottom: c.$spacing-sm;
+    border: 2px solid c.$border-color;
+    border-radius: c.$border-radius-md;
+    background: c.$white;
   }
 
-  &.is-style-shadow .apb-author-list-item {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 12px;
-    background: #fff;
+  &.is-style-shadow .apbl-author-list-item {
+    padding: 1.25rem 1.5rem;
+    margin-bottom: c.$spacing-sm;
+    background: c.$white;
+    border: none;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-md;
   }
 
-  &.is-style-alternating .apb-author-list-item:nth-child(even) {
-    background: #f8f9fa;
-  }
-}
-
-.wp-block-author-profile-blocks-author-list {
-  // Visual indicator in editor
-  @include c.editor-border();
-
-  // Color picker section
-  @include c.color-picker-section();
-
-  // Reset default WP list styles in editor
-  .apb-author-list {
-
-    @include c.reset-list-styles();
+  &.is-style-alternating .apbl-author-list-item:nth-child(even) {
+    background: c.$primary-light;
+    border-radius: c.$border-radius-md;
   }
 
-  // Placeholder styling
-  @include c.editor-placeholder();
+  // ─── List utilities ────────────────────────────────────────────────────────
 
-  // Author picker button styling (additional styles for editor)
-  @include c.author-picker-wrapper();
+  .apbl-author-list {
+    @include c.reset-list-styles;
+  }
 
-  // Editor toolbar styles
-  @include c.editor-toolbar();
+  @include c.editor-placeholder;
+  @include c.author-picker-wrapper;
+  @include c.editor-toolbar;
 }

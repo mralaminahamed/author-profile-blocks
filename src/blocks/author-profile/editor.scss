@@ -1,212 +1,191 @@
 /**
- * The following styles get applied inside the editor only.
+ * Author Profile Block — Editor styles
  */
 
-// Import common styles
+@use 'sass:color';
+@use 'sass:math';
 @use '../../scss/common' as c;
 
+// ─── Block editor wrapper ──────────────────────────────────────────────────────
+
 .wp-block-author-profile-blocks-author-profile {
-  // Visual indicator in editor
-  @include c.editor-border();
+  @include c.editor-border;
 
-    &.is-style-card {
-        overflow: hidden;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  // ─── Style preset editor previews ───────────────────────────────────────
+
+  &.is-style-card {
+    overflow: hidden;
+    background: c.$white;
+    border: 1px solid c.$border-color;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-sm;
+  }
+
+  &.is-style-minimal {
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  &.is-style-bordered {
+    border: 2px solid c.$border-color;
+    border-radius: c.$border-radius-md;
+  }
+
+  &.is-style-shadow {
+    background: c.$white;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-md;
+  }
+
+  // ─── Content order layout previews ──────────────────────────────────────
+
+  &.content-order-image-content {
+    display: flex;
+    flex-direction: row;
+    gap: var(--author-section-spacing, 1.5rem);
+
+    @media (max-width: 600px) {
+      flex-direction: column;
     }
+  }
 
-    &.is-style-minimal {
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
+  &.content-order-content-image {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: var(--author-section-spacing, 1.5rem);
+
+    @media (max-width: 600px) {
+      flex-direction: column;
     }
+  }
 
-    &.is-style-bordered {
-        border: 1px solid #e0e0e0;
-        border-radius: 4px;
-    }
+  &.content-order-image-top {
+    display: flex;
+    flex-direction: column;
+    gap: var(--author-section-spacing, 1rem);
+  }
 
-    &.is-style-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+  &.content-order-content-top {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--author-section-spacing, 1rem);
+  }
 
-    &.is-style-banner {
-        padding: 32px !important;
-        text-align: center;
+  // ─── Hover effect previews ───────────────────────────────────────────────
 
-        .apb-author-image {
-            margin-bottom: 24px;
-        }
+  &.has-lift-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: c.$shadow-primary;
+    transition: all c.$transition-base;
+  }
 
-        .apb-author-name {
-            margin-bottom: 16px;
-            font-size: 28px;
-        }
-    }
+  &.has-glow-hover:hover {
+    box-shadow: 0 0 0 3px c.$primary-mid;
+    transition: box-shadow c.$transition-base;
+  }
 
-    /* Content order variations */
-    &.content-order-image-content {
-        display: flex;
-        flex-direction: row;
-        gap: var(--author-section-spacing, 15px);
+  &.has-scale-hover:hover {
+    transform: scale(1.02);
+    transition: transform c.$transition-base;
+  }
 
-        @media (max-width: 600px) {
-            flex-direction: column;
-        }
-    }
-
-    &.content-order-content-image {
-        display: flex;
-        flex-direction: row-reverse;
-        gap: var(--author-section-spacing, 15px);
-
-        @media (max-width: 600px) {
-            flex-direction: column;
-        }
-    }
-
-    &.content-order-image-top {
-        display: flex;
-        flex-direction: column;
-        gap: var(--author-section-spacing, 15px);
-    }
-
-    &.content-order-content-top {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: var(--author-section-spacing, 15px);
-    }
+  &.has-shadow-hover:hover {
+    box-shadow: c.$shadow-lg;
+    transition: box-shadow c.$transition-base;
+  }
 }
 
-/* Tab panel styling */
+// ─── Inspector tab panel ───────────────────────────────────────────────────────
+
 .author-profile-inspector-tabs {
 
-    .components-tab-panel__tabs {
-        display: flex;
-        margin-bottom: 16px;
-        border-bottom: 1px solid #e0e0e0;
+  .components-tab-panel__tabs {
+    display: flex;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid c.$border-color;
 
-        .components-tab-panel__tabs-item {
-            flex: 1;
-            justify-content: center;
+    .components-tab-panel__tabs-item {
+      flex: 1;
+      justify-content: center;
 
-            &.is-active {
-                box-shadow: inset 0 0 0 1.5px transparent, inset 0 -4px 0 0 var(--wp-admin-theme-color);
-            }
-        }
+      &.is-active {
+        box-shadow: inset 0 -3px 0 0 c.$primary-color;
+        color: c.$primary-color;
+      }
     }
+  }
 }
 
-/* Styles to customize avatar appearance */
+// ─── Avatar shape classes (editor preview) ────────────────────────────────────
+
 .wpas-author-avatar {
-
-    &.avatar-shape-circle {
-        border-radius: 50%;
-    }
-
-    &.avatar-shape-square {
-        border-radius: 0;
-    }
-
-    &.avatar-shape-rounded {
-        border-radius: 8px;
-    }
+  &.avatar-shape-circle  { border-radius: 50%; }
+  &.avatar-shape-square  { border-radius: 0; }
+  &.avatar-shape-rounded { border-radius: c.$border-radius-md; }
 }
 
-/* Style for the card layout inside inspector */
-.components-card + .components-card {
-    margin-top: 16px;
-}
+// ─── Spacing utilities ────────────────────────────────────────────────────────
 
-/* Spacing for section controls */
-.wpas-section-spacing {
-    margin-top: 16px;
-}
+.components-card + .components-card { margin-top: 1rem; }
 
-/* Help text styling */
+.wpas-section-spacing { margin-top: 1rem; }
+
 .components-base-control__help {
-    margin-top: 4px;
-    font-style: italic;
-    color: #757575;
+  margin-top: 4px;
+  font-size: c.$font-size-sm;
+  font-style: italic;
+  color: c.$muted-color;
 }
 
-/* Animation and hover effect previews in editor */
-.wp-block-author-profile-blocks-author-profile {
+// ─── Layout presets UI ────────────────────────────────────────────────────────
 
-    &.apb-hover-lift:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        transform: translateY(-2px);
-        transition: all 0.2s ease;
-    }
+.apbl-layout-presets {
 
-    &.apb-hover-glow:hover {
-        box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
-        transition: box-shadow 0.3s ease;
-    }
+  .apbl-layout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
 
-    &.apb-hover-scale:hover {
-        transform: scale(1.02);
-        transition: transform 0.2s ease;
-    }
-
-    &.apb-hover-shadow:hover {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        transition: box-shadow 0.3s ease;
-    }
-}
-
-/* Layout presets styling */
-.apb-layout-presets {
-
-    .apb-layout-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 8px;
-        margin-bottom: 16px;
-    }
-
-    .apb-layout-preset {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: fit-content;
-        padding: 12px 8px;
-        cursor: pointer;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-
-        &:hover {
-            background: #f8f9fa;
-            border-color: var(--wp-admin-theme-color);
-        }
-
-        &.is-selected {
-            color: #fff;
-            background: var(--wp-admin-theme-color);
-            border-color: var(--wp-admin-theme-color);
-        }
-
-        .apb-layout-icon {
-            margin-bottom: 4px;
-            font-size: 20px;
-        }
-
-        .apb-layout-label {
-            font-size: 11px;
-            font-weight: 500;
-            text-align: center;
-        }
-    }
-}
-
-/* Preset styles grid */
-.apb-preset-button {
-    transition: all 0.2s ease !important;
+  .apbl-layout-preset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 8px;
+    cursor: pointer;
+    background: c.$white;
+    border: 1px solid c.$border-color;
+    border-radius: c.$border-radius-sm;
+    transition: all c.$transition-fast;
+    gap: 4px;
 
     &:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transform: translateY(-1px);
+      background: c.$primary-light;
+      border-color: c.$primary-mid;
+      color: c.$primary-color;
     }
+
+    &.is-selected {
+      background: c.$primary-color;
+      border-color: c.$primary-color;
+      color: c.$white;
+    }
+
+    .apbl-layout-icon  { font-size: 18px; }
+    .apbl-layout-label { font-size: 10px; font-weight: c.$font-weight-semibold; text-align: center; }
+  }
+}
+
+// ─── Preset style button ──────────────────────────────────────────────────────
+
+.apbl-preset-button {
+  transition: all c.$transition-fast !important;
+
+  &:hover {
+    box-shadow: c.$shadow-md;
+    transform: translateY(-1px);
+  }
 }

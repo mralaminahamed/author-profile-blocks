@@ -1,12 +1,15 @@
 /**
- * Author Carousel block editor styles
+ * Author Carousel Block — Editor styles
  */
 
-// Import common styles
+@use 'sass:color';
+@use 'sass:math';
 @use '../../scss/common' as c;
 
 .wp-block-author-profile-blocks-author-carousel {
-  // Animation preview in editor
+  @include c.editor-border;
+
+  // Animation preview bindings
   &.has-fadeIn-animation,
   &.has-slideUp-animation,
   &.has-slideDown-animation,
@@ -14,205 +17,196 @@
   &.has-slideRight-animation,
   &.has-scaleIn-animation,
   &.has-bounce-animation {
-    animation-duration: 0.5s;
+    animation-duration: 0.4s;
     animation-fill-mode: both;
   }
 
-  // Hover effect preview in editor
   &.has-lift-hover:hover,
   &.has-glow-hover:hover,
   &.has-scale-hover:hover,
   &.has-rotate-hover:hover,
   &.has-shadow-hover:hover {
-    transition-duration: 0.2s;
+    transition-duration: 0.15s;
   }
 
-  // Layout preset previews
-  &.is-style-card .apb-author-carousel-item {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 16px;
-    margin-bottom: 16px;
-    background: #fff;
+  // ─── Style preset editor previews ─────────────────────────────────────────
+
+  &.is-style-card .apbl-author-carousel-item {
+    padding: 1.5rem;
+    background: c.$white;
+    border: 1px solid c.$border-color;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-sm;
   }
 
-  &.is-style-minimal .apb-author-carousel-item {
-    border: none;
+  &.is-style-minimal .apbl-author-carousel-item {
     background: transparent;
-    padding: 8px 0;
+    border: none;
+    padding: c.$spacing-md 0;
+    box-shadow: none;
   }
 
-  &.is-style-bordered .apb-author-carousel-item {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 12px;
-    margin-bottom: 12px;
+  &.is-style-bordered .apbl-author-carousel-item {
+    padding: 1.25rem;
+    background: c.$white;
+    border: 2px solid c.$border-color;
+    border-radius: c.$border-radius-md;
+    box-shadow: none;
   }
 
-  &.is-style-shadow .apb-author-carousel-item {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 16px;
-    margin-bottom: 16px;
-    background: #fff;
+  &.is-style-shadow .apbl-author-carousel-item {
+    padding: 1.5rem;
+    background: c.$white;
+    border: none;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-md;
   }
 
-  &.is-style-modern-cards .apb-author-carousel-item {
-    border: 1px solid #e1e5e9;
-    border-radius: 8px;
-    padding: 20px;
-    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  &.is-style-classic-carousel .apb-author-carousel-item {
-    border: 2px solid #007cba;
-    border-radius: 6px;
-    padding: 18px;
-    background: #fff;
+  &.is-style-modern-cards .apbl-author-carousel-item {
     position: relative;
+    overflow: hidden;
+    padding: 1.75rem 1.5rem;
+    background: c.$white;
+    border: 1px solid c.$border-color;
+    border-radius: c.$border-radius-xl;
+    box-shadow: c.$shadow-md;
 
     &::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #007cba, #005a87);
-      border-radius: 8px;
-      z-index: -1;
-    }
-  }
-
-  &.is-style-minimal-slides .apb-author-carousel-item {
-    border: none;
-    background: transparent;
-    padding: 12px;
-    border-radius: 0;
-  }
-
-  &.is-style-elegant-profile .apb-author-carousel-item {
-    border: 1px solid #f0f0f0;
-    border-radius: 12px;
-    padding: 24px;
-    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    position: relative;
-
-    &::after {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-      border-radius: 12px 12px 0 0;
+      height: 3px;
+      background: linear-gradient(90deg, c.$primary-color 0%, #9d96f5 100%);
     }
   }
 
-  &.is-style-creative-layout .apb-author-carousel-item {
-    border: none;
-    border-radius: 16px;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
-    color: white;
+  &.is-style-classic-carousel .apbl-author-carousel-item {
+    padding: 1.5rem;
+    background: c.$white;
+    border: 2px solid c.$primary-mid;
+    border-radius: c.$border-radius-lg;
+    box-shadow: c.$shadow-sm;
+  }
+
+  &.is-style-elegant-profile .apbl-author-carousel-item {
     position: relative;
     overflow: hidden;
+    padding: 2rem 1.75rem;
+    background: c.$white;
+    border: 1px solid c.$border-color-light;
+    border-radius: c.$border-radius-xl;
+    box-shadow: c.$shadow-lg;
 
-    &::before {
+    &::after {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: repeating-conic-gradient(
-        from 0deg at 50% 50%,
-        rgba(255, 255, 255, 0.1) 0deg,
-        transparent 60deg
-      );
-      animation: rotate 20s linear infinite;
-    }
-
-    .apb-author-name,
-    .apb-author-position {
-      color: white;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, c.$accent-color 0%, #fbbf24 100%);
     }
   }
 
-  // Visual indicator in editor
-  @include c.editor-border();
+  &.is-style-creative-layout .apbl-author-carousel-item {
+    overflow: hidden;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(135deg, c.$primary-color 0%, #3730a3 100%);
+    border: none;
+    border-radius: c.$border-radius-xl;
+    color: c.$white;
 
-  // Author picker placeholder
-  .apb-author-carousel-placeholder {
-    padding: 2 * c.$spacing-md;
+    .apbl-author-name,
+    .apbl-author-position {
+      color: c.$white;
+    }
+
+    .apbl-author-description {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  // ─── Carousel placeholder (no authors selected yet) ────────────────────────
+
+  .apbl-author-carousel-placeholder {
+    padding: 2rem;
     text-align: center;
-    border: 1px dashed #c3c4c7;
-    border-radius: c.$border-radius-md;
+    border: 1px dashed c.$border-color;
+    border-radius: c.$border-radius-lg;
+    background: c.$surface;
 
     h3 {
       margin-top: 0;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      color: c.$text-color;
     }
 
     p {
       margin-bottom: 1.5rem;
+      color: c.$text-color-secondary;
+      font-size: c.$font-size-base;
     }
 
-    .apb-author-picker-wrapper {
+    .apbl-author-picker-wrapper {
       align-items: center;
 
-      .apb-author-selector-dropdown {
+      .apbl-author-selector-dropdown {
         width: 100%;
       }
     }
   }
 
-  // Carousel layout preview in editor
-  .apb-author-carousel-preview {
-    // Layout options
-    .apb-layout-options {
+  // ─── Carousel layout preview ───────────────────────────────────────────────
+
+  .apbl-author-carousel-preview {
+
+    .apbl-layout-options {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       margin-bottom: c.$spacing-md;
 
-      .apb-layout-option {
+      .apbl-layout-option {
         padding: 10px;
         cursor: pointer;
+        background: c.$white;
         border: 1px solid c.$border-color;
         border-radius: c.$border-radius-md;
         transition: c.$transition-fast;
 
         &:hover:not(.is-selected) {
-          background-color: rgba(#f0f7fc, 0.5);
+          background: c.$primary-light;
+          border-color: c.$primary-mid;
         }
 
         &.is-selected {
-          background-color: #f0f7fc;
+          background: c.$primary-light;
           border-color: c.$primary-color;
+          color: c.$primary-color;
         }
       }
     }
   }
 
-  // Inspector controls
+  // ─── Inspector controls ────────────────────────────────────────────────────
+
   .components-panel__body {
 
     .components-base-control {
-      margin-bottom: 16px;
+      margin-bottom: 1rem;
     }
 
-    .apb-inspector-control-label {
+    .apbl-inspector-control-label {
       display: block;
       margin-bottom: c.$spacing-sm;
-      font-weight: 500;
+      font-size: c.$font-size-sm;
+      font-weight: c.$font-weight-semibold;
+      color: c.$dark-gray;
     }
 
-    .apb-controls-row {
+    .apbl-controls-row {
       display: flex;
       gap: c.$spacing-sm;
       align-items: flex-start;
@@ -223,64 +217,57 @@
     }
   }
 
-  // Editor preview placeholders
-  .apb-carousel-placeholder {
+  // ─── Editor placeholder skeleton ───────────────────────────────────────────
+
+  .apbl-carousel-placeholder {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: c.$spacing-lg;
     margin-top: c.$spacing-md;
 
-    // Individual slide placeholders
-    .apb-carousel-slide-placeholder {
+    .apbl-carousel-slide-placeholder {
       flex: 1;
-      min-width: calc(33.33% - 14px);
-      padding: 20px;
+      min-width: calc(33.33% - 1rem);
+      padding: 1.5rem;
       text-align: center;
-      background-color: #f0f0f0;
-      border-radius: c.$border-radius-md;
-      box-shadow: c.$shadow-sm;
+      background: c.$light-gray;
+      border-radius: c.$border-radius-lg;
+      box-shadow: c.$shadow-xs;
 
-      // Placeholder avatar
-      .apb-placeholder-image {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 10px;
-        background-color: #ddd;
+      .apbl-placeholder-image {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 0.75rem;
+        background: c.$border-color;
         border-radius: 50%;
       }
 
-      // Placeholder text lines
-      .apb-placeholder-line {
-        height: 12px;
-        margin-bottom: 8px;
-        background-color: #ddd;
-        border-radius: 2px;
+      .apbl-placeholder-line {
+        height: 10px;
+        margin-bottom: 6px;
+        background: c.$border-color;
+        border-radius: c.$border-radius-sm;
 
-        // Title line
-        &.apb-placeholder-title {
-          width: 70%;
-          height: 16px;
-          margin: 0 auto 10px;
+        &.apbl-placeholder-title {
+          width: 65%;
+          height: 14px;
+          margin: 0 auto 0.75rem;
         }
 
-        // Content lines
-        &.apb-placeholder-text {
-          width: 90%;
+        &.apbl-placeholder-text {
+          width: 85%;
           height: 8px;
-          margin: 0 auto 6px;
+          margin: 0 auto 5px;
 
-          &:last-child {
-            width: 60%;
-          }
+          &:last-child { width: 55%; }
         }
       }
     }
 
-    // Preview note
-    .apb-editor-note {
+    .apbl-editor-note {
       width: 100%;
       margin-top: c.$spacing-md;
-      font-size: 0.9rem;
+      font-size: c.$font-size-sm;
       font-style: italic;
       color: c.$muted-color;
       text-align: center;

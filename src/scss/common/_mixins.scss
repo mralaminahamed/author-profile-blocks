@@ -1,20 +1,19 @@
 /**
  * Author Profile Blocks - Common Mixins
- *
- * Shared mixins for reuse across the plugin styles
  */
 
-// Import shared resources
+@use 'sass:color';
+@use 'sass:math';
 @use 'variables' as v;
 
-// Text truncation with ellipsis
+// ─── Text utilities ───────────────────────────────────────────────────────────
+
 @mixin truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-// Multi-line text truncation
 @mixin truncate-lines($lines: 2) {
   display: -webkit-box;
   overflow: hidden;
@@ -22,28 +21,20 @@
   -webkit-box-orient: vertical;
 }
 
-// Focus styles for form elements and controls
-@mixin focus-styles {
-  outline: none;
-  border-color: v.$primary-color;
-  box-shadow: 0 0 0 1px v.$primary-color;
-}
+// ─── Layout utilities ─────────────────────────────────────────────────────────
 
-// Responsive image sizing
-@mixin responsive-image {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-// Flexbox center
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// Button reset
+@mixin responsive-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 @mixin button-reset {
   padding: 0;
   margin: 0;
@@ -53,46 +44,56 @@
   border: none;
 }
 
-// Card style
+// ─── Card ─────────────────────────────────────────────────────────────────────
+
 @mixin card {
-  padding: v.$spacing-md;
+  padding: v.$spacing-xl;
   background: v.$white;
   border: v.$border-width solid v.$border-color;
-  border-radius: v.$border-radius-md;
+  border-radius: v.$border-radius-lg;
   box-shadow: v.$shadow-sm;
 }
 
-// Editor border for block editor
-@mixin editor-border {
-  padding: v.$spacing-md;
-  border: 1px dashed v.$border-color;
-  border-radius: v.$border-radius-sm;
-}
+// ─── Author component mixins ──────────────────────────────────────────────────
 
-// Author image styles
 @mixin author-image {
   overflow: hidden;
   border-radius: v.$border-radius-md;
 
   img {
-
     @include responsive-image;
-    transition: v.$transition-base;
+    transition: transform v.$transition-standard;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
   }
 }
 
-// Author name styles
 @mixin author-name {
-  margin: 0;
+  margin: 0 0 0.25em;
+  font-size: var(--author-name-size, 1.125rem);
   font-weight: v.$font-weight-bold;
-  line-height: v.$line-height-base;
+  line-height: v.$line-height-tight;
+  letter-spacing: v.$letter-spacing-tight;
   color: v.$text-color;
+  font-feature-settings: "kern" 1;
 }
 
-// Author description styles
+@mixin author-position {
+  display: block;
+  margin: 0 0 v.$spacing-xs;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-semibold;
+  color: v.$primary-color;
+  text-transform: uppercase;
+  letter-spacing: v.$letter-spacing-wide;
+}
+
 @mixin author-description($lines: false) {
   margin: v.$spacing-xs 0;
-  line-height: v.$line-height-base;
+  font-size: v.$font-size-base;
+  line-height: 1.7;
   color: v.$text-color-secondary;
 
   @if $lines {
@@ -100,15 +101,211 @@
   }
 }
 
-// Author meta styles
 @mixin author-meta {
-  font-size: 0.9em;
+  font-size: v.$font-size-sm;
   color: v.$muted-color;
 }
 
-// Carousel base styles
-@mixin carousel-base {
+@mixin author-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  margin: 0.2em 0;
+  font-size: v.$font-size-sm;
+  color: v.$text-color-secondary;
+  text-decoration: none;
+  transition: color v.$transition-fast;
 
+  &:hover {
+    color: v.$primary-color;
+  }
+}
+
+@mixin author-registered-date {
+  display: block;
+  margin: 0.25em 0;
+  font-size: v.$font-size-xs;
+  color: v.$muted-color;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+// ─── Social icons ─────────────────────────────────────────────────────────────
+
+@mixin social-icon-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: v.$border-radius-sm;
+  background-color: var(--author-social-icon-bg, #{v.$primary-light});
+  color: var(--author-social-icon-color, #{v.$primary-color});
+  text-decoration: none;
+  transition:
+    background-color v.$transition-base,
+    color v.$transition-base,
+    transform v.$transition-base,
+    box-shadow v.$transition-base;
+
+  &:hover {
+    background-color: var(--author-social-icon-bg-hover, #{v.$primary-color});
+    color: var(--author-social-icon-hover-color, #{v.$white});
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px color.change(v.$primary-color, $alpha: 0.25);
+  }
+
+  .dashicons {
+    width: var(--author-social-icon-size, 16px);
+    height: var(--author-social-icon-size, 16px);
+    font-size: var(--author-social-icon-size, 16px);
+    line-height: 1;
+  }
+}
+
+@mixin social-profiles-base($justify: flex-start) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: $justify;
+  gap: var(--author-social-icon-spacing, 0.5rem);
+  margin-top: v.$spacing-md;
+
+  .apbl-social-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--author-social-icon-spacing, 0.5rem);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    justify-content: $justify;
+  }
+
+  a {
+    @include social-icon-base;
+  }
+}
+
+@mixin social-profiles-center  { @include social-profiles-base(center); }
+@mixin social-profiles-start   { @include social-profiles-base(flex-start); }
+@mixin social-profiles-end     { @include social-profiles-base(flex-end); }
+
+// ─── Layout variants ──────────────────────────────────────────────────────────
+
+@mixin card-layout {
+  @include card;
+  position: relative;
+  overflow: hidden;
+  transition: transform v.$transition-standard, box-shadow v.$transition-standard;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: 0;
+    height: 3px;
+    background: linear-gradient(90deg, v.$primary-color, #9d96f5);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform v.$transition-standard;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: v.$shadow-primary;
+
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@mixin compact-layout {
+  padding: v.$spacing-md;
+  background: v.$white;
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-md;
+  transition: box-shadow v.$transition-base, border-color v.$transition-base;
+
+  &:hover {
+    border-color: v.$primary-mid;
+    box-shadow: v.$shadow-md;
+  }
+}
+
+@mixin centered-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@mixin rounded-corners {
+  border-radius: v.$border-radius-lg;
+  overflow: hidden;
+}
+
+// ─── Effect mixins ────────────────────────────────────────────────────────────
+
+@mixin shadow-effect {
+  box-shadow: v.$shadow-md;
+  transition: box-shadow v.$transition-base, transform v.$transition-base;
+
+  &:hover {
+    box-shadow: v.$shadow-lg;
+    transform: translateY(-3px);
+  }
+}
+
+@mixin border-effect {
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-sm;
+  transition: border-color v.$transition-base;
+
+  &:hover {
+    border-color: v.$primary-mid;
+  }
+}
+
+@mixin hover-transition {
+  transition: transform v.$transition-base, box-shadow v.$transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: v.$shadow-md;
+  }
+}
+
+// ─── Grid / List utilities ────────────────────────────────────────────────────
+
+@mixin responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: v.$spacing-xl;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@mixin list-dividers {
+  li {
+    border-bottom: 1px solid v.$border-color-light;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+@mixin reset-list-styles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// ─── Carousel ─────────────────────────────────────────────────────────────────
+
+@mixin carousel-base {
   .slick-slider {
     position: relative;
     box-sizing: border-box;
@@ -121,421 +318,169 @@
 
   .slick-dots {
     display: flex !important;
-    gap: v.$spacing-xs;
+    gap: 0.4rem;
     justify-content: center;
-    margin-top: v.$spacing-lg;
+    margin-top: v.$spacing-xl;
+    padding: 0;
+    list-style: none;
 
-    li button::before {
-      color: v.$primary-color;
+    li {
+      margin: 0;
+
+      button {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: none;
+        border-radius: v.$border-radius-full;
+        background: v.$border-color;
+        cursor: pointer;
+        transition: background v.$transition-base, width v.$transition-base;
+        font-size: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      &.slick-active button {
+        width: 24px;
+        background: v.$primary-color;
+      }
+    }
+  }
+
+  .slick-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: v.$border-radius-sm;
+    background: v.$white;
+    border: 1px solid v.$border-color;
+    box-shadow: v.$shadow-sm;
+    color: v.$dark-gray;
+    cursor: pointer;
+    transition: all v.$transition-base;
+    z-index: 10;
+
+    &:hover {
+      background: v.$primary-color;
+      border-color: v.$primary-color;
+      color: v.$white;
+      box-shadow: v.$shadow-primary;
+    }
+
+    &::before {
+      color: inherit;
+      font-size: 14px;
     }
   }
 }
 
-// Responsive grid styles
-@mixin responsive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: v.$spacing-lg;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+@mixin carousel-slide {
+  position: relative;
+  padding: 0 v.$spacing-sm;
 }
 
-// List styles
-@mixin list-styles {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+// ─── Editor utilities ─────────────────────────────────────────────────────────
 
-  li {
-    padding: v.$spacing-sm 0;
-    border-bottom: 1px solid v.$border-color;
-
-    &:last-child {
-      border-bottom: none;
-    }
-  }
+@mixin editor-border {
+  padding: v.$spacing-md;
+  border: 1px dashed v.$border-color;
+  border-radius: v.$border-radius-sm;
 }
 
-// Editor placeholder styles
 @mixin editor-placeholder {
   padding: v.$spacing-md;
   text-align: center;
   border: 1px dashed v.$border-color;
   border-radius: v.$border-radius-sm;
-  background-color: rgba(v.$primary-color, 0.02);
+  background-color: color.change(v.$primary-color, $alpha: 0.02);
 }
 
-// Responsive breakpoints
-@mixin respond-to($breakpoint) {
-  @if $breakpoint == large {
-    @media (min-width: 768px) {
-      @content;
-    }
-  } @else if $breakpoint == medium {
-    @media (min-width: 576px) {
-      @content;
-    }
-  } @else if $breakpoint == small {
-    @media (max-width: 575px) {
-      @content;
-    }
-  }
-}
-
-// Color picker section styles
 @mixin color-picker-section {
   margin-bottom: v.$spacing-md;
 
   .components-base-control__label {
     display: block;
     margin-bottom: v.$spacing-sm;
-    font-weight: 500;
+    font-weight: v.$font-weight-medium;
   }
 }
 
-// List layout styles
-@mixin list-layout {
-  .wp-block-author-profile-blocks-author-list {
-    @include list-styles;
-
-    .apb-author-item {
-      display: flex;
-      align-items: center;
-      gap: v.$spacing-md;
-      padding: v.$spacing-md 0;
-      border-bottom: 1px solid v.$border-color;
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      .apb-author-image {
-        flex-shrink: 0;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      .apb-author-content {
-        flex: 1;
-        min-width: 0;
-
-        .apb-author-name {
-          @include author-name;
-          margin-bottom: v.$spacing-xs;
-        }
-
-        .apb-author-description {
-          @include author-description;
-        }
-
-        .apb-author-meta {
-          @include author-meta;
-        }
-      }
-    }
-  }
-}
-
-// Author position styles
-@mixin author-position {
-  display: block;
-  margin: v.$spacing-xs 0;
-  font-size: 0.9em;
-  font-weight: v.$font-weight-normal;
-  color: v.$text-color-secondary;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-// Carousel slide styles
-@mixin carousel-slide {
-  position: relative;
-  padding: 0 v.$spacing-sm;
-
-  .apb-author-item {
-    @include card;
-    text-align: center;
-    transition: v.$transition-base;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: v.$shadow-md;
-    }
-
-    .apb-author-image {
-      @include author-image;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto v.$spacing-md;
-    }
-
-    .apb-author-name {
-      @include author-name;
-      margin-bottom: v.$spacing-xs;
-    }
-
-    .apb-author-description {
-      @include author-description;
-      @include truncate-lines(3);
-    }
-
-    .apb-author-meta {
-      @include author-meta;
-    }
-  }
-}
-
-// Author picker wrapper styles
 @mixin author-picker-wrapper {
   display: flex;
   align-items: center;
   gap: v.$spacing-md;
   margin-bottom: v.$spacing-md;
 
-  .apb-author-selector-dropdown {
+  .apbl-author-selector-dropdown {
     flex: 1;
   }
 }
 
-// Reset list styles
-@mixin reset-list-styles {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-// List dividers
-@mixin list-dividers {
-  li {
-    border-bottom: 1px solid v.$border-color;
-
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-}
-
-// Author email styles
-@mixin author-email {
-  display: block;
-  margin: v.$spacing-xs 0;
-  font-size: 0.9em;
-  color: v.$text-color-secondary;
-
-  &:hover {
-    color: v.$primary-color;
-  }
-}
-
-// Card layout styles
-@mixin card-layout {
-  @include card;
-  text-align: center;
-  transition: v.$transition-base;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: v.$shadow-md;
-  }
-}
-
-// Editor toolbar styles
 @mixin editor-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: v.$spacing-sm;
-  background-color: #f0f0f0;
+  background-color: v.$light-gray;
   border-bottom: 1px solid v.$border-color;
 }
 
-// Hover transition styles
-@mixin hover-transition {
-  transition: v.$transition-base;
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: v.$shadow-sm;
-  }
-}
-
-// Author registered date styles
-@mixin author-registered-date {
-  display: block;
-  margin: v.$spacing-xs 0;
-  font-size: 0.85em;
-  color: v.$muted-color;
-  font-style: italic;
-}
-
-// Compact layout styles
-@mixin compact-layout {
-  padding: v.$spacing-sm;
-  margin-bottom: v.$spacing-md;
-  background: v.$white;
-  border: 1px solid v.$border-color;
-  border-radius: v.$border-radius-sm;
-  transition: v.$transition-base;
-
-  &:hover {
-    box-shadow: v.$shadow-sm;
-  }
-}
-
-// Rounded corners styles
-@mixin rounded-corners {
-  border-radius: v.$border-radius-md;
-  overflow: hidden;
-}
-
-// Social profiles center styles
-@mixin social-profiles-center {
-  display: flex;
-  justify-content: center;
-  gap: v.$spacing-md;
-  margin: v.$spacing-md 0;
-
-  a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: v.$light-gray;
-    color: v.$text-color;
-    transition: v.$transition-base;
-
-    &:hover {
-      background-color: v.$primary-color;
-      color: v.$white;
-      transform: translateY(-2px);
-    }
-  }
-}
-
-// Centered layout styles
-@mixin centered-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-// Social profiles start styles
-@mixin social-profiles-start {
-  display: flex;
-  justify-content: flex-start;
-  gap: v.$spacing-md;
-  margin: v.$spacing-md 0;
-
-  a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: v.$light-gray;
-    color: v.$text-color;
-    transition: v.$transition-base;
-
-    &:hover {
-      background-color: v.$primary-color;
-      color: v.$white;
-      transform: translateY(-2px);
-    }
-  }
-}
-
-// Social profiles end styles
-@mixin social-profiles-end {
-  display: flex;
-  justify-content: flex-end;
-  gap: v.$spacing-md;
-  margin: v.$spacing-md 0;
-
-  a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: v.$light-gray;
-    color: v.$text-color;
-    transition: v.$transition-base;
-
-    &:hover {
-      background-color: v.$primary-color;
-      color: v.$white;
-      transform: translateY(-2px);
-    }
-  }
-}
-
-// Shadow effect styles
-@mixin shadow-effect {
-  box-shadow: v.$shadow-sm;
-  transition: v.$transition-base;
-
-  &:hover {
-    box-shadow: v.$shadow-md;
-    transform: translateY(-2px);
-  }
-}
-
-// Border effect styles
-@mixin border-effect {
-  border: 1px solid v.$border-color;
-  border-radius: v.$border-radius-sm;
-  transition: v.$transition-base;
-
-  &:hover {
-    border-color: v.$primary-color;
-  }
-}
-
-// Error message styles
 @mixin error-message {
   padding: v.$spacing-sm;
-  background-color: rgba(v.$error, 0.1);
-  border: 1px solid v.$error;
+  background-color: color.change(v.$error, $alpha: 0.06);
+  border: 1px solid color.change(v.$error, $alpha: 0.3);
   border-radius: v.$border-radius-sm;
   color: v.$error;
-  font-size: 0.9em;
+  font-size: v.$font-size-sm;
 }
 
-// Carousel loading styles
 @mixin carousel-loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: v.$spacing-xl;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-2xl;
   color: v.$text-color-secondary;
+  font-size: v.$font-size-sm;
 
-  &::after {
+  &::before {
     content: '';
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid v.$border-color;
-    border-top: 2px solid v.$primary-color;
+    border-top-color: v.$primary-color;
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: apbl-spin 0.8s linear infinite;
   }
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+// ─── Focus ────────────────────────────────────────────────────────────────────
+
+@mixin focus-styles {
+  outline: none;
+  border-color: v.$primary-color;
+  box-shadow: 0 0 0 3px color.change(v.$primary-color, $alpha: 0.15);
+}
+
+// ─── Responsive breakpoints ───────────────────────────────────────────────────
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == large {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == medium {
+    @media (min-width: 576px) { @content; }
+  } @else if $breakpoint == small {
+    @media (max-width: 575px) { @content; }
+  }
+}
+
+// ─── Keyframe ─────────────────────────────────────────────────────────────────
+
+@keyframes apbl-spin {
+  to { transform: rotate(360deg); }
 }

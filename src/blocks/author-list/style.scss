@@ -1,354 +1,366 @@
 /**
- * Author List Block - Front-end & Editor Shared Styles
+ * Author List Block — Frontend styles
  */
 
-// Import common styles
+@use 'sass:color';
+@use 'sass:math';
 @use '../../scss/common' as c;
 
-// Animation keyframes
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+// ─── Keyframes ────────────────────────────────────────────────────────────────
+
+@keyframes apbl-fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-@keyframes slideUp {
-	from {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+@keyframes apbl-slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideDown {
-	from {
-		opacity: 0;
-		transform: translateY(-30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+@keyframes apbl-slideDown {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes slideLeft {
-	from {
-		opacity: 0;
-		transform: translateX(30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
+@keyframes apbl-slideLeft {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes slideRight {
-	from {
-		opacity: 0;
-		transform: translateX(-30px);
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
+@keyframes apbl-slideRight {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes scaleIn {
-	from {
-		opacity: 0;
-		transform: scale(0.9);
-	}
-	to {
-		opacity: 1;
-		transform: scale(1);
-	}
+@keyframes apbl-scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-@keyframes bounce {
-	0%, 20%, 53%, 80%, 100% {
-		transform: translate3d(0, 0, 0);
-	}
-	40%, 43% {
-		transform: translate3d(0, -30px, 0);
-	}
-	70% {
-		transform: translate3d(0, -15px, 0);
-	}
-	90% {
-		transform: translate3d(0, -4px, 0);
-	}
+@keyframes apbl-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%            { transform: translateY(-10px); }
+  45%            { transform: translateY(-5px); }
 }
 
-// Animation classes
-.has-fadeIn-animation {
-	animation: fadeIn var(--animation-duration, 300ms) ease-out;
-}
+// ─── Animation classes ────────────────────────────────────────────────────────
 
-.has-slideUp-animation {
-	animation: slideUp var(--animation-duration, 300ms) ease-out;
-}
+.has-fadeIn-animation   { animation: apbl-fadeIn var(--author-animation-duration, 400ms) ease-out both; }
+.has-slideUp-animation  { animation: apbl-slideUp var(--author-animation-duration, 400ms) ease-out both; }
+.has-slideDown-animation{ animation: apbl-slideDown var(--author-animation-duration, 400ms) ease-out both; }
+.has-slideLeft-animation{ animation: apbl-slideLeft var(--author-animation-duration, 400ms) ease-out both; }
+.has-slideRight-animation{ animation: apbl-slideRight var(--author-animation-duration, 400ms) ease-out both; }
+.has-scaleIn-animation  { animation: apbl-scaleIn var(--author-animation-duration, 400ms) ease-out both; }
+.has-bounce-animation   { animation: apbl-bounce var(--author-animation-duration, 700ms) ease-out both; }
 
-.has-slideDown-animation {
-	animation: slideDown var(--animation-duration, 300ms) ease-out;
-}
+// ─── Hover effects ────────────────────────────────────────────────────────────
 
-.has-slideLeft-animation {
-	animation: slideLeft var(--animation-duration, 300ms) ease-out;
-}
+.has-lift-hover:hover   { transform: translateY(-3px); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+.has-glow-hover:hover   { box-shadow: 0 0 0 3px c.$primary-mid; transition: box-shadow 0.3s ease; }
+.has-scale-hover:hover  { transform: scale(1.02); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+.has-rotate-hover:hover { transform: rotate(0.8deg); transition: transform 0.3s ease; }
+.has-shadow-hover:hover { box-shadow: c.$shadow-lg; transition: box-shadow 0.3s ease; }
 
-.has-slideRight-animation {
-	animation: slideRight var(--animation-duration, 300ms) ease-out;
-}
-
-.has-scaleIn-animation {
-	animation: scaleIn var(--animation-duration, 300ms) ease-out;
-}
-
-.has-bounce-animation {
-	animation: bounce var(--animation-duration, 300ms) ease-out;
-}
-
-// Hover effects
-.has-lift-hover:hover {
-	transform: translateY(-5px);
-	transition: transform 0.3s ease;
-}
-
-.has-glow-hover:hover {
-	box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
-	transition: box-shadow 0.3s ease;
-}
-
-.has-scale-hover:hover {
-	transform: scale(1.05);
-	transition: transform 0.3s ease;
-}
-
-.has-rotate-hover:hover {
-	transform: rotate(2deg);
-	transition: transform 0.3s ease;
-}
-
-.has-shadow-hover:hover {
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-	transition: box-shadow 0.3s ease;
-}
-
-// Google Font support
 [class*="has-"][class*="-font"] {
-	font-family: var(--google-font-family, inherit);
+  font-family: var(--google-font-family, inherit);
 }
+
+// ─── List block ───────────────────────────────────────────────────────────────
 
 .wp-block-author-profile-blocks-author-list {
   padding: c.$spacing-md;
+  font-family: c.$font-family-base;
 
-  // List container
-  .apb-author-list {
-
-    @include c.list-layout();
-
-    // Dividers between items
+  .apbl-author-list {
     &.has-dividers {
-
-      @include c.list-dividers();
+      @include c.list-dividers;
     }
 
-    // Hover effect
     .has-hover-effect {
-
-      @include c.hover-transition();
+      @include c.hover-transition;
     }
   }
 
-  // List item
-  .apb-author-list-item {
+  // ─── List item ────────────────────────────────────────────────────────────
 
-    .apb-author-list-item-content {
+  .apbl-author-list-item {
+
+    .apbl-author-list-item-content {
       width: 100%;
     }
 
-    // Rounded corners variant
     &.is-rounded {
+      @include c.rounded-corners;
 
-      @include c.rounded-corners();
-
-      .apb-author-image img {
+      .apbl-author-image img {
         border-radius: 50%;
       }
     }
   }
 
-  // Compact layout
-  .apb-author-list-compact {
+  // ─── Compact layout ───────────────────────────────────────────────────────
+
+  .apbl-author-compact {
     display: flex;
     gap: c.$spacing-lg;
     align-items: center;
 
-    .apb-author-list-info {
+    .apbl-author-info {
       flex: 1;
+      min-width: 0;
     }
 
-    .apb-author-list-social {
+    .apbl-author-social {
       flex: 0 0 auto;
     }
   }
 
-  // Detailed layout
-  .apb-author-list-detailed {
+  // ─── Detailed layout ──────────────────────────────────────────────────────
+
+  .apbl-author-detailed {
     display: flex;
     gap: c.$spacing-xl;
+    align-items: flex-start;
 
-    .apb-author-list-left {
+    .apbl-author-left {
       flex: 0 0 80px;
     }
 
-    .apb-author-list-right {
+    .apbl-author-right {
       display: flex;
       flex: 1;
       flex-direction: column;
-      gap: c.$spacing-sm;
+      gap: c.$spacing-xs;
+      min-width: 0;
     }
 
-    .apb-author-list-header {
-      margin-bottom: 5px;
+    .apbl-author-header {
+      margin-bottom: 0.25em;
     }
 
-    .apb-author-list-footer {
-      margin-top: 5px;
+    .apbl-author-footer {
+      margin-top: c.$spacing-xs;
     }
   }
 
-  // Author image
-  .apb-author-image {
+  // ─── Author image ─────────────────────────────────────────────────────────
+
+  .apbl-author-image {
     flex-shrink: 0;
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px c.$white, 0 0 0 3px c.$border-color;
+    transition: box-shadow c.$transition-standard;
 
     img {
       width: 100%;
       height: 100%;
-      aspect-ratio: 1/1;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
+      transition: transform c.$transition-standard;
     }
 
-    // Larger image for detailed layout
-    .apb-author-list-detailed & {
+    &:hover {
+      box-shadow: 0 0 0 2px c.$white, 0 0 0 3px c.$primary-mid;
+
+      img {
+        transform: scale(1.05);
+      }
+    }
+
+    .apbl-author-detailed & {
       width: 80px;
       height: 80px;
     }
   }
 
-  // Author information elements
-  .apb-author-name {
+  // ─── Author elements ──────────────────────────────────────────────────────
 
-    @include c.author-name();
+  .apbl-author-name {
+    @include c.author-name;
+    letter-spacing: c.$letter-spacing-tight;
   }
 
-  .apb-author-position {
-
-    @include c.author-position();
+  .apbl-author-position {
+    @include c.author-position;
   }
 
-  .apb-author-email {
-
-    @include c.author-email();
+  .apbl-author-email {
+    @include c.author-email;
   }
 
-  .apb-author-description {
+  .apbl-author-description {
+    @include c.author-description;
 
-    @include c.author-description();
-
-    // Truncate text for compact layout
-    .apb-author-list-compact & {
-
+    .apbl-author-compact & {
       @include c.truncate-lines(2);
     }
   }
 
-  // Social profiles
-  .apb-social-profiles {
+  // ─── Social profiles ──────────────────────────────────────────────────────
 
-    @include c.social-profiles-start();
+  .apbl-social-profiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 
-    // Social icons alignment for different layouts
-    .apb-author-list-compact & {
-
-      @include c.social-profiles-end();
+    .apbl-social-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
     }
 
-    .apb-author-list-detailed & {
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: c.$border-radius-sm;
+      background: c.$primary-light;
+      color: c.$primary-color;
+      text-decoration: none;
+      transition: background c.$transition-base, color c.$transition-base, transform c.$transition-base;
 
-      @include c.social-profiles-start();
+      &:hover {
+        background: c.$primary-color;
+        color: c.$white;
+        transform: translateY(-2px);
+      }
+
+      .dashicons {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
+        line-height: 1;
+      }
     }
   }
 
-  // Error message
-  .apb-author-list-error {
+  .apbl-social-profiles {
+    .apbl-author-compact & {
+      @include c.social-profiles-end;
+    }
 
-    @include c.error-message();
+    .apbl-author-detailed & {
+      @include c.social-profiles-start;
+    }
   }
 
-  // Layout presets
+  // ─── Error ────────────────────────────────────────────────────────────────
+
+  .apbl-author-list-error {
+    @include c.error-message;
+  }
+
+  // ─── Style presets ────────────────────────────────────────────────────────
+
   &.is-style-card {
-    .apb-author-list-item {
-      background: var(--item-background-color, #ffffff);
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .apbl-author-list-item {
+      position: relative;
+      overflow: hidden;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: c.$spacing-sm;
+      background: c.$white;
+      border: 1px solid c.$border-color;
+      border-radius: c.$border-radius-lg;
+      box-shadow: c.$shadow-sm;
+      transition: transform c.$transition-standard, box-shadow c.$transition-standard, border-color c.$transition-standard;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(180deg, c.$primary-color, #9d96f5);
+        transform: scaleY(0);
+        transform-origin: bottom center;
+        transition: transform c.$transition-standard;
+        border-radius: 0 0 0 c.$border-radius-lg;
+      }
+
+      &:hover {
+        transform: translateX(4px);
+        box-shadow: c.$shadow-md;
+        border-color: c.$primary-mid;
+
+        &::before {
+          transform: scaleY(1);
+        }
+      }
     }
   }
 
   &.is-style-minimal {
-    .apb-author-list-item {
+    .apbl-author-list-item {
+      padding: c.$spacing-md 0;
       border: none;
+      border-bottom: 1px solid c.$border-color-light;
       background: transparent;
-      padding: 8px 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
   }
 
   &.is-style-bordered {
-    .apb-author-list-item {
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      padding: 12px;
-      margin-bottom: 12px;
+    .apbl-author-list-item {
+      padding: 1rem 1.25rem;
+      margin-bottom: c.$spacing-sm;
+      border: 2px solid c.$border-color;
+      border-radius: c.$border-radius-md;
+      transition: border-color c.$transition-base, box-shadow c.$transition-base;
+
+      &:hover {
+        border-color: c.$primary-mid;
+        box-shadow: c.$shadow-md;
+      }
     }
   }
 
   &.is-style-shadow {
-    .apb-author-list-item {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
-      padding: 16px;
-      margin-bottom: 16px;
-      background: #ffffff;
+    .apbl-author-list-item {
+      padding: 1.25rem 1.5rem;
+      margin-bottom: c.$spacing-md;
+      background: c.$white;
+      border: none;
+      border-radius: c.$border-radius-lg;
+      box-shadow: c.$shadow-md;
+      transition: box-shadow c.$transition-standard, transform c.$transition-standard;
+
+      &:hover {
+        box-shadow: c.$shadow-lg;
+        transform: translateY(-2px);
+      }
     }
   }
 
   &.is-style-alternating {
-    .apb-author-list-item:nth-child(even) {
-      background: #f8f9fa;
+    .apbl-author-list-item {
+      padding: 1rem 1.25rem;
+      border-radius: c.$border-radius-md;
+      transition: background c.$transition-fast;
+
+      &:nth-child(even) {
+        background: c.$primary-light;
+      }
+
+      &:hover {
+        background: #f3f6ff;
+      }
     }
   }
 
-  // Advanced styling
-  &[style*="--author-list-margin"] {
-    margin: var(--author-list-margin);
-  }
-
-  &[style*="--author-list-section-spacing"] {
-    .apb-author-list-item {
-      margin-bottom: var(--author-list-section-spacing);
-    }
-  }
+  // ─── Advanced hooks ────────────────────────────────────────────────────────
 
   &[style*="--author-list-container-width"] {
     max-width: var(--author-list-container-width);
@@ -356,51 +368,39 @@
     margin-right: auto;
   }
 
-  // Gradient backgrounds
   .has-gradient-background {
     background: linear-gradient(
       var(--gradient-direction, to bottom),
-      var(--gradient-start-color, #ffffff),
-      var(--gradient-end-color, #f8f9fa)
+      var(--gradient-start-color, #{c.$white}),
+      var(--gradient-end-color, #{c.$surface})
     );
   }
 
-  // Transform effects
-  .has-transform {
-    transform: scale(var(--transform-scale, 1)) rotate(var(--transform-rotate, 0) + deg);
-  }
-
-  // CSS filters
-  .has-filters {
-    filter: brightness(var(--filter-brightness, 100) + %)
-            contrast(var(--filter-contrast, 100) + %)
-            saturate(var(--filter-saturate, 100) + %);
-  }
-
-  // Box shadow
   .has-box-shadow {
-    box-shadow: var(--box-shadow-horizontal, 0) var(--box-shadow-vertical, 4px) var(--box-shadow-blur, 8px) var(--box-shadow-spread, 0) var(--box-shadow-color, rgba(0,0,0,0.2));
+    box-shadow: var(--box-shadow-horizontal, 0) var(--box-shadow-vertical, 4px)
+                var(--box-shadow-blur, 16px) var(--box-shadow-spread, 0)
+                var(--box-shadow-color, rgb(0 0 0 / 0.1));
   }
 
-  // Border styling
   .has-border {
+    border-style: solid;
     border-width: var(--border-width, 0);
-    border-color: var(--border-color, #e0e0e0);
+    border-color: var(--border-color, #{c.$border-color});
     border-radius: var(--border-radius, 0);
   }
 
-  // Responsive adjustments
-  @media (max-width: 576px) {
+  // ─── Responsive ───────────────────────────────────────────────────────────
 
-    .apb-author-list-detailed {
+  @media (max-width: 576px) {
+    .apbl-author-detailed {
       flex-direction: column;
 
-      .apb-author-list-left {
+      .apbl-author-left {
         flex: none;
         margin-bottom: c.$spacing-md;
       }
 
-      .apb-author-list-right {
+      .apbl-author-right {
         flex: none;
       }
     }
