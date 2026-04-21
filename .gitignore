@@ -1,35 +1,73 @@
-# Operating System Files
-.DS_Store
+# ──────────────────────────────────────────────────────────────────────────────
+# .gitignore — Author Profile Blocks
+# ──────────────────────────────────────────────────────────────────────────────
 
-# IDE/Editor Files
+# ─── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── IDE / Editor ─────────────────────────────────────────────────────────────
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
 
-# Logs and Temporary Files
-logs
-*.log
+# ─── Node ─────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.yarn/*
+.pnpm-debug.log*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ─── Cache ────────────────────────────────────────────────────────────────────
 .eslintcache
 .stylelintcache
+.parcel-cache/
+.cache/
+*.result.cache
 
-# Dependency Directories
-node_modules/
-vendor/*
+# ─── PHP / Composer ───────────────────────────────────────────────────────────
+vendor/
+/composer.lock
 
-# Build and Distribution Files
+# ─── Build output ─────────────────────────────────────────────────────────────
 /build/
 *.zip
 *.tgz
+*.tar.gz
 
-# Translation Files
-languages/*.mo
-languages/*.json
-languages/*.po~
-languages/*.pot~
-
-# Compilation Source Maps
+# ─── Source maps ──────────────────────────────────────────────────────────────
 *.css.map
 *.js.map
-.*.result.cache
+
+# ─── Translations (compiled) ──────────────────────────────────────────────────
+languages/*.mo
+languages/*.pot~
+languages/*.po~
+languages/*.json
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Environment ──────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ─── Coverage ─────────────────────────────────────────────────────────────────
+coverage/
+.nyc_output/

@@ -1,36 +1,90 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# .distignore
+#
+# Files and directories excluded from the WordPress.org distribution zip.
+# Anything listed here will NOT be packaged when deploying to wp.org SVN
+# or when building a plugin release zip.
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ─── Version control ─────────────────────────────────────────────────────────
 .git
-.github
-.wordpress-org
 .gitignore
-.distignore
-.eslintrc
-.eslintignore
-.stylelintrc
-.prettierrc
+.gitattributes
+.github
+
+# ─── WordPress.org assets (go to SVN assets/, not the plugin zip) ────────────
+.wordpress-org
+
+# ─── Claude / AI tooling ─────────────────────────────────────────────────────
+.claude
+.remember
+AGENTS.md
+
+# ─── Editor / IDE config ─────────────────────────────────────────────────────
 .editorconfig
-.phpcs.xml
-phpcs.xml
-phpcs.plugin-review.xml
-phpstan.neon
-phpunit.xml
-composer.json
-composer.lock
+.idea
+.vscode
+
+# ─── Linting & formatting ────────────────────────────────────────────────────
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.eslintignore
+.eslintcache
+.stylelintrc
+.stylelintrc.json
+.stylelintcache
+.prettierrc
+.prettierrc.js
+.prettierrc.json
+.markdownlint.json
+
+# ─── Node / JS tooling ────────────────────────────────────────────────────────
+.browserslistrc
+.ncurc.json
+.yarnrc.yml
+.yarn
+node_modules
 package.json
-yarn.lock
 package-lock.json
+yarn.lock
 postcss.config.js
 tailwind.config.js
 webpack.config.js
 tsconfig.json
 jsconfig.json
 components.json
-AGENTS.md
+
+# ─── PHP tooling ──────────────────────────────────────────────────────────────
+composer.json
+composer.lock
+phpcs.xml
+phpcs.plugin-review.xml
+phpstan.neon
+phpunit.xml
+vendor
+
+# ─── Source files (compiled output lives in build/) ──────────────────────────
+src
+
+# ─── Tests & documentation ────────────────────────────────────────────────────
+tests
+docs
+
+# ─── Contributor / project meta ───────────────────────────────────────────────
 CHANGELOG.md
 CONTRIBUTING.md
 SECURITY.md
 readme.md
-docs/
-tests/
-src/
-node_modules/
-vendor/
+
+# ─── Build artifacts ──────────────────────────────────────────────────────────
+*.zip
+*.tgz
+*.tar.gz
+
+# ─── Source maps (never ship to production) ───────────────────────────────────
+*.css.map
+*.js.map
+
+# ─── This file itself ─────────────────────────────────────────────────────────
+.distignore

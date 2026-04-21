@@ -3,7 +3,7 @@
   "description": "A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Al Amin Ahamed",

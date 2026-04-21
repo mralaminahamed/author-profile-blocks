@@ -1,2 +1,82 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# ──────────────────────────────────────────────────────────────────────────────
+# .gitattributes — Author Profile Blocks
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ─── Default: normalize line endings to LF ────────────────────────────────────
+* text=auto eol=lf
+
+# ─── Force LF for source files ────────────────────────────────────────────────
+*.php      text eol=lf
+*.js       text eol=lf
+*.ts       text eol=lf
+*.tsx      text eol=lf
+*.jsx      text eol=lf
+*.scss     text eol=lf
+*.css      text eol=lf
+*.json     text eol=lf
+*.md       text eol=lf
+*.txt      text eol=lf
+*.xml      text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+*.html     text eol=lf
+*.svg      text eol=lf
+
+# ─── Binary files — never diff or convert ─────────────────────────────────────
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.ico      binary
+*.webp     binary
+*.woff     binary
+*.woff2    binary
+*.eot      binary
+*.ttf      binary
+*.otf      binary
+*.zip      binary
+*.tgz      binary
+*.gz       binary
+
+# ─── Export-ignore (excluded from git archive / release zips) ────────────────
+.git                    export-ignore
+.gitattributes          export-ignore
+.gitignore              export-ignore
+.github                 export-ignore
+.wordpress-org          export-ignore
+.claude                 export-ignore
+.remember               export-ignore
+.editorconfig           export-ignore
+.eslintrc.json          export-ignore
+.eslintignore           export-ignore
+.stylelintrc.json       export-ignore
+.markdownlint.json      export-ignore
+.browserslistrc         export-ignore
+.ncurc.json             export-ignore
+.yarnrc.yml             export-ignore
+.yarn                   export-ignore
+.distignore             export-ignore
+node_modules            export-ignore
+vendor                  export-ignore
+src                     export-ignore
+tests                   export-ignore
+docs                    export-ignore
+composer.json           export-ignore
+composer.lock           export-ignore
+package.json            export-ignore
+yarn.lock               export-ignore
+tsconfig.json           export-ignore
+jsconfig.json           export-ignore
+components.json         export-ignore
+postcss.config.js       export-ignore
+tailwind.config.js      export-ignore
+webpack.config.js       export-ignore
+phpcs.xml               export-ignore
+phpcs.plugin-review.xml export-ignore
+phpstan.neon            export-ignore
+phpunit.xml             export-ignore
+AGENTS.md               export-ignore
+CHANGELOG.md            export-ignore
+CONTRIBUTING.md         export-ignore
+SECURITY.md             export-ignore
+readme.md               export-ignore
