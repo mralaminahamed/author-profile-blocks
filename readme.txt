@@ -1,140 +1,162 @@
 === Author Profile Blocks ===
 Contributors:      mralaminahamed
-Tags:              block, author, profile, gutenberg, team
-Tested up to:      7.0
-Stable tag:        1.0.0
+Tags:              block, author, profile, gutenberg, team, carousel, grid
+Tested up to:      6.7
+Stable tag:        1.0.1
 Requires at least: 6.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.
+Display WordPress user profiles in beautiful, customizable Gutenberg blocks — grid, carousel, list, and single profile.
 
 == Description ==
 
-Author Profile Blocks is a modern WordPress plugin that allows you to display user profiles in various layouts using Gutenberg blocks. It's perfect for showcasing team members, contributors, authors, or any WordPress users you want to feature on your website.
+**Author Profile Blocks** is a modern WordPress plugin that showcases user profiles using four fully-featured Gutenberg blocks. It's ideal for team pages, contributor sections, author bios, and any use case where you want to display WordPress users in a polished, branded layout.
 
-Unlike other plugins, Author Profile Blocks leverages your existing WordPress users rather than creating a separate custom post type. This means you can showcase all your site contributors without duplicating content.
+The plugin works directly with your existing WordPress users — no custom post types, no content duplication.
 
-**Key Features:**
+=== Four Block Types ===
 
-* **Four versatile block types**:
-  * **Author Profile**: Display a single author profile with detailed information
-  * **Author Grid**: Arrange multiple authors in a responsive grid layout
-  * **Author Carousel**: Present authors in an interactive slider/carousel
-  * **Author List**: Show authors in a clean, organized list format
+**Author Profile** — Single author showcase with full control over layout order, avatar shape, typography, and social links. Four content order variants: image-content, content-image, image-top, content-top.
 
-* **Multiple layout options**:
-  * Card layout
-  * Compact layout
-  * Centered layout
-  * Detailed layout (for lists)
+**Author Grid** — Responsive grid of multiple authors. Supports 1–4 columns with five style presets: card, minimal, bordered, shadow, mosaic.
 
-* **Rich display options**:
-  * Author avatar/image
-  * Name and position/title
-  * Email address
-  * Biographical description
-  * Member since date (registration date)
-  * Social media profiles (Facebook, Twitter, LinkedIn, Instagram, website)
-  * Additional custom content
+**Author List** — Vertical author list with three display styles: compact (image + summary), detailed (full two-column layout), and minimal (name + position only). Supports ordered or unordered lists.
 
-* **Extensive customization**:
-  * Show/hide specific elements
-  * Background colors
-  * Border options (with/without, color, width)
-  * Shadow effects
-  * Rounded corners
-  * Text alignment
-  * Spacing/padding options
-  * Hover effects
+**Author Carousel** — Interactive slider built on Slick. Seven style presets including modern cards, classic carousel, elegant profile, and creative gradient layout. Configurable slides, autoplay, dots, and arrows.
 
-* **Advanced features**:
-  * Filter authors by role
-  * Limit number of displayed authors
-  * Performance optimization with caching
-  * Responsive design for all screen sizes
-  * Full accessibility compliance
-  * Translation-ready
+=== Design System ===
 
-* **User profile extensions**:
-  * Adds custom fields to WordPress user profiles
-  * Author position/title field
-  * Extended author description (with rich text editor)
-  * Social media profile links
-  * Custom "Member since" label
+Every block ships with a refined indigo editorial design — distinctive typography, layered shadows, smooth cubic-bezier transitions, and an indigo accent system with animated hover reveals. All visual properties are overridable via CSS custom properties.
+
+=== Customization Options ===
+
+* **Avatar**: circle, square, rounded, or custom border-radius; configurable size and border
+* **Typography**: name size, weight, color, alignment, letter-spacing; position shown as uppercase indigo badge
+* **Layout presets**: choose from registered style variations (card, minimal, bordered, shadow, and more) per block
+* **Animations**: 7 entrance animation types — fadeIn, slideUp, slideDown, slideLeft, slideRight, scaleIn, bounce
+* **Hover effects**: lift, glow, scale, rotate, shadow — applied to items or the block wrapper
+* **Social icons**: square pill shape with indigo fill on hover; supports Facebook, Twitter/X, LinkedIn, Instagram, website
+* **Colors**: background, border, text, gradient — all configurable via the inspector
+* **Spacing**: section spacing, padding, item spacing, container width
+* **Advanced**: CSS filters (brightness, contrast, saturation), transform (scale, rotate), box shadow, custom CSS class, Google Font support
+
+=== User Profile Extensions ===
+
+The plugin adds extra fields to the standard WordPress user profile screen:
+
+* Position / job title
+* Extended bio (plain text, shown alongside the WordPress bio)
+* Social media URLs: Facebook, Twitter/X, LinkedIn, Instagram, personal website
+* Custom "Member since" label
+
+=== Performance ===
+
+* Server-side rendering with PHP template caching
+* Configurable cache duration
+* Lazy loading for author avatars
+* No unnecessary JavaScript on the frontend
+
+=== Developer-Friendly ===
+
+* Clean PHP template hierarchy — override any template from your theme
+* Extensive CSS custom properties for runtime styling
+* WordPress filter hooks on every rendered block
+* Modern SCSS source with `@use`/`@forward` module system and `sass:color` functions
+* `apbl-` namespaced CSS classes throughout
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/author-profile-blocks` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Edit user profiles to add additional author information (optional).
-4. Add any of the author blocks to your pages or posts using the Gutenberg editor.
+1. Upload the plugin folder to `/wp-content/plugins/`, or install via **Plugins → Add New**.
+2. Activate the plugin.
+3. Go to **Users → Your Profile** (or any user's profile) to add extra author information.
+4. Open any page or post in the Gutenberg editor and search for "author" to find the blocks.
 
 == Frequently Asked Questions ==
 
-= Does this plugin create a custom post type? =
+= Does this create a custom post type? =
 
-No. Author Profile Blocks uses your existing WordPress users instead of creating a separate custom post type. This prevents duplicate content and leverages the built-in user management system.
+No. All blocks pull from your existing WordPress users. This avoids content duplication and keeps author data in the native user system.
 
-= How do I add author information? =
+= How do I add author data like position or social links? =
 
-The plugin adds extra fields to the standard WordPress user profile. You can edit any user and add their position/title, extended description, social media links, and more.
+Edit any user profile under **Users → All Users → Edit**. The plugin adds a dedicated "Author Profile" section with position, extended bio, and social link fields.
 
-= Can I customize how the author profiles appear? =
+= Can I override the block templates? =
 
-Yes! Each block includes many customization options in the block sidebar:
-* Choose from multiple layouts (card, compact, centered, etc.)
-* Toggle visibility of image, email, description, social links, etc.
-* Change background and border colors
-* Add shadows and rounded corners
-* Adjust text alignment and spacing
-* And much more!
+Yes. Copy any file from `wp-content/plugins/author-profile-blocks/templates/` into `wp-content/themes/your-theme/author-profile-blocks/` and the plugin will use your version instead.
 
-= Can I filter which authors are displayed? =
+= How do I change block styles? =
 
-Yes. You can select specific authors to display, filter by user role, and limit the maximum number of displayed authors.
+Each block exposes a full Style panel in the block sidebar. For deeper overrides, all CSS uses `apbl-` prefixed classes and `--author-*` CSS custom properties, making targeted overrides straightforward.
 
-= How do social media profiles work? =
+= Can I show only authors with a specific role? =
 
-The plugin adds fields for Facebook, Twitter, LinkedIn, Instagram, and personal website URLs to each user profile. When enabled in the blocks, these appear as social icons that visitors can click to view the author's profiles.
+Yes. The Grid, List, and Carousel blocks include an Author Role filter. Set it to any registered WordPress role and the block will only display users with that role.
 
-= Is the plugin responsive? =
+= Is the plugin compatible with full-site editing (FSE) themes? =
 
-Yes, all blocks are designed to look great on all screen sizes from mobile devices to desktop computers. Layouts automatically adjust based on the available screen space.
+Yes. The blocks render server-side and use standard Gutenberg wrapper attributes, so they work in both classic and FSE/block themes.
 
-= Does this plugin work with my theme? =
+= Will it slow down my site? =
 
-The plugin is designed to work with any WordPress theme that supports Gutenberg blocks. The styling is contained within the blocks to ensure compatibility.
+Each block caches its rendered HTML. On repeat page loads, output is served from cache rather than re-querying the database and re-rendering PHP templates.
 
 = Is the plugin translation-ready? =
 
-Yes, Author Profile Blocks is fully internationalized and translation-ready. All text strings can be translated using standard WordPress translation tools.
+Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n functions with the `author-profile-blocks` text domain.
 
 == Screenshots ==
 
-1. Author Profile block in the Gutenberg editor with block settings panel.
-2. Block display and style settings — layout, colors, alignment, and visibility toggles.
-3. Author Profiles admin list — manage all author entries from one place.
-4. Frontend card layout — author card with position badge, email, bio, and social links.
-5. Responsive mobile view of the author card layout.
+1. Author Profile block in the Gutenberg editor — content elements panel open.
+2. Style tab — avatar shape, typography controls, colors, and layout presets.
+3. Author Grid block — multiple authors displayed in responsive 3-column card layout.
+4. Author Carousel block — sliding author cards with the modern-cards preset active.
+5. Author List block — detailed display style with two-column image and bio layout.
 
 == Changelog ==
 
+= 1.0.1 =
+* Fix: align all `apbl-` CSS class selectors with PHP template output — styles now apply correctly on the frontend.
+* Fix: animation duration now reads `--author-animation-duration` CSS custom property (was `--animation-duration`).
+* Fix: profile block entrance animations now use `has-*-animation` classes matching PHP output.
+* Fix: list block layout selectors updated to match `apbl-author-compact` / `apbl-author-detailed` template output.
+* Improve: SCSS fully migrated to `@use`/`@forward` module system with `sass:color` and `sass:math`.
+* Improve: removed `@extend` anti-pattern; hover effects are now direct scoped rules per block.
+* Improve: indigo editorial design system — refined shadows, cubic-bezier transitions, animated accent reveals.
+* Improve: social icons redesigned as square-pill shape with indigo fill on hover.
+* Improve: slick carousel dots styled as pill-shaped progress indicators.
+* Update: tested up to WordPress 6.7.
+
 = 1.0.0 =
-* Initial release
-* Added Author Profile block
-* Added Author Grid block
-* Added Author Carousel block
-* Added Author List block
-* Added enhanced user profile fields
-* Added block customization options
+* Initial release.
+* Author Profile block with four content order variants and full typography/avatar controls.
+* Author Grid block with 1–4 column responsive grid and five style presets.
+* Author List block with compact, detailed, and minimal display styles.
+* Author Carousel block with Slick slider integration and seven style presets.
+* Indigo editorial design system — refined shadows, cubic-bezier transitions, animated hover reveals.
+* Seven entrance animation types per block.
+* Five hover effect types per block.
+* Social icon support: Facebook, Twitter/X, LinkedIn, Instagram, website.
+* Extended WordPress user profile fields: position, bio, social links, member-since label.
+* PHP template system with full theme-override support.
+* CSS custom property architecture for runtime styling.
+* Modern SCSS source using `@use`/`@forward` module system with `sass:color`.
+* PHP template caching with configurable duration.
+* Author role filter for Grid, List, and Carousel blocks.
+* Full server-side rendering — no client-side data fetching.
+* Translation-ready with `author-profile-blocks` text domain.
 
 == Upgrade Notice ==
 
+= 1.0.1 =
+Bug-fix release. CSS selectors are now correctly aligned with PHP template output — upgrading restores styling on the frontend for all blocks.
+
 = 1.0.0 =
-Initial release of Author Profile Blocks.
+Initial release — no upgrade required.
 
 == Support ==
 
-If you encounter any issues or have questions about the plugin, please visit the [plugin support forum](https://wordpress.org/support/plugin/author-profile-blocks/) or submit an issue on our [GitHub repository](https://github.com/mralaminahamed/author-profile-blocks/issues).
+* WordPress.org support forum: https://wordpress.org/support/plugin/author-profile-blocks/
+* GitHub issues: https://github.com/mralaminahamed/author-profile-blocks/issues
