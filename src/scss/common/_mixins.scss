@@ -57,6 +57,9 @@
 // ─── Author component mixins ──────────────────────────────────────────────────
 
 @mixin author-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   border-radius: v.$border-radius-md;
 

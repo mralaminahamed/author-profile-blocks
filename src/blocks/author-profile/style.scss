@@ -109,7 +109,7 @@
   .apbl-author-image {
     @include c.author-image;
     margin-bottom: var(--author-avatar-margin, 1rem);
-    text-align: var(--author-avatar-align, left);
+    justify-content: var(--author-avatar-justify, flex-start);
 
     img {
       width: var(--author-avatar-size, 96px);

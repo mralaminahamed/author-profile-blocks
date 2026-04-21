@@ -645,6 +645,12 @@ abstract class Author_Block_Base implements Registerable {
 
 		if ( ! empty( $attributes['avatarAlignment'] ) ) {
 			$styles['--author-avatar-align'] = $attributes['avatarAlignment'];
+			$flex_justify = array(
+				'left'   => 'flex-start',
+				'center' => 'center',
+				'right'  => 'flex-end',
+			);
+			$styles['--author-avatar-justify'] = $flex_justify[ $attributes['avatarAlignment'] ] ?? 'flex-start';
 		}
 
 		if ( isset( $attributes['avatarMargin'] ) ) {

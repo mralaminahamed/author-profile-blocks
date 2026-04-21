@@ -72,6 +72,15 @@
   padding: c.$spacing-md;
   font-family: c.$font-family-base;
 
+  .apbl-author-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: c.$spacing-md;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
   .apbl-author-list {
     &.has-dividers {
       @include c.list-dividers;
