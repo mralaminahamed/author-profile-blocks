@@ -19,263 +19,180 @@ Guidelines for contributing to the Author Profile Blocks plugin development.
 
 ---
 
-## Getting Started
+## Prerequisites
 
-Thank you for considering contributing to Author Profile Blocks! This document provides guidelines and instructions for contributing to the plugin's development.
+- PHP 7.4+, Node.js 20+, Yarn 4 (via Corepack), Composer 2
+- WordPress local environment (e.g. [wp-env](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/), LocalWP, or Valet)
+- Basic familiarity with WordPress Gutenberg blocks and React
 
-### Prerequisites
+---
 
-Before you begin, you'll need:
+## Setting Up
 
-- Basic knowledge of PHP, JavaScript, and WordPress development
-- Familiarity with WordPress block editor (Gutenberg) concepts
-- Git and GitHub experience
-- Local WordPress development environment
+1. **Fork and clone**
 
-### Setting Up the Development Environment
-
-1. **Fork the Repository**:
-   Visit the [Author Profile Blocks repository](https://github.com/mralaminahamed/author-profile-blocks) and click the "Fork" button in the top-right corner.
-
-2. **Clone Your Fork**:
    ```bash
    git clone https://github.com/YOUR-USERNAME/author-profile-blocks.git
    cd author-profile-blocks
    ```
 
-3. **Install Dependencies**:
+2. **Enable Corepack** (required for Yarn 4)
+
    ```bash
-   npm install
+   corepack enable
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   yarn install
    composer install
    ```
 
-4. **Start Development Server**:
+4. **Start the dev watcher**
+
    ```bash
-   npm start
+   yarn start
    ```
 
-5. **Build for Production**:
+5. **Build for production**
+
    ```bash
-   npm run build
+   yarn build
    ```
 
-## Development Workflow
+---
 
-### Branch Organization
+## Branch Strategy
 
-- `main` - The production branch containing stable releases
-- `develop` - The development branch for upcoming releases
-- Feature branches - Create from `develop` for new features
-- Bugfix branches - Create from `develop` for bug fixes
-- Hotfix branches - Create from `main` for urgent production fixes
+| Branch | Purpose |
+|---|---|
+| `trunk` | Stable production branch; all PRs target this |
+| `feature/*` | New features — branch from `trunk` |
+| `fix/*` | Bug fixes — branch from `trunk` |
 
-### Making Changes
+---
 
-1. **Create a Branch**:
+## Making Changes
+
+1. Create a branch
+
    ```bash
-   git checkout develop
-   git pull origin develop
-   git checkout -b feature/your-feature-name
+   git checkout trunk && git pull origin trunk
+   git checkout -b fix/carousel-autoplay
    ```
 
-2. **Develop Your Feature**:
-    - Make your changes following the coding standards
-    - Write tests for your changes when applicable
-    - Update documentation as needed
+2. Develop — follow the coding standards below.
 
-3. **Commit Your Changes**:
-   ```bash
-   git add .
-   git commit -m "Feature: Brief description of your changes"
+3. Commit using [Conventional Commits](https://www.conventionalcommits.org/):
+
+   ```
+   feat(carousel): add autoplay pause on hover
+   fix(list): correct gap between list items
+   docs(readme): update tested-up-to to 6.7
+   chore(ci): enable corepack before setup-node
    ```
 
-   Use semantic commit messages:
-    - `Feature:` for new features
-    - `Fix:` for bug fixes
-    - `Docs:` for documentation changes
-    - `Style:` for formatting changes
-    - `Refactor:` for code refactoring
-    - `Test:` for adding or modifying tests
-    - `Chore:` for changes to the build process or auxiliary tools
+4. Push and open a PR against `trunk`.
 
-4. **Push Your Changes**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-5. **Create a Pull Request**:
-    - Go to the GitHub repository
-    - Click "New Pull Request"
-    - Select `develop` as the base branch and your feature branch as the compare branch
-    - Provide a detailed description of your changes
+---
 
 ## Coding Standards
 
-### PHP Coding Standards
+### PHP
 
-Author Profile Blocks follows the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/). Key points:
+- Follow [WordPress PHP Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/)
+- PHP 7.4+ syntax; PHP 8.x compatible
+- All public API surfaces must have PHPDoc blocks
+- Sanitize all input; escape all output
 
-- Use PHP 7.4+ features where appropriate
-- Follow WordPress naming conventions
-- Use namespaces for class organization
-- Prioritize backward compatibility
-- Add proper PHPDoc comments
+### JavaScript / React
 
-### JavaScript Coding Standards
+- Follow [WordPress JS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
+- Functional components + hooks; no class components
+- Use `@wordpress/*` packages before reaching for third-party libraries
+- JSDoc for exported functions and components
 
-For JavaScript code:
+### SCSS
 
-- Follow [WordPress JavaScript Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/javascript/)
-- Use ES6+ features with appropriate polyfills
-- Modularize code with import/export
-- Use React hooks for functional components
-- Add JSDoc comments for functions and components
+- Use the modern module system: `@use`, `@forward` — **never** `@import`
+- Use `sass:color` and `sass:math` — **never** deprecated `lighten()`/`darken()`
+- All class names use the `apbl-` prefix
+- No `@extend` — use mixins or shared classes instead
+- Variables live in `src/scss/common/_variables.scss`
+- Mixins live in `src/scss/common/_mixins.scss`
 
-### CSS/SCSS Coding Standards
+---
 
-For styling:
+## Project Structure
 
-- Follow [WordPress CSS Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/css/)
-- Use SCSS for preprocessed styles
-- Use BEM methodology for class naming
-- Create modular and reusable style components
-- Ensure responsive design
-- Respect theme compatibility
-
-### Documentation Standards
-
-For documentation:
-
-- Document all public methods, hooks, functions, and classes
-- Use markdown for documentation files
-- Keep examples up-to-date
-- Include version numbers for API changes
-- Document deprecations clearly
-
-## Testing
-
-### Unit Tests
-
-For PHP unit testing:
-
-```bash
-composer test
+```
+author-profile-blocks/
+├── includes/
+│   └── Blocks/
+│       ├── Author_Block_Base.php      # shared render logic
+│       ├── Author_Profile_Block.php
+│       ├── Author_Grid_Block.php
+│       ├── Author_Carousel_Block.php
+│       └── Author_List_Block.php
+├── src/
+│   ├── scss/common/                   # shared design tokens + mixins
+│   └── blocks/
+│       ├── author-profile/
+│       ├── author-grid/
+│       ├── author-carousel/
+│       │   └── view.js                # Slick carousel init (frontend)
+│       └── author-list/
+├── templates/blocks/                  # PHP render templates
+└── docs/                              # Jekyll documentation site
 ```
 
-### End-to-End Tests
-
-For end-to-end testing of the blocks:
-
-```bash
-npm run test:e2e
-```
-
-### Manual Testing Checklist
-
-Before submitting a pull request, manually test:
-
-1. All blocks in the editor
-2. Frontend rendering in various themes
-3. Responsive behavior on different screen sizes
-4. Compatibility with other popular plugins
-5. Accessibility features
+---
 
 ## Building and Packaging
 
-### Building Assets
-
-To build the JavaScript and CSS assets:
-
 ```bash
-npm run build
+yarn build          # production build
+yarn start          # dev watcher
 ```
 
-### Creating a Release
+The build output lands in `build/`. The `.distignore` file controls what's excluded from the WordPress.org release zip.
 
-To create a release package:
+---
 
-```bash
-npm run package
-```
+## Testing
 
-This will create a zip file in the `dist` directory.
+Manual testing checklist before submitting a PR:
 
-## Documentation
+1. All four blocks insert and render in the editor without JS errors
+2. Frontend renders correctly (check browser console for errors)
+3. Carousel initializes: slides, arrows, dots functional
+4. Author image alignment matches selected text-align setting
+5. Social profile links open correct URLs
+6. Responsive layout looks correct at 320 px, 768 px, and 1280 px
 
-### Code Documentation
+---
 
-- Add PHPDoc comments to all classes, methods, and functions
-- Document hooks with examples
-- Keep inline code comments current with changes
+## Submitting a Pull Request
 
-### User Documentation
+1. Verify your branch is up to date with `trunk`
+2. Describe **what** changed and **why** in the PR body
+3. Link any related issues (`Fixes #123`)
+4. Add a changelog entry in `docs/changelog.md`
+5. Ensure `yarn build` completes without errors
 
-- Update the README.md file with significant changes
-- Add or update the documentation in the `docs` directory
-- Create screenshots for new features or UI changes
-
-## Submitting Pull Requests
-
-When submitting a pull request:
-
-1. **Provide Context**: Explain what the PR accomplishes and why it's needed
-2. **Reference Issues**: Link to any related issues (e.g., "Fixes #123")
-3. **Include Tests**: Add appropriate tests for your changes
-4. **Update Documentation**: Update any affected documentation
-5. **Create a Changelog Entry**: Add an entry to the changelog
-6. **Follow Pull Request Template**: Fill out all sections of the PR template
-
-## Code Review Process
-
-What to expect during code review:
-
-1. Initial review within 1-2 weeks
-2. Feedback from maintainers on code quality, tests, and documentation
-3. Requested changes to be addressed before merging
-4. Final approval from at least one maintainer required
-5. Merge into the appropriate branch by maintainers
+---
 
 ## Release Process
 
-The release process follows these steps:
+1. Bump version in `author-profile-blocks.php`, `package.json`, `composer.json`, and `readme.txt`
+2. Update `docs/changelog.md`
+3. Merge to `trunk`
+4. Create an annotated git tag: `git tag -a v1.x.x -m "Release v1.x.x"`
+5. Push trunk + tag — the GitHub Actions workflow handles the WordPress.org SVN deploy and GitHub release
 
-1. Code freeze on `develop` branch
-2. Final testing of all features
-3. Creating a release branch from `develop`
-4. Version bump in package.json, readme.txt, and main plugin file
-5. Merging the release branch into `main`
-6. Creating a GitHub release with detailed changelog
-7. Building and deploying to WordPress.org
-
-## Getting Help
-
-If you need help with your contribution:
-
-- **Questions**: Open an issue with the "question" label
-- **Discussions**: Participate in GitHub Discussions
-- **WordPress.org**: Post in the plugin's support forum
-- **Documentation**: Refer to this contributing guide and other documentation
-
-## Code of Conduct
-
-By participating in this project, you agree to abide by our Code of Conduct:
-
-- Be respectful and inclusive
-- Focus on constructive feedback
-- Avoid personal attacks or inflammatory language
-- Report inappropriate behavior to the maintainers
-- Follow the WordPress community guidelines
-
-## Recognition
-
-All contributors will be recognized in these ways:
-
-- Listed in the CONTRIBUTORS.md file
-- Mentioned in release notes for significant contributions
-- Acknowledged in WordPress.org plugin page credits
+---
 
 ## License
 
-By contributing to Author Profile Blocks, you agree that your contributions will be licensed under the GPL v2 or later.
-
-Thank you for contributing to Author Profile Blocks!
+By contributing, you agree your contributions will be licensed under **GPL-2.0-or-later**.

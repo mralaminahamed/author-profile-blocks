@@ -9,7 +9,7 @@ permalink: /blocks/author-carousel/
 # Author Carousel Block
 {: .no_toc }
 
-The Author Carousel Block allows you to showcase multiple authors in an interactive, sliding carousel format.
+Showcase multiple authors in an interactive sliding carousel powered by Slick Carousel.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -20,205 +20,147 @@ The Author Carousel Block allows you to showcase multiple authors in an interact
 
 ---
 
-![Author Carousel Block]({{ site.baseurl }}/assets/images/author-carousel-block.png)
-
 ## Overview
 
-The Author Carousel Block is designed to showcase multiple authors in an interactive, sliding carousel. It's perfect for:
+The Author Carousel Block renders a horizontally-sliding carousel using [Slick Carousel](https://kenwheeler.github.io/slick/) (jQuery-based). It's ideal for:
 
 - Featured team members on home pages
 - Highlighting contributors in a space-efficient way
 - Showcasing speakers or panelists
-- Creating an engaging team presentation
-- Sidebar widgets for author spotlights
+- Creating engaging team presentations
+
+---
 
 ## Block Settings
 
-The Author Carousel Block offers a variety of settings to customize both the content and appearance.
-
 ### Carousel Settings
 
-- **Slides to Show**: Number of slides visible at once (1-5)
-- **Slide Spacing**: Space between slides (0-50px)
-- **Autoplay**: Toggle automatic sliding
-- **Autoplay Speed**: Time between slides in milliseconds (1000-10000ms)
-- **Show Dots**: Toggle navigation dots
-- **Show Arrows**: Toggle navigation arrows
-- **Infinite Loop**: Toggle continuous looping
-- **Maximum Authors**: Limit the number of authors displayed (1-50)
-- **Filter by Role**: Optionally filter authors by their WordPress role (All, Administrator, Editor, Author, Contributor)
+| Setting | Default | Description |
+|---|---|---|
+| Slides to Show | 3 | Slides visible at once (1–5) |
+| Autoplay | On | Auto-advance slides |
+| Autoplay Speed | 3000 ms | Time between slides |
+| Show Dots | On | Navigation dot indicators |
+| Show Arrows | On | Prev/Next arrow buttons |
+| Infinite Loop | On | Wrap around at end |
+| Maximum Authors | 10 | Cap on total authors shown |
+| Filter by Role | All | Limit to a specific WordPress role |
 
 ### Display Settings
 
-- **Show Author Image**: Toggle the author's profile picture
-- **Show Author Position**: Toggle the author's title/position
-- **Show Author Email**: Toggle the author's email address
-- **Show Author Description**: Toggle the author's biographical information
-- **Show Member Since Date**: Toggle the author's registration date with customizable label
-- **Show Social Links**: Toggle the author's social media profiles
+| Setting | Default |
+|---|---|
+| Show Author Image | On |
+| Show Author Position | On |
+| Show Author Email | On |
+| Show Author Description | On |
+| Show Member Since Date | On |
+| Show Social Links | On |
 
 ### Style Settings
 
-- **Item Padding**: Space inside each author slide (0-50px)
-- **Enable Shadow**: Add a subtle shadow effect to each slide
-- **Enable Rounded Corners**: Add rounded corners to each slide
-- **Enable Border**: Add a border around each slide
-- **Border Width**: Width of the border (1-10px)
-- **Background Color**: Custom color for each slide
-- **Border Color**: Custom color for the slide border
-- **Text Alignment**: Left, center, or right alignment for content
+- **Item Padding** — space inside each slide card (px)
+- **Enable Shadow** — subtle drop shadow on each card
+- **Enable Rounded Corners** — border-radius on cards
+- **Enable Border** — border around each card
+- **Background Color** — card background color
+- **Text Alignment** — left / center / right
 
-## Layout Options
+---
 
-Each author in the carousel can be displayed in one of three layouts:
+## Layouts
 
-### Card Layout
+### Card
 
-The Card layout presents each author in a card format with:
-- Author image at the top
-- Name and position below
-- Email, registration date, and description
-- Social links at the bottom
+Author image at the top, name and position below, then description and social links. Best for formal team showcases.
 
-Ideal for formal presentation.
+### Compact
 
-![Card Layout]({{ site.baseurl }}/assets/images/author-carousel-card-layout.png)
+Image on the left, name and position to the right. More space-efficient per slide.
 
-### Compact Layout
+### Centered
 
-The Compact layout provides a more space-efficient presentation:
-- Author image on the left
-- Name, position, and email on the right
-- Description below
-- Social links at the bottom
+All content centered — avatar, name, position, description, social icons. Great for spotlight carousels.
 
-Ideal when space is limited.
+---
 
-![Compact Layout]({{ site.baseurl }}/assets/images/author-carousel-compact-layout.png)
+## Responsive Breakpoints
 
-### Centered Layout
+The carousel adjusts automatically:
 
-The Centered layout focuses on symmetry and balance:
-- Author image centered at the top
-- Name, position, email, and social links centered below
-- Description at the bottom
+| Viewport | Slides Shown |
+|---|---|
+| ≥ 992 px | As configured (default 3) |
+| 768–991 px | 2 |
+| < 576 px | 1 (arrows hidden) |
 
-Ideal for highlighting featured authors.
+---
 
-![Centered Layout]({{ site.baseurl }}/assets/images/author-carousel-centered-layout.png)
+## How the Carousel Works
 
-## Responsive Behavior
+The block uses server-side rendering (PHP `render_callback`). On the frontend:
 
-The Author Carousel automatically adjusts based on screen size:
+1. `view.js` imports jQuery + Slick Carousel + both `slick.css` and `slick-theme.css`
+2. On DOM ready, `$('.apbl-author-carousel').each(...)` initializes Slick with merged default + block settings
+3. Settings from the editor are passed via the `data-settings` attribute on `.apbl-author-carousel`
 
-- **Desktop**: Displays the number of slides specified (1-5)
-- **Tablet**: Automatically reduces to 2 slides
-- **Mobile**: Switches to a single slide for optimal mobile viewing
+The bundled CSS is registered as `viewStyle: file:./view.css` in `block.json` so it's enqueued automatically.
 
-## Usage Examples
+---
 
-### Team Showcase (3 Slides)
+## CSS Classes
 
+```css
+/* Block root */
+.wp-block-author-profile-blocks-author-carousel { }
+
+/* Slick-initialized carousel */
+.apbl-author-carousel { }
+
+/* Individual slide */
+.apbl-author-carousel-item { }
+
+/* Slick-generated nav */
+.apbl-author-carousel .slick-dots { }
+.apbl-author-carousel .slick-arrow { }
+.apbl-author-carousel .slick-prev { }
+.apbl-author-carousel .slick-next { }
 ```
+
+---
+
+## Block Markup Example
+
+```html
 <!-- wp:author-profile-blocks/author-carousel {
-  "authorIds": [1, 2, 3, 4, 5, 6],
   "slidesToShow": 3,
   "autoplay": true,
+  "autoplaySpeed": 3000,
   "showDots": true,
   "showArrows": true,
+  "infinite": true,
   "showImage": true,
-  "showEmail": true,
-  "showDescription": true,
-  "showRegisteredDate": true,
   "showPosition": true,
+  "showDescription": true,
   "showSocial": true,
   "layout": "card",
-  "enableShadow": true,
-  "enableRounded": true
+  "textAlign": "center"
 } /-->
 ```
 
-### Featured Contributors (1 Slide, Autoplay)
+---
 
-```
-<!-- wp:author-profile-blocks/author-carousel {
-  "authorIds": [1, 2, 3, 4],
-  "slidesToShow": 1,
-  "autoplay": true,
-  "autoplaySpeed": 5000,
-  "showDots": true,
-  "showArrows": false,
-  "showImage": true,
-  "showEmail": false,
-  "showDescription": true,
-  "showRegisteredDate": true,
-  "showPosition": true,
-  "showSocial": true,
-  "layout": "centered",
-  "enableShadow": true
-} /-->
-```
+## Tips
 
-### Compact Team Display (2 Slides)
+- 3 slides works well on desktop; the block automatically collapses to 1 on mobile
+- Use **Centered** layout with `textAlign: center` for the most polished look
+- Keep descriptions brief — card heights equalize across slides only when content length is similar
+- Autoplay with arrows and dots gives users manual control even during auto-advance
 
-```
-<!-- wp:author-profile-blocks/author-carousel {
-  "authorIds": [1, 2, 3, 4],
-  "slidesToShow": 2,
-  "autoplay": false,
-  "showDots": true,
-  "showArrows": true,
-  "showImage": true,
-  "showEmail": false,
-  "showDescription": false,
-  "showRegisteredDate": true,
-  "showPosition": true,
-  "showSocial": true,
-  "layout": "compact"
-} /-->
-```
-
-## Tips and Best Practices
-
-- For best results, use a consistent image size for all author profile pictures
-- Keep descriptions concise to maintain visual consistency between slides
-- For mobile-friendly carousels, ensure content is readable when reduced to a single slide
-- Enable autoplay for home pages or hero sections to draw attention
-- Disable autoplay for more in-depth content to allow users to read at their own pace
-- Use arrows for desktop and dots for mobile navigation
-- 3 slides works well for standard width content areas
-- 1-2 slides is ideal for sidebar or narrower areas
-
-## Carousel Navigation
-
-The Author Carousel Block provides two navigation options for users to browse through authors:
-
-### Navigation Arrows
-
-Navigation arrows appear on the left and right sides of the carousel, allowing users to move to the previous or next slide. These can be:
-
-- Enabled/disabled in the block settings
-- Styled using custom CSS
-- Hidden on mobile devices automatically
-
-### Navigation Dots
-
-Navigation dots appear below the carousel, indicating:
-
-1. The total number of slides
-2. The current active slide
-3. Clickable navigation to any specific slide
-
-These dots can be enabled/disabled in the block settings.
-
-## Technical Notes
-
-- The carousel uses the Slick Carousel jQuery plugin for smooth, responsive functionality
-- All carousel settings are fully responsive and mobile-friendly
-- Scripts are loaded only when the block is used to maintain site performance
+---
 
 ## Related Blocks
 
-- [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %}) - For displaying a single author in detail
-- [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %}) - For displaying multiple authors in a grid layout
-- [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %}) - For displaying multiple authors in a list format
+- [Author Profile Block]({{ site.baseurl }}{% link blocks/author-profile.md %}) — single author detail
+- [Author Grid Block]({{ site.baseurl }}{% link blocks/author-grid.md %}) — static multi-author grid
+- [Author List Block]({{ site.baseurl }}{% link blocks/author-list.md %}) — vertical author directory

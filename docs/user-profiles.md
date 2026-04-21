@@ -8,7 +8,7 @@ permalink: /user-profiles/
 # User Profiles
 {: .no_toc }
 
-This guide explains how to set up and manage author profiles for use with the Author Profile Blocks plugin.
+How to set up and manage author profiles used by the Author Profile Blocks plugin.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -21,188 +21,159 @@ This guide explains how to set up and manage author profiles for use with the Au
 
 ## Enhanced User Profiles
 
-The Author Profile Blocks plugin extends WordPress user profiles with additional fields to provide richer author information. These enhanced profiles are used by all the plugin's blocks.
+The plugin extends WordPress user profiles with additional fields stored as user meta. These fields are used across all four blocks.
+
+| Field | User Meta Key | Description |
+|---|---|---|
+| Position / Title | `apbl_author_position` | Job title or role (e.g. "Lead Developer") |
+| Author Description | `apbl_author_description` | Bio text shown in blocks (separate from WP bio field) |
+| Social Profiles | `apbl_social_profiles` | Serialized array of social platform URLs |
+
+---
 
 ## Accessing User Profiles
 
 1. Go to **Users > All Users** in your WordPress dashboard.
 2. Click on a user to edit their profile.
-3. Scroll down to the "Author Profile Information" section.
+3. Scroll down to the **Author Profile Information** section.
+4. Fill in the fields and click **Update User**.
 
-![Author Profile Fields]({{ site.baseurl }}/assets/images/author-profile-fields.png)
+---
 
 ## Available Profile Fields
 
-### Position/Title
+### Position / Title
 
-This field allows you to specify the author's role, job title, or position within your organization. For example:
-- Senior Editor
-- Lead Developer
-- Content Manager
-- Marketing Specialist
+Stored in `apbl_author_position`. Displayed beneath the author's name as a small uppercase badge.
 
-![Position Field]({{ site.baseurl }}/assets/images/position-field.png)
+Examples:
+- `Lead Developer`
+- `Product Manager`
+- `UI/UX Designer`
+- `Marketing Director`
 
 ### Author Description
 
-While WordPress has a built-in biographical info field, this separate description field allows you to create content specifically for the Author Profile Blocks. This can include:
-- Professional background
-- Areas of expertise
-- Educational background
-- Personal interests
-- Writing focus
+Stored in `apbl_author_description`. This is a plain-text field separate from WordPress's built-in "Biographical Info" field, so you can maintain different copy for block display vs. the author archive.
 
-The field includes a simple WYSIWYG editor for basic formatting.
-
-![Description Field]({{ site.baseurl }}/assets/images/description-field.png)
-
-### Member Since Label
-
-This field allows you to customize how the author's registration date is displayed. By default, it shows "Member since" followed by the date, but you can change it to:
-- "Joined our team on"
-- "Writing for us since"
-- "Contributing since"
-- "With us since"
-- Any other phrasing that fits your site's tone
-
-![Member Since Label Field]({{ site.baseurl }}/assets/images/member-since-label-field.png)
+Keep it 2–3 sentences: professional background, expertise, what they work on.
 
 ### Social Media Profiles
 
-The plugin supports linking to the following social platforms:
-- Facebook
-- Twitter
-- LinkedIn
-- Instagram
-- Personal Website
+Stored in `apbl_social_profiles` as a PHP serialized array. Supported platforms and their expected URL format:
 
-Enter the full URL for each platform (e.g., `https://twitter.com/username`).
+| Platform | Example URL |
+|---|---|
+| Facebook | `https://facebook.com/username` |
+| Twitter | `https://twitter.com/username` |
+| LinkedIn | `https://linkedin.com/in/username` |
+| Instagram | `https://instagram.com/username` |
+| Website | `https://example.com` |
 
-![Social Media Fields]({{ site.baseurl }}/assets/images/social-media-fields.png)
+Enter the full URL including `https://`. Each link renders as an icon button in the social profiles row.
 
-## Best Practices
+---
 
-### Profile Images
+## Profile Images
 
-Author profile pictures are pulled from WordPress Gravatar. To set or update an author's image:
+Author avatars are pulled from [Gravatar](https://gravatar.com) using the user's registered email address.
 
-1. Go to [Gravatar.com](https://gravatar.com)
-2. Sign in with the same email used for the WordPress account
-3. Upload or update the profile image
-4. Wait a few minutes for the changes to propagate
+To set or update an author's avatar:
 
-For best results, use a square image with minimum dimensions of 300x300 pixels.
+1. Go to [Gravatar.com](https://gravatar.com) and sign in with the user's WordPress email.
+2. Upload a square image — minimum **150 × 150 px**, ideally **300 × 300 px**.
+3. Allow a few minutes for changes to propagate.
 
-### Writing Effective Author Descriptions
+{: .note }
+> Gravatar images are requested at the size set by the block's avatar size attribute (default 150 px). Uploading a larger source image ensures sharp rendering at all sizes.
 
-- Keep descriptions concise (2-3 paragraphs maximum)
-- Focus on relevant expertise and background
-- Use a consistent tone and format across all authors
-- Include a personal touch to make authors relatable
-- Avoid overly promotional language
+### Swap Gravatar for a custom image
 
-### Social Media Links
+```php
+add_filter( 'author_profile_blocks_author_data', function( $author_data, $user ) {
+    $image_id = get_user_meta( $user->ID, 'custom_avatar_id', true );
+    if ( $image_id ) {
+        $author_data['image'] = wp_get_attachment_image_url( $image_id, 'medium' );
+    }
+    return $author_data;
+}, 10, 2 );
+```
 
-- Only include active, professional social profiles
-- Ensure all URLs are correct and include the https:// prefix
-- Keep social profiles updated
+---
 
-## User Roles and Permissions
+## User Roles
 
-By default, the Author Profile Blocks plugin can display any user with the following roles:
+All blocks support filtering displayed authors by WordPress role:
+
 - Administrator
 - Editor
 - Author
 - Contributor
+- Subscriber (hidden by default)
 
-You can filter which roles to display in the Grid and Carousel blocks.
+Set this in each block's **Filter by Role** setting.
 
-## Bulk Updating Author Profiles
+---
 
-For sites with many authors, consider using the WordPress Import/Export tools along with a spreadsheet to bulk update user meta data.
-
-## Using Author Data in Templates
-
-Developers can access the enhanced author data programmatically using the following function:
+## Accessing Author Data in PHP
 
 ```php
-$author_data = AuthorProfileBlocks\Plugin::get_instance()->get_author_data($user_id);
+// Get all data for a single user as used by blocks
+$author = apply_filters(
+    'author_profile_blocks_author_data',
+    [
+        'id'                 => $user->ID,
+        'title'              => $user->display_name,
+        'email'              => $user->user_email,
+        'description'        => get_user_meta( $user->ID, 'apbl_author_description', true ),
+        'position'           => get_user_meta( $user->ID, 'apbl_author_position', true ),
+        'social'             => get_user_meta( $user->ID, 'apbl_social_profiles', true ),
+        'image'              => get_avatar_url( $user->ID, [ 'size' => 150 ] ),
+        'registered_date'    => $user->user_registered,
+        'role'               => implode( ', ', $user->roles ),
+    ],
+    $user
+);
 ```
 
-This returns an array with all the author's information, including:
-- `id` - The author's user ID
-- `title` - The author's display name
-- `email` - The author's email address
-- `description` - The author's custom description
-- `position` - The author's position/title
-- `social` - Array of social media links
-- `image` - URL to the author's profile image
-- `registered_date` - The formatted registration date
-- `member_since_label` - The custom label for the registration date
-- `role` - The author's WordPress role
+### Returned array keys
+
+| Key | Type | Description |
+|---|---|---|
+| `id` | `int` | WordPress user ID |
+| `title` | `string` | Display name |
+| `email` | `string` | Email address |
+| `description` | `string` | Custom bio (`apbl_author_description`) |
+| `position` | `string` | Job title (`apbl_author_position`) |
+| `social` | `array\|string` | Social URLs (`apbl_social_profiles`) — always check `is_array()` |
+| `image` | `string` | Gravatar URL |
+| `registered_date` | `string` | Raw `user_registered` date |
+| `role` | `string` | Comma-separated role names |
+
+{: .warning }
+> The `social` key may be a serialized string in older data. Always guard with `is_array( $author['social'] )` before iterating.
+
+---
 
 ## Filtering Author Data
 
-Developers can filter author data using the `author_profile_blocks_author_data` filter:
-
 ```php
-/**
- * Customize author data before it's returned
- *
- * @param array   $author_data The author data.
- * @param WP_User $user        The user object.
- * @return array  Modified author data.
- */
-function my_custom_author_data( $author_data, $user ) {
-    // Add custom data
-    $author_data['custom_field'] = get_user_meta( $user->ID, 'my_custom_field', true );
-    
-    // Modify existing data
+add_filter( 'author_profile_blocks_author_data', function( $author_data, $user ) {
+    // Prepend "Dr." to all names
     $author_data['title'] = 'Dr. ' . $author_data['title'];
-    
+
+    // Inject a custom field
+    $author_data['department'] = get_user_meta( $user->ID, 'department', true );
+
     return $author_data;
-}
-add_filter( 'author_profile_blocks_author_data', 'my_custom_author_data', 10, 2 );
+}, 10, 2 );
 ```
 
-## Adding Custom Profile Fields
+---
 
-Developers can add custom fields to the author profile section using the `author_profile_blocks_profile_fields` action:
+## Best Practices
 
-```php
-/**
- * Add custom fields to the author profile section
- *
- * @param WP_User $user The user object.
- */
-function my_custom_profile_fields( $user ) {
-    // Get current value
-    $custom_value = get_user_meta( $user->ID, 'my_custom_field', true );
-    ?>
-    <tr class="apb-meta-field">
-        <th><label for="my_custom_field">Custom Field</label></th>
-        <td>
-            <input type="text" name="my_custom_field" id="my_custom_field" value="<?php echo esc_attr( $custom_value ); ?>" class="regular-text"/>
-            <p class="description">This is my custom field description</p>
-        </td>
-    </tr>
-    <?php
-}
-add_action( 'author_profile_blocks_profile_fields', 'my_custom_profile_fields' );
-```
-
-You'll also need to save the custom field values:
-
-```php
-/**
- * Save custom profile fields
- *
- * @param int $user_id The user ID.
- */
-function my_save_custom_profile_fields( $user_id ) {
-    if ( isset( $_POST['my_custom_field'] ) ) {
-        update_user_meta( $user_id, 'my_custom_field', sanitize_text_field( $_POST['my_custom_field'] ) );
-    }
-}
-add_action( 'author_profile_blocks_save_profile_fields', 'my_save_custom_profile_fields' );
-```
+- **Consistency** — use the same tone and structure across all author bios
+- **Brevity** — 2–3 sentences in `apbl_author_description` reads better than a paragraph
+- **Active profiles only** — only link social accounts the author actively maintains
+- **Square avatars** — upload square source images to Gravatar to avoid cropping artifacts

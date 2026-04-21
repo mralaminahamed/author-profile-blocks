@@ -119,10 +119,10 @@ If blocks don't look right on mobile or tablet devices:
 
 ```css
 @media (max-width: 768px) {
-    .apb-author-description {
+    .apbl-author-description {
         display: none; /* Hide descriptions on mobile */
     }
-    .apb-author-image img {
+    .apbl-author-image img {
         max-width: 80px; /* Smaller images on mobile */
     }
 }

@@ -16,7 +16,7 @@ A powerful collection of WordPress blocks for showcasing author profiles and tea
 
 ---
 
-<div class="apb-header-banner" markdown="1">
+<div class="apbl-header-banner" markdown="1">
 ![Author Profile Blocks Banner]({{ site.baseurl }}/assets/images/banner.svg)
 </div>
 
@@ -40,33 +40,33 @@ Unlike other plugins, Author Profile Blocks leverages your existing WordPress us
 
 ## Core Blocks
 
-<div class="apb-grid">
-  <div class="apb-card">
-    <h3 class="apb-card-title">Author Profile</h3>
-    <p class="apb-card-description">Display detailed information about a single author with customizable layouts.</p>
+<div class="apbl-grid">
+  <div class="apbl-card">
+    <h3 class="apbl-card-title">Author Profile</h3>
+    <p class="apbl-card-description">Display detailed information about a single author with customizable layouts.</p>
     <img src="{{ site.baseurl }}/assets/images/author-profile-block-thumb.svg" alt="Author Profile Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-profile.md %}" class="apb-card-link">Learn More →</a>
+    <a href="{{ site.baseurl }}{% link blocks/author-profile.md %}" class="apbl-card-link">Learn More →</a>
   </div>
 
-  <div class="apb-card">
-    <h3 class="apb-card-title">Author Grid</h3>
-    <p class="apb-card-description">Present multiple authors in a responsive grid layout with various customization options.</p>
+  <div class="apbl-card">
+    <h3 class="apbl-card-title">Author Grid</h3>
+    <p class="apbl-card-description">Present multiple authors in a responsive grid layout with various customization options.</p>
     <img src="{{ site.baseurl }}/assets/images/author-grid-block-thumb.svg" alt="Author Grid Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-grid.md %}" class="apb-card-link">Learn More →</a>
+    <a href="{{ site.baseurl }}{% link blocks/author-grid.md %}" class="apbl-card-link">Learn More →</a>
   </div>
 
-  <div class="apb-card">
-    <h3 class="apb-card-title">Author Carousel</h3>
-    <p class="apb-card-description">Showcase multiple authors in an interactive sliding carousel with navigation controls.</p>
+  <div class="apbl-card">
+    <h3 class="apbl-card-title">Author Carousel</h3>
+    <p class="apbl-card-description">Showcase multiple authors in an interactive sliding carousel with navigation controls.</p>
     <img src="{{ site.baseurl }}/assets/images/author-carousel-block-thumb.svg" alt="Author Carousel Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-carousel.md %}" class="apb-card-link">Learn More →</a>
+    <a href="{{ site.baseurl }}{% link blocks/author-carousel.md %}" class="apbl-card-link">Learn More →</a>
   </div>
 
-  <div class="apb-card">
-    <h3 class="apb-card-title">Author List</h3>
-    <p class="apb-card-description">Display multiple authors in a customizable list format for team directories or contributor listings.</p>
+  <div class="apbl-card">
+    <h3 class="apbl-card-title">Author List</h3>
+    <p class="apbl-card-description">Display multiple authors in a customizable list format for team directories or contributor listings.</p>
     <img src="{{ site.baseurl }}/assets/images/author-list-block-thumb.svg" alt="Author List Block">
-    <a href="{{ site.baseurl }}{% link blocks/author-list.md %}" class="apb-card-link">Learn More →</a>
+    <a href="{{ site.baseurl }}{% link blocks/author-list.md %}" class="apbl-card-link">Learn More →</a>
   </div>
 </div>
 
@@ -84,42 +84,42 @@ Unlike other plugins, Author Profile Blocks leverages your existing WordPress us
 ### Extensive Customization
 {: .no_toc }
 
-<div class="apb-features-grid">
-  <div class="apb-feature">
-    <div class="apb-feature-icon">
+<div class="apbl-features-grid">
+  <div class="apbl-feature">
+    <div class="apbl-feature-icon">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><path d="M9 9h.01"></path><path d="M15 9h.01"></path></svg>
     </div>
-    <div class="apb-feature-content">
+    <div class="apbl-feature-content">
       <h4>Visual Styling</h4>
       <p>Customize background colors, text alignment, borders, shadows, rounded corners, and more.</p>
     </div>
   </div>
 
-  <div class="apb-feature">
-    <div class="apb-feature-icon">
+  <div class="apbl-feature">
+    <div class="apbl-feature-icon">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
     </div>
-    <div class="apb-feature-content">
+    <div class="apbl-feature-content">
       <h4>Multiple Layouts</h4>
       <p>Choose from Card, Compact, Centered, and Detailed layouts to match your design.</p>
     </div>
   </div>
 
-  <div class="apb-feature">
-    <div class="apb-feature-icon">
+  <div class="apbl-feature">
+    <div class="apbl-feature-icon">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
     </div>
-    <div class="apb-feature-content">
+    <div class="apbl-feature-content">
       <h4>User Filtering</h4>
       <p>Select specific authors or filter by WordPress user roles.</p>
     </div>
   </div>
 
-  <div class="apb-feature">
-    <div class="apb-feature-icon">
+  <div class="apbl-feature">
+    <div class="apbl-feature-icon">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"></path><path d="M19.5 12.572 12 20.072"></path><path d="M4.5 12.572H12v7.5"></path></svg>
     </div>
-    <div class="apb-feature-content">
+    <div class="apbl-feature-content">
       <h4>Interactive Elements</h4>
       <p>Add hover effects, carousel navigation, and other interactive features.</p>
     </div>

@@ -21,637 +21,353 @@ Learn how to customize the appearance and behavior of the Author Profile Blocks 
 
 ## Using Block Settings
 
-Each Author Profile Block includes comprehensive settings that allow you to customize its appearance directly in the block editor. These settings are accessible in the block sidebar when a block is selected.
+Each block includes comprehensive settings accessible in the block sidebar when a block is selected.
 
 ### Common Style Options
 
-All blocks include these common style options:
+All blocks share these style options:
 
-- **Background Color** - Set custom background colors for the block or individual items
-- **Text Alignment** - Align text left, center, or right
-- **Padding** - Adjust spacing around and within content
-- **Borders** - Add, style, and colorize borders
-- **Rounded Corners** - Add rounded corners to blocks or items
-- **Shadow Effects** - Apply subtle shadow effects
-
-![Style Options](../assets/images/style-options.png)
+- **Background Color** — Set custom background colors for the block or individual items
+- **Text Alignment** — Align text left, center, or right
+- **Padding** — Adjust spacing around and within content
+- **Borders** — Add, style, and colorize borders
+- **Rounded Corners** — Add rounded corners to blocks or items
+- **Shadow Effects** — Apply subtle shadow effects
+- **Animations** — Choose entry animations (fadeIn, slideUp, scaleIn, bounce, etc.)
+- **Hover Effects** — Add lift, glow, scale, rotate, or shadow on hover
 
 ### Block-Specific Options
 
-Each block type also has unique customization options:
+- **Author Profile Block** — Layout (card / compact / centered), "More Content" section, avatar alignment
+- **Author Grid Block** — Columns (1–4), item spacing, layout preset
+- **Author Carousel Block** — Slides to show, autoplay speed, dots, arrows, infinite loop
+- **Author List Block** — Display style (compact / detailed), dividers, hover effect
 
-- **Author Profile Block** - Layout options, "More Content" section
-- **Author Grid Block** - Columns, item spacing, grid layout
-- **Author Carousel Block** - Slides to show, autoplay, navigation options
-- **Author List Block** - Display style, list format, dividers, hover effects
+---
 
-## Custom CSS
+## CSS Class Reference
 
-For more advanced customization, you can add custom CSS to your theme. Author Profile Blocks uses specific CSS classes that you can target.
+All CSS classes use the `apbl-` prefix. Use these in your theme's stylesheet or the WordPress **Additional CSS** panel.
 
 ### Global Classes
 
-These classes apply to all blocks:
+```css
+/* Block root wrappers */
+.wp-block-author-profile-blocks-author-profile { }
+.wp-block-author-profile-blocks-author-grid { }
+.wp-block-author-profile-blocks-author-carousel { }
+.wp-block-author-profile-blocks-author-list { }
+
+/* Shared element classes */
+.apbl-author-image { }      /* avatar wrapper */
+.apbl-author-name { }       /* heading */
+.apbl-author-position { }   /* job title / role badge */
+.apbl-author-email { }      /* email link */
+.apbl-author-description { } /* bio text */
+.apbl-social-profiles { }   /* social icon row */
+.apbl-social-list { }       /* <ul> inside social-profiles */
+```
+
+### Author Grid Block
 
 ```css
-/* Target all Author Profile Blocks */
+.apbl-author-grid { }              /* grid container */
+.apbl-author-grid-item { }         /* individual card */
+
+/* Column variants */
+.apbl-columns-1 .apbl-author-grid-item { }
+.apbl-columns-2 .apbl-author-grid-item { }
+.apbl-columns-3 .apbl-author-grid-item { }
+.apbl-columns-4 .apbl-author-grid-item { }
+```
+
+### Author Carousel Block
+
+```css
+.apbl-author-carousel { }          /* Slick-initialized carousel root */
+.apbl-author-carousel-item { }     /* individual slide wrapper */
+
+/* Slick overrides */
+.apbl-author-carousel .slick-dots { }
+.apbl-author-carousel .slick-arrow { }
+.apbl-author-carousel .slick-prev { }
+.apbl-author-carousel .slick-next { }
+```
+
+### Author List Block
+
+```css
+.apbl-author-list { }              /* list root */
+.apbl-author-list-items { }        /* <ul> flex column */
+.apbl-author-list-item { }         /* individual row */
+.apbl-author-compact { }           /* compact layout inner */
+.apbl-author-detailed { }          /* detailed layout inner */
+.apbl-author-left { }              /* avatar column */
+.apbl-author-right { }             /* content column */
+```
+
+### Style Preset Modifiers
+
+```css
+/* Applied to the block root */
+.is-style-card { }
+.is-style-minimal { }
+.is-style-bordered { }
+.is-style-shadow { }
+.is-style-alternating { }
+
+/* State modifiers */
+.is-rounded { }
+.has-shadow { }
+.has-border { }
+.has-hover-effect { }
+.has-dividers { }
+```
+
+### Animation Classes
+
+```css
+.has-fadeIn-animation { }
+.has-slideUp-animation { }
+.has-slideDown-animation { }
+.has-slideLeft-animation { }
+.has-slideRight-animation { }
+.has-scaleIn-animation { }
+.has-bounce-animation { }
+```
+
+### Hover Effect Classes
+
+```css
+.has-lift-hover:hover { }
+.has-glow-hover:hover { }
+.has-scale-hover:hover { }
+.has-rotate-hover:hover { }
+.has-shadow-hover:hover { }
+```
+
+---
+
+## CSS Custom Properties
+
+The plugin uses CSS custom properties for runtime theming. Override them on the block root or globally:
+
+```css
+/* Avatar */
+--author-avatar-size: 96px;
+--author-avatar-justify: flex-start; /* flex-start | center | flex-end */
+
+/* Animations */
+--author-animation-duration: 400ms;
+
+/* Google Font family (when googleFont attribute is set) */
+--google-font-family: 'Merriweather', serif;
+
+/* Gradient (when gradientBackground is enabled) */
+--gradient-direction: to bottom;
+--gradient-start-color: #ffffff;
+--gradient-end-color: #f8f9fa;
+
+/* Box shadow (when boxShadow is enabled) */
+--box-shadow-color: rgba(0,0,0,0.15);
+--box-shadow-blur: 16px;
+--box-shadow-spread: 0px;
+--box-shadow-horizontal: 0px;
+--box-shadow-vertical: 4px;
+
+/* Border (when enableBorder is enabled) */
+--border-width: 1px;
+--border-color: #e0e0e0;
+--border-radius: 0px;
+
+/* Container width override */
+--author-list-container-width: 900px;
+```
+
+### Example: change avatar size sitewide
+
+```css
 .wp-block-author-profile-blocks-author-profile,
-.wp-block-author-profile-blocks-author-grid,
-.wp-block-author-profile-blocks-author-carousel,
-.wp-block-author-profile-blocks-author-list {
-    /* Your custom styles */
-}
-
-/* Target all author images */
-.apb-author-image {
-    /* Your custom styles */
-}
-
-/* Target all author names */
-.apb-author-name {
-    /* Your custom styles */
-}
-
-/* Target all author positions */
-.apb-author-position {
-    /* Your custom styles */
-}
-
-/* Target all author descriptions */
-.apb-author-description {
-    /* Your custom styles */
-}
-
-/* Target all social profiles */
-.apb-social-profiles {
-    /* Your custom styles */
-}
-```
-
-### Block-Specific Classes
-
-Each block type also has specific classes:
-
-#### Author Profile Block
-
-```css
-/* Main wrapper */
-.wp-block-author-profile-blocks-author-profile {
-    /* Your custom styles */
-}
-
-/* More content section */
-.apb-author-more-content {
-    /* Your custom styles */
-}
-
-/* Layout-specific classes */
-.apb-author-profile .is-layout-card {
-    /* Your custom styles */
-}
-.apb-author-profile .is-layout-compact {
-    /* Your custom styles */
-}
-.apb-author-profile .is-layout-centered {
-    /* Your custom styles */
-}
-```
-
-#### Author Grid Block
-
-```css
-/* Main wrapper */
 .wp-block-author-profile-blocks-author-grid {
-    /* Your custom styles */
-}
-
-/* Grid container */
-.apb-author-grid {
-    /* Your custom styles */
-}
-
-/* Individual grid items */
-.apb-author-grid-item {
-    /* Your custom styles */
-}
-
-/* Column-specific targeting */
-.apb-columns-1 .apb-author-grid-item {
-    /* Your custom styles for 1-column grid */
-}
-.apb-columns-2 .apb-author-grid-item {
-    /* Your custom styles for 2-column grid */
-}
-.apb-columns-3 .apb-author-grid-item {
-    /* Your custom styles for 3-column grid */
-}
-.apb-columns-4 .apb-author-grid-item {
-    /* Your custom styles for 4-column grid */
+    --author-avatar-size: 120px;
 }
 ```
 
-#### Author Carousel Block
-
-```css
-/* Main wrapper */
-.wp-block-author-profile-blocks-author-carousel {
-    /* Your custom styles */
-}
-
-/* Carousel container */
-.apb-author-carousel {
-    /* Your custom styles */
-}
-
-/* Individual carousel slides */
-.apb-author-carousel-slide {
-    /* Your custom styles */
-}
-
-/* Carousel navigation */
-.apb-author-carousel .slick-dots {
-    /* Your custom styles for dots */
-}
-.apb-author-carousel .slick-arrow {
-    /* Your custom styles for arrows */
-}
-```
-
-#### Author List Block
-
-```css
-/* Main wrapper */
-.wp-block-author-profile-blocks-author-list {
-    /* Your custom styles */
-}
-
-/* List container */
-.apb-author-list {
-    /* Your custom styles */
-}
-
-/* Individual list items */
-.apb-author-list-item {
-    /* Your custom styles */
-}
-
-/* Style-specific targeting */
-.apb-author-list.is-style-compact .apb-author-list-item {
-    /* Your custom styles for compact list items */
-}
-.apb-author-list.is-style-detailed .apb-author-list-item {
-    /* Your custom styles for detailed list items */
-}
-```
-
-### Feature-Specific Classes
-
-You can also target specific features across blocks:
-
-```css
-/* Items with shadows */
-.has-shadow {
-    /* Your custom styles */
-}
-
-/* Items with borders */
-.has-border {
-    /* Your custom styles */
-}
-
-/* Items with rounded corners */
-.is-rounded {
-    /* Your custom styles */
-}
-
-/* Items with hover effects */
-.has-hover-effect {
-    /* Your custom styles */
-}
-```
+---
 
 ## Color Customization
 
-### Using Theme Colors
+### Matching the Indigo Design System
 
-Author Profile Blocks supports WordPress theme color palettes. To use your theme's colors:
-
-1. Select a block
-2. Open the color settings in the sidebar
-3. Choose from your theme's color palette
-
-![Theme Colors](../assets/images/theme-colors.png)
-
-### Creating Color Schemes
-
-You can create consistent color schemes by combining CSS variables with the block classes:
+The plugin ships with an indigo design palette. Override to match your brand:
 
 ```css
-/* Define color scheme */
-:root {
-    --apb-primary: #3498db;
-    --apb-secondary: #2ecc71;
-    --apb-text: #333333;
-    --apb-background: #f8f9fa;
-    --apb-accent: #e74c3c;
-}
-
-/* Apply to all blocks */
+/* Re-theme with a teal palette */
 .wp-block-author-profile-blocks-author-profile,
 .wp-block-author-profile-blocks-author-grid,
 .wp-block-author-profile-blocks-author-carousel,
 .wp-block-author-profile-blocks-author-list {
-    color: var(--apb-text);
-    background-color: var(--apb-background);
-}
-
-/* Style author names */
-.apb-author-name {
-    color: var(--apb-primary);
-}
-
-/* Style positions */
-.apb-author-position {
-    color: var(--apb-secondary);
-}
-
-/* Style social icons */
-.apb-social-profiles a {
-    color: var(--apb-accent);
+    --apbl-primary: #0d9488;      /* teal-600 */
+    --apbl-primary-mid: #99f6e4;  /* teal-200 */
+    --apbl-primary-light: #f0fdfa; /* teal-50 */
 }
 ```
 
-## Image Customization
+---
 
-### Avatar Shape and Size
+## Carousel Customization
 
-You can customize the appearance of author images:
+The carousel uses [Slick Carousel](https://kenwheeler.github.io/slick/). Override Slick's generated classes:
 
 ```css
-/* Make all author images circular */
-.apb-author-image img {
-    border-radius: 50%;
+/* Custom dot style */
+.apbl-author-carousel .slick-dots li button:before {
+    color: #4f46e5;
+    font-size: 10px;
 }
 
-/* Add a border to images */
-.apb-author-image img {
-    border: 3px solid #3498db;
-}
-
-/* Add a hover effect to images */
-.apb-author-image img {
-    transition: transform 0.3s ease;
-}
-.apb-author-image img:hover {
-    transform: scale(1.1);
-}
-```
-
-### Custom Image Sizes
-
-For developers, you can register custom image sizes for author avatars:
-
-```php
-/**
- * Register custom image sizes for author avatars
- */
-function my_custom_avatar_sizes() {
-    add_image_size( 'author-profile-large', 300, 300, true );
-    add_image_size( 'author-profile-medium', 150, 150, true );
-    add_image_size( 'author-profile-small', 80, 80, true );
-}
-add_action( 'after_setup_theme', 'my_custom_avatar_sizes' );
-```
-
-## Typography Customization
-
-### Using Theme Typography
-
-Author Profile Blocks inherits typography settings from your theme. However, you can customize specific text elements:
-
-```css
-/* Customize author names */
-.apb-author-name {
-    font-family: 'Georgia', serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 0.5px;
-}
-
-/* Customize author positions */
-.apb-author-position {
-    font-family: 'Arial', sans-serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-}
-
-/* Customize author descriptions */
-.apb-author-description {
-    font-family: 'Helvetica', sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-```
-
-## Animation and Interaction
-
-### Hover Effects
-
-You can customize hover effects for all blocks:
-
-```css
-/* Card hover effect */
-.apb-author-grid-item,
-.apb-author-carousel-item,
-.apb-author-list-item {
-    transition: all 0.3s ease;
-}
-.apb-author-grid-item:hover,
-.apb-author-carousel-item:hover,
-.apb-author-list-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-/* Social icon hover effect */
-.apb-social-profiles a {
-    transition: color 0.2s ease;
-}
-.apb-social-profiles a:hover {
-    color: #3498db;
-}
-```
-
-### Carousel Animation
-
-You can customize the carousel animation behavior:
-
-```css
-/* Fade transition between slides */
-.apb-author-carousel .slick-slide {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-.apb-author-carousel .slick-slide.slick-active {
-    opacity: 1;
-}
-
-/* Custom arrow styling */
-.apb-author-carousel .slick-arrow {
-    background-color: #3498db;
+/* Custom arrow buttons */
+.apbl-author-carousel .slick-arrow {
+    background: #4f46e5;
     border-radius: 50%;
     width: 40px;
     height: 40px;
 }
-.apb-author-carousel .slick-arrow:hover {
-    background-color: #2980b9;
+.apbl-author-carousel .slick-arrow:hover {
+    background: #3730a3;
 }
 ```
 
-## Responsive Customization
+Pass custom Slick settings via the `data-settings` attribute on `.apbl-author-carousel` (set server-side by the block's PHP render callback).
 
-Author Profile Blocks are responsive by default, but you can further customize their behavior on different screen sizes:
+---
+
+## Typography
 
 ```css
-/* Desktop styles (default) */
-.apb-author-grid-item {
-    padding: 30px;
+/* Author name */
+.apbl-author-name {
+    font-family: 'Georgia', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
 }
 
-/* Tablet styles */
+/* Position badge */
+.apbl-author-position {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}
+
+/* Bio text */
+.apbl-author-description {
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+```
+
+---
+
+## Responsive Overrides
+
+```css
+/* Tablet */
 @media (max-width: 768px) {
-    .apb-author-grid-item {
-        padding: 20px;
-    }
-    .apb-author-description {
-        font-size: 0.9rem;
-    }
+    .apbl-author-grid-item { padding: 1rem; }
+    .apbl-author-description { font-size: 0.875rem; }
 }
 
-/* Mobile styles */
+/* Mobile */
 @media (max-width: 480px) {
-    .apb-author-grid-item {
-        padding: 15px;
-    }
-    .apb-author-image img {
-        width: 80px;
-        height: 80px;
-    }
-    .apb-author-description {
-        font-size: 0.8rem;
-    }
+    .apbl-author-detailed { flex-direction: column; }
+    --author-avatar-size: 72px;
 }
 ```
 
-## Creating Custom Templates
+---
 
-For developers, you can create custom templates for the blocks by filtering the rendered output:
+## PHP Filter Hooks
 
-```php
-/**
- * Customize the rendered output of the Author Profile block
- *
- * @param string $block_content The rendered content.
- * @param array  $block        The block data.
- * @return string Modified content.
- */
-function my_custom_author_profile_template( $block_content, $block ) {
-    // Make modifications to the block content
-    return $block_content;
-}
-add_filter( 'render_block_author-profile-blocks/author-profile', 'my_custom_author_profile_template', 10, 2 );
-```
-
-## Advanced: Filter Hooks
-
-The plugin provides several filter hooks for developers to customize its behavior:
-
-### Block-Related Filters
+### Modify author data
 
 ```php
-// Modify block registration arguments
-add_filter( 'author_profile_blocks_block_args', function( $args, $block_name ) {
-    // Modify args for specific block
-    if ( $block_name === 'author-profile' ) {
-        // Your modifications
-    }
-    return $args;
-}, 10, 2 );
-
-// Filter rendered block content
-add_filter( 'author_profile_blocks_rendered_block', function( $content, $block, $block_name ) {
-    // Modify content for all blocks
-    return $content;
-}, 10, 3 );
-
-// Filter rendered content for a specific block
-add_filter( 'author_profile_blocks_rendered_author_profile', function( $content, $block ) {
-    // Modify content for the Author Profile block only
-    return $content;
-}, 10, 2 );
-```
-
-### Author Data Filters
-
-```php
-// Modify author data before it's used in blocks
 add_filter( 'author_profile_blocks_author_data', function( $author_data, $user ) {
-    // Add or modify author data
-    $author_data['custom_field'] = get_user_meta( $user->ID, 'custom_field', true );
+    // Swap Gravatar for an ACF image field
+    $image_id = get_field( 'profile_image', 'user_' . $user->ID );
+    if ( $image_id ) {
+        $author_data['image'] = wp_get_attachment_image_url( $image_id, 'medium' );
+    }
     return $author_data;
 }, 10, 2 );
-
-// Filter authors query arguments
-add_filter( 'author_profile_blocks_author_query_args', function( $query_args ) {
-    // Modify query args
-    $query_args['orderby'] = 'registered';
-    $query_args['order'] = 'DESC';
-    return $query_args;
-}, 10 );
-
-// Filter authors list after query
-add_filter( 'author_profile_blocks_authors', function( $authors, $query_args ) {
-    // Modify authors array
-    return $authors;
-}, 10, 2 );
 ```
 
-## Theme Integration Examples
+### Modify the authors query
 
-### Twenty Twenty-Four Theme
+```php
+add_filter( 'author_profile_blocks_author_query_args', function( $args ) {
+    $args['orderby'] = 'registered';
+    $args['order']   = 'DESC';
+    return $args;
+} );
+```
+
+### Filter rendered block output
+
+```php
+add_filter(
+    'render_block_author-profile-blocks/author-profile',
+    function( $content, $block ) {
+        // wrap in custom container
+        return '<div class="my-wrapper">' . $content . '</div>';
+    },
+    10, 2
+);
+```
+
+---
+
+## Theme Integration
+
+### WordPress theme.json palette
+
+```json
+{
+    "settings": {
+        "color": {
+            "palette": [
+                { "slug": "indigo", "color": "#4f46e5", "name": "Indigo" }
+            ]
+        }
+    }
+}
+```
+
+The blocks inherit `--wp--preset--color--*` variables automatically when using block color controls.
+
+### Twenty Twenty-Five
 
 ```css
-/* Author Profile Blocks integration with Twenty Twenty-Four Theme */
-.wp-block-author-profile-blocks-author-profile,
-.wp-block-author-profile-blocks-author-grid,
-.wp-block-author-profile-blocks-author-carousel,
-.wp-block-author-profile-blocks-author-list {
-    --wp--preset--color--background: var(--wp--preset--color--base);
-    --wp--preset--color--foreground: var(--wp--preset--color--contrast);
-    
-    font-family: var(--wp--preset--font-family--system);
-    background-color: var(--wp--preset--color--background);
-    color: var(--wp--preset--color--foreground);
-}
-
-.apb-author-name {
+.apbl-author-name {
     font-family: var(--wp--preset--font-family--heading);
-    font-weight: var(--wp--custom--typography--font-weight--bold);
 }
-
-.apb-author-description {
+.apbl-author-description {
     font-size: var(--wp--preset--font-size--small);
 }
 ```
 
-### Kadence Theme
+---
+
+## Accessibility
+
+The blocks output semantic HTML. To further enhance keyboard / screen-reader experience:
 
 ```css
-/* Author Profile Blocks integration with Kadence Theme */
-.wp-block-author-profile-blocks-author-profile,
-.wp-block-author-profile-blocks-author-grid,
-.wp-block-author-profile-blocks-author-carousel,
-.wp-block-author-profile-blocks-author-list {
-    --apb-primary: var(--global-palette1);
-    --apb-secondary: var(--global-palette2);
-    --apb-text: var(--global-palette4);
-    --apb-background: var(--global-palette9);
-    --apb-accent: var(--global-palette3);
-    
-    font-family: var(--global-body-font-family);
-    background-color: var(--apb-background);
-    color: var(--apb-text);
+/* Visible focus ring on social links */
+.apbl-social-profiles a:focus-visible {
+    outline: 2px solid #4f46e5;
+    outline-offset: 3px;
+    border-radius: 4px;
 }
-
-.apb-author-name {
-    font-family: var(--global-heading-font-family);
-    color: var(--apb-primary);
-}
-
-.apb-author-position {
-    color: var(--apb-secondary);
-}
-```
-
-## Performance Optimization
-
-For sites with many authors or multiple blocks, consider these optimization tips:
-
-1. **Limit Maximum Authors**: Use the "Maximum Authors" setting to limit the number of authors displayed in Grid, Carousel, and List blocks
-
-2. **Disable Unused Elements**: Hide elements you don't need (like description or social links) to reduce DOM size
-
-3. **Optimize Images**: Use properly sized images for authors (ideally 150×150 pixels for most displays)
-
-4. **Lazy Loading**: The plugin automatically uses lazy loading for images, but you can further optimize with additional lazy loading plugins
-
-5. **Caching**: Use a caching plugin to improve performance
-
-For developers, you can also modify the internal caching behavior:
-
-```php
-// Adjust cache expiration time (default is HOUR_IN_SECONDS)
-add_filter( 'author_profile_blocks_cache_expiration', function() {
-    return DAY_IN_SECONDS; // Cache for one day
-});
-
-// Disable caching completely
-add_filter( 'author_profile_blocks_enable_caching', '__return_false' );
-```
-
-## Accessibility Considerations
-
-Author Profile Blocks are built with accessibility in mind, but you can further enhance accessibility:
-
-1. **High Contrast Colors**: Ensure text colors have sufficient contrast against background colors
-
-2. **Focus Styles**: Enhance keyboard focus styles for interactive elements:
-
-```css
-.apb-social-profiles a:focus,
-.apb-author-email a:focus {
-    outline: 2px solid #3498db;
-    outline-offset: 2px;
-}
-```
-
-3. **ARIA Attributes**: Add additional ARIA attributes for custom integrations:
-
-```php
-add_filter( 'author_profile_blocks_rendered_block', function( $content, $block, $block_name ) {
-    // Add ARIA attributes to carousel navigation
-    if ( $block_name === 'author-carousel' ) {
-        $content = str_replace(
-            '<button class="slick-prev">',
-            '<button class="slick-prev" aria-label="Previous slide">',
-            $content
-        );
-        $content = str_replace(
-            '<button class="slick-next">',
-            '<button class="slick-next" aria-label="Next slide">',
-            $content
-        );
-    }
-    return $content;
-}, 10, 3 );
-```
-
-## Troubleshooting Customizations
-
-If your customizations aren't working as expected, check these common issues:
-
-1. **CSS Specificity**: Ensure your CSS selectors are specific enough to override default styles
-
-2. **Theme Conflicts**: Some themes apply very specific styles that may conflict with your customizations
-
-3. **Caching**: Clear your browser cache and any server-side caching after making changes
-
-4. **Plugin Updates**: Custom CSS may need updates after plugin updates
-
-For advanced debugging, you can enable development mode:
-
-```php
-// Enable development mode (disables caching)
-add_filter( 'author_profile_blocks_development_mode', '__return_true' );
 ```

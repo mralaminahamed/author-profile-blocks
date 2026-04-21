@@ -197,7 +197,7 @@ add_filter( 'author_profile_blocks_author_data', function( $author_data, $user )
     ) );
     
     if ( ! empty( $recent_posts ) ) {
-        $posts_html = '<div class="apb-author-recent-posts">';
+        $posts_html = '<div class="apbl-author-recent-posts">';
         $posts_html .= '<h4>Recent Posts</h4>';
         $posts_html .= '<ul>';
         

@@ -19,51 +19,46 @@ A record of all notable changes made to the Author Profile Blocks plugin.
 
 ---
 
-## Version 1.1.0 (May 3, 2025)
+## Version 1.0.1 (April 2026)
 
 ### New Features
-- Added support for WordPress 6.8
-- Added theme color palette integration for all blocks
-- Added print style support for all block types
 
-### Enhancements
-- Improved carousel performance with optimized JavaScript
-- Enhanced responsive styles for better mobile experience
-- Added high contrast mode support for accessibility
-- Improved author selection interface with search functionality
-- Added additional layout options for the List block
-- Enhanced caching system for better performance
-- Improved documentation with more usage examples
-- Added ARIA attributes for better screen reader support
-- Optimized asset loading for better page performance
+- **Indigo editorial design system** — cohesive `#4f46e5` primary palette with accent animations across all 4 blocks
+- **Lucide React SVG icons** — replaced emoji and Dashicons with crisp Lucide icons in all editor controls
+- **Functional carousel** — Slick Carousel now initializes correctly with responsive breakpoints, autoplay, arrow icons, and dot navigation
+- **Author image alignment** — avatar now honors text-alignment via CSS custom property `--author-avatar-justify` (flex-based)
+- **List item gap** — consistent spacing between items in the Author List block
 
 ### Bug Fixes
-- Fixed issue with Gravatar images not loading in some environments
-- Fixed carousel navigation on touchscreen devices
-- Fixed styling conflicts with some popular themes
-- Fixed social icon display in RTL languages
-- Fixed pagination in block editor for sites with many users
-- Fixed layout issues in the Author List block on small screens
-- Fixed JavaScript errors when jQuery is loaded in footer
+
+- Fixed fatal `TypeError` when `apbl_social_profiles` user meta contains a non-array value
+- Fixed carousel selector mismatch (`apbl-` prefix inconsistency between PHP output and JS)
+- Fixed Slick CSS never loading on the frontend (missing `viewStyle` registration in `block.json`)
+- Fixed Slick arrow icons showing as "Previous"/"Next" text (missing `slick-theme.css` import)
+- Completed migration of all CSS class names to `apbl-` prefix throughout templates and SCSS
 
 ### Developer Improvements
-- Added comprehensive filter and action hooks for customization
-- Improved author data filtering capabilities
-- Enhanced Author Block Base class for better extensibility
-- Added development mode for easier debugging
-- Improved code organization and documentation
-- Added filter to customize cache expiration time
-- Enhanced compatibility with translation plugins
 
-## Version 1.0.0 (December 15, 2024)
+- Modern SCSS module system: `@use`, `@forward`, `sass:color`, `sass:math`; removed all `@extend` and deprecated `lighten()`/`darken()` calls
+- Webpack bundles Slick CSS into `view.css` via `viewStyle` field in `block.json`
+- Added `.distignore`, updated `.gitignore` and `.gitattributes` for cleaner releases
+
+---
+
+## Version 1.0.0 (February 2026)
 
 ### Initial Release
-- Author Profile Block
-- Author Grid Block
-- Author Carousel Block
-- Author List Block
-- Enhanced user profile fields
-- Block customization options
-- Responsive design support
-- WordPress 6.0+ compatibility
-- PHP 7.4+ compatibility
+
+- **Author Profile Block** — single-author display with card, compact, and centered layouts
+- **Author Grid Block** — multi-author responsive grid (1–4 columns) with author picker and role filter
+- **Author List Block** — vertical author directory with compact and detailed display styles
+- **Author Carousel Block** — sliding carousel powered by Slick Carousel with autoplay, dots, and arrows
+- Extended user profile fields: position/title (`apbl_author_position`), description (`apbl_author_description`), social profiles (`apbl_social_profiles`)
+- Social platform links: Facebook, Twitter, LinkedIn, Instagram, personal website
+- Server-side rendering via `render_callback` for all blocks
+- Animation system: fadeIn, slideUp, slideDown, slideLeft, slideRight, scaleIn, bounce
+- Hover effects: lift, glow, scale, rotate, shadow
+- Style presets per block: card, minimal, bordered, shadow, alternating
+- CSS custom properties for runtime theming
+- Responsive design with mobile-first breakpoints
+- WordPress 6.0+ and PHP 7.4+ compatibility
