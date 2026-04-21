@@ -91,10 +91,12 @@ jobs:
         run: |
           composer install --no-interaction --prefer-dist
 
-      - name: Build assets (npm)
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Build assets
         run: |
           if [ -f yarn.lock ]; then
-            corepack enable yarn || true
             yarn install --frozen-lockfile
             yarn build
           else
