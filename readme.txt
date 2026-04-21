@@ -1,6 +1,6 @@
 === Author Profile Blocks ===
 Contributors:      mralaminahamed
-Tags:              block, author, profile, gutenberg, team, carousel, grid
+Tags:              block, gutenberg, author, profile, team
 Tested up to:      6.7
 Stable tag:        1.0.1
 Requires at least: 6.0
