@@ -8,7 +8,7 @@ permalink: /
 # Author Profile Blocks
 {: .fs-9 .no_toc }
 
-<span class="apbl-eyebrow">✦ WordPress Gutenberg Plugin</span>
+<div class="apbl-eyebrow">✦ WordPress Gutenberg Plugin</div>
 
 Four production-ready Gutenberg blocks for showcasing WordPress users — profile, grid, list, and carousel — with an indigo editorial design system.
 {: .fs-6 .fw-300 }
@@ -26,52 +26,25 @@ Four production-ready Gutenberg blocks for showcasing WordPress users — profil
 
 <div class="apbl-blocks-grid">
 
-<a href="{{ site.baseurl }}{% link blocks/author-profile.md %}" class="apbl-block-card apbl-card-profile">
-<div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></div>
-<h3>Author Profile</h3>
-<p>Single-author display with card, compact, and centered layouts. Perfect for about pages and post signatures.</p>
-<div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-profile</span><div class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div>
-</a>
+<div class="apbl-block-card apbl-card-profile"><div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg></div><h3>Author Profile</h3><p>Single-author display with card, compact, and centered layouts. Perfect for about pages and post signatures.</p><div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-profile</span><a href="{{ site.baseurl }}{% link blocks/author-profile.md %}" class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></div></div>
 
-<a href="{{ site.baseurl }}{% link blocks/author-grid.md %}" class="apbl-block-card apbl-card-grid">
-<div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
-<h3>Author Grid</h3>
-<p>Responsive 1–4 column grid with author picker and role filter. Ideal for team and contributor pages.</p>
-<div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-grid</span><div class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div>
-</a>
+<div class="apbl-block-card apbl-card-grid"><div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div><h3>Author Grid</h3><p>Responsive 1–4 column grid with author picker and role filter. Ideal for team and contributor pages.</p><div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-grid</span><a href="{{ site.baseurl }}{% link blocks/author-grid.md %}" class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></div></div>
 
-<a href="{{ site.baseurl }}{% link blocks/author-carousel.md %}" class="apbl-block-card apbl-card-carousel">
-<div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/><path d="m15 18 6-6-6-6"/></svg></div>
-<h3>Author Carousel</h3>
-<p>Slick-powered sliding carousel with autoplay, arrows, dots, and responsive breakpoints (3 → 2 → 1).</p>
-<div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-carousel</span><div class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div>
-</a>
+<div class="apbl-block-card apbl-card-carousel"><div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/><path d="m15 18 6-6-6-6"/></svg></div><h3>Author Carousel</h3><p>Slick-powered sliding carousel with autoplay, arrows, dots, and responsive breakpoints (3 → 2 → 1).</p><div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-carousel</span><a href="{{ site.baseurl }}{% link blocks/author-carousel.md %}" class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></div></div>
 
-<a href="{{ site.baseurl }}{% link blocks/author-list.md %}" class="apbl-block-card apbl-card-list">
-<div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-<h3>Author List</h3>
-<p>Vertical flex directory with compact and detailed display styles, gap, dividers, and hover effects.</p>
-<div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-list</span><div class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div></div>
-</a>
+<div class="apbl-block-card apbl-card-list"><div class="apbl-block-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><h3>Author List</h3><p>Vertical flex directory with compact and detailed display styles, gap, dividers, and hover effects.</p><div class="apbl-block-card-footer"><span class="apbl-block-card-slug">author-list</span><a href="{{ site.baseurl }}{% link blocks/author-list.md %}" class="apbl-block-card-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a></div></div>
 
 </div>
 
 <div class="apbl-section-heading"><h2>Key Features</h2><div class="apbl-section-line"></div></div>
 
 <div class="apbl-features-grid">
-
 <div class="apbl-feature-item"><div class="apbl-feature-dot" style="background:#4f46e5"></div><div><h4>No Custom Post Types</h4><p>Uses native WordPress users — no duplicate content, no migration, no extra DB tables.</p></div></div>
-
 <div class="apbl-feature-item"><div class="apbl-feature-dot" style="background:#0891b2"></div><div><h4>Server-side Rendering</h4><p>All blocks use PHP <code>render_callback</code> — always-fresh output, no client hydration.</p></div></div>
-
 <div class="apbl-feature-item"><div class="apbl-feature-dot" style="background:#7c3aed"></div><div><h4>Indigo Design System</h4><p>Consistent <code>#4f46e5</code> palette, CSS custom properties, editorial card hover animations.</p></div></div>
-
 <div class="apbl-feature-item"><div class="apbl-feature-dot" style="background:#059669"></div><div><h4>Animations &amp; Hover Effects</h4><p>7 entry animations, 5 hover effects — all durations controlled by CSS custom property.</p></div></div>
-
 <div class="apbl-feature-item"><div class="apbl-feature-dot" style="background:#f59e0b"></div><div><h4>Lucide React Icons</h4><p>Editor controls use crisp SVG Lucide icons — no emoji, no Dashicons in the block UI.</p></div></div>
-
 <div class="apbl-feature-item"><div class="apbl-feature-dot" style="background:#db2777"></div><div><h4>Social Profiles</h4><p>Facebook, Twitter, LinkedIn, Instagram, website — stored in <code>apbl_social_profiles</code> user meta.</p></div></div>
-
 </div>
 
 <div class="apbl-quickstart">

@@ -262,8 +262,15 @@ p code, li code, td code {
   text-decoration: none !important;
 }
 
-/* SVG in eyebrow badge */
-.apbl-eyebrow svg { width: 11px !important; height: 11px !important; flex-shrink: 0; }
+/* Eyebrow as div (block but styled inline-flex) */
+div.apbl-eyebrow { display: inline-flex !important; margin-bottom: 1rem; }
+
+/* Global: prevent theme SVG overrides from blowing up our custom SVGs */
+.apbl-block-card-icon svg,
+.apbl-block-card-arrow svg,
+.apbl-callout-icon,
+.apbl-help-item svg,
+.apbl-feature-dot ~ * svg { max-width: none !important; }
 
 /* ── Version badge ──────────────────────────────────────────────────────── */
 .apbl-version-badge {
