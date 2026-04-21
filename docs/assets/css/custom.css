@@ -157,7 +157,7 @@ code, pre, kbd, .highlight {
 .main-content h1 { font-size: 2.25rem; }
 .main-content h2 { font-size: 1.5rem; border-bottom: 1px solid var(--apbl-neutral-200); padding-bottom: 0.375rem; }
 .main-content h3 { font-size: 1.15rem; }
-.main-content h4 { font-size: 0.95rem; font-weight: 600 !important; font-family: var(--apbl-font-body) !important; letter-spacing: 0; }
+.main-content h4 { font-size: 0.95rem; font-weight: 600 !important; font-family: var(--apbl-font-body) !important; letter-spacing: 0; text-transform: none !important; }
 
 .main-content a { color: var(--apbl-indigo-600); }
 .main-content a:hover { color: var(--apbl-indigo-800); }
@@ -261,6 +261,9 @@ p code, li code, td code {
   margin-bottom: 1rem;
   text-decoration: none !important;
 }
+
+/* SVG in eyebrow badge */
+.apbl-eyebrow svg { width: 11px !important; height: 11px !important; flex-shrink: 0; }
 
 /* ── Version badge ──────────────────────────────────────────────────────── */
 .apbl-version-badge {
@@ -397,8 +400,10 @@ p code, li code, td code {
 }
 
 .apbl-block-card-icon svg {
-  width: 17px;
-  height: 17px;
+  width: 17px !important;
+  height: 17px !important;
+  flex-shrink: 0;
+  display: block;
 }
 
 .apbl-block-card h3 {
@@ -449,7 +454,7 @@ p code, li code, td code {
   transform: translateX(2px);
 }
 
-.apbl-block-card-arrow svg { width: 12px; height: 12px; }
+.apbl-block-card-arrow svg { width: 12px !important; height: 12px !important; display: block; }
 
 /* Per-card accent colors */
 .apbl-card-profile { --card-accent: #4f46e5; --icon-bg: #eef2ff; --icon-color: #4f46e5; --icon-border: #c7d2fe; }
@@ -615,9 +620,10 @@ p code, li code, td code {
 }
 
 .apbl-callout-icon {
-  width: 18px; height: 18px;
+  width: 18px !important; height: 18px !important;
   flex-shrink: 0;
   margin-top: 0.1rem;
+  display: block;
 }
 
 .apbl-callout-info .apbl-callout-icon    { color: var(--apbl-indigo-500); }
@@ -658,9 +664,10 @@ p code, li code, td code {
 }
 
 .apbl-help-item svg {
-  width: 16px; height: 16px;
+  width: 16px !important; height: 16px !important;
   color: var(--apbl-indigo-500);
   flex-shrink: 0;
+  display: block;
 }
 
 /* ─── Responsive ─────────────────────────────────────────────────────────── */
