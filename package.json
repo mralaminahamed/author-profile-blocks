@@ -59,7 +59,7 @@
 		"@wordpress/scripts": "^30.27.0",
 		"@wordpress/server-side-render": "^6.10.0",
 		"@wordpress/stylelint-config": "^23.26.0",
-		"@wordpress/url": "^4.34.0",
+		"@wordpress/url": "^4.44.0",
 		"autoprefixer": "^10.4.21",
 		"classnames": "^2.5.1",
 		"css-loader": "^7.1.2",
