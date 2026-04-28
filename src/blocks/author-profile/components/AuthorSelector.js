@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import { AuthorSelector as CommonAuthorSelector } from '../../../js/components';
+import { AuthorSelector as CommonAuthorSelector } from '../../../supports/js/components';
 
 /**
  * AuthorSelector component - wrapper around the common component

@@ -4,7 +4,7 @@
 
 @use 'sass:color';
 @use 'sass:math';
-@use '../../scss/common' as c;
+@use '../../supports/scss/common' as c;
 
 .wp-block-author-profile-blocks-author-carousel {
   @include c.editor-border;
@@ -40,9 +40,9 @@
   }
 
   &.is-style-minimal .apbl-author-carousel-item {
+    padding: c.$spacing-md 0;
     background: transparent;
     border: none;
-    padding: c.$spacing-md 0;
     box-shadow: none;
   }
 
@@ -64,20 +64,20 @@
 
   &.is-style-modern-cards .apbl-author-carousel-item {
     position: relative;
-    overflow: hidden;
     padding: 1.75rem 1.5rem;
+    overflow: hidden;
     background: c.$white;
     border: 1px solid c.$border-color;
     border-radius: c.$border-radius-xl;
     box-shadow: c.$shadow-md;
 
     &::before {
-      content: '';
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
+      left: 0;
       height: 3px;
+      content: '';
       background: linear-gradient(90deg, c.$primary-color 0%, #9d96f5 100%);
     }
   }
@@ -92,31 +92,31 @@
 
   &.is-style-elegant-profile .apbl-author-carousel-item {
     position: relative;
-    overflow: hidden;
     padding: 2rem 1.75rem;
+    overflow: hidden;
     background: c.$white;
     border: 1px solid c.$border-color-light;
     border-radius: c.$border-radius-xl;
     box-shadow: c.$shadow-lg;
 
     &::after {
-      content: '';
       position: absolute;
+      right: 0;
       bottom: 0;
       left: 0;
-      right: 0;
       height: 3px;
+      content: '';
       background: linear-gradient(90deg, c.$accent-color 0%, #fbbf24 100%);
     }
   }
 
   &.is-style-creative-layout .apbl-author-carousel-item {
-    overflow: hidden;
     padding: 2rem 1.5rem;
+    overflow: hidden;
+    color: c.$white;
     background: linear-gradient(135deg, c.$primary-color 0%, #3730a3 100%);
     border: none;
     border-radius: c.$border-radius-xl;
-    color: c.$white;
 
     .apbl-author-name,
     .apbl-author-position {
@@ -133,9 +133,9 @@
   .apbl-author-carousel-placeholder {
     padding: 2rem;
     text-align: center;
+    background: c.$surface;
     border: 1px dashed c.$border-color;
     border-radius: c.$border-radius-lg;
-    background: c.$surface;
 
     h3 {
       margin-top: 0;
@@ -145,8 +145,8 @@
 
     p {
       margin-bottom: 1.5rem;
-      color: c.$text-color-secondary;
       font-size: c.$font-size-base;
+      color: c.$text-color-secondary;
     }
 
     .apbl-author-picker-wrapper {
@@ -182,9 +182,9 @@
         }
 
         &.is-selected {
+          color: c.$primary-color;
           background: c.$primary-light;
           border-color: c.$primary-color;
-          color: c.$primary-color;
         }
       }
     }

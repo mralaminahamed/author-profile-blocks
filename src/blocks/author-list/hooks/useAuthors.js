@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { useAuthorsList } from '../../../js/hooks';
+import { useAuthorsList } from '../../../supports/js/hooks';
 
 /**
  * Custom hook wrapper to fetch and manage authors data.

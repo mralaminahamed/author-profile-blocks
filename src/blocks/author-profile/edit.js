@@ -15,8 +15,8 @@ import { useEffect } from '@wordpress/element';
  * Internal dependencies
  */
 import './editor.scss';
-import { useAuthors } from '../../js/hooks';
-import { AuthorBlockPlaceholder } from '../../js/components';
+import { useAuthors } from '../../supports/js/hooks';
+import { AuthorBlockPlaceholder } from '../../supports/js/components';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
 import {

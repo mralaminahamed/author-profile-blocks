@@ -1,7 +1,7 @@
 /**
  * Internal dependencies
  */
-import { AuthorsListPreview } from '../../../js/components';
+import { AuthorsListPreview } from '../../../supports/js/components';
 
 /**
  * Author list preview component for the editor - Wrapper around the common component.
