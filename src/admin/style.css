@@ -126,6 +126,10 @@ body:has(#apbl-admin-root) {
 }
 
 /* Reset WP admin checkbox/radio overrides — restore native appearance */
+:is(#apbl-admin-root) input[type="checkbox"]:checked::before {
+  content: none;
+}
+
 :is(#apbl-admin-root) input[type="checkbox"] {
   -webkit-appearance: checkbox;
   appearance: checkbox;
