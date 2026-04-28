@@ -51,20 +51,20 @@ export function LayoutPresets( { selectedLayout, onChange } ) {
 	];
 
 	return (
-		<div className="apb-layout-presets">
-			<div className="apb-layout-grid">
+		<div className="apbl-layout-presets">
+			<div className="apbl-layout-grid">
 				{ layouts.map( ( { id, label, description, icon: Icon } ) => (
 					<Button
 						key={ id }
 						variant={ selectedLayout === id ? 'primary' : 'secondary' }
-						className={ `apb-layout-preset ${ selectedLayout === id ? 'is-selected' : '' }` }
+						className={ `apbl-layout-preset ${ selectedLayout === id ? 'is-selected' : '' }` }
 						onClick={ () => onChange( id ) }
 						title={ description }
 					>
-						<div className="apb-layout-icon">
+						<div className="apbl-layout-icon">
 							<Icon size={ 18 } strokeWidth={ 1.75 } />
 						</div>
-						<div className="apb-layout-label">{ label }</div>
+						<div className="apbl-layout-label">{ label }</div>
 					</Button>
 				) ) }
 			</div>

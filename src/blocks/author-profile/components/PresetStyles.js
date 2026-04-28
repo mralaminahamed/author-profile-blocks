@@ -168,7 +168,7 @@ export function PresetStyles( { onApplyPreset } ) {
 					<Button
 						key={ id }
 						variant="secondary"
-						className="apb-preset-button"
+						className="apbl-preset-button"
 						onClick={ () => onApplyPreset( settings ) }
 						style={ {
 							display: 'flex',

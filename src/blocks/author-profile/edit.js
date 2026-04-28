@@ -256,8 +256,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		layoutPreset ? `layout-preset-${ layoutPreset }` : '',
 		customCssClass || '',
 		contentOrder ? `content-order-${ contentOrder }` : '',
-		animationType && animationType !== 'none' ? `apb-animation-${ animationType }` : '',
-		hoverEffect && hoverEffect !== 'none' ? `apb-hover-${ hoverEffect }` : '',
+		animationType && animationType !== 'none' ? `apbl-animation-${ animationType }` : '',
+		hoverEffect && hoverEffect !== 'none' ? `apbl-hover-${ hoverEffect }` : '',
 	]
 		.filter( Boolean )
 		.join( ' ' );

@@ -26,15 +26,15 @@ const AuthorCarouselPreview = ( { attributes } ) => {
 						{ attributes.showImage && (
 							<div className="apbl-placeholder-image"></div>
 						) }
-						<div className="apbl-placeholder-line apb-placeholder-title"></div>
+						<div className="apbl-placeholder-line apbl-placeholder-title"></div>
 						{ attributes.showPosition && (
 							<div className="apbl-placeholder-line"></div>
 						) }
 						{ attributes.showDescription && (
 							<>
-								<div className="apbl-placeholder-line apb-placeholder-text"></div>
-								<div className="apbl-placeholder-line apb-placeholder-text"></div>
-								<div className="apbl-placeholder-line apb-placeholder-text"></div>
+								<div className="apbl-placeholder-line apbl-placeholder-text"></div>
+								<div className="apbl-placeholder-line apbl-placeholder-text"></div>
+								<div className="apbl-placeholder-line apbl-placeholder-text"></div>
 							</>
 						) }
 					</div>

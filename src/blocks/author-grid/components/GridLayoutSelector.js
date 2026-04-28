@@ -30,12 +30,12 @@ const GridLayoutSelector = ( { selectedLayout, onSelectLayout } ) => {
 	];
 
 	return (
-		<div className="apb-grid-layout-options">
+		<div className="apbl-grid-layout-options">
 			<ButtonGroup>
 				{ layouts.map( ( { name, label, icon: Icon } ) => (
 					<Button
 						key={ name }
-						className={ `apb-layout-option ${ selectedLayout === name ? 'is-selected' : '' }` }
+						className={ `apbl-layout-option ${ selectedLayout === name ? 'is-selected' : '' }` }
 						isPressed={ selectedLayout === name }
 						onClick={ () => onSelectLayout( name ) }
 					>

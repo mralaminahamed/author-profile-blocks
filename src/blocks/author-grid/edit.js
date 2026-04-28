@@ -212,7 +212,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 					/>
 				) : (
-					<div className="apb-author-grid-preview">
+					<div className="apbl-author-grid-preview">
 						<GridLayoutSelector
 							selectedLayout={ layout }
 							onSelectLayout={ handleSelectLayout }

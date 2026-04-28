@@ -54,24 +54,24 @@ const AuthorsSelector = ( {
 
 	if ( isLoading ) {
 		return (
-			<div className="apb-loading">
-				<Spinner className="apb-spinner" />
+			<div className="apbl-loading">
+				<Spinner className="apbl-spinner" />
 				<p>{ __( 'Loading authors…', 'author-profile-blocks' ) }</p>
 			</div>
 		);
 	}
 
 	return (
-		<div className="apb-author-selector">
+		<div className="apbl-author-selector">
 			<h3>
 				{ __( 'Select Authors for Carousel', 'author-profile-blocks' ) }
 			</h3>
 
 			{ /* Show selected authors */ }
 			{ selectedIds.length > 0 && (
-				<div className="apb-authors-selected-wrapper">
+				<div className="apbl-authors-selected-wrapper">
 					<p>{ __( 'Selected Authors:', 'author-profile-blocks' ) }</p>
-					<div className="apb-selected-authors-list">
+					<div className="apbl-selected-authors-list">
 						{ selectedIds.map( ( id ) => {
 							const author = getAuthorById( id );
 							if ( ! author ) {
@@ -79,7 +79,7 @@ const AuthorsSelector = ( {
 							}
 
 							return (
-								<div key={ id } className="apb-selected-author">
+								<div key={ id } className="apbl-selected-author">
 									{ author.avatar_urls && (
 										<img
 											src={ author.avatar_urls[ '24' ] }
@@ -88,7 +88,7 @@ const AuthorsSelector = ( {
 									) }
 									<span>{ author.name }</span>
 									<span
-										className="apb-remove-author dashicons dashicons-no-alt"
+										className="apbl-remove-author dashicons dashicons-no-alt"
 										onClick={ () => handleRemoveAuthor( id ) }
 										title={ __(
 											'Remove',
@@ -103,7 +103,7 @@ const AuthorsSelector = ( {
 			) }
 
 			{ /* Author selection dropdown */ }
-			<div className="apb-author-selector-dropdown">
+			<div className="apbl-author-selector-dropdown">
 				<SelectControl
 					label={ __( 'Add Author', 'author-profile-blocks' ) }
 					value={ authorId }
@@ -124,7 +124,7 @@ const AuthorsSelector = ( {
 				/>
 			</div>
 
-			<div className="apb-button-wrapper">
+			<div className="apbl-button-wrapper">
 				<Button
 					variant="primary"
 					onClick={ handleAddAuthor }
