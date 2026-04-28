@@ -9,43 +9,60 @@
 // ─── Keyframes ────────────────────────────────────────────────────────────────
 
 @keyframes apbl-fadeIn {
+
   from { opacity: 0; }
+
   to   { opacity: 1; }
 }
 
 @keyframes apbl-slideUp {
+
   from { opacity: 0; transform: translateY(24px); }
+
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes apbl-slideDown {
+
   from { opacity: 0; transform: translateY(-24px); }
+
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes apbl-slideLeft {
+
   from { opacity: 0; transform: translateX(24px); }
+
   to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes apbl-slideRight {
+
   from { opacity: 0; transform: translateX(-24px); }
+
   to   { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes apbl-scaleIn {
+
   from { opacity: 0; transform: scale(0.92); }
+
   to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes apbl-bounce {
+
   0%, 60%, 100% { transform: translateY(0); }
+
   30%            { transform: translateY(-10px); }
+
   45%            { transform: translateY(-5px); }
 }
 
 @keyframes apbl-rotate {
+
   from { transform: rotate(0deg); }
+
   to   { transform: rotate(360deg); }
 }
 
@@ -58,18 +75,24 @@
   // ─── Animation bindings ───────────────────────────────────────────────────
 
   &.has-fadeIn-animation  .apbl-author-carousel-item { animation: apbl-fadeIn 0.5s ease-out both; }
+
   &.has-slideUp-animation .apbl-author-carousel-item { animation: apbl-slideUp 0.5s ease-out both; }
+
   &.has-slideDown-animation .apbl-author-carousel-item { animation: apbl-slideDown 0.5s ease-out both; }
+
   &.has-slideLeft-animation .apbl-author-carousel-item { animation: apbl-slideLeft 0.5s ease-out both; }
+
   &.has-slideRight-animation .apbl-author-carousel-item { animation: apbl-slideRight 0.5s ease-out both; }
+
   &.has-scaleIn-animation .apbl-author-carousel-item { animation: apbl-scaleIn 0.5s ease-out both; }
+
   &.has-bounce-animation  .apbl-author-carousel-item { animation: apbl-bounce 0.8s ease-out both; }
 
   // ─── Hover effect bindings ────────────────────────────────────────────────
 
   &.has-lift-hover .apbl-author-carousel-item:hover {
-    transform: translateY(-5px);
     box-shadow: c.$shadow-primary;
+    transform: translateY(-5px);
   }
 
   &.has-glow-hover .apbl-author-carousel-item:hover {
@@ -77,8 +100,8 @@
   }
 
   &.has-scale-hover .apbl-author-carousel-item:hover {
-    transform: scale(1.04);
     box-shadow: c.$shadow-md;
+    transform: scale(1.04);
   }
 
   &.has-rotate-hover .apbl-author-carousel-item:hover {
@@ -92,9 +115,11 @@
   // ─── Main carousel wrapper ────────────────────────────────────────────────
 
   .apbl-author-carousel {
+
     @include c.carousel-base;
 
     .apbl-author-carousel-slide {
+
       @include c.carousel-slide;
     }
   }
@@ -106,21 +131,30 @@
     flex-direction: column;
     height: 100%;
     padding: 1.75rem 1.5rem;
+    text-align: center;
     background: c.$white;
     border: 1px solid c.$border-color;
     border-radius: c.$border-radius-lg;
     box-shadow: c.$shadow-sm;
     transition: transform c.$transition-standard, box-shadow c.$transition-standard;
-    text-align: center;
 
-    &.is-layout-card     { @include c.card-layout; }
-    &.is-layout-compact  { @include c.compact-layout; }
-    &.is-layout-centered { @include c.centered-layout; }
+    &.is-layout-card     {
+
+ @include c.card-layout; }
+
+    &.is-layout-compact  {
+
+ @include c.compact-layout; }
+
+    &.is-layout-centered {
+
+ @include c.centered-layout; }
   }
 
   // ─── Author elements ──────────────────────────────────────────────────────
 
   .apbl-author-image {
+
     @include c.author-image;
     margin-bottom: c.$spacing-md;
     border-radius: 50%;
@@ -138,22 +172,26 @@
   }
 
   .apbl-author-name {
+
     @include c.author-name;
-    letter-spacing: c.$letter-spacing-tight;
     text-align: center;
+    letter-spacing: c.$letter-spacing-tight;
   }
 
   .apbl-author-position {
+
     @include c.author-position;
     text-align: center;
   }
 
   .apbl-author-email {
+
     @include c.author-email;
     justify-content: center;
   }
 
   .apbl-author-description {
+
     @include c.author-description(3);
     text-align: center;
   }
@@ -161,36 +199,37 @@
   // ─── Social profiles ──────────────────────────────────────────────────────
 
   .apbl-social-profiles {
+
     @include c.social-profiles-center;
   }
 
   // ─── Style presets ────────────────────────────────────────────────────────
 
   &.is-style-card .apbl-author-carousel-item {
+    padding: 1.75rem 1.5rem;
     background: c.$white;
     border: 1px solid c.$border-color;
     border-radius: c.$border-radius-lg;
-    padding: 1.75rem 1.5rem;
     box-shadow: c.$shadow-sm;
 
     &:hover {
-      transform: translateY(-5px);
       box-shadow: c.$shadow-primary;
+      transform: translateY(-5px);
     }
   }
 
   &.is-style-minimal .apbl-author-carousel-item {
+    padding: c.$spacing-md 0;
     background: transparent;
     border: none;
-    padding: c.$spacing-md 0;
     box-shadow: none;
   }
 
   &.is-style-bordered .apbl-author-carousel-item {
+    padding: 1.25rem;
     background: c.$white;
     border: 2px solid c.$border-color;
     border-radius: c.$border-radius-md;
-    padding: 1.25rem;
     box-shadow: none;
     transition: border-color c.$transition-base, box-shadow c.$transition-base;
 
@@ -201,10 +240,10 @@
   }
 
   &.is-style-shadow .apbl-author-carousel-item {
+    padding: 1.75rem;
     background: c.$white;
     border: none;
     border-radius: c.$border-radius-lg;
-    padding: 1.75rem;
     box-shadow: c.$shadow-md;
 
     &:hover {
@@ -215,35 +254,35 @@
 
   &.is-style-modern-cards .apbl-author-carousel-item {
     position: relative;
+    padding: 1.75rem 1.5rem;
     overflow: hidden;
     background: c.$white;
     border: 1px solid c.$border-color;
     border-radius: c.$border-radius-xl;
-    padding: 1.75rem 1.5rem;
     box-shadow: c.$shadow-md;
     transition: transform c.$transition-standard, box-shadow c.$transition-standard;
 
     &::before {
-      content: '';
       position: absolute;
       top: 0;
-      left: 0;
       right: 0;
+      left: 0;
       height: 3px;
+      content: '';
       background: linear-gradient(90deg, c.$primary-color 0%, #9d96f5 100%);
     }
 
     &:hover {
-      transform: translateY(-5px);
       box-shadow: c.$shadow-primary;
+      transform: translateY(-5px);
     }
   }
 
   &.is-style-classic-carousel .apbl-author-carousel-item {
+    padding: 1.5rem;
     background: c.$white;
     border: 2px solid c.$primary-mid;
     border-radius: c.$border-radius-lg;
-    padding: 1.5rem;
     box-shadow: c.$shadow-sm;
     transition: border-color c.$transition-base, box-shadow c.$transition-base, transform c.$transition-standard;
 
@@ -256,29 +295,29 @@
 
   &.is-style-elegant-profile .apbl-author-carousel-item {
     position: relative;
+    padding: 2rem 1.75rem;
     overflow: hidden;
     background: c.$white;
     border: 1px solid c.$border-color-light;
     border-radius: c.$border-radius-xl;
-    padding: 2rem 1.75rem;
     box-shadow: c.$shadow-lg;
     transition: transform c.$transition-standard, box-shadow c.$transition-standard;
 
     &::after {
-      content: '';
       position: absolute;
+      right: 0;
       bottom: 0;
       left: 0;
-      right: 0;
       height: 3px;
+      content: '';
       background: linear-gradient(90deg, c.$accent-color 0%, #fbbf24 100%);
       transform: scaleX(0);
       transition: transform c.$transition-standard;
     }
 
     &:hover {
-      transform: translateY(-6px);
       box-shadow: c.$shadow-primary;
+      transform: translateY(-6px);
 
       &::after {
         transform: scaleX(1);
@@ -288,62 +327,72 @@
 
   &.is-style-creative-layout .apbl-author-carousel-item {
     position: relative;
+    padding: 2rem 1.5rem;
     overflow: hidden;
+    color: c.$white;
     background: linear-gradient(135deg, c.$primary-color 0%, #3730a3 100%);
     border: none;
     border-radius: c.$border-radius-xl;
-    padding: 2rem 1.5rem;
-    color: c.$white;
     transition: transform c.$transition-standard, box-shadow c.$transition-standard;
 
     &::before {
-      content: '';
       position: absolute;
       top: -40%;
       right: -20%;
       width: 200px;
       height: 200px;
+      pointer-events: none;
+      content: '';
       background: rgba(255, 255, 255, 0.06);
       border-radius: 50%;
-      pointer-events: none;
     }
 
     &:hover {
-      transform: translateY(-5px) scale(1.01);
       box-shadow: 0 20px 50px rgba(79, 70, 229, 0.4);
+      transform: translateY(-5px) scale(1.01);
     }
 
     .apbl-author-name    { color: c.$white; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
     .apbl-author-position { color: rgba(255,255,255,0.75); }
+
     .apbl-author-description { color: rgba(255,255,255,0.85); }
 
     .apbl-author-image img {
       box-shadow: 0 0 0 3px rgba(255,255,255,0.3), 0 0 0 6px rgba(255,255,255,0.1);
     }
 
-    .apbl-social-profiles a,
     .apbl-social-profiles a {
-      background: rgba(255,255,255,0.15);
       color: c.$white;
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(4px);
 
       &:hover {
         background: rgba(255,255,255,0.3);
-        transform: translateY(-2px);
         box-shadow: none;
+        transform: translateY(-2px);
       }
     }
   }
 
   // ─── Visual style modifiers ───────────────────────────────────────────────
 
-  .has-shadow  { @include c.shadow-effect; }
-  .has-border  { @include c.border-effect; }
-  .is-rounded  { @include c.rounded-corners; }
+  .has-shadow  {
+
+ @include c.shadow-effect; }
+
+  .has-border  {
+
+ @include c.border-effect; }
+
+  .is-rounded  {
+
+ @include c.rounded-corners; }
 
   // ─── Loading state ────────────────────────────────────────────────────────
 
   .apbl-carousel-loading {
+
     @include c.carousel-loading;
   }
 }

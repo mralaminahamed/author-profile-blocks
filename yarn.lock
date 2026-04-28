@@ -3111,6 +3111,7 @@ __metadata:
     "@wordpress/server-side-render": "npm:^6.20.0"
     "@wordpress/stylelint-config": "npm:^23.36.0"
     "@wordpress/url": "npm:^4.44.0"
+    baseline-browser-mapping: "npm:^2.10.23"
     class-variance-authority: "npm:^0.7.1"
     classnames: "npm:^2.5.1"
     clsx: "npm:^2.1.1"
@@ -8726,7 +8727,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"baseline-browser-mapping@npm:^2.10.12":
+"baseline-browser-mapping@npm:^2.10.12, baseline-browser-mapping@npm:^2.10.23":
   version: 2.10.23
   resolution: "baseline-browser-mapping@npm:2.10.23"
   bin:

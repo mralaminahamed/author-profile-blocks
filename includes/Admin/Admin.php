@@ -33,9 +33,7 @@ class Admin {
 		}
 
 		$asset_file = plugin_dir_path( APBL_PLUGIN_FILE ) . 'build/admin/index.asset.php';
-		$asset      = file_exists( $asset_file )
-			? require $asset_file
-			: array( 'dependencies' => array(), 'version' => APBL_VERSION );
+		$asset      = file_exists( $asset_file ) ? require $asset_file : array( 'dependencies' => array(), 'version' => APBL_VERSION );
 
 		wp_enqueue_script(
 			'apbl-admin',
@@ -78,6 +76,7 @@ class Admin {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission to access this page.', 'author-profile-blocks' ) );
 		}
+
 		echo '<div id="apbl-admin-root"></div>';
 	}
 
