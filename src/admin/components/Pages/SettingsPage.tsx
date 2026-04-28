@@ -7,8 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { useSettings } from '../../hooks/useSettings';
-import type { Settings } from '../../types';
+import { useSettings } from '@/hooks/useSettings';
+import type { Settings } from '@/types';
 
 const SOCIAL_PLATFORMS = [
 	{ key: 'facebook', label: 'Facebook' },
@@ -23,7 +23,7 @@ const SOCIAL_PLATFORMS = [
 
 function Card( { children, className = '' }: { children: React.ReactNode; className?: string } ) {
 	return (
-		<div className={ `apbl:bg-white apbl:rounded-xl apbl:border apbl:border-gray-200 apbl:overflow-hidden ${ className }` }>
+		<div className={ `apbl:bg-card apbl:rounded-xl apbl:border apbl:border-border apbl:overflow-hidden ${ className }` }>
 			{ children }
 		</div>
 	);
@@ -31,10 +31,10 @@ function Card( { children, className = '' }: { children: React.ReactNode; classN
 
 function CardHeader( { title, description }: { title: string; description?: string } ) {
 	return (
-		<div className="apbl:px-6 apbl:py-4 apbl:border-b apbl:border-gray-100">
-			<p className="apbl:text-sm apbl:font-semibold apbl:text-gray-800">{ title }</p>
+		<div className="apbl:px-6 apbl:py-4 apbl:border-b apbl:border-border">
+			<p className="apbl:text-sm apbl:font-semibold apbl:text-card-foreground">{ title }</p>
 			{ description && (
-				<p className="apbl:text-xs apbl:text-gray-500 apbl:mt-0.5">{ description }</p>
+				<p className="apbl:text-xs apbl:text-muted-foreground apbl:mt-0.5">{ description }</p>
 			) }
 		</div>
 	);
@@ -58,15 +58,15 @@ function FieldRow( {
 				{ htmlFor ? (
 					<Label
 						htmlFor={ htmlFor }
-						className="apbl:text-sm apbl:font-medium apbl:text-gray-800 apbl:cursor-pointer"
+						className="apbl:text-sm apbl:font-medium apbl:text-card-foreground apbl:cursor-pointer"
 					>
 						{ label }
 					</Label>
 				) : (
-					<p className="apbl:text-sm apbl:font-medium apbl:text-gray-800">{ label }</p>
+					<p className="apbl:text-sm apbl:font-medium apbl:text-card-foreground">{ label }</p>
 				) }
 				{ description && (
-					<p className="apbl:text-xs apbl:text-gray-500 apbl:mt-0.5 apbl:leading-relaxed">
+					<p className="apbl:text-xs apbl:text-muted-foreground apbl:mt-0.5 apbl:leading-relaxed">
 						{ description }
 					</p>
 				) }
@@ -77,7 +77,7 @@ function FieldRow( {
 }
 
 function FieldDivider() {
-	return <div className="apbl:border-t apbl:border-gray-100 apbl:mx-6" />;
+	return <div className="apbl:border-t apbl:border-border apbl:mx-6" />;
 }
 
 /* ── Page ─────────────────────────────────────────────── */
@@ -88,7 +88,7 @@ export default function SettingsPage() {
 
 	if ( loading ) {
 		return (
-			<div className="apbl:p-8 apbl:flex apbl:items-center apbl:gap-3 apbl:text-gray-400">
+			<div className="apbl:p-8 apbl:flex apbl:items-center apbl:gap-3 apbl:text-muted-foreground">
 				<Loader2 className="apbl:w-5 apbl:h-5 apbl:animate-spin" />
 				<span className="apbl:text-sm">{ __( 'Loading settings…', 'author-profile-blocks' ) }</span>
 			</div>
@@ -115,10 +115,10 @@ export default function SettingsPage() {
 		<div className="apbl:p-6 apbl:max-w-2xl">
 
 			<div className="apbl:mb-8">
-				<h1 className="apbl:text-xl apbl:font-semibold apbl:text-gray-900">
+				<h1 className="apbl:text-xl apbl:font-semibold apbl:text-foreground">
 					{ __( 'Settings', 'author-profile-blocks' ) }
 				</h1>
-				<p className="apbl:text-sm apbl:text-gray-500 apbl:mt-1">
+				<p className="apbl:text-sm apbl:text-muted-foreground apbl:mt-1">
 					{ __( 'Configure how Author Profile Blocks works on your site.', 'author-profile-blocks' ) }
 				</p>
 			</div>
@@ -152,7 +152,7 @@ export default function SettingsPage() {
 								<label
 									key={ key }
 									htmlFor={ `role-${ key }` }
-									className="apbl:flex apbl:items-center apbl:gap-3 apbl:px-3 apbl:py-2.5 apbl:rounded-lg apbl:border apbl:border-gray-200 apbl:cursor-pointer apbl:hover:bg-gray-50 apbl:transition-colors apbl:select-none"
+									className="apbl:flex apbl:items-center apbl:gap-3 apbl:px-3 apbl:py-2.5 apbl:rounded-lg apbl:border apbl:border-border apbl:cursor-pointer apbl:hover:bg-muted apbl:transition-colors apbl:select-none"
 								>
 									<input
 										id={ `role-${ key }` }
@@ -161,9 +161,9 @@ export default function SettingsPage() {
 										onChange={ ( e: ChangeEvent< HTMLInputElement > ) =>
 											toggleRole( key, e.target.checked )
 										}
-										className="apbl:size-4 apbl:rounded apbl:border-gray-300 apbl:accent-gray-900 apbl:cursor-pointer"
+										className="apbl:size-4 apbl:rounded apbl:border-input apbl:cursor-pointer"
 									/>
-									<span className="apbl:text-sm apbl:text-gray-700">{ name as string }</span>
+									<span className="apbl:text-sm apbl:text-foreground">{ name as string }</span>
 								</label>
 							) ) }
 						</div>
@@ -192,7 +192,7 @@ export default function SettingsPage() {
 										} ) )
 									}
 								/>
-								<span className="apbl:text-sm apbl:text-gray-400 apbl:w-5">px</span>
+								<span className="apbl:text-sm apbl:text-muted-foreground apbl:w-5">px</span>
 							</div>
 						</FieldRow>
 					</Card>
@@ -269,7 +269,7 @@ export default function SettingsPage() {
 										} ) )
 									}
 								/>
-								<span className="apbl:text-sm apbl:text-gray-400 apbl:w-8">
+								<span className="apbl:text-sm apbl:text-muted-foreground apbl:w-8">
 									{ __( 'hrs', 'author-profile-blocks' ) }
 								</span>
 							</div>
@@ -294,7 +294,7 @@ export default function SettingsPage() {
 					<p className="apbl:text-sm apbl:text-red-600">{ error }</p>
 				) }
 				{ saved && ! saving && (
-					<p className="apbl:text-sm apbl:text-green-600">
+					<p className="apbl:text-sm apbl:text-green-600 apbl:dark:text-green-400">
 						{ __( 'All changes saved.', 'author-profile-blocks' ) }
 					</p>
 				) }
