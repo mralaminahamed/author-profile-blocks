@@ -107,7 +107,7 @@ function PluginCard( { plugin }: { plugin: WPPlugin } ) {
 						className="apbl:w-10 apbl:h-10 apbl:rounded-lg apbl:object-cover"
 					/>
 				) : (
-					<div className="apbl:w-10 apbl:h-10 apbl:rounded-lg apbl:bg-blue-100 apbl:dark:bg-blue-900 apbl:flex apbl:items-center apbl:justify-center apbl:text-blue-600 apbl:dark:text-blue-400 apbl:font-bold apbl:text-xl">
+					<div className="apbl:w-10 apbl:h-10 apbl:rounded-lg apbl:bg-primary/10 apbl:flex apbl:items-center apbl:justify-center apbl:text-primary apbl:font-bold apbl:text-xl">
 						{ plugin.name.charAt( 0 ) }
 					</div>
 				) }
@@ -148,7 +148,7 @@ function PluginCard( { plugin }: { plugin: WPPlugin } ) {
 				href={ `https://wordpress.org/plugins/${ plugin.slug }/` }
 				target="_blank"
 				rel="noopener noreferrer"
-				className="apbl:flex apbl:items-center apbl:justify-center apbl:gap-1.5 apbl:w-full apbl:text-sm apbl:font-medium apbl:text-blue-600 apbl:dark:text-blue-400 apbl:hover:text-blue-700 apbl:dark:hover:text-blue-300 apbl:py-2 apbl:px-3 apbl:rounded-lg apbl:border apbl:border-blue-200 apbl:dark:border-blue-800 apbl:hover:bg-blue-50 apbl:dark:hover:bg-blue-950 apbl:transition-colors"
+				className="apbl:flex apbl:items-center apbl:justify-center apbl:gap-1.5 apbl:w-full apbl:text-sm apbl:font-medium apbl:text-primary apbl:py-2 apbl:px-3 apbl:rounded-lg apbl:border apbl:border-primary/30 apbl:hover:bg-primary/5 apbl:transition-colors"
 			>
 				<ExternalLink className="apbl:w-3.5 apbl:h-3.5" />
 				{ __( 'View on WordPress.org', 'author-profile-blocks' ) }

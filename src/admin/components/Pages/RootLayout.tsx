@@ -26,7 +26,7 @@ export default function RootLayout() {
 							className={ cn(
 								'apbl:flex apbl:items-center apbl:gap-1.5 apbl:text-sm apbl:transition-colors',
 								active
-									? 'apbl:text-blue-600 apbl:dark:text-blue-400 apbl:font-medium'
+									? 'apbl:text-primary apbl:font-medium'
 									: 'apbl:text-muted-foreground apbl:hover:text-foreground'
 							) }
 						>
