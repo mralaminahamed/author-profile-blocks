@@ -365,11 +365,10 @@ export default function Edit( { attributes, setAttributes } ) {
 							'Choose an author to display their profile.',
 							'author-profile-blocks',
 						) }
+						single
 						selectedAuthorIds={ authorId ? [ authorId ] : [] }
 						onChange={ handleSelectAuthor }
-						buttonLabel={ __( 'Add Author', 'author-profile-blocks' ) }
-						layoutSelector={ null }
-						additionalControls={ null }
+						buttonLabel={ __( 'Select Author', 'author-profile-blocks' ) }
 					/>
 				) : (
 					<>
