@@ -142,7 +142,6 @@ const AuthorBlockPlaceholder = ( {
 							value={ pendingId }
 							options={ options }
 							onChange={ setPendingId }
-							__nextHasNoMarginBottom
 						/>
 					</FlexItem>
 					<FlexItem>
