@@ -1,7 +1,9 @@
 /**
  * WordPress dependencies
  */
+import type { BlockEditProps } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import type { AuthorCarouselAttributes } from './types';
 import {
 	AlignmentToolbar,
 	BlockControls,
@@ -32,7 +34,7 @@ import { shuffle } from '@wordpress/icons';
  * @param {Function} props.setAttributes Function to update attributes.
  * @return {JSX.Element} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( { attributes, setAttributes }: BlockEditProps< AuthorCarouselAttributes > ) {
 	const {
 		authorIds,
 		slidesToShow,

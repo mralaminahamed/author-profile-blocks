@@ -1,3 +1,4 @@
+import type { ListInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -23,7 +24,7 @@ import { LayoutPresets } from '../LayoutPresets';
  * @param {Function} props.setAttributes Function to set block attributes
  * @return {JSX.Element} Layout panel component
  */
-const LayoutPanel = ( { attributes, setAttributes } ) => {
+const LayoutPanel = ( { attributes, setAttributes }: ListInspectorProps ) => {
 	const {
 		layoutPreset,
 		displayStyle,

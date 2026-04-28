@@ -1,3 +1,4 @@
+import type { ProfileInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -26,7 +27,7 @@ import { AdvancedStyling } from '../AdvancedStyling';
  * @param {Function} props.setAttributes Function to set block attributes
  * @return {JSX.Element} Style panel component
  */
-const StylePanel = ( { attributes, setAttributes } ) => {
+const StylePanel = ( { attributes, setAttributes }: ProfileInspectorProps ) => {
 	const {
 		backgroundColor,
 		// Advanced styling attributes

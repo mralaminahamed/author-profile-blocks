@@ -4,6 +4,12 @@
  * Handles frontend interactions for the Author List block.
  */
 
+declare global {
+	interface Window {
+		apbTrackEvent?: ( event: string, data: Record< string, string > ) => void;
+	}
+}
+
 /**
  * Initialize frontend functionality when DOM is ready.
  */
@@ -40,7 +46,7 @@ function initAuthorListBlocks() {
  *
  * @param {NodeList} items List items with hover effects.
  */
-function initHoverEffects( items ) {
+function initHoverEffects( items: NodeListOf< Element > ) {
 	items.forEach( ( item ) => {
 		item.addEventListener( 'mouseenter', () => {
 			// Add any additional hover effect classes or attributes
@@ -59,7 +65,7 @@ function initHoverEffects( items ) {
  *
  * @param {Element} block The Author List block element.
  */
-function initInteractiveElements( block ) {
+function initInteractiveElements( block: Element ) {
 	// Initialize social link interactions
 	const socialLinks = block.querySelectorAll( '.apbl-social-item a' );
 	if ( socialLinks.length ) {

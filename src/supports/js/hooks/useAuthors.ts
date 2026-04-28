@@ -7,17 +7,12 @@ import { useState, useEffect } from '@wordpress/element';
  * Internal dependencies
  */
 import { fetchAuthors, fetchAuthorById } from '../services/api';
+import type { Author } from '../types';
 
-/**
- * Custom hook for managing authors data
- *
- * @param {number} initialAuthorId Initial author ID if available
- * @return {Object} Authors data and functions
- */
 const useAuthors = ( initialAuthorId = 0 ) => {
 	const [ isLoading, setIsLoading ] = useState( false );
-	const [ authors, setAuthors ] = useState( [] );
-	const [ selectedAuthor, setSelectedAuthor ] = useState( null );
+	const [ authors, setAuthors ] = useState< Author[] >( [] );
+	const [ selectedAuthor, setSelectedAuthor ] = useState< Author | null >( null );
 
 	// Load all authors on mount
 	useEffect( () => {

@@ -1,3 +1,4 @@
+import type { ProfileInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -18,7 +19,7 @@ import { AdvancedTypography } from '../AdvancedTypography';
  * @param {Function} props.setAttributes Function to set block attributes
  * @return {JSX.Element} Advanced panel component
  */
-const AdvancedPanel = ( { attributes, setAttributes } ) => {
+const AdvancedPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) => {
 	const {
 		customCssClass,
 		customVar1,
@@ -76,7 +77,7 @@ const AdvancedPanel = ( { attributes, setAttributes } ) => {
 
 				<TextControl
 					label={ __(
-						'--author-grid-custom-var-1',
+						'--author-profile-custom-var-1',
 						'author-profile-blocks',
 					) }
 					value={ customVar1 || '' }
@@ -85,7 +86,7 @@ const AdvancedPanel = ( { attributes, setAttributes } ) => {
 
 				<TextControl
 					label={ __(
-						'--author-grid-custom-var-2',
+						'--author-profile-custom-var-2',
 						'author-profile-blocks',
 					) }
 					value={ customVar2 || '' }

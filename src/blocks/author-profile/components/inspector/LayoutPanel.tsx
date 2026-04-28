@@ -1,3 +1,4 @@
+import type { ProfileInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -28,7 +29,7 @@ import { LayoutPresets } from '../LayoutPresets';
  * @param {Function} props.setAttributes Function to set block attributes
  * @return {JSX.Element} Layout panel component
  */
-const LayoutPanel = ( { attributes, setAttributes } ) => {
+const LayoutPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) => {
 	const {
 		blockStyle,
 		contentOrder,

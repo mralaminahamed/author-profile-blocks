@@ -1,3 +1,4 @@
+import type { ListInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -18,7 +19,7 @@ import { AdvancedTypography } from '../AdvancedTypography';
  * @param {Function} props.setAttributes Function to set block attributes
  * @return {JSX.Element} Advanced panel component
  */
-const AdvancedPanel = ( { attributes, setAttributes } ) => {
+const AdvancedPanel = ( { attributes, setAttributes }: ListInspectorProps ) => {
 	const {
 		customCssClass,
 		customVar1,

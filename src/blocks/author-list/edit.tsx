@@ -1,7 +1,9 @@
 /**
  * WordPress dependencies
  */
+import type { BlockEditProps } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import type { AuthorListAttributes } from './types';
 import {
 	useBlockProps,
 	InspectorControls,
@@ -41,6 +43,9 @@ export default function Edit( {
 	setAttributes,
 	clientId,
 	insertBlocks,
+}: BlockEditProps< AuthorListAttributes > & {
+	clientId: string;
+	insertBlocks: ( block: unknown, index?: number, rootClientId?: string, updateSelection?: boolean ) => void;
 } ) {
 	const {
 		authorIds,

@@ -1,3 +1,4 @@
+import type { ListInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -17,7 +18,7 @@ import {
  * @param {Function} props.setAttributes Function to set block attributes
  * @return {JSX.Element} Content panel component
  */
-const ContentPanel = ( { attributes, setAttributes } ) => {
+const ContentPanel = ( { attributes, setAttributes }: ListInspectorProps ) => {
 	const {
 		authorRole,
 		maxAuthors,

@@ -1,3 +1,4 @@
+import type { ProfileInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
@@ -20,7 +21,7 @@ import {
  * @param {Function} props.handleClearAuthor Function to clear author selection
  * @return {JSX.Element} Content panel component
  */
-const ContentPanel = ( { attributes, setAttributes, handleClearAuthor } ) => {
+const ContentPanel = ( { attributes, setAttributes, handleClearAuthor }: ProfileInspectorProps & { handleClearAuthor: () => void } ) => {
 	const {
 		authorId,
 		showImage,

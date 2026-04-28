@@ -7,20 +7,18 @@ import { useState, useEffect } from '@wordpress/element';
  * Internal dependencies
  */
 import { fetchAuthors, fetchAuthorsByIds } from '../services';
+import type { Author, AuthorsHookResult } from '../types';
 
-/**
- * Custom hook for managing multiple authors data
- *
- * @param {Object} options            Hook options
- * @param {Array}  options.authorIds  Array of author IDs to fetch
- * @param {string} options.role       Optional role filter
- * @param {number} options.maxAuthors Maximum number of authors to return (0 = unlimited)
- * @return {Object} Authors data and loading state
- */
-const useAuthorsList = ( { authorIds = [], role = '', maxAuthors = 0 } = {} ) => {
+interface UseAuthorsListOptions {
+	authorIds?: number[];
+	role?: string;
+	maxAuthors?: number;
+}
+
+const useAuthorsList = ( { authorIds = [], role = '', maxAuthors = 0 }: UseAuthorsListOptions = {} ): AuthorsHookResult => {
 	const [ isLoading, setIsLoading ] = useState( false );
-	const [ authors, setAuthors ] = useState( [] );
-	const [ error, setError ] = useState( null );
+	const [ authors, setAuthors ] = useState< Author[] >( [] );
+	const [ error, setError ] = useState< string | null >( null );
 
 	useEffect( () => {
 		const loadAuthors = async () => {
@@ -53,7 +51,7 @@ const useAuthorsList = ( { authorIds = [], role = '', maxAuthors = 0 } = {} ) =>
 
 				setAuthors( authorsData );
 			} catch ( err ) {
-				setError( err.message || 'Failed to load authors' );
+				setError( ( err as Error ).message || 'Failed to load authors' );
 				console.error( 'Error loading authors:', err );
 			} finally {
 				setIsLoading( false );

@@ -1,7 +1,9 @@
 /**
  * WordPress dependencies
  */
+import type { BlockEditProps } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import type { AuthorGridAttributes } from './types';
 import {
 	useBlockProps,
 	InspectorControls,
@@ -32,7 +34,7 @@ import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './componen
  * @param {Function} props.setAttributes Function to update attributes.
  * @return {JSX.Element} Element to render.
  */
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( { attributes, setAttributes }: BlockEditProps< AuthorGridAttributes > ) {
 	const {
 		authorIds,
 		columns,

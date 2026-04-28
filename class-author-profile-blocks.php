@@ -1,13 +1,12 @@
 <?php
-declare(strict_types=1);
- // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
-
 /**
  * Main Plugin Class
  *
  * @package AuthorProfileBlocks
  * @license GPL-2.0-or-later
  */
+
+declare(strict_types=1);
 
 use AuthorProfileBlocks\Admin\Admin;
 use AuthorProfileBlocks\Admin\PluginLinks;

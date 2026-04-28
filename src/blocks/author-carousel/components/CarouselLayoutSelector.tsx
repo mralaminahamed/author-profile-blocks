@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ButtonGroup, Button } from '@wordpress/components';
+import { ToggleGroupControl, Button } from '@wordpress/components';
 import { Layers, Columns, AlignCenter } from 'lucide-react';
 
 /**
@@ -31,7 +31,7 @@ const CarouselLayoutSelector = ( { selectedLayout, onSelectLayout } ) => {
 
 	return (
 		<div className="apbl-layout-options">
-			<ButtonGroup>
+			<ToggleGroupControl>
 				{ layouts.map( ( { name, label, icon: Icon } ) => (
 					<Button
 						key={ name }
@@ -43,7 +43,7 @@ const CarouselLayoutSelector = ( { selectedLayout, onSelectLayout } ) => {
 						<span>{ label }</span>
 					</Button>
 				) ) }
-			</ButtonGroup>
+			</ToggleGroupControl>
 		</div>
 	);
 };

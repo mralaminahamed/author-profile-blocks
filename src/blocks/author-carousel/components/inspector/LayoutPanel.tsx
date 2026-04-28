@@ -1,3 +1,4 @@
+import type { CarouselInspectorProps } from '../../types';
 /**
  * WordPress dependencies
  */
