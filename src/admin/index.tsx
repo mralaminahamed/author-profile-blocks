@@ -3,9 +3,11 @@ import apiFetch from '@wordpress/api-fetch';
 import App from './App';
 import './style.css';
 
-apiFetch.use( apiFetch.createNonceMiddleware( window.apblAdmin.restNonce ) );
+if ( window.apblAdmin ) {
+	apiFetch.use( apiFetch.createNonceMiddleware( window.apblAdmin.restNonce ) );
 
-const root = document.getElementById( 'apbl-admin-root' );
-if ( root ) {
-	createRoot( root ).render( <App /> );
+	const root = document.getElementById( 'apbl-admin-root' );
+	if ( root ) {
+		createRoot( root ).render( <App /> );
+	}
 }

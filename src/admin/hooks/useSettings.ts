@@ -1,5 +1,6 @@
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
+import { __ } from '@wordpress/i18n';
 import type { Settings } from '../types';
 
 const DEFAULT_SETTINGS: Settings = {
@@ -24,7 +25,7 @@ export function useSettings() {
 				setLoading( false );
 			} )
 			.catch( () => {
-				setError( 'Could not load settings.' );
+				setError( __( 'Could not load settings.', 'author-profile-blocks' ) );
 				setLoading( false );
 			} );
 	}, [] );
@@ -42,7 +43,8 @@ export function useSettings() {
 			setSaved( true );
 			setTimeout( () => setSaved( false ), 2000 );
 		} catch ( err ) {
-			setError( err instanceof Error ? err.message : 'Save failed.' );
+			const apiFetchError = err as { message?: string };
+			setError( apiFetchError?.message ?? __( 'Save failed.', 'author-profile-blocks' ) );
 		} finally {
 			setSaving( false );
 		}
