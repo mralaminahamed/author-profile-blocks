@@ -17,6 +17,7 @@ use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Profile_Block;
 use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\REST\Settings as REST_Settings;
 use AuthorProfileBlocks\Services\Author_Profile_Service;
 
 // Exit if accessed directly.
@@ -260,6 +261,9 @@ class Author_Profile_Blocks {
 			new PluginLinks();
 			new Admin();
 		}
+
+		// Register REST API routes (available on all requests, not just admin).
+		new REST_Settings();
 
 		// Register hooks in groups for better organization.
 		$this->register_user_profile_hooks();
