@@ -2,7 +2,7 @@ import { useState, useEffect } from '@wordpress/element';
 import { decodeEntities } from '@wordpress/html-entities';
 import { __ } from '@wordpress/i18n';
 import { ExternalLink, Star } from 'lucide-react';
-import type { WPPlugin } from '../../types';
+import type { WPPlugin } from '@/types';
 
 const WP_ORG_API_URL = 'https://api.wordpress.org/plugins/info/1.2/?action=query_plugins&request[author]=mralaminahamed&request[per_page]=20';
 

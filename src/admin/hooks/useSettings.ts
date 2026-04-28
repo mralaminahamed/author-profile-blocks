@@ -1,7 +1,7 @@
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-import type { Settings } from '../types';
+import type { Settings } from '@/types';
 
 const DEFAULT_SETTINGS: Settings = {
 	author_roles: [ 'administrator', 'editor', 'author' ],
