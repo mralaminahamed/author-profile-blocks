@@ -11,10 +11,10 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const updatedConfig = {
 	...defaultConfig,
 
-	entry: {
-		...defaultConfig.entry,
+	entry: async () => ( {
+		...( await defaultConfig.entry() ),
 		'admin/index': './src/admin/index.tsx',
-	},
+	} ),
 
 	resolve: {
 		...defaultConfig.resolve,
