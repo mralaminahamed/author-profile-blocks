@@ -4,6 +4,8 @@ import { __ } from '@wordpress/i18n';
 import { ExternalLink, Star } from 'lucide-react';
 import type { WPPlugin } from '../../types';
 
+const WP_ORG_API_URL = 'https://api.wordpress.org/plugins/info/1.2/?action=query_plugins&request[author]=mralaminahamed&request[per_page]=20';
+
 export default function PluginsPage() {
 	const [ plugins, setPlugins ] = useState< WPPlugin[] >( [] );
 	const [ loading, setLoading ] = useState( true );
@@ -12,15 +14,12 @@ export default function PluginsPage() {
 	useEffect( () => {
 		const controller = new AbortController();
 
-		fetch(
-			'https://api.wordpress.org/plugins/info/1.2/?action=query_plugins&request[author]=mralaminahamed&request[per_page]=20',
-			{ signal: controller.signal }
-		)
+		fetch( WP_ORG_API_URL, { signal: controller.signal } )
 			.then( ( r ) => {
 				if ( ! r.ok ) throw new Error( r.statusText );
-				return r.json();
+				return r.json() as Promise< { plugins?: WPPlugin[] } >;
 			} )
-			.then( ( data: { plugins?: WPPlugin[] } ) => {
+			.then( ( data ) => {
 				setPlugins(
 					( data.plugins ?? [] ).filter( ( p ) => p.slug !== 'author-profile-blocks' )
 				);
