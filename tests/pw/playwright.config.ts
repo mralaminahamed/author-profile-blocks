@@ -3,147 +3,50 @@ import { parseBoolean } from './utils/helpers';
 import { customExpect } from './utils/pwMatchers';
 import 'dotenv/config';
 
-const { CI, HEADLESS, BASE_URL, SLOWMO, NO_SETUP } = process.env;
+const { CI, HEADLESS, BASE_URL, SLOWMO } = process.env;
 
 export default defineConfig({
-    /* test directory */
     testDir: 'tests',
-    /* Include tests based on the pattern */
-    grep: [/@lite/, /@liteOnly/],
-    /* Exclude tests based on the pattern */
-    grepInvert: [/@pro/, /@serial/],
-    /* Folder for test artifacts such as screenshots, videos, traces, etc. */
     outputDir: 'test-artifacts/',
-    /* Maximum time in milliseconds the whole test suite can run */
-    globalTimeout: parseBoolean(CI) ? 40 * (60 * 1000) : 40 * (60 * 1000),
-    /* The maximum number of test failures for the whole test suite run. After reaching this number, testing will stop and exit with an error. */
-    maxFailures: parseBoolean(CI) ? 50 : 50,
-    /* Maximum time one test can run for. */
-    timeout: parseBoolean(CI) ? 35 * 1000 : 45 * 1000,
-    /* Configuration for the expect assertion library */
+    timeout: parseBoolean(CI) ? 60_000 : 90_000,
     expect: {
-        /* Maximum time expect() should wait for the condition to be met.  For example in `await expect(locator).toHaveText();*/
-        timeout: 15 * 1000,
-        toHaveScreenshot: {
-            maxDiffPixelRatio: 0.2,
-            maxDiffPixels: 500,
-            threshold: 0.5,
-        },
+        timeout: 15_000,
     },
-    /* Whether to preserve test output in the testConfig.outputDir. Defaults to 'always'. */
-    preserveOutput: 'always',
-    /* Run tests in files in parallel */
-    // fullyParallel  : true,
-    /* Fail the build on CI if you accidentally left test-only in the source code. */
-    // forbidOnly     : !!CI,
-    /* The number of times to repeat each test, useful for debugging flaky tests. */
-    repeatEach: parseBoolean(CI) ? 0 : 0,
-    /* The maximum number of retry attempts given to failed tests.  */
+    fullyParallel: false,
     retries: parseBoolean(CI) ? 1 : 0,
-    /* Opt out of parallel tests on CI. */
-    workers: parseBoolean(CI) ? 4 : 4,
-    /* Whether to report slow test files. Pass null to disable this feature. */
-    reportSlowTests: { max: 2, threshold: 25 },
-    /* Configure reporters */
-    reporter: parseBoolean(CI)
-        ? [
-              ['blob', { outputDir: 'test-results/blob-report' }],
-              ['list', { printSteps: true }],
-              ['./utils/summaryReporter.ts', { outputFile: 'test-results/summary-report/results.json' }],
-          ]
-        : [
-              ['html', { open: 'never', outputFolder: 'test-results/html-report' }],
-              ['list', { printSteps: true }],
-              ['./utils/summaryReporter.ts', { outputFile: 'test-results/summary-report/results.json' }],
-          ],
+    workers: 1,
+    reporter: [
+        ['list', { printSteps: true }],
+        ['html', { open: 'never', outputFolder: 'test-results/html-report' }],
+    ],
 
     use: {
         ...devices['Desktop Chrome'],
-        /* Whether to automatically download all the attachments. */
         acceptDownloads: true,
-        /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-        actionTimeout: 15 * 1000,
-        /* Maximum time each navigation such as 'goto()' can take. */
-        navigationTimeout: 20 * 1000,
-        /* Base URL */
-        baseURL: BASE_URL ?? 'http://localhost:8888',
-        /* Toggles bypassing page's Content-Security-Policy. */
+        actionTimeout: 15_000,
+        navigationTimeout: 30_000,
+        baseURL: BASE_URL ?? 'https://wc-affiliate.test',
         bypassCSP: true,
-        /* Whether to run tests on headless or non-headless mode */
-        headless: parseBoolean(HEADLESS),
-        /* Whether to ignore HTTPS errors during navigation. */
+        headless: parseBoolean(HEADLESS ?? 'true'),
         ignoreHTTPSErrors: true,
-        /* Record trace only when retrying a test for the first time. */
-        trace: {
-            mode: 'on-first-retry',
-            snapshots: true,
-            screenshots: true,
-            sources: true,
-            attachments: true,
-        },
-        /* Capture screenshot after each test failure. */
-        screenshot: {
-            mode: 'only-on-failure',
-            fullPage: true,
-        },
-        /* Record video only when retrying a test for the first time. */
-        video: 'on-first-retry',
-        /* whether to slow down test execution by provided seconds */
+        screenshot: { mode: 'only-on-failure', fullPage: true },
+        trace: 'retain-on-failure',
+        video: 'retain-on-failure',
         launchOptions: {
             slowMo: (parseInt(SLOWMO ?? '0') || 0) * 1000,
         },
     },
 
     projects: [
-        // E2E project
-
-        // local_site_setup
-        {
-            name: 'local_site_setup',
-            testMatch: ['_localSite.setup.ts'],
-        },
-
-        // site_setup
-        {
-            name: 'site_setup',
-            testMatch: ['_site.setup.ts'],
-        },
-
-        // auth_setup
         {
             name: 'auth_setup',
-            testMatch: ['_auth.setup.ts'],
-            dependencies: parseBoolean(NO_SETUP) ? [] : ['site_setup'],
-            retries: 1,
+            testMatch: /auth\.setup\.ts/,
         },
-
-        // e2e_setup
         {
-            name: 'e2e_setup',
-            testMatch: ['_env.setup.ts'],
-            dependencies: parseBoolean(NO_SETUP) ? [] : ['auth_setup'],
-            fullyParallel: true,
-            retries: 1,
-        },
-
-        // e2e_tests
-        {
-            name: 'e2e_tests',
+            name: 'e2e',
             testMatch: /.*\.spec\.ts/,
-            /* whether not to run setup tests before running actual tests */
-            dependencies: parseBoolean(NO_SETUP) ? [] : ['e2e_setup'],
-        },
-
-        // coverage_report
-        {
-            name: 'coverage_report',
-            testMatch: ['_coverage.teardown.ts'],
-        },
-
-        // global_teardown
-        {
-            name: 'global_teardown',
-            testMatch: ['global-teardown.ts'],
+            dependencies: ['auth_setup'],
+            use: { storageState: '.auth/admin.json' },
         },
     ],
 });
