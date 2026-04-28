@@ -125,6 +125,45 @@ body:has(#apbl-admin-root) {
   padding: 0;
 }
 
+/* Reset WP admin checkbox/radio overrides — restore native appearance */
+:is(#apbl-admin-root) input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  appearance: checkbox;
+  background: initial;
+  border: initial;
+  border-radius: initial;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  line-height: initial;
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+  transition: none;
+  min-width: auto;
+  width: auto;
+  height: auto;
+}
+
+:is(#apbl-admin-root) input[type="radio"] {
+  -webkit-appearance: radio;
+  appearance: radio;
+  background: initial;
+  border: initial;
+  border-radius: initial;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  line-height: initial;
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+  transition: none;
+  min-width: auto;
+  width: auto;
+  height: auto;
+}
+
 /* Reset WP admin button overrides */
 :is(#apbl-admin-root) button {
   -webkit-appearance: none;
@@ -326,4 +365,9 @@ body:has(#apbl-admin-root) {
 :is(#apbl-admin-root) [data-slot="button"][data-size="icon-xs"] svg {
   width: 0.75rem !important;
   height: 0.75rem !important;
+}
+
+:is(#apbl-admin-root) p {
+  padding: 0 !important;
+  margin: 0 !important;
 }
