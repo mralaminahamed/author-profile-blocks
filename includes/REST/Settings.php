@@ -4,7 +4,7 @@ declare(strict_types=1);
  * REST Settings Controller
  *
  * @package AuthorProfileBlocks
- * @license GPL-3.0-only
+ * @license GPL-2.0-or-later
  */
 
 namespace AuthorProfileBlocks\REST;
@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Settings {
 
-	const NAMESPACE = 'author-profile-blocks/v1';
-	const ROUTE     = '/settings';
+	const REST_NAMESPACE = 'author-profile-blocks/v1';
+	const ROUTE          = '/settings';
 
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
@@ -31,7 +31,7 @@ class Settings {
 
 	public function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			self::ROUTE,
 			array(
 				array(
@@ -73,7 +73,7 @@ class Settings {
 		}
 
 		if ( isset( $params['avatar_size'] ) ) {
-			$sanitized['avatar_size'] = wp_clamp( absint( $params['avatar_size'] ), 32, 512 );
+			$sanitized['avatar_size'] = max( 32, min( 512, absint( $params['avatar_size'] ) ) );
 		}
 
 		$valid_platforms = array( 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'website' );
@@ -91,13 +91,14 @@ class Settings {
 		}
 
 		if ( isset( $params['cache_duration'] ) ) {
-			$sanitized['cache_duration'] = wp_clamp( absint( $params['cache_duration'] ), 1, 168 );
+			$sanitized['cache_duration'] = max( 1, min( 168, absint( $params['cache_duration'] ) ) );
 		}
 
-		$updated               = array_merge( Admin::get_settings(), $sanitized );
-		$updated['show_email'] = (bool) $updated['show_email'];
-		update_option( 'author_profile_blocks_settings', array_merge( Admin::get_settings(), $sanitized ) );
+		$base    = Admin::get_settings();
+		$merged  = array_merge( $base, $sanitized );
+		update_option( 'author_profile_blocks_settings', $merged );
 
-		return new WP_REST_Response( $updated, 200 );
+		$merged['show_email'] = (bool) $merged['show_email'];
+		return new WP_REST_Response( $merged, 200 );
 	}
 }
