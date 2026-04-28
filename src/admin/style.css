@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" prefix(apbl);
 @import "tw-animate-css";
 
 @variant dark (@media (prefers-color-scheme: dark));

@@ -8,7 +8,7 @@
     "css": "src/admin/style.css",
     "baseColor": "neutral",
     "cssVariables": true,
-    "prefix": ""
+    "prefix": "apbl"
   },
   "iconLibrary": "lucide",
   "aliases": {

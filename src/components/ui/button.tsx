@@ -5,30 +5,30 @@ import { Slot } from "radix-ui"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "apbl:inline-flex apbl:shrink-0 apbl:items-center apbl:justify-center apbl:gap-2 apbl:rounded-md apbl:text-sm apbl:font-medium apbl:whitespace-nowrap apbl:transition-all apbl:outline-none apbl:focus-visible:border-ring apbl:focus-visible:ring-[3px] apbl:focus-visible:ring-ring/50 apbl:disabled:pointer-events-none apbl:disabled:opacity-50 apbl:aria-invalid:border-destructive apbl:aria-invalid:ring-destructive/20 apbl:dark:aria-invalid:ring-destructive/40 apbl:[&_svg]:pointer-events-none apbl:[&_svg]:shrink-0 apbl:[&_svg:not([class*=size-])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "apbl:bg-primary apbl:text-primary-foreground apbl:hover:bg-primary/90",
         destructive:
-          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
+          "apbl:bg-destructive apbl:text-white apbl:hover:bg-destructive/90 apbl:focus-visible:ring-destructive/20 apbl:dark:bg-destructive/60 apbl:dark:focus-visible:ring-destructive/40",
         outline:
-          "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "apbl:border apbl:bg-background apbl:shadow-xs apbl:hover:bg-accent apbl:hover:text-accent-foreground apbl:dark:border-input apbl:dark:bg-input/30 apbl:dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "apbl:bg-secondary apbl:text-secondary-foreground apbl:hover:bg-secondary/80",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
-        link: "text-primary underline-offset-4 hover:underline",
+          "apbl:hover:bg-accent apbl:hover:text-accent-foreground apbl:dark:hover:bg-accent/50",
+        link: "apbl:text-primary apbl:underline-offset-4 apbl:hover:underline",
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        xs: "h-6 gap-1 rounded-md px-2 text-xs has-[>svg]:px-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
-        "icon-xs": "size-6 rounded-md [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-8",
-        "icon-lg": "size-10",
+        default: "apbl:h-9 apbl:px-4 apbl:py-2 apbl:has-[>svg]:px-3",
+        xs: "apbl:h-6 apbl:gap-1 apbl:rounded-md apbl:px-2 apbl:text-xs apbl:has-[>svg]:px-1.5 apbl:[&_svg:not([class*=size-])]:size-3",
+        sm: "apbl:h-8 apbl:gap-1.5 apbl:rounded-md apbl:px-3 apbl:has-[>svg]:px-2.5",
+        lg: "apbl:h-10 apbl:rounded-md apbl:px-6 apbl:has-[>svg]:px-4",
+        icon: "apbl:size-9",
+        "icon-xs": "apbl:size-6 apbl:rounded-md apbl:[&_svg:not([class*=size-])]:size-3",
+        "icon-sm": "apbl:size-8",
+        "icon-lg": "apbl:size-10",
       },
     },
     defaultVariants: {
