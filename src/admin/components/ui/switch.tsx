@@ -15,7 +15,7 @@ function Switch({
       data-slot="switch"
       data-size={size}
       className={cn(
-        "apbl:peer apbl:group/switch apbl:inline-flex apbl:shrink-0 apbl:items-center apbl:rounded-full apbl:border apbl:border-transparent apbl:shadow-xs apbl:transition-all apbl:outline-none apbl:focus-visible:border-ring apbl:focus-visible:ring-[3px] apbl:focus-visible:ring-ring/50 apbl:disabled:cursor-not-allowed apbl:disabled:opacity-50 apbl:data-[size=default]:h-[1.15rem] apbl:data-[size=default]:w-8 apbl:data-[size=sm]:h-3.5 apbl:data-[size=sm]:w-6 apbl:data-[state=checked]:bg-primary apbl:data-[state=unchecked]:bg-input apbl:dark:data-[state=unchecked]:bg-input/80",
+        "apbl:peer apbl:group/switch apbl:inline-flex apbl:shrink-0 apbl:items-center apbl:rounded-full apbl:border apbl:border-transparent apbl:shadow-xs apbl:transition-all apbl:outline-none apbl:focus-visible:border-ring apbl:focus-visible:ring-[3px] apbl:focus-visible:ring-ring/50 apbl:disabled:cursor-not-allowed apbl:disabled:opacity-50 apbl:data-[size=default]:h-[1.15rem] apbl:data-[size=default]:w-8 apbl:data-[size=sm]:h-3.5 apbl:data-[size=sm]:w-6 apbl:data-[state=checked]:bg-primary apbl:data-[state=unchecked]:bg-input apbl:dark:data-[state=unchecked]:bg-foreground/25",
         className
       )}
       {...props}
