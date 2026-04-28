@@ -33,7 +33,6 @@ import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './componen
  * @return {JSX.Element} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	// eslint-disable-next-line no-unused-vars
 	const {
 		authorIds,
 		columns,
@@ -114,6 +113,40 @@ export default function Edit( { attributes, setAttributes } ) {
 		document.head.appendChild( link );
 	};
 
+	const getShadowStyle = () => {
+		if ( ! boxShadow ) return undefined;
+		return `${ boxShadowHorizontal || 0 }px ${ boxShadowVertical || 4 }px ${ boxShadowBlur || 8 }px ${ boxShadowSpread || 0 }px ${ boxShadowColor || 'rgba(0,0,0,0.2)' }`;
+	};
+
+	const blockStyles = {
+		backgroundColor: backgroundColor || undefined,
+		background: gradientBackground
+			? `linear-gradient(${ gradientDirection || 'to bottom' }, ${ gradientStartColor || '#ffffff' }, ${ gradientEndColor || '#000000' })`
+			: undefined,
+		padding: padding ? `${ padding }px` : undefined,
+		margin: margin || undefined,
+		width: containerWidth || undefined,
+		boxShadow: boxShadow ? getShadowStyle() : undefined,
+		borderWidth: enableBorder && borderWidth ? `${ borderWidth }px` : undefined,
+		borderStyle: enableBorder && borderWidth ? 'solid' : undefined,
+		borderColor: enableBorder ? borderColor : undefined,
+		borderRadius: enableRounded && borderRadius ? `${ borderRadius }px` : undefined,
+		transform: ( transformScale && transformScale !== 1 ) || transformRotate
+			? `scale(${ transformScale || 1 }) rotate(${ transformRotate || 0 }deg)`
+			: undefined,
+		filter: ( filterBrightness && filterBrightness !== 100 ) ||
+			( filterContrast && filterContrast !== 100 ) ||
+			( filterSaturate && filterSaturate !== 100 )
+			? `brightness(${ filterBrightness || 100 }%) contrast(${ filterContrast || 100 }%) saturate(${ filterSaturate || 100 }%)`
+			: undefined,
+		'--author-grid-columns': columns || undefined,
+		'--author-grid-item-spacing': itemSpacing ? `${ itemSpacing }px` : undefined,
+		'--author-grid-section-spacing': sectionSpacing ? `${ sectionSpacing }px` : undefined,
+		'--author-grid-container-width': containerWidth || undefined,
+		'--author-grid-custom-var-1': customVar1 || undefined,
+		'--author-grid-custom-var-2': customVar2 || undefined,
+	};
+
 	const blockProps = useBlockProps( {
 		className: [
 			textAlign ? `has-text-align-${ textAlign }` : '',
@@ -123,13 +156,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			customCssClass ? customCssClass : '',
 			googleFont ? `has-${ googleFont.toLowerCase().replace( /\s+/g, '-' ) }-font` : '',
 		].filter( Boolean ).join( ' ' ),
-		style: {
-			'--author-grid-margin': margin || '',
-			'--author-grid-section-spacing': sectionSpacing ? `${ sectionSpacing }px` : '',
-			'--author-grid-container-width': containerWidth || '',
-			'--author-grid-custom-var-1': customVar1 || '',
-			'--author-grid-custom-var-2': customVar2 || '',
-		},
+		style: blockStyles,
 	} );
 
 	// Handle author selection

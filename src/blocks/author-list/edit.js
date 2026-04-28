@@ -173,22 +173,56 @@ export default function Edit( {
 		insertBlocks( gridBlock, undefined, clientId, true );
 	};
 
+	const getShadowStyle = () => {
+		if ( ! boxShadow ) return undefined;
+		return `${ boxShadowHorizontal || 0 }px ${ boxShadowVertical || 4 }px ${ boxShadowBlur || 8 }px ${ boxShadowSpread || 0 }px ${ boxShadowColor || 'rgba(0,0,0,0.2)' }`;
+	};
+
+	const blockStyles = {
+		backgroundColor: backgroundColor || undefined,
+		background: gradientBackground
+			? `linear-gradient(${ gradientDirection || 'to bottom' }, ${ gradientStartColor || '#ffffff' }, ${ gradientEndColor || '#000000' })`
+			: undefined,
+		padding: blockPadding ? `${ blockPadding }px` : undefined,
+		margin: margin || undefined,
+		width: containerWidth || undefined,
+		boxShadow: boxShadow ? getShadowStyle() : undefined,
+		borderWidth: borderWidth ? `${ borderWidth }px` : undefined,
+		borderStyle: borderWidth ? 'solid' : undefined,
+		borderColor: borderWidth ? borderColor : undefined,
+		borderRadius: enableRounded && borderRadius ? `${ borderRadius }px` : undefined,
+		transform: ( transformScale && transformScale !== 1 ) || transformRotate
+			? `scale(${ transformScale || 1 }) rotate(${ transformRotate || 0 }deg)`
+			: undefined,
+		filter: ( filterBrightness && filterBrightness !== 100 ) ||
+			( filterContrast && filterContrast !== 100 ) ||
+			( filterSaturate && filterSaturate !== 100 )
+			? `brightness(${ filterBrightness || 100 }%) contrast(${ filterContrast || 100 }%) saturate(${ filterSaturate || 100 }%)`
+			: undefined,
+		'--author-list-item-padding': itemPadding ? `${ itemPadding }px` : undefined,
+		'--author-list-item-spacing': itemSpacing ? `${ itemSpacing }px` : undefined,
+		'--author-list-item-bg': itemBackgroundColor || undefined,
+		'--author-list-divider-color': dividerColor || undefined,
+		'--author-list-section-spacing': sectionSpacing ? `${ sectionSpacing }px` : undefined,
+		'--author-list-container-width': containerWidth || undefined,
+		'--author-list-custom-var-1': customVar1 || undefined,
+		'--author-list-custom-var-2': customVar2 || undefined,
+	};
+
 	// Block props with enhanced styling
 	const blockProps = useBlockProps( {
 		className: [
+			textAlign ? `has-text-align-${ textAlign }` : '',
 			layoutPreset ? layoutPreset : '',
 			animationType && animationType !== 'none' ? `has-${ animationType }-animation` : '',
 			hoverEffect && hoverEffect !== 'none' ? `has-${ hoverEffect }-hover` : '',
+			enableDividers ? 'has-dividers' : '',
+			enableHoverEffect ? 'has-hover-effect' : '',
+			enableRounded ? 'has-rounded' : '',
 			customCssClass ? customCssClass : '',
 			googleFont ? `has-${ googleFont.toLowerCase().replace( /\s+/g, '-' ) }-font` : '',
 		].filter( Boolean ).join( ' ' ),
-		style: {
-			'--author-list-margin': margin || '',
-			'--author-list-section-spacing': sectionSpacing ? `${ sectionSpacing }px` : '',
-			'--author-list-container-width': containerWidth || '',
-			'--author-list-custom-var-1': customVar1 || '',
-			'--author-list-custom-var-2': customVar2 || '',
-		},
+		style: blockStyles,
 	} );
 
 	return (
