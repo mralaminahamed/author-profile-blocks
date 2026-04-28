@@ -4,7 +4,9 @@
 @variant dark (@media (prefers-color-scheme: dark));
 
 @source "../components/**/*.{js,ts,jsx,tsx}";
-@source "./pages/**/*.{js,ts,jsx,tsx}";
+@source "./App.tsx";
+@source "./components/**/*.{js,ts,jsx,tsx}";
+@source "./hooks/**/*.{js,ts,jsx,tsx}";
 @source "./index.tsx";
 
 @theme inline {
