@@ -3,6 +3,8 @@
 @plugin "@tailwindcss/forms";
 @plugin "tailwindcss-animate";
 
+@variant dark (@media (prefers-color-scheme: dark));
+
 @source "../components/**/*.{js,ts,jsx,tsx}";
 @source "./pages/**/*.{js,ts,jsx,tsx}";
 @source "./index.tsx";
