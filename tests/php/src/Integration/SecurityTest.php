@@ -97,7 +97,10 @@ class SecurityTest extends IntegrationTestCase {
 				'customCssClass' => '"><img src=x onerror=alert(1)>',
 			)
 		);
-		$this->assertStringNotContainsString( 'onerror=alert(1)', $html );
+		// The injected payload must stay inside the class attribute as escaped
+		// text — i.e. it must NOT close the attribute and inject a real <img> tag.
+		$this->assertStringNotContainsString( '<img src=x onerror=', $html );
+		$this->assertStringContainsString( '&quot;', $html );
 	}
 
 	public function test_grid_attribute_xss_does_not_break_out(): void {
