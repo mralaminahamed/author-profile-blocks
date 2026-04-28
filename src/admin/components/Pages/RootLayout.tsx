@@ -1,12 +1,11 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
-import { Settings, Puzzle, Info } from 'lucide-react';
+import { Settings, Puzzle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
 	{ to: '/', label: 'Settings', icon: Settings },
 	{ to: '/plugins', label: 'Our Plugins', icon: Puzzle },
-	{ to: '/about', label: 'About', icon: Info },
 ] as const;
 
 export default function RootLayout() {
