@@ -10,22 +10,31 @@ export default function PluginsPage() {
 	const [ error, setError ] = useState< string | null >( null );
 
 	useEffect( () => {
+		const controller = new AbortController();
+
 		fetch(
-			'https://api.wordpress.org/plugins/info/1.2/?action=query_plugins&request[author]=mralaminahamed&request[per_page]=20'
+			'https://api.wordpress.org/plugins/info/1.2/?action=query_plugins&request[author]=mralaminahamed&request[per_page]=20',
+			{ signal: controller.signal }
 		)
-			.then( ( r ) => r.json() )
+			.then( ( r ) => {
+				if ( ! r.ok ) throw new Error( r.statusText );
+				return r.json();
+			} )
 			.then( ( data: { plugins?: WPPlugin[] } ) => {
 				setPlugins(
 					( data.plugins ?? [] ).filter( ( p ) => p.slug !== 'author-profile-blocks' )
 				);
 				setLoading( false );
 			} )
-			.catch( () => {
+			.catch( ( err: Error ) => {
+				if ( err.name === 'AbortError' ) return;
 				setError(
 					__( 'Could not load plugins. Check your internet connection.', 'author-profile-blocks' )
 				);
 				setLoading( false );
 			} );
+
+		return () => controller.abort();
 	}, [] );
 
 	return (

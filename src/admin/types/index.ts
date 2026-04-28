@@ -19,7 +19,7 @@ export interface WPPlugin {
 
 declare global {
 	interface Window {
-		apblAdmin: {
+		apblAdmin?: {
 			restUrl: string;
 			restNonce: string;
 			version: string;
