@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { useSettings } from '../../hooks/useSettings';
 import type { Settings } from '../../types';
 
@@ -20,19 +19,68 @@ const SOCIAL_PLATFORMS = [
 	{ key: 'website', label: 'Website' },
 ] as const;
 
-function FieldRow( { label, description, children }: { label: string; description?: string; children: React.ReactNode } ) {
+/* ── Shared layout primitives ─────────────────────────── */
+
+function Card( { children, className = '' }: { children: React.ReactNode; className?: string } ) {
 	return (
-		<div className="apbl:grid apbl:grid-cols-3 apbl:gap-6 apbl:items-start apbl:py-4">
-			<div>
-				<p className="apbl:text-sm apbl:font-medium apbl:text-gray-900">{ label }</p>
-				{ description && (
-					<p className="apbl:text-xs apbl:text-gray-500 apbl:mt-0.5 apbl:leading-relaxed">{ description }</p>
-				) }
-			</div>
-			<div className="apbl:col-span-2">{ children }</div>
+		<div className={ `apbl:bg-white apbl:rounded-xl apbl:border apbl:border-gray-200 apbl:overflow-hidden ${ className }` }>
+			{ children }
 		</div>
 	);
 }
+
+function CardHeader( { title, description }: { title: string; description?: string } ) {
+	return (
+		<div className="apbl:px-6 apbl:py-4 apbl:border-b apbl:border-gray-100">
+			<p className="apbl:text-sm apbl:font-semibold apbl:text-gray-800">{ title }</p>
+			{ description && (
+				<p className="apbl:text-xs apbl:text-gray-500 apbl:mt-0.5">{ description }</p>
+			) }
+		</div>
+	);
+}
+
+/* Label + description on left, control on right, consistent padding */
+function FieldRow( {
+	label,
+	description,
+	htmlFor,
+	children,
+}: {
+	label: string;
+	description?: string;
+	htmlFor?: string;
+	children: React.ReactNode;
+} ) {
+	return (
+		<div className="apbl:flex apbl:items-start apbl:justify-between apbl:gap-8 apbl:px-6 apbl:py-4">
+			<div className="apbl:min-w-0">
+				{ htmlFor ? (
+					<Label
+						htmlFor={ htmlFor }
+						className="apbl:text-sm apbl:font-medium apbl:text-gray-800 apbl:cursor-pointer"
+					>
+						{ label }
+					</Label>
+				) : (
+					<p className="apbl:text-sm apbl:font-medium apbl:text-gray-800">{ label }</p>
+				) }
+				{ description && (
+					<p className="apbl:text-xs apbl:text-gray-500 apbl:mt-0.5 apbl:leading-relaxed">
+						{ description }
+					</p>
+				) }
+			</div>
+			<div className="apbl:shrink-0">{ children }</div>
+		</div>
+	);
+}
+
+function FieldDivider() {
+	return <div className="apbl:border-t apbl:border-gray-100 apbl:mx-6" />;
+}
+
+/* ── Page ─────────────────────────────────────────────── */
 
 export default function SettingsPage() {
 	const { settings, setSettings, loading, saving, error, saved, save } = useSettings();
@@ -49,10 +97,23 @@ export default function SettingsPage() {
 
 	const handleSave = () => save( settings );
 
-	return (
-		<div className="apbl:p-6 apbl:max-w-3xl">
+	const toggleRole = ( key: string, checked: boolean ) => {
+		const roles = checked
+			? [ ...settings.author_roles, key ]
+			: settings.author_roles.filter( ( r ) => r !== key );
+		setSettings( ( s: Settings ) => ( { ...s, author_roles: roles } ) );
+	};
 
-			{ /* Page header */ }
+	const togglePlatform = ( key: string, checked: boolean ) => {
+		const platforms = checked
+			? [ ...settings.social_platforms, key ]
+			: settings.social_platforms.filter( ( p ) => p !== key );
+		setSettings( ( s: Settings ) => ( { ...s, social_platforms: platforms } ) );
+	};
+
+	return (
+		<div className="apbl:p-6 apbl:max-w-2xl">
+
 			<div className="apbl:mb-8">
 				<h1 className="apbl:text-xl apbl:font-semibold apbl:text-gray-900">
 					{ __( 'Settings', 'author-profile-blocks' ) }
@@ -63,70 +124,59 @@ export default function SettingsPage() {
 			</div>
 
 			<Tabs defaultValue="general" className="apbl:space-y-6">
-				<TabsList className="apbl:grid apbl:grid-cols-3 apbl:w-full">
-					<TabsTrigger value="general" className="apbl:flex apbl:items-center apbl:gap-2">
-						<Users className="apbl:w-3.5 apbl:h-3.5" />
+
+				<TabsList className="apbl:w-full apbl:grid apbl:grid-cols-3">
+					<TabsTrigger value="general" className="apbl:gap-1.5">
+						<Users className="apbl:size-3.5" />
 						{ __( 'General', 'author-profile-blocks' ) }
 					</TabsTrigger>
-					<TabsTrigger value="display" className="apbl:flex apbl:items-center apbl:gap-2">
-						<Monitor className="apbl:w-3.5 apbl:h-3.5" />
+					<TabsTrigger value="display" className="apbl:gap-1.5">
+						<Monitor className="apbl:size-3.5" />
 						{ __( 'Display', 'author-profile-blocks' ) }
 					</TabsTrigger>
-					<TabsTrigger value="performance" className="apbl:flex apbl:items-center apbl:gap-2">
-						<Zap className="apbl:w-3.5 apbl:h-3.5" />
+					<TabsTrigger value="performance" className="apbl:gap-1.5">
+						<Zap className="apbl:size-3.5" />
 						{ __( 'Performance', 'author-profile-blocks' ) }
 					</TabsTrigger>
 				</TabsList>
 
 				{ /* ── General ── */ }
-				<TabsContent value="general">
-					<div className="apbl:bg-white apbl:rounded-xl apbl:border apbl:border-gray-200 apbl:divide-y apbl:divide-gray-100">
-						<div className="apbl:px-6 apbl:py-4">
-							<h2 className="apbl:text-sm apbl:font-semibold apbl:text-gray-700">
-								{ __( 'Author Roles', 'author-profile-blocks' ) }
-							</h2>
-							<p className="apbl:text-xs apbl:text-gray-500 apbl:mt-0.5">
-								{ __( 'Select which user roles are available as authors in blocks.', 'author-profile-blocks' ) }
-							</p>
+				<TabsContent value="general" className="apbl:space-y-4">
+					<Card>
+						<CardHeader
+							title={ __( 'Author Roles', 'author-profile-blocks' ) }
+							description={ __( 'Select which user roles are available as authors in blocks.', 'author-profile-blocks' ) }
+						/>
+						<div className="apbl:px-6 apbl:py-4 apbl:grid apbl:grid-cols-2 apbl:gap-2">
+							{ Object.entries( wpRoles ).map( ( [ key, name ] ) => (
+								<label
+									key={ key }
+									htmlFor={ `role-${ key }` }
+									className="apbl:flex apbl:items-center apbl:gap-3 apbl:px-3 apbl:py-2.5 apbl:rounded-lg apbl:border apbl:border-gray-200 apbl:cursor-pointer apbl:hover:bg-gray-50 apbl:transition-colors apbl:select-none"
+								>
+									<input
+										id={ `role-${ key }` }
+										type="checkbox"
+										checked={ settings.author_roles.includes( key ) }
+										onChange={ ( e: ChangeEvent< HTMLInputElement > ) =>
+											toggleRole( key, e.target.checked )
+										}
+										className="apbl:size-4 apbl:rounded apbl:border-gray-300 apbl:accent-gray-900 apbl:cursor-pointer"
+									/>
+									<span className="apbl:text-sm apbl:text-gray-700">{ name as string }</span>
+								</label>
+							) ) }
 						</div>
-						<div className="apbl:px-6 apbl:py-4">
-							<div className="apbl:grid apbl:grid-cols-2 apbl:gap-3">
-								{ Object.entries( wpRoles ).map( ( [ key, name ] ) => (
-									<label
-										key={ key }
-										htmlFor={ `role-${ key }` }
-										className="apbl:flex apbl:items-center apbl:gap-3 apbl:p-3 apbl:rounded-lg apbl:border apbl:border-gray-200 apbl:cursor-pointer apbl:hover:bg-gray-50 apbl:transition-colors"
-									>
-										<input
-											id={ `role-${ key }` }
-											type="checkbox"
-											checked={ settings.author_roles.includes( key ) }
-											onChange={ ( e: ChangeEvent< HTMLInputElement > ) => {
-												const roles = e.target.checked
-													? [ ...settings.author_roles, key ]
-													: settings.author_roles.filter( ( r ) => r !== key );
-												setSettings( ( s: Settings ) => ( { ...s, author_roles: roles } ) );
-											} }
-											className="apbl:h-4 apbl:w-4 apbl:rounded apbl:border-gray-300 apbl:cursor-pointer"
-										/>
-										<span className="apbl:text-sm apbl:text-gray-700 apbl:select-none">
-											{ name as string }
-										</span>
-									</label>
-								) ) }
-							</div>
-						</div>
-					</div>
+					</Card>
 				</TabsContent>
 
 				{ /* ── Display ── */ }
-				<TabsContent value="display">
-					<div className="apbl:bg-white apbl:rounded-xl apbl:border apbl:border-gray-200 apbl:divide-y apbl:divide-gray-100">
-
-						{ /* Avatar size */ }
+				<TabsContent value="display" className="apbl:space-y-4">
+					<Card>
+						<CardHeader title={ __( 'Avatar', 'author-profile-blocks' ) } />
 						<FieldRow
 							label={ __( 'Avatar Size', 'author-profile-blocks' ) }
-							description={ __( 'Default avatar size in pixels (32–512).', 'author-profile-blocks' ) }
+							description={ __( 'Default size in pixels (32–512).', 'author-profile-blocks' ) }
 						>
 							<div className="apbl:flex apbl:items-center apbl:gap-2">
 								<Input
@@ -134,7 +184,7 @@ export default function SettingsPage() {
 									min={ 32 }
 									max={ 512 }
 									value={ settings.avatar_size }
-									className="apbl:w-28"
+									className="apbl:w-24 apbl:text-right"
 									onChange={ ( e: ChangeEvent< HTMLInputElement > ) =>
 										setSettings( ( s: Settings ) => ( {
 											...s,
@@ -142,49 +192,41 @@ export default function SettingsPage() {
 										} ) )
 									}
 								/>
-								<span className="apbl:text-sm apbl:text-gray-400">px</span>
+								<span className="apbl:text-sm apbl:text-gray-400 apbl:w-5">px</span>
 							</div>
 						</FieldRow>
+					</Card>
 
-						<Separator />
-
-						{ /* Social platforms */ }
-						<div className="apbl:px-6 apbl:py-4">
-							<p className="apbl:text-sm apbl:font-medium apbl:text-gray-900 apbl:mb-1">
-								{ __( 'Social Platforms', 'author-profile-blocks' ) }
-							</p>
-							<p className="apbl:text-xs apbl:text-gray-500 apbl:mb-4">
-								{ __( 'Enable platforms to show in author profile blocks.', 'author-profile-blocks' ) }
-							</p>
-							<div className="apbl:space-y-2">
-								{ SOCIAL_PLATFORMS.map( ( { key, label } ) => (
-									<div key={ key } className="apbl:flex apbl:items-center apbl:justify-between apbl:py-2">
-										<Label
-											htmlFor={ `platform-${ key }` }
-											className="apbl:text-sm apbl:text-gray-700 apbl:cursor-pointer"
-										>
-											{ label }
-										</Label>
-										<Switch
-											id={ `platform-${ key }` }
-											checked={ settings.social_platforms.includes( key ) }
-											onCheckedChange={ ( checked ) => {
-												const platforms = checked
-													? [ ...settings.social_platforms, key ]
-													: settings.social_platforms.filter( ( p ) => p !== key );
-												setSettings( ( s: Settings ) => ( { ...s, social_platforms: platforms } ) );
-											} }
-										/>
-									</div>
-								) ) }
+					<Card>
+						<CardHeader
+							title={ __( 'Social Platforms', 'author-profile-blocks' ) }
+							description={ __( 'Choose which platforms appear in author profile blocks.', 'author-profile-blocks' ) }
+						/>
+						{ SOCIAL_PLATFORMS.map( ( { key, label }, i ) => (
+							<div key={ key }>
+								{ i > 0 && <FieldDivider /> }
+								<FieldRow
+									label={ label }
+									htmlFor={ `platform-${ key }` }
+								>
+									<Switch
+										id={ `platform-${ key }` }
+										checked={ settings.social_platforms.includes( key ) }
+										onCheckedChange={ ( checked ) => togglePlatform( key, checked ) }
+									/>
+								</FieldRow>
 							</div>
-						</div>
+						) ) }
+					</Card>
 
-						<Separator />
-
-						{ /* Show email */ }
-						<FieldRow label={ __( 'Show Email Addresses', 'author-profile-blocks' ) }>
-							<div className="apbl:flex apbl:items-center apbl:gap-3">
+					<Card>
+						<CardHeader title={ __( 'Privacy', 'author-profile-blocks' ) } />
+						<FieldRow
+							label={ __( 'Show Email Addresses', 'author-profile-blocks' ) }
+							description={ __( 'Warning: publicly visible emails may increase spam.', 'author-profile-blocks' ) }
+							htmlFor="show-email"
+						>
+							<div className="apbl:flex apbl:items-center apbl:gap-2">
 								<Switch
 									id="show-email"
 									checked={ settings.show_email }
@@ -192,30 +234,26 @@ export default function SettingsPage() {
 										setSettings( ( s: Settings ) => ( { ...s, show_email: checked } ) )
 									}
 								/>
-								<div>
-									<Label htmlFor="show-email" className="apbl:text-sm apbl:text-gray-600 apbl:cursor-pointer">
-										{ __( 'Display email in author profiles', 'author-profile-blocks' ) }
-									</Label>
-									<div className="apbl:flex apbl:items-center apbl:gap-1.5 apbl:mt-0.5">
-										<Badge variant="destructive" className="apbl:text-xs apbl:py-0">
-											{ __( 'Privacy risk', 'author-profile-blocks' ) }
-										</Badge>
-										<span className="apbl:text-xs apbl:text-gray-400">
-											{ __( 'May increase spam', 'author-profile-blocks' ) }
-										</span>
-									</div>
-								</div>
+								{ settings.show_email && (
+									<Badge variant="destructive" className="apbl:text-xs apbl:py-0">
+										{ __( 'On', 'author-profile-blocks' ) }
+									</Badge>
+								) }
 							</div>
 						</FieldRow>
-					</div>
+					</Card>
 				</TabsContent>
 
 				{ /* ── Performance ── */ }
-				<TabsContent value="performance">
-					<div className="apbl:bg-white apbl:rounded-xl apbl:border apbl:border-gray-200 apbl:divide-y apbl:divide-gray-100">
+				<TabsContent value="performance" className="apbl:space-y-4">
+					<Card>
+						<CardHeader
+							title={ __( 'Caching', 'author-profile-blocks' ) }
+							description={ __( 'Controls how long author data is stored in the WordPress object cache.', 'author-profile-blocks' ) }
+						/>
 						<FieldRow
 							label={ __( 'Cache Duration', 'author-profile-blocks' ) }
-							description={ __( 'How long to cache author data (1–168 hours). Default: 24.', 'author-profile-blocks' ) }
+							description={ __( '1–168 hours. Default: 24.', 'author-profile-blocks' ) }
 						>
 							<div className="apbl:flex apbl:items-center apbl:gap-2">
 								<Input
@@ -223,7 +261,7 @@ export default function SettingsPage() {
 									min={ 1 }
 									max={ 168 }
 									value={ settings.cache_duration }
-									className="apbl:w-28"
+									className="apbl:w-24 apbl:text-right"
 									onChange={ ( e: ChangeEvent< HTMLInputElement > ) =>
 										setSettings( ( s: Settings ) => ( {
 											...s,
@@ -231,28 +269,35 @@ export default function SettingsPage() {
 										} ) )
 									}
 								/>
-								<span className="apbl:text-sm apbl:text-gray-400">
-									{ __( 'hours', 'author-profile-blocks' ) }
+								<span className="apbl:text-sm apbl:text-gray-400 apbl:w-8">
+									{ __( 'hrs', 'author-profile-blocks' ) }
 								</span>
 							</div>
 						</FieldRow>
-					</div>
+					</Card>
 				</TabsContent>
 			</Tabs>
 
-			{ /* Single save button shared across all tabs */ }
+			{ /* Save bar */ }
 			<div className="apbl:mt-6 apbl:flex apbl:items-center apbl:gap-3">
-				<Button onClick={ handleSave } disabled={ saving } className="apbl:gap-2">
+				<Button onClick={ handleSave } disabled={ saving } size="sm" className="apbl:gap-2">
 					{ saving
-						? <Loader2 className="apbl:w-4 apbl:h-4 apbl:animate-spin" />
-						: <Save className="apbl:w-4 apbl:h-4" /> }
+						? <Loader2 className="apbl:size-3.5 apbl:animate-spin" />
+						: <Save className="apbl:size-3.5" /> }
 					{ saving
 						? __( 'Saving…', 'author-profile-blocks' )
 						: saved
 						? __( 'Saved!', 'author-profile-blocks' )
 						: __( 'Save Settings', 'author-profile-blocks' ) }
 				</Button>
-				{ error && <p className="apbl:text-sm apbl:text-red-600">{ error }</p> }
+				{ error && (
+					<p className="apbl:text-sm apbl:text-red-600">{ error }</p>
+				) }
+				{ saved && ! saving && (
+					<p className="apbl:text-sm apbl:text-green-600">
+						{ __( 'All changes saved.', 'author-profile-blocks' ) }
+					</p>
+				) }
 			</div>
 		</div>
 	);
