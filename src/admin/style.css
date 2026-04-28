@@ -7,7 +7,7 @@
 @source "./pages/**/*.{js,ts,jsx,tsx}";
 @source "./index.tsx";
 
-@theme {
+@theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-primary: hsl(var(--primary));
