@@ -2,15 +2,13 @@
  * Author Carousel Block — Editor styles
  */
 
-@use 'sass:color';
-@use 'sass:math';
 @use '../../supports/scss/common' as c;
 
 .wp-block-author-profile-blocks-author-carousel {
-
   @include c.editor-border;
 
-  // Animation preview bindings
+  // ─── Animation preview ────────────────────────────────────────────────
+
   &.has-fadeIn-animation,
   &.has-slideUp-animation,
   &.has-slideDown-animation,
@@ -30,7 +28,7 @@
     transition-duration: 0.15s;
   }
 
-  // ─── Style preset editor previews ─────────────────────────────────────────
+  // ─── Style preset editor previews ─────────────────────────────────────
 
   &.is-style-card .apbl-author-carousel-item {
     padding: 1.5rem;
@@ -125,11 +123,11 @@
     }
 
     .apbl-author-description {
-      color: rgba(255, 255, 255, 0.85);
+      color: rgb(255 255 255 / 85%);
     }
   }
 
-  // ─── Carousel placeholder (no authors selected yet) ────────────────────────
+  // ─── Carousel placeholder ──────────────────────────────────────────────
 
   .apbl-author-carousel-placeholder {
     padding: 2rem;
@@ -159,10 +157,9 @@
     }
   }
 
-  // ─── Carousel layout preview ───────────────────────────────────────────────
+  // ─── Layout preview ────────────────────────────────────────────────────
 
   .apbl-author-carousel-preview {
-
     .apbl-layout-options {
       display: flex;
       gap: 8px;
@@ -175,7 +172,7 @@
         background: c.$white;
         border: 1px solid c.$border-color;
         border-radius: c.$border-radius-md;
-        transition: c.$transition-fast;
+        transition: all c.$transition-fast;
 
         &:hover:not(.is-selected) {
           background: c.$primary-light;
@@ -191,10 +188,9 @@
     }
   }
 
-  // ─── Inspector controls ────────────────────────────────────────────────────
+  // ─── Inspector controls ────────────────────────────────────────────────
 
   .components-panel__body {
-
     .components-base-control {
       margin-bottom: 1rem;
     }
@@ -218,7 +214,7 @@
     }
   }
 
-  // ─── Editor placeholder skeleton ───────────────────────────────────────────
+  // ─── Editor placeholder skeleton ───────────────────────────────────────
 
   .apbl-carousel-placeholder {
     display: flex;

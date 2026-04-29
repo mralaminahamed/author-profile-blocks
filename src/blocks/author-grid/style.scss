@@ -2,143 +2,76 @@
  * Author Grid Block — Frontend styles
  */
 
-@use 'sass:color';
-@use 'sass:math';
 @use '../../supports/scss/common' as c;
 
-// ─── Keyframes ───────────────────────────────────────────────────────────────
+// ─── Keyframes ────────────────────────────────────────────────────────────────
 
-@keyframes apbl-fadeIn {
+@include c.apbl-keyframes;
 
-  from { opacity: 0; }
+// ─── Google font support ───────────────────────────────────────────────────────
 
-  to   { opacity: 1; }
-}
-
-@keyframes apbl-slideUp {
-
-  from { opacity: 0; transform: translateY(24px); }
-
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes apbl-slideDown {
-
-  from { opacity: 0; transform: translateY(-24px); }
-
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes apbl-slideLeft {
-
-  from { opacity: 0; transform: translateX(24px); }
-
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes apbl-slideRight {
-
-  from { opacity: 0; transform: translateX(-24px); }
-
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes apbl-scaleIn {
-
-  from { opacity: 0; transform: scale(0.92); }
-
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes apbl-bounce {
-
-  0%, 60%, 100% { transform: translateY(0); }
-
-  30%            { transform: translateY(-10px); }
-
-  45%            { transform: translateY(-5px); }
-}
-
-// ─── Animation classes ───────────────────────────────────────────────────────
-
-.has-fadeIn-animation   { animation: apbl-fadeIn var(--author-animation-duration, 400ms) ease-out both; }
-
-.has-slideUp-animation  { animation: apbl-slideUp var(--author-animation-duration, 400ms) ease-out both; }
-
-.has-slideDown-animation{ animation: apbl-slideDown var(--author-animation-duration, 400ms) ease-out both; }
-
-.has-slideLeft-animation{ animation: apbl-slideLeft var(--author-animation-duration, 400ms) ease-out both; }
-
-.has-slideRight-animation{ animation: apbl-slideRight var(--author-animation-duration, 400ms) ease-out both; }
-
-.has-scaleIn-animation  { animation: apbl-scaleIn var(--author-animation-duration, 400ms) ease-out both; }
-
-.has-bounce-animation   { animation: apbl-bounce var(--author-animation-duration, 700ms) ease-out both; }
-
-// ─── Hover effect classes ────────────────────────────────────────────────────
-
-.has-lift-hover:hover   { transform: translateY(-5px); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-.has-glow-hover:hover   { box-shadow: 0 0 0 3px c.$primary-mid; transition: box-shadow 0.3s ease; }
-
-.has-scale-hover:hover  { transform: scale(1.04); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-.has-rotate-hover:hover { transform: rotate(1.5deg); transition: transform 0.3s ease; }
-
-.has-shadow-hover:hover { box-shadow: c.$shadow-lg; transition: box-shadow 0.3s ease; }
-
-// Google font support
 [class*="has-"][class*="-font"] {
   font-family: var(--google-font-family, inherit);
 }
 
-// ─── Grid block ──────────────────────────────────────────────────────────────
+// ─── Grid block ───────────────────────────────────────────────────────────────
 
 .wp-block-author-profile-blocks-author-grid {
   padding: c.$spacing-md;
 
-  // Grid layout
-  .apbl-author-grid {
+  // ─── Animation bindings ──────────────────────────────────────────────
 
+  &.has-fadeIn-animation    { animation: apbl-fadeIn    var(--author-animation-duration, 400ms) ease-out both; }
+  &.has-slideUp-animation   { animation: apbl-slideUp   var(--author-animation-duration, 400ms) ease-out both; }
+  &.has-slideDown-animation { animation: apbl-slideDown var(--author-animation-duration, 400ms) ease-out both; }
+  &.has-slideLeft-animation { animation: apbl-slideLeft var(--author-animation-duration, 400ms) ease-out both; }
+  &.has-slideRight-animation{ animation: apbl-slideRight var(--author-animation-duration, 400ms) ease-out both; }
+  &.has-scaleIn-animation   { animation: apbl-scaleIn   var(--author-animation-duration, 400ms) ease-out both; }
+  &.has-bounce-animation    { animation: apbl-bounce    var(--author-animation-duration, 700ms) ease-out both; }
+
+  // ─── Hover effects ───────────────────────────────────────────────────
+
+  &.has-lift-hover   { transition: transform c.$transition-standard; &:hover { transform: translateY(-5px); } }
+  &.has-glow-hover   { transition: box-shadow c.$transition-standard; &:hover { box-shadow: 0 0 0 3px c.$primary-mid; } }
+  &.has-scale-hover  { transition: transform c.$transition-standard; &:hover { transform: scale(1.04); } }
+  &.has-rotate-hover { transition: transform c.$transition-standard; &:hover { transform: rotate(1.5deg); } }
+  &.has-shadow-hover { transition: box-shadow c.$transition-standard; &:hover { box-shadow: c.$shadow-lg; } }
+
+  // ─── Container width hook ────────────────────────────────────────────
+
+  &[style*="--author-grid-container-width"] {
+    max-width: var(--author-grid-container-width);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  // ─── Grid layout ─────────────────────────────────────────────────────
+
+  .apbl-author-grid {
     @include c.responsive-grid;
 
     @include c.respond-to(large) {
-
       &.apbl-columns-2 { grid-template-columns: repeat(2, 1fr); }
-
       &.apbl-columns-3 { grid-template-columns: repeat(3, 1fr); }
-
       &.apbl-columns-4 { grid-template-columns: repeat(4, 1fr); }
     }
   }
 
-  // ─── Grid item ────────────────────────────────────────────────────────────
+  // ─── Grid item ───────────────────────────────────────────────────────
 
   .apbl-author-grid-item {
     display: flex;
     flex-direction: column;
-    transition: c.$transition-standard;
+    transition: transform c.$transition-standard, box-shadow c.$transition-standard;
 
-    &.is-layout-card {
-
-      @include c.card-layout;
-    }
-
-    &.is-layout-compact {
-
-      @include c.compact-layout;
-    }
-
-    &.is-layout-centered {
-
-      @include c.centered-layout;
-    }
+    &.is-layout-card    { @include c.card-layout; }
+    &.is-layout-compact { @include c.compact-layout; }
+    &.is-layout-centered{ @include c.centered-layout; }
   }
 
-  // ─── Author elements ──────────────────────────────────────────────────────
+  // ─── Author elements ──────────────────────────────────────────────────
 
   .apbl-author-image {
-
     @include c.author-image;
     margin-bottom: c.$spacing-md;
 
@@ -153,36 +86,16 @@
     }
   }
 
-  .apbl-author-name {
+  .apbl-author-name        { @include c.author-name; }
+  .apbl-author-position    { @include c.author-position; }
+  .apbl-author-email       { @include c.author-email; }
+  .apbl-author-description { @include c.author-description; }
 
-    @include c.author-name;
-  }
+  .apbl-social-profiles { @include c.social-profiles-center; }
 
-  .apbl-author-position {
-
-    @include c.author-position;
-  }
-
-  .apbl-author-email {
-
-    @include c.author-email;
-  }
-
-  .apbl-author-description {
-
-    @include c.author-description;
-  }
-
-  // Social profiles — cover both class prefixes
-  .apbl-social-profiles {
-
-    @include c.social-profiles-center;
-  }
-
-  // ─── Style presets ────────────────────────────────────────────────────────
+  // ─── Style presets ────────────────────────────────────────────────────
 
   &.is-style-card {
-
     .apbl-author-grid-item {
       position: relative;
       padding: 1.75rem 1.5rem;
@@ -210,15 +123,12 @@
         box-shadow: c.$shadow-primary;
         transform: translateY(-5px);
 
-        &::after {
-          transform: scaleX(1);
-        }
+        &::after { transform: scaleX(1); }
       }
     }
   }
 
   &.is-style-minimal {
-
     .apbl-author-grid-item {
       padding: c.$spacing-md 0;
       background: transparent;
@@ -226,14 +136,11 @@
       border-bottom: 1px solid c.$border-color-light;
       border-radius: 0;
 
-      &:last-child {
-        border-bottom: none;
-      }
+      &:last-child { border-bottom: none; }
     }
   }
 
   &.is-style-bordered {
-
     .apbl-author-grid-item {
       padding: 1.25rem;
       background: c.$white;
@@ -249,7 +156,6 @@
   }
 
   &.is-style-shadow {
-
     .apbl-author-grid-item {
       padding: 1.75rem;
       background: c.$white;
@@ -266,7 +172,6 @@
   }
 
   &.is-style-mosaic {
-
     .apbl-author-grid-item {
       overflow: hidden;
       background: c.$white;
@@ -274,13 +179,8 @@
       border-radius: c.$border-radius-lg;
       box-shadow: c.$shadow-sm;
 
-      &:nth-child(odd) {
-        transform: translateY(-6px);
-      }
-
-      &:nth-child(even) {
-        transform: translateY(6px);
-      }
+      &:nth-child(odd)  { transform: translateY(-6px); }
+      &:nth-child(even) { transform: translateY(6px); }
 
       &:hover {
         z-index: 2;
@@ -290,40 +190,8 @@
     }
   }
 
-  // ─── Advanced CSS custom property hooks ───────────────────────────────────
+  // ─── Modifier hooks ───────────────────────────────────────────────────
 
-  &[style*="--author-grid-container-width"] {
-    max-width: var(--author-grid-container-width);
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .has-gradient-background {
-    background: linear-gradient(
-      var(--gradient-direction, to bottom),
-      var(--gradient-start-color, #{c.$white}),
-      var(--gradient-end-color, #{c.$surface})
-    );
-  }
-
-  .has-box-shadow {
-    box-shadow: var(--box-shadow-horizontal, 0) var(--box-shadow-vertical, 4px)
-                var(--box-shadow-blur, 16px) var(--box-shadow-spread, 0)
-                var(--box-shadow-color, rgb(0 0 0 / 0.1));
-  }
-
-  .has-border {
-    border-color: var(--border-color, #{c.$border-color});
-    border-style: solid;
-    border-width: var(--border-width, 1px);
-    border-radius: var(--border-radius, 0);
-  }
-
-  .has-shadow {
-
- @include c.shadow-effect; }
-
-  .is-rounded {
-
- @include c.rounded-corners; }
+  .has-shadow   { @include c.shadow-effect; }
+  .is-rounded   { @include c.rounded-corners; }
 }

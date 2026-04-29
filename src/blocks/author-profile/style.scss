@@ -2,9 +2,11 @@
  * Author Profile Block — Frontend styles
  */
 
-@use 'sass:color';
-@use 'sass:math';
 @use '../../supports/scss/common' as c;
+
+// ─── Keyframes ────────────────────────────────────────────────────────────────
+
+@include c.apbl-keyframes;
 
 // ─── CSS custom property defaults ─────────────────────────────────────────────
 
@@ -15,18 +17,19 @@
   --author-name-transform: none;
   --author-name-align: left;
   --author-name-margin: 0.25em;
+  --author-name-font-family: inherit;
 
-  --author-description-size: 0.9375rem;
+  --author-description-size: #{c.$font-size-base};
   --author-description-line-height: 1.7;
   --author-description-color: #{c.$text-color-secondary};
   --author-description-style: normal;
   --author-description-align: left;
   --author-description-margin: 0.75rem;
 
-  --author-meta-size: 0.8125rem;
+  --author-meta-size: #{c.$font-size-sm};
   --author-meta-color: #{c.$muted-color};
   --author-meta-style: normal;
-  --author-meta-weight: 400;
+  --author-meta-weight: #{c.$font-weight-normal};
   --author-meta-align: left;
   --author-meta-margin: 0.25em;
 
@@ -51,46 +54,6 @@
   --author-more-content-border-color: #{c.$border-color-light};
   --author-more-content-padding: 1.25rem;
   --author-section-spacing: 1rem;
-
-  --author-name-font-family: inherit;
-}
-
-// ─── Keyframes ────────────────────────────────────────────────────────────────
-
-@keyframes apbl-fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes apbl-slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes apbl-slideDown {
-  from { opacity: 0; transform: translateY(-24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes apbl-slideLeft {
-  from { opacity: 0; transform: translateX(24px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes apbl-slideRight {
-  from { opacity: 0; transform: translateX(-24px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes apbl-scaleIn {
-  from { opacity: 0; transform: scale(0.92); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes apbl-bounce {
-  0%, 60%, 100% { transform: translateY(0); }
-  30%            { transform: translateY(-10px); }
-  45%            { transform: translateY(-5px); }
 }
 
 // ─── Main block ───────────────────────────────────────────────────────────────
@@ -104,7 +67,7 @@
     overflow: hidden;
   }
 
-  // ─── Author image ──────────────────────────────────────────────────────────
+  // ─── Author image ────────────────────────────────────────────────────────
 
   .apbl-author-image {
     @include c.author-image;
@@ -133,7 +96,7 @@
     }
   }
 
-  // ─── Author name ───────────────────────────────────────────────────────────
+  // ─── Author name ─────────────────────────────────────────────────────────
 
   .apbl-author-name {
     @include c.author-name;
@@ -152,31 +115,30 @@
 
       &:hover {
         color: c.$primary-color;
-        text-decoration: none;
       }
     }
   }
 
-  // ─── Author position ───────────────────────────────────────────────────────
+  // ─── Author position ──────────────────────────────────────────────────────
 
   .apbl-author-position {
     @include c.author-position;
     margin-bottom: var(--author-meta-margin, 0.5rem);
-    font-size: var(--author-meta-size, 0.6875rem);
+    font-size: var(--author-meta-size, #{c.$font-size-xs});
     font-style: var(--author-meta-style, normal);
     font-weight: var(--author-meta-weight, 600);
     color: var(--author-meta-color, #{c.$primary-color});
     text-align: var(--author-meta-align, left);
   }
 
-  // ─── Author email ──────────────────────────────────────────────────────────
+  // ─── Author email ─────────────────────────────────────────────────────────
 
   .apbl-author-email {
     @include c.author-email;
     margin-bottom: var(--author-meta-margin, 0.25em);
-    font-size: var(--author-meta-size, 0.8125rem);
+    font-size: var(--author-meta-size, #{c.$font-size-sm});
     font-style: var(--author-meta-style, normal);
-    font-weight: var(--author-meta-weight, 400);
+    font-weight: var(--author-meta-weight, #{c.$font-weight-normal});
     color: var(--author-meta-color, #{c.$text-color-secondary});
     text-align: var(--author-meta-align, left);
 
@@ -191,31 +153,31 @@
     }
   }
 
-  // ─── Registered date ───────────────────────────────────────────────────────
+  // ─── Registered date ──────────────────────────────────────────────────────
 
   .apbl-author-registered-date {
     @include c.author-registered-date;
     margin-bottom: var(--author-meta-margin, 0.25em);
-    font-size: var(--author-meta-size, 0.8125rem);
+    font-size: var(--author-meta-size, #{c.$font-size-sm});
     font-style: var(--author-meta-style, italic);
-    font-weight: var(--author-meta-weight, 400);
+    font-weight: var(--author-meta-weight, #{c.$font-weight-normal});
     color: var(--author-meta-color, #{c.$muted-color});
     text-align: var(--author-meta-align, left);
   }
 
-  // ─── Author description ────────────────────────────────────────────────────
+  // ─── Author description ───────────────────────────────────────────────────
 
   .apbl-author-description {
     @include c.author-description;
     margin-bottom: var(--author-description-margin, 0.75rem);
-    font-size: var(--author-description-size, 0.9375rem);
+    font-size: var(--author-description-size, #{c.$font-size-base});
     font-style: var(--author-description-style, normal);
     line-height: var(--author-description-line-height, 1.7);
     color: var(--author-description-color, #{c.$text-color-secondary});
     text-align: var(--author-description-align, left);
   }
 
-  // ─── Social profiles ───────────────────────────────────────────────────────
+  // ─── Social profiles ──────────────────────────────────────────────────────
 
   .apbl-social-profiles {
     display: flex;
@@ -224,7 +186,12 @@
     justify-content: var(--author-social-icon-align, flex-start);
     margin-top: var(--author-section-spacing, 1rem);
 
-    .apbl-social-list,
+    &[data-align="center"],
+    &.apbl-social-align-center { justify-content: center; }
+
+    &[data-align="right"],
+    &.apbl-social-align-right  { justify-content: flex-end; }
+
     .apbl-social-list {
       display: flex;
       flex-wrap: wrap;
@@ -233,11 +200,6 @@
       margin: 0;
       list-style: none;
     }
-
-    &[data-align="center"],
-    &.apbl-social-align-center { justify-content: center; }
-    &[data-align="right"],
-    &.apbl-social-align-right  { justify-content: flex-end; }
 
     a {
       display: inline-flex;
@@ -251,14 +213,17 @@
       background-color: var(--author-social-icon-bg, #{c.$primary-light});
       color: var(--author-social-icon-color, #{c.$primary-color});
       text-decoration: none;
-      transition: background-color c.$transition-base, color c.$transition-base,
-                  transform c.$transition-base, box-shadow c.$transition-base;
+      transition:
+        background-color c.$transition-base,
+        color c.$transition-base,
+        transform c.$transition-base,
+        box-shadow c.$transition-base;
 
       &:hover {
         background-color: var(--author-social-icon-bg-hover, #{c.$primary-color});
         color: var(--author-social-icon-hover-color, #{c.$white});
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        box-shadow: c.$shadow-primary-sm;
       }
 
       .dashicons {
@@ -270,7 +235,7 @@
     }
   }
 
-  // ─── Block style variations ────────────────────────────────────────────────
+  // ─── Block style variations ───────────────────────────────────────────────
 
   &.is-style-card {
     overflow: hidden;
@@ -304,9 +269,9 @@
   }
 
   &.is-style-shadow {
+    background: c.$white;
     border-radius: c.$border-radius-lg;
     box-shadow: c.$shadow-md;
-    background: c.$white;
     transition: box-shadow c.$transition-standard, transform c.$transition-standard;
 
     &:hover {
@@ -315,7 +280,7 @@
     }
   }
 
-  // ─── Layout order variations ───────────────────────────────────────────────
+  // ─── Layout order variations ──────────────────────────────────────────────
 
   &.content-order-image-content {
     .apbl-author-profile-content {
@@ -369,7 +334,7 @@
     .apbl-author-image { margin: 0 auto; text-align: center; }
   }
 
-  // ─── Extra content ─────────────────────────────────────────────────────────
+  // ─── Extra content ────────────────────────────────────────────────────────
 
   .apbl-author-more-content {
     padding-top: var(--author-more-content-padding, 1.25rem);
@@ -388,17 +353,17 @@
     justify-content: center;
   }
 
-  // ─── Entrance animations (PHP generates has-*-animation) ──────────────────
+  // ─── Entrance animations ──────────────────────────────────────────────────
 
-  &.has-fadeIn-animation   { animation: apbl-fadeIn   var(--author-animation-duration, 0.5s) ease-out both; }
-  &.has-slideUp-animation  { animation: apbl-slideUp  var(--author-animation-duration, 0.5s) ease-out both; }
-  &.has-slideDown-animation{ animation: apbl-slideDown var(--author-animation-duration, 0.5s) ease-out both; }
-  &.has-slideLeft-animation{ animation: apbl-slideLeft var(--author-animation-duration, 0.5s) ease-out both; }
+  &.has-fadeIn-animation    { animation: apbl-fadeIn    var(--author-animation-duration, 0.5s) ease-out both; }
+  &.has-slideUp-animation   { animation: apbl-slideUp   var(--author-animation-duration, 0.5s) ease-out both; }
+  &.has-slideDown-animation { animation: apbl-slideDown var(--author-animation-duration, 0.5s) ease-out both; }
+  &.has-slideLeft-animation { animation: apbl-slideLeft var(--author-animation-duration, 0.5s) ease-out both; }
   &.has-slideRight-animation{ animation: apbl-slideRight var(--author-animation-duration, 0.5s) ease-out both; }
-  &.has-scaleIn-animation  { animation: apbl-scaleIn  var(--author-animation-duration, 0.5s) ease-out both; }
-  &.has-bounce-animation   { animation: apbl-bounce   var(--author-animation-duration, 0.8s) ease-out both; }
+  &.has-scaleIn-animation   { animation: apbl-scaleIn   var(--author-animation-duration, 0.5s) ease-out both; }
+  &.has-bounce-animation    { animation: apbl-bounce    var(--author-animation-duration, 0.8s) ease-out both; }
 
-  // ─── Hover effects (PHP generates has-*-hover on block wrapper) ───────────
+  // ─── Hover effects ────────────────────────────────────────────────────────
 
   &.has-lift-hover {
     transition: transform c.$transition-standard, box-shadow c.$transition-standard;
@@ -431,5 +396,11 @@
     transition: box-shadow c.$transition-standard;
 
     &:hover { box-shadow: c.$shadow-lg; }
+  }
+
+  // ─── Google font support ──────────────────────────────────────────────────
+
+  &[class*="has-"][class*="-font"] {
+    font-family: var(--google-font-family, inherit);
   }
 }
