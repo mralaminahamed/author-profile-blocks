@@ -15,7 +15,7 @@ import {
  * Internal dependencies
  */
 import { PresetStyles } from '../PresetStyles';
-import { AdvancedStyling } from '../AdvancedStyling';
+import { AdvancedStyling } from '../../../../supports/js/components/inspector';
 
 /**
  * StylePanel component for styling settings in the InspectorControls

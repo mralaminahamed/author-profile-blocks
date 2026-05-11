@@ -6,4 +6,4 @@
  * handled via props (preset lists, field maps, item-type labels) — the
  * components themselves stay identical.
  */
-export {};
+export { AdvancedStyling } from './AdvancedStyling';
