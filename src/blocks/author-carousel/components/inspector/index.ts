@@ -1,14 +1,7 @@
 /**
- * Inspector controls for Author Carousel Block
+ * Export inspector panel components
  */
-import ContentPanel from './ContentPanel';
-import LayoutPanel from './LayoutPanel';
-import StylePanel from './StylePanel';
-import AdvancedPanel from './AdvancedPanel';
-
-export {
-	ContentPanel,
-	LayoutPanel,
-	StylePanel,
-	AdvancedPanel,
-};
+export { default as ContentPanel } from './ContentPanel';
+export { default as StylePanel } from './StylePanel';
+export { default as LayoutPanel } from './LayoutPanel';
+export { default as AdvancedPanel } from './AdvancedPanel';
