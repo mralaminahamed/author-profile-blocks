@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace AuthorProfileBlocks\Blocks;
 
 use AuthorProfileBlocks\Blocks\Concerns\BuildsBlockClasses;
-use AuthorProfileBlocks\Blocks\Concerns\Builds_Block_Styles;
+use AuthorProfileBlocks\Blocks\Concerns\BuildsBlockStyles;
 use AuthorProfileBlocks\Blocks\Concerns\HasRenderCache;
 use AuthorProfileBlocks\Blocks\Concerns\ProvidesMessages;
 use AuthorProfileBlocks\Blocks\Concerns\Renders_Components;
@@ -29,7 +29,7 @@ abstract class Author_Block_Base implements Registerable {
 	use ResolvesAuthorData;
 	use HasRenderCache;
 	use BuildsBlockClasses;
-	use Builds_Block_Styles;
+	use BuildsBlockStyles;
 	use Renders_Components;
 	use Renders_Layouts;
 

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Builds_Block_Styles {
+trait BuildsBlockStyles {
 
 	/**
 	 * Get block styles based on attributes.
