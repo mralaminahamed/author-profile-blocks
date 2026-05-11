@@ -5,7 +5,7 @@ declare(strict_types=1);
  *
  * Layout-renderer helpers shared by all author blocks. Each method assembles
  * the per-layout template variables (delegating to component renderers from
- * the Renders_Components trait), loads the matching `blocks/layouts/*.php`
+ * the RendersComponents trait), loads the matching `blocks/layouts/*.php`
  * template via the plugin service, and returns the captured HTML. Extracted
  * from Author_Block_Base for separation of concerns.
  *

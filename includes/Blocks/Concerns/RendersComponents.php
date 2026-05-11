@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Renders_Components {
+trait RendersComponents {
 
 	/**
 	 * Render author image section.
