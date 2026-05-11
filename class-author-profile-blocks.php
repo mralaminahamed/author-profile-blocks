@@ -15,7 +15,7 @@ use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Profile_Block;
-use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
 use AuthorProfileBlocks\Services\Author_Profile_Service;
 
@@ -45,9 +45,9 @@ class Author_Profile_Blocks {
 	/**
 	 * User Meta Provider instance.
 	 *
-	 * @var User_Meta_Provider
+	 * @var UserMetaProvider
 	 */
-	private User_Meta_Provider $user_meta_provider;
+	private UserMetaProvider $user_meta_provider;
 
 	/**
 	 * Author Profile Service instance.
@@ -83,7 +83,7 @@ class Author_Profile_Blocks {
 	 * @return void
 	 */
 	public function register_services(): void {
-		$this->user_meta_provider     = new User_Meta_Provider();
+		$this->user_meta_provider     = new UserMetaProvider();
 		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
 
 		$this->register_blocks();
@@ -643,9 +643,9 @@ class Author_Profile_Blocks {
 	/**
 	 * Get the user meta provider.
 	 *
-	 * @return User_Meta_Provider The user meta provider instance.
+	 * @return UserMetaProvider The user meta provider instance.
 	 */
-	public function get_user_meta_provider(): User_Meta_Provider {
+	public function get_user_meta_provider(): UserMetaProvider {
 		return $this->user_meta_provider;
 	}
 

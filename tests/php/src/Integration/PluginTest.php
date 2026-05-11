@@ -8,7 +8,7 @@ use AuthorProfileBlocks\Blocks\Author_Profile_Block;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
-use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\Services\Author_Profile_Service;
 
 /**
@@ -79,7 +79,7 @@ class PluginTest extends IntegrationTestCase {
 
 	public function test_get_user_meta_provider_returns_provider(): void {
 		$this->assertInstanceOf(
-			User_Meta_Provider::class,
+			UserMetaProvider::class,
 			\author_profile_blocks()->get_user_meta_provider()
 		);
 	}

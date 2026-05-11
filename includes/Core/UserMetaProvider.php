@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that implements the MetaDataProvider interface for WordPress user meta.
  */
-class User_Meta_Provider implements MetaDataProvider {
+class UserMetaProvider implements MetaDataProvider {
 	/**
 	 * User meta fields configuration.
 	 *
@@ -74,9 +74,9 @@ class User_Meta_Provider implements MetaDataProvider {
 	 *     @type bool     $show_in_rest      Whether to show in REST API.
 	 * }
 	 *
-	 * @return User_Meta_Provider This instance for method chaining.
+	 * @return UserMetaProvider This instance for method chaining.
 	 */
-	public function add_meta_field( string $key, array $config ): User_Meta_Provider {
+	public function add_meta_field( string $key, array $config ): UserMetaProvider {
 		$this->meta_fields[ $key ] = $config;
 
 		return $this;

@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Core;
 
-use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Edge-case tests for User_Meta_Provider.
+ * Edge-case tests for UserMetaProvider.
  */
 class UserMetaProviderEdgeCasesTest extends IntegrationTestCase {
 
 	public function test_get_meta_with_single_false_returns_array(): void {
-		$p  = new User_Meta_Provider();
+		$p  = new UserMetaProvider();
 		$id = $this->create_author();
 
 		\add_user_meta( $id, 'apbl_test_multi', 'one' );
@@ -25,7 +25,7 @@ class UserMetaProviderEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_update_meta_with_null_value_clears_field(): void {
-		$p  = new User_Meta_Provider();
+		$p  = new UserMetaProvider();
 		$id = $this->create_author();
 
 		$p->update_meta( $id, 'apbl_test_null', 'starting' );
@@ -36,7 +36,7 @@ class UserMetaProviderEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_update_meta_with_object_serializes(): void {
-		$p   = new User_Meta_Provider();
+		$p   = new UserMetaProvider();
 		$id  = $this->create_author();
 		$obj = (object) array( 'a' => 1 );
 
@@ -47,7 +47,7 @@ class UserMetaProviderEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_add_meta_field_overwrites_existing_config(): void {
-		$p = new User_Meta_Provider();
+		$p = new UserMetaProvider();
 		$p->add_meta_field( 'apbl_test_overwrite_cfg', array( 'type' => 'string' ) );
 		$p->add_meta_field( 'apbl_test_overwrite_cfg', array( 'type' => 'integer' ) );
 
@@ -58,18 +58,18 @@ class UserMetaProviderEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_register_meta_fields_with_no_added_fields_is_noop(): void {
-		$p = new User_Meta_Provider();
+		$p = new UserMetaProvider();
 		$p->register_meta_fields();
 		$this->assertTrue( true );
 	}
 
 	public function test_get_meta_for_nonexistent_user_returns_empty(): void {
-		$p = new User_Meta_Provider();
+		$p = new UserMetaProvider();
 		$this->assertSame( '', $p->get_meta( PHP_INT_MAX, 'anything', true ) );
 	}
 
 	public function test_update_meta_returns_id_on_first_insert(): void {
-		$p  = new User_Meta_Provider();
+		$p  = new UserMetaProvider();
 		$id = $this->create_author();
 
 		$result = $p->update_meta( $id, 'apbl_test_first_insert', 'value' );

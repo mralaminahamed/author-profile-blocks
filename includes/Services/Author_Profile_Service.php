@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Services;
 
-use AuthorProfileBlocks\Core\User_Meta_Provider;
+use AuthorProfileBlocks\Core\UserMetaProvider;
 use WP_User_Query;
 
 // Exit if accessed directly.
@@ -26,9 +26,9 @@ class Author_Profile_Service {
 	/**
 	 * User Meta Provider instance.
 	 *
-	 * @var User_Meta_Provider
+	 * @var UserMetaProvider
 	 */
-	private User_Meta_Provider $meta_provider;
+	private UserMetaProvider $meta_provider;
 
 	/**
 	 * Cache for author data.
@@ -40,9 +40,9 @@ class Author_Profile_Service {
 	/**
 	 * Constructor.
 	 *
-	 * @param User_Meta_Provider $meta_provider The user meta provider.
+	 * @param UserMetaProvider $meta_provider The user meta provider.
 	 */
-	public function __construct( User_Meta_Provider $meta_provider ) {
+	public function __construct( UserMetaProvider $meta_provider ) {
 		$this->meta_provider = $meta_provider;
 	}
 

@@ -23,7 +23,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
         $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
 
         $this->assertStringContainsString('class Author_Profile_Service', $class_content);
-        $this->assertStringContainsString('private User_Meta_Provider $meta_provider;', $class_content);
+        $this->assertStringContainsString('private UserMetaProvider $meta_provider;', $class_content);
         $this->assertStringContainsString('private array $author_cache = array();', $class_content);
     }
 
@@ -59,7 +59,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
         $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
 
         $this->assertStringContainsString('public function __construct(', $class_content);
-        $this->assertStringContainsString('User_Meta_Provider $meta_provider', $class_content);
+        $this->assertStringContainsString('UserMetaProvider $meta_provider', $class_content);
     }
 
     /**
