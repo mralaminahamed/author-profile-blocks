@@ -17,7 +17,7 @@ use AuthorProfileBlocks\Blocks\Concerns\Has_Render_Cache;
 use AuthorProfileBlocks\Blocks\Concerns\ProvidesMessages;
 use AuthorProfileBlocks\Blocks\Concerns\Renders_Components;
 use AuthorProfileBlocks\Blocks\Concerns\Renders_Layouts;
-use AuthorProfileBlocks\Blocks\Concerns\Resolves_Author_Data;
+use AuthorProfileBlocks\Blocks\Concerns\ResolvesAuthorData;
 use AuthorProfileBlocks\Core\Registerable;
 use Author_Profile_Blocks;
 
@@ -26,7 +26,7 @@ use Author_Profile_Blocks;
  */
 abstract class Author_Block_Base implements Registerable {
 	use ProvidesMessages;
-	use Resolves_Author_Data;
+	use ResolvesAuthorData;
 	use Has_Render_Cache;
 	use Builds_Block_Classes;
 	use Builds_Block_Styles;

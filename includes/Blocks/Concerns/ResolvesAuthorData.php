@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Resolves_Author_Data {
+trait ResolvesAuthorData {
 
 	/**
 	 * Get author data from the service.
