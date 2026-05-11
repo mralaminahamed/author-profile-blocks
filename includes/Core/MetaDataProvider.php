@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Interface for classes that provide meta data.
  */
-interface Meta_Data_Provider {
+interface MetaDataProvider {
 	/**
 	 * Register meta fields.
 	 *

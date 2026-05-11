@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class that implements the Meta_Data_Provider interface for WordPress user meta.
+ * Class that implements the MetaDataProvider interface for WordPress user meta.
  */
-class User_Meta_Provider implements Meta_Data_Provider {
+class User_Meta_Provider implements MetaDataProvider {
 	/**
 	 * User meta fields configuration.
 	 *

@@ -13,7 +13,7 @@ class UserMetaProviderTest extends IntegrationTestCase {
 
 	public function test_implements_meta_data_provider_interface(): void {
 		$provider = new User_Meta_Provider();
-		$this->assertInstanceOf( 'AuthorProfileBlocks\\Core\\Meta_Data_Provider', $provider );
+		$this->assertInstanceOf( 'AuthorProfileBlocks\\Core\\MetaDataProvider', $provider );
 	}
 
 	public function test_add_meta_field_returns_self_for_chaining(): void {
