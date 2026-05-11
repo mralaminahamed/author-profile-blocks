@@ -81,5 +81,5 @@ $apbl_image_style   = implode( '; ', $apbl_avatar_styles );
 		alt="<?php echo esc_attr( $author_name ); ?>"
 		class="<?php echo esc_attr( $apbl_image_classes ); ?>"
 		style="<?php echo esc_attr( $apbl_image_style ); ?>"
-		loading="lazy" />
+		loading="<?php echo ! isset( $attributes['lazyLoad'] ) || $attributes['lazyLoad'] ? 'lazy' : 'eager'; ?>" />
 </div>

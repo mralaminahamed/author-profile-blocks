@@ -9,7 +9,6 @@ import {
 	SelectControl,
 	TextControl,
 	RangeControl,
-	__experimentalBoxControl as BoxControl,
 	__experimentalUnitControl as UnitControl,
 	BaseControl,
 	ColorPalette,
@@ -57,33 +56,6 @@ const LayoutPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) => 
 			/>
 
 			<PanelBody title={ __( 'Layout Options', 'author-profile-blocks' ) }>
-				<SelectControl
-					label={ __( 'Block Style Preset', 'author-profile-blocks' ) }
-					value={ blockStyle || '' }
-					options={ [
-						{
-							label: __( 'Default', 'author-profile-blocks' ),
-							value: '',
-						},
-						{
-							label: __( 'Card', 'author-profile-blocks' ),
-							value: 'is-style-card',
-						},
-						{
-							label: __( 'Minimal', 'author-profile-blocks' ),
-							value: 'is-style-minimal',
-						},
-						{
-							label: __( 'Bordered', 'author-profile-blocks' ),
-							value: 'is-style-bordered',
-						},
-						{
-							label: __( 'Shadow', 'author-profile-blocks' ),
-							value: 'is-style-shadow',
-						},
-					] }
-					onChange={ ( value ) => setAttributes( { blockStyle: value } ) }
-				/>
 
 				<RadioControl
 					label={ __( 'Content Layout', 'author-profile-blocks' ) }
@@ -158,34 +130,12 @@ const LayoutPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) => 
 				title={ __( 'Spacing', 'author-profile-blocks' ) }
 				initialOpen={ false }
 			>
-				<BoxControl
+				<RangeControl
 					label={ __( 'Padding', 'author-profile-blocks' ) }
-					values={ {
-						top: padding || 0,
-						right: padding || 0,
-						bottom: padding || 0,
-						left: padding || 0,
-					} }
-					onChange={ ( value ) => {
-						// If all sides are equal, store as a single value
-						const allEqual =
-							value.top === value.right &&
-							value.right === value.bottom &&
-							value.bottom === value.left;
-
-						if ( allEqual ) {
-							setAttributes( { padding: value.top } );
-						} else {
-							// For this example we'll keep using the single padding
-							// But in a real implementation you might want to store them separately
-							setAttributes( { padding: value.top } );
-						}
-					} }
-					units={ [
-						{ value: 'px', label: 'px' },
-						{ value: 'em', label: 'em' },
-						{ value: '%', label: '%' },
-					] }
+					value={ padding }
+					onChange={ ( value ) => setAttributes( { padding: value } ) }
+					min={ 0 }
+					max={ 80 }
 				/>
 
 				<UnitControl

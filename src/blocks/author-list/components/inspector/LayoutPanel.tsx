@@ -1,15 +1,13 @@
 import type { ListInspectorProps } from '../../types';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 import {
 	PanelBody,
-	SelectControl,
 	TextControl,
 	RangeControl,
 	__experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
+import DisplayStyleSelector from '../DisplayStyleSelector';
+import ListLayoutSelector from '../ListLayoutSelector';
 
 /**
  * Internal dependencies
@@ -44,49 +42,14 @@ const LayoutPanel = ( { attributes, setAttributes }: ListInspectorProps ) => {
 			/>
 
 			<PanelBody title={ __( 'List Layout', 'author-profile-blocks' ) }>
-				<SelectControl
-					label={ __( 'Layout Preset', 'author-profile-blocks' ) }
-					value={ layoutPreset }
-					options={ [
-						{ value: 'default', label: __( 'Default', 'author-profile-blocks' ) },
-						{ value: 'is-style-card', label: __( 'Card', 'author-profile-blocks' ) },
-						{ value: 'is-style-minimal', label: __( 'Minimal', 'author-profile-blocks' ) },
-						{ value: 'is-style-bordered', label: __( 'Bordered', 'author-profile-blocks' ) },
-						{ value: 'is-style-shadow', label: __( 'Shadow', 'author-profile-blocks' ) },
-						{ value: 'is-style-alternating', label: __( 'Alternating', 'author-profile-blocks' ) },
-					] }
-					onChange={ ( value ) => setAttributes( { layoutPreset: value } ) }
-				/>
-
-				<SelectControl
-					label={ __( 'Display Style', 'author-profile-blocks' ) }
+				<DisplayStyleSelector
 					value={ displayStyle }
-					options={ [
-						{ value: 'compact', label: __( 'Compact', 'author-profile-blocks' ) },
-						{ value: 'detailed', label: __( 'Detailed', 'author-profile-blocks' ) },
-					] }
 					onChange={ ( value ) => setAttributes( { displayStyle: value } ) }
 				/>
 
-				<SelectControl
-					label={ __( 'List Style', 'author-profile-blocks' ) }
+				<ListLayoutSelector
 					value={ listStyle }
-					options={ [
-						{ value: 'ul', label: __( 'Unordered List', 'author-profile-blocks' ) },
-						{ value: 'ol', label: __( 'Ordered List', 'author-profile-blocks' ) },
-					] }
 					onChange={ ( value ) => setAttributes( { listStyle: value } ) }
-				/>
-
-				<SelectControl
-					label={ __( 'Text Alignment', 'author-profile-blocks' ) }
-					value={ textAlign }
-					options={ [
-						{ value: 'left', label: __( 'Left', 'author-profile-blocks' ) },
-						{ value: 'center', label: __( 'Center', 'author-profile-blocks' ) },
-						{ value: 'right', label: __( 'Right', 'author-profile-blocks' ) },
-					] }
-					onChange={ ( value ) => setAttributes( { textAlign: value } ) }
 				/>
 			</PanelBody>
 

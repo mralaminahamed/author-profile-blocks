@@ -109,16 +109,6 @@ export function AdvancedTypography( {
 				) }
 			/>
 
-			<div style={ { marginTop: '16px', padding: '12px', backgroundColor: '#f8f9fa', borderRadius: '4px' } }>
-				<h4 style={ { margin: '0 0 8px 0', fontSize: '14px', fontWeight: '600' } }>
-					{ __( 'Typography Tips', 'author-profile-blocks' ) }
-				</h4>
-				<ul style={ { margin: '0', paddingLeft: '16px', fontSize: '13px', color: '#666' } }>
-					<li>{ __( 'Use em/rem units for responsive design', 'author-profile-blocks' ) }</li>
-					<li>{ __( 'Google Fonts enhance visual appeal', 'author-profile-blocks' ) }</li>
-					<li>{ __( 'Test readability across different devices', 'author-profile-blocks' ) }</li>
-				</ul>
-			</div>
 		</PanelBody>
 	);
 }

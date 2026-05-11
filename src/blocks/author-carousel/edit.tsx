@@ -102,7 +102,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 		}
 	}, [ googleFont ] );
 
-	const loadGoogleFont = ( fontName ) => {
+	const loadGoogleFont = ( fontName: string ) => {
 		if ( ! fontName ) {
 			return;
 		}
@@ -245,7 +245,6 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 								onSelectLayout={ handleSelectLayout }
 							/>
 						}
-						className="apbl-author-carousel-placeholder"
 					/>
 				) : (
 					<AuthorCarouselPreview attributes={ attributes } />

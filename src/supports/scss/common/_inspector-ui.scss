@@ -1,0 +1,319 @@
+/**
+ * Shared inspector panel UI — emitted into every block's editor CSS.
+ */
+
+@use 'variables' as v;
+
+// ─── Advanced Styling panel sections ─────────────────────────────────────────
+
+.apbl-inspector-section {
+  padding-top: v.$spacing-md;
+  margin-top: v.$spacing-md;
+  border-top: 1px solid v.$border-color;
+
+  &__title {
+    margin: 0 0 v.$spacing-sm;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-semibold;
+    color: v.$dark-gray;
+  }
+}
+
+// ─── Layout presets widget ────────────────────────────────────────────────────
+
+.apbl-layout-presets {
+  margin-bottom: v.$spacing-md;
+
+  .apbl-layout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: v.$spacing-xs;
+    margin-bottom: v.$spacing-xs;
+  }
+
+  .apbl-layout-preset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 8px;
+    cursor: pointer;
+    background: v.$white;
+    border: 1px solid v.$border-color;
+    border-radius: v.$border-radius-sm;
+    transition: all v.$transition-fast;
+
+    &:hover {
+      background: v.$primary-light;
+      border-color: v.$primary-mid;
+      color: v.$primary-color;
+    }
+
+    &.is-selected {
+      color: v.$white;
+      background: v.$primary-color;
+      border-color: v.$primary-color;
+    }
+
+    .apbl-layout-icon  { font-size: 18px; line-height: 1; }
+    .apbl-layout-label { font-size: 10px; font-weight: v.$font-weight-semibold; text-align: center; line-height: 1.2; }
+  }
+}
+
+// ─── Layout option buttons (GridLayoutSelector / CarouselLayoutSelector) ──────
+
+.apbl-layout-options,
+.apbl-grid-layout-options {
+  margin-bottom: v.$spacing-sm;
+
+  .apbl-layout-option {
+    padding: 6px 10px;
+    background: v.$white;
+    border: 1px solid v.$border-color;
+    border-radius: v.$border-radius-sm;
+    transition: all v.$transition-fast;
+
+    svg {
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    &:hover:not([aria-pressed='true']) {
+      background: v.$primary-light;
+      border-color: v.$primary-mid;
+      color: v.$primary-color;
+    }
+
+    &[aria-pressed='true'],
+    &.is-selected {
+      background: v.$primary-light;
+      border-color: v.$primary-color;
+      color: v.$primary-color;
+      box-shadow: inset 0 0 0 1px v.$primary-color;
+    }
+  }
+}
+
+// ─── Preset style buttons ─────────────────────────────────────────────────────
+
+.apbl-presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: v.$spacing-xs;
+  margin-bottom: v.$spacing-xs;
+}
+
+.apbl-preset-item {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-xs;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 80px;
+  padding: v.$spacing-sm;
+  text-align: center;
+  cursor: pointer;
+  background: v.$white;
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-sm;
+  transition: background v.$transition-fast, border-color v.$transition-fast, color v.$transition-fast;
+
+  &:hover {
+    background: v.$primary-light;
+    border-color: v.$primary-mid;
+    color: v.$primary-color;
+  }
+
+  &__icon { color: v.$primary-color; line-height: 1; }
+  &__label { font-size: v.$font-size-xs; font-weight: v.$font-weight-semibold; color: v.$dark-gray; line-height: 1.2; }
+
+  &:hover .apbl-preset-item__label { color: v.$primary-color; }
+}
+
+.apbl-preset-button {
+  transition: box-shadow v.$transition-fast, transform v.$transition-fast !important;
+
+  &:hover {
+    box-shadow: v.$shadow-md;
+    transform: translateY(-1px);
+  }
+}
+
+.apbl-presets-tip {
+  padding: v.$spacing-xs v.$spacing-sm;
+  margin-top: v.$spacing-xs;
+  font-size: v.$font-size-xs;
+  color: #0066cc;
+  background: #f0f7fc;
+  border: 1px solid #c3e6fb;
+  border-radius: v.$border-radius-sm;
+}
+
+// ─── More content editor ──────────────────────────────────────────────────────
+
+.apbl-more-content-label {
+  margin: 0 0 v.$spacing-xs;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-semibold;
+  color: v.$dark-gray;
+}
+
+.apbl-more-content-editor {
+  min-height: 80px;
+  padding: v.$spacing-sm;
+  background: v.$light-gray;
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-sm;
+}
+
+// ─── Loading / error states (editor + AuthorsListPreview) ─────────────────────
+
+.apbl-loading {
+  display: flex;
+  gap: v.$spacing-sm;
+  align-items: center;
+  justify-content: center;
+  padding: v.$spacing-xl;
+  font-size: v.$font-size-sm;
+  color: v.$text-color-secondary;
+
+  p { margin: 0; }
+}
+
+.apbl-author-list-preview {
+  font-family: inherit;
+
+  &.apbl-no-authors,
+  &.apbl-loading {
+    padding: v.$spacing-md;
+    color: v.$muted-color;
+    text-align: center;
+  }
+
+  .apbl-author-list-error {
+    padding: v.$spacing-sm;
+    color: v.$error;
+    background: color-mix(in srgb, v.$error 6%, transparent);
+    border: 1px solid color-mix(in srgb, v.$error 30%, transparent);
+    border-radius: v.$border-radius-sm;
+  }
+}
+
+// ─── Block placeholder (AuthorBlockPlaceholder wrapper) ───────────────────────
+
+.apbl-block-placeholder {
+  border-radius: v.$border-radius-sm !important;
+  gap: v.$spacing-sm !important;
+
+  // Primary-colored icon + bolder title
+  .components-placeholder__label {
+    gap: 6px !important;
+    font-size: v.$font-size-base !important;
+    font-weight: v.$font-weight-semibold !important;
+    color: v.$text-color !important;
+
+    svg { color: v.$primary-color; }
+  }
+
+  // Muted instructions
+  .components-placeholder__instructions {
+    margin: 0 !important;
+    font-size: v.$font-size-sm !important;
+    line-height: 1.5 !important;
+    color: v.$text-color-secondary !important;
+  }
+
+  // Fieldset fills full width with compact gap
+  .components-placeholder__fieldset {
+    width: 100%;
+    gap: v.$spacing-sm;
+  }
+}
+
+// ─── Placeholder inner states ─────────────────────────────────────────────────
+
+.apbl-placeholder-loading {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-sm;
+  align-items: center;
+  padding: v.$spacing-md 0;
+  font-size: v.$font-size-sm;
+  color: v.$text-color-secondary;
+
+  p { margin: 0; }
+}
+
+.apbl-placeholder-empty {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-sm;
+  align-items: center;
+  width: 100%;
+
+  p {
+    margin: 0 0 v.$spacing-xs;
+    font-size: v.$font-size-sm;
+    color: v.$text-color-secondary;
+    text-align: center;
+  }
+}
+
+// Picker card — subtly separated from the placeholder background
+.apbl-placeholder-picker {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-sm;
+  width: 100%;
+  padding: v.$spacing-sm v.$spacing-md;
+  background: v.$light-gray;
+  border: 1px solid v.$border-color;
+  border-radius: v.$border-radius-sm;
+}
+
+// ─── Picker controls row (select + button) ────────────────────────────────────
+
+.apbl-placeholder-picker-controls {
+  width: 100%;
+
+  .components-base-control__field { margin-bottom: 0 !important; }
+  .components-base-control        { margin-bottom: 0 !important; }
+
+  // Match select height to button for pixel-perfect centering
+  .components-select-control__input {
+    width: 100%;
+    height: 36px;
+    border-radius: v.$border-radius-sm;
+  }
+}
+
+// Layout selector inside picker card — separated from controls row
+.apbl-placeholder-picker {
+  .apbl-grid-layout-options,
+  .apbl-layout-options {
+    padding-top: v.$spacing-xs;
+    border-top: 1px solid v.$border-color-light;
+
+    .components-button-group {
+      display: flex;
+      width: 100%;
+    }
+
+    .apbl-layout-option {
+      flex: 1;
+      justify-content: center;
+      border-radius: 0 !important;
+
+      &:first-child { border-radius: v.$border-radius-sm 0 0 v.$border-radius-sm !important; }
+      &:last-child  { border-radius: 0 v.$border-radius-sm v.$border-radius-sm 0 !important; }
+    }
+  }
+}
+
+.apbl-placeholder-count {
+  margin: 0;
+  font-size: v.$font-size-xs;
+  color: v.$muted-color;
+}

@@ -1,27 +1,22 @@
 import type { ProfileInspectorProps } from '../../types';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
-import {
-	PanelBody,
-	ToggleControl,
-	Button,
-	Card,
-	CardBody,
-	CheckboxControl,
-} from '@wordpress/components';
+import { PanelBody, ToggleControl, Button } from '@wordpress/components';
 
-/**
- * ContentPanel component for content-related settings in the InspectorControls
- *
- * @param {Object}   props                   Component props
- * @param {Object}   props.attributes        Block attributes
- * @param {Function} props.setAttributes     Function to set block attributes
- * @param {Function} props.handleClearAuthor Function to clear author selection
- * @return {JSX.Element} Content panel component
- */
-const ContentPanel = ( { attributes, setAttributes, handleClearAuthor }: ProfileInspectorProps & { handleClearAuthor: () => void } ) => {
+const SOCIAL_PLATFORMS: { key: string; label: string }[] = [
+	{ key: 'facebook', label: 'Facebook' },
+	{ key: 'twitter', label: 'Twitter / X' },
+	{ key: 'linkedin', label: 'LinkedIn' },
+	{ key: 'instagram', label: 'Instagram' },
+	{ key: 'youtube', label: 'YouTube' },
+	{ key: 'github', label: 'GitHub' },
+	{ key: 'website', label: __( 'Website', 'author-profile-blocks' ) },
+];
+
+const ContentPanel = ( {
+	attributes,
+	setAttributes,
+	handleClearAuthor,
+}: ProfileInspectorProps & { handleClearAuthor: () => void } ) => {
 	const {
 		authorId,
 		showImage,
@@ -35,224 +30,94 @@ const ContentPanel = ( { attributes, setAttributes, handleClearAuthor }: Profile
 		contentTabs,
 	} = attributes;
 
+	const toggleSocialPlatform = ( key: string, checked: boolean ) => {
+		const current = socialLinksToShow || [];
+		setAttributes( {
+			socialLinksToShow: checked
+				? [ ...current, key ]
+				: current.filter( ( p ) => p !== key ),
+		} );
+	};
+
 	return (
 		<>
-			<PanelBody title={ __( 'Author Selection', 'author-profile-blocks' ) }>
-				{ authorId > 0 && (
+			{ authorId > 0 && (
+				<PanelBody title={ __( 'Author', 'author-profile-blocks' ) } initialOpen={ true }>
 					<Button
 						isDestructive
 						variant="secondary"
-						className="wpas-clear-button"
 						onClick={ handleClearAuthor }
 					>
 						{ __( 'Clear Selected Author', 'author-profile-blocks' ) }
 					</Button>
-				) }
-			</PanelBody>
+				</PanelBody>
+			) }
 
-			<PanelBody title={ __( 'Content Elements', 'author-profile-blocks' ) }>
+			<PanelBody title={ __( 'Display Elements', 'author-profile-blocks' ) } initialOpen={ true }>
 				<ToggleControl
-					label={ __( 'Show Author Image', 'author-profile-blocks' ) }
+					label={ __( 'Show Avatar', 'author-profile-blocks' ) }
 					checked={ showImage }
 					onChange={ () => setAttributes( { showImage: ! showImage } ) }
 				/>
 
+				{ showImage && (
+					<ToggleControl
+						label={ __( 'Lazy Load Image', 'author-profile-blocks' ) }
+						checked={ lazyLoad }
+						onChange={ () => setAttributes( { lazyLoad: ! lazyLoad } ) }
+					/>
+				) }
+
 				<ToggleControl
-					label={ __( 'Show Author Email', 'author-profile-blocks' ) }
+					label={ __( 'Show Email', 'author-profile-blocks' ) }
 					checked={ showEmail }
 					onChange={ () => setAttributes( { showEmail: ! showEmail } ) }
 				/>
 
 				<ToggleControl
-					label={ __(
-						'Show Author Description',
-						'author-profile-blocks',
-					) }
+					label={ __( 'Show Description', 'author-profile-blocks' ) }
 					checked={ showDescription }
-					onChange={ () =>
-						setAttributes( { showDescription: ! showDescription } )
-					}
+					onChange={ () => setAttributes( { showDescription: ! showDescription } ) }
 				/>
 
 				<ToggleControl
-					label={ __(
-						'Show Member Since Date',
-						'author-profile-blocks',
-					) }
+					label={ __( 'Show Member Since', 'author-profile-blocks' ) }
 					checked={ showRegisteredDate }
-					onChange={ () =>
-						setAttributes( {
-							showRegisteredDate: ! showRegisteredDate,
-						} )
-					}
+					onChange={ () => setAttributes( { showRegisteredDate: ! showRegisteredDate } ) }
 				/>
 
 				<ToggleControl
 					label={ __( 'Show More Section', 'author-profile-blocks' ) }
 					checked={ showMoreContent }
-					onChange={ () =>
-						setAttributes( { showMoreContent: ! showMoreContent } )
-					}
+					onChange={ () => setAttributes( { showMoreContent: ! showMoreContent } ) }
 				/>
-
-				<ToggleControl
-					label={ __( 'Show Social Links', 'author-profile-blocks' ) }
-					checked={ showSocialLinks }
-					onChange={ () =>
-						setAttributes( { showSocialLinks: ! showSocialLinks } )
-					}
-				/>
-
-				{ showImage && (
-					<ToggleControl
-						label={ __( 'Lazy Load Images', 'author-profile-blocks' ) }
-						checked={ lazyLoad }
-						onChange={ () => setAttributes( { lazyLoad: ! lazyLoad } ) }
-						help={ __(
-							'Load images only when they come into view to improve performance',
-							'author-profile-blocks',
-						) }
-					/>
-				) }
 
 				<ToggleControl
 					label={ __( 'Organize Content in Tabs', 'author-profile-blocks' ) }
 					checked={ contentTabs }
 					onChange={ () => setAttributes( { contentTabs: ! contentTabs } ) }
-					help={ __(
-						'Display author information in organized tabs',
-						'author-profile-blocks',
-					) }
+					help={ __( 'Display author info in tabbed sections', 'author-profile-blocks' ) }
+				/>
+			</PanelBody>
+
+			<PanelBody title={ __( 'Social Links', 'author-profile-blocks' ) } initialOpen={ false }>
+				<ToggleControl
+					label={ __( 'Show Social Links', 'author-profile-blocks' ) }
+					checked={ showSocialLinks }
+					onChange={ () => setAttributes( { showSocialLinks: ! showSocialLinks } ) }
 				/>
 
 				{ showSocialLinks && (
-					<Card>
-						<CardBody>
-							<CheckboxControl
-								label={ __( 'Facebook', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes(
-									'facebook',
-								) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'facebook' ]
-											: currentLinks.filter(
-												( link ) =>
-													link !== 'facebook',
-											),
-									} );
-								} }
+					<div style={ { marginTop: '8px' } }>
+						{ SOCIAL_PLATFORMS.map( ( { key, label } ) => (
+							<ToggleControl
+								key={ key }
+								label={ label }
+								checked={ ( socialLinksToShow || [] ).includes( key ) }
+								onChange={ ( checked ) => toggleSocialPlatform( key, checked ) }
 							/>
-							<CheckboxControl
-								label={ __( 'Twitter', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes( 'twitter' ) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'twitter' ]
-											: currentLinks.filter(
-												( link ) => link !== 'twitter',
-											),
-									} );
-								} }
-							/>
-							<CheckboxControl
-								label={ __( 'LinkedIn', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes(
-									'linkedin',
-								) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'linkedin' ]
-											: currentLinks.filter(
-												( link ) =>
-													link !== 'linkedin',
-											),
-									} );
-								} }
-							/>
-							<CheckboxControl
-								label={ __( 'Instagram', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes(
-									'instagram',
-								) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'instagram' ]
-											: currentLinks.filter(
-												( link ) =>
-													link !== 'instagram',
-											),
-									} );
-								} }
-							/>
-							<CheckboxControl
-								label={ __( 'YouTube', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes(
-									'youtube',
-								) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'youtube' ]
-											: currentLinks.filter(
-												( link ) =>
-													link !== 'youtube',
-											),
-									} );
-								} }
-							/>
-							<CheckboxControl
-								label={ __( 'GitHub', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes(
-									'github',
-								) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'github' ]
-											: currentLinks.filter(
-												( link ) =>
-													link !== 'github',
-											),
-									} );
-								} }
-							/>
-							<CheckboxControl
-								label={ __( 'Website', 'author-profile-blocks' ) }
-								checked={ socialLinksToShow?.includes(
-									'website',
-								) }
-								onChange={ ( checked ) => {
-									const currentLinks =
-										socialLinksToShow || [];
-									setAttributes( {
-										socialLinksToShow: checked
-											? [ ...currentLinks, 'website' ]
-											: currentLinks.filter(
-												( link ) =>
-													link !== 'website',
-											),
-									} );
-								} }
-							/>
-						</CardBody>
-					</Card>
+						) ) }
+					</div>
 				) }
 			</PanelBody>
 		</>

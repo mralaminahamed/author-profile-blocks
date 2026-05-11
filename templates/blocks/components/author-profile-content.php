@@ -21,33 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Build container class
-$apbl_container_class = 'apb-author-profile-content';
+// Build container class — must match profile/style.scss selectors
+$apbl_container_class = 'apbl-author-profile-content';
 
-if ( ! empty( $attributes['layoutPreset'] ) ) {
-	$apbl_container_class .= ' ' . esc_attr( $attributes['layoutPreset'] );
-}
-if ( ! empty( $attributes['animationType'] ) && 'none' !== $attributes['animationType'] ) {
-	$apbl_container_class .= ' apb-animation-' . esc_attr( $attributes['animationType'] );
-}
-if ( ! empty( $attributes['hoverEffect'] ) && 'none' !== $attributes['hoverEffect'] ) {
-	$apbl_container_class .= ' apb-hover-' . esc_attr( $attributes['hoverEffect'] );
-}
 if ( ! empty( $attributes['googleFont'] ) ) {
 	$apbl_container_class .= ' has-' . esc_attr( sanitize_title( $attributes['googleFont'] ) ) . '-font';
 }
 
-// Build inline styles
+// Build inline styles — use the same CSS vars referenced in profile/style.scss
 $apbl_container_style = '';
-if ( isset( $attributes['sectionSpacing'] ) ) {
-	$apbl_container_style .= '--author-profile-section-spacing: ' . (int) $attributes['sectionSpacing'] . 'px;';
-}
-if ( ! empty( $attributes['customVar1'] ) ) {
-	$apbl_container_style .= '--author-profile-custom-var-1: ' . esc_attr( $attributes['customVar1'] ) . ';';
-}
-if ( ! empty( $attributes['customVar2'] ) ) {
-	$apbl_container_style .= '--author-profile-custom-var-2: ' . esc_attr( $attributes['customVar2'] ) . ';';
-}
 ?>
 <div class="<?php echo esc_attr( $apbl_container_class ); ?>"<?php echo ! empty( $apbl_container_style ) ? ' style="' . esc_attr( $apbl_container_style ) . '"' : ''; ?>>
 

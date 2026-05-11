@@ -51,10 +51,19 @@ echo $wrapper_attributes;
 		$apbl_list_classes[] = 'has-dividers';
 	}
 
-	// Add section spacing custom property.
+	// Add spacing and appearance custom properties.
 	$apbl_list_style = '';
 	if ( isset( $attributes['sectionSpacing'] ) ) {
 		$apbl_list_style .= '--author-list-section-spacing: ' . (int) $attributes['sectionSpacing'] . 'px;';
+	}
+	if ( isset( $attributes['itemSpacing'] ) ) {
+		$apbl_list_style .= '--author-list-item-spacing: ' . (int) $attributes['itemSpacing'] . 'px;';
+	}
+	if ( ! empty( $attributes['itemBackgroundColor'] ) ) {
+		$apbl_list_style .= '--author-list-item-bg: ' . esc_attr( $attributes['itemBackgroundColor'] ) . ';';
+	}
+	if ( ! empty( $attributes['enableDividers'] ) && ! empty( $attributes['dividerColor'] ) ) {
+		$apbl_list_style .= '--author-list-divider-color: ' . esc_attr( $attributes['dividerColor'] ) . ';';
 	}
 
 	// Add custom CSS variables.

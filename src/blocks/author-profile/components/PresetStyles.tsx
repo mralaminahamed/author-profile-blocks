@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Button, PanelBody } from '@wordpress/components';
+import { PanelBody } from '@wordpress/components';
 import { Contact, Sparkles, Moon, Palette, Quote, Briefcase } from 'lucide-react';
 
 /**
@@ -152,57 +152,27 @@ export function PresetStyles( { onApplyPreset } ) {
 	];
 
 	return (
-		<PanelBody
-			title={ __( 'Style Presets', 'author-profile-blocks' ) }
-			initialOpen={ false }
-		>
-			<p style={ { margin: '0 0 16px 0', fontSize: '13px', color: '#666' } }>
-				{ __(
-					'Choose from pre-designed style presets to quickly apply professional styling to your author profile.',
-					'author-profile-blocks',
-				) }
-			</p>
-
-			<div style={ { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' } }>
+		<PanelBody title={ __( 'Style Presets', 'author-profile-blocks' ) } initialOpen={ false }>
+			<div className="apbl-presets-grid">
 				{ presets.map( ( { id, name, description, icon: Icon, settings } ) => (
-					<Button
+					<button
 						key={ id }
-						variant="secondary"
-						className="apbl-preset-button"
+						type="button"
+						className="apbl-preset-item"
 						onClick={ () => onApplyPreset( settings ) }
-						style={ {
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							padding: '16px 12px',
-							textAlign: 'center',
-							minHeight: '100px',
-							border: '1px solid #ddd',
-							borderRadius: '6px',
-							backgroundColor: '#fff',
-							transition: 'all 0.2s ease',
-						} }
 						title={ description }
 					>
-						<div style={ { marginBottom: '8px', lineHeight: 1, color: '#4f46e5' } }>
-							<Icon size={ 22 } strokeWidth={ 1.75 } />
-						</div>
-						<div style={ { fontSize: '12px', fontWeight: '600', color: '#333', lineHeight: '1.2' } }>
-							{ name }
-						</div>
-					</Button>
+						<span className="apbl-preset-item__icon">
+							<Icon size={ 20 } strokeWidth={ 1.75 } />
+						</span>
+						<span className="apbl-preset-item__label">{ name }</span>
+					</button>
 				) ) }
 			</div>
 
-			<div style={ { marginTop: '16px', padding: '12px', backgroundColor: '#f0f7fc', borderRadius: '4px', border: '1px solid #c3e6fb' } }>
-				<p style={ { margin: '0', fontSize: '12px', color: '#0066cc' } }>
-					<strong>{ __( 'Tip:', 'author-profile-blocks' ) }</strong>{ ' ' }
-					{ __(
-						'Presets will override your current styling. You can still customize individual settings after applying a preset.',
-						'author-profile-blocks',
-					) }
-				</p>
-			</div>
+			<p className="apbl-presets-tip">
+				{ __( 'Presets override current styles. You can still customize after applying.', 'author-profile-blocks' ) }
+			</p>
 		</PanelBody>
 	);
 }

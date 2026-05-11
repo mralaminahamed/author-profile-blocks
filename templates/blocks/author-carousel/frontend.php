@@ -22,7 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 echo $wrapper_attributes;
 ?>
 >
-	<div class="apbl-author-carousel" data-settings="<?php echo esc_attr( wp_json_encode( $carousel_settings ) ); ?>">
+	<div class="apbl-author-carousel" data-settings="<?php echo esc_attr( wp_json_encode( $carousel_settings ) ); ?>"<?php
+	if ( isset( $attributes['slideSpacing'] ) && $attributes['slideSpacing'] > 0 ) {
+		echo ' style="--author-carousel-slide-spacing:' . (int) $attributes['slideSpacing'] . 'px"'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- (int) cast is safe
+	}
+	?>>
 		<?php foreach ( $authors as $apbl_author ) : ?>
 			<?php
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- render_author_slide() returns properly escaped HTML

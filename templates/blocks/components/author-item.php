@@ -28,10 +28,22 @@ $apbl_wrapper_element = $wrapper_element ?? 'div';
 $apbl_wrapper_class   = $wrapper_class ?? '';
 ?>
 <<?php echo esc_attr( $apbl_wrapper_element ); ?><?php echo ! empty( $apbl_wrapper_class ) ? ' class="' . esc_attr( $apbl_wrapper_class ) . '"' : ''; ?>>
-	<div class="<?php echo esc_attr( $item_class ); ?>"<?php echo esc_attr( $style_attribute ); ?>>
+	<div class="<?php echo esc_attr( $item_class ); ?>"<?php
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- style value already esc_attr'd in block class
+	echo $style_attribute; ?>>
 		<?php
 		// Use the shared layout templates
 		switch ( $layout ) {
+			case 'minimal':
+				author_profile_blocks()->get_template(
+					'blocks/layouts/minimal.php',
+					array(
+						'author'     => $author,
+						'attributes' => $attributes,
+					)
+				);
+				break;
+
 			case 'compact':
 				author_profile_blocks()->get_template(
 					'blocks/layouts/compact.php',

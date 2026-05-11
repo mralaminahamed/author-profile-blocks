@@ -39,7 +39,7 @@ const GridLayoutSelector = ( { selectedLayout, onSelectLayout } ) => {
 						isPressed={ selectedLayout === name }
 						onClick={ () => onSelectLayout( name ) }
 					>
-						<Icon size={ 16 } strokeWidth={ 1.75 } style={ { marginRight: '4px', verticalAlign: 'middle' } } />
+						<Icon size={ 16 } strokeWidth={ 1.75 } />
 						<span>{ label }</span>
 					</Button>
 				) ) }

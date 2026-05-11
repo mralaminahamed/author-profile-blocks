@@ -38,18 +38,19 @@
 
 /* ─── Global typography ──────────────────────────────────────────────────── */
 body {
-  font-family: var(--apbl-font-body) !important;
+  font-family: var(--apbl-font-body), serif !important;
   background-color: var(--apbl-neutral-50);
+  display: flex;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--apbl-font-display) !important;
+  font-family: var(--apbl-font-display), serif !important;
   letter-spacing: -0.02em;
   font-weight: 400 !important;
 }
 
 code, pre, kbd, .highlight {
-  font-family: var(--apbl-font-mono) !important;
+  font-family: var(--apbl-font-mono), serif !important;
 }
 
 /* ─── Sidebar overrides (dark navy) ─────────────────────────────────────── */
@@ -75,7 +76,7 @@ code, pre, kbd, .highlight {
 /* Site title / logo */
 .site-title {
   color: #ffffff !important;
-  font-family: var(--apbl-font-display) !important;
+  font-family: var(--apbl-font-display), serif !important;
   font-size: 1rem !important;
   letter-spacing: -0.01em;
 }

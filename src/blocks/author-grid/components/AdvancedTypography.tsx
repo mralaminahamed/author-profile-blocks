@@ -91,10 +91,7 @@ export function AdvancedTypography( {
 
 			{ googleFont && (
 				<Notice status="info" isDismissible={ false }>
-					{ __(
-						'Google Font loaded. The selected font will be applied to author names in the grid.',
-						'author-profile-blocks',
-					) }
+					{ __( 'Font loaded — applies to author names.', 'author-profile-blocks' ) }
 				</Notice>
 			) }
 
@@ -103,22 +100,8 @@ export function AdvancedTypography( {
 				value={ fontSizeUnit }
 				options={ fontSizeUnits }
 				onChange={ ( value ) => onChange( { fontSizeUnit: value } ) }
-				help={ __(
-					'Choose the unit for font sizes (px for fixed, em/rem for responsive)',
-					'author-profile-blocks',
-				) }
+				help={ __( 'em/rem for responsive sizing', 'author-profile-blocks' ) }
 			/>
-
-			<div style={ { marginTop: '16px', padding: '12px', backgroundColor: '#f8f9fa', borderRadius: '4px' } }>
-				<h4 style={ { margin: '0 0 8px 0', fontSize: '14px', fontWeight: '600' } }>
-					{ __( 'Typography Tips', 'author-profile-blocks' ) }
-				</h4>
-				<ul style={ { margin: '0', paddingLeft: '16px', fontSize: '13px', color: '#666' } }>
-					<li>{ __( 'Use em/rem units for responsive grid design', 'author-profile-blocks' ) }</li>
-					<li>{ __( 'Google Fonts enhance visual appeal of author names', 'author-profile-blocks' ) }</li>
-					<li>{ __( 'Test readability across different screen sizes', 'author-profile-blocks' ) }</li>
-				</ul>
-			</div>
 		</PanelBody>
 	);
 }

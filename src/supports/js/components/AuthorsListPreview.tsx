@@ -1,20 +1,48 @@
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
+import { Spinner } from '@wordpress/components';
+import type { Author } from '../types';
 
-/**
- * AuthorsListPreview component for previewing author list in editor
- *
- * @param {Object} props            Component props
- * @param {Array}  props.authors    Array of author objects
- * @param {Object} props.attributes Block attributes
- * @return {JSX.Element} Component to render
- */
-const AuthorsListPreview = ( { authors = [], attributes = {} } ) => {
+interface Attributes {
+	displayStyle?: string;
+	showImage?: boolean;
+	showPosition?: boolean;
+	showEmail?: boolean;
+	showDescription?: boolean;
+	showSocial?: boolean;
+	listStyle?: string;
+	enableDividers?: boolean;
+	textAlign?: string;
+	[ key: string ]: unknown;
+}
+
+interface Props {
+	authors?: Author[];
+	attributes?: Attributes;
+	isLoading?: boolean;
+	error?: string | null;
+}
+
+const AuthorsListPreview = ( { authors = [], attributes = {}, isLoading = false, error = null }: Props ) => {
+	if ( isLoading ) {
+		return (
+			<div className="apbl-author-list-preview apbl-loading">
+				<Spinner />
+				<p>{ __( 'Loading authors…', 'author-profile-blocks' ) }</p>
+			</div>
+		);
+	}
+
+	if ( error ) {
+		return (
+			<div className="apbl-author-list-preview apbl-author-list-error">
+				{ error }
+			</div>
+		);
+	}
+
 	if ( ! authors.length ) {
 		return (
-			<div className="apbl-authors-list-preview apbl-no-authors">
+			<div className="apbl-author-list-preview">
 				<p>{ __( 'No authors to display.', 'author-profile-blocks' ) }</p>
 			</div>
 		);
@@ -26,105 +54,70 @@ const AuthorsListPreview = ( { authors = [], attributes = {} } ) => {
 		showPosition = true,
 		showEmail = false,
 		showDescription = false,
-		showSocial = true,
 		listStyle = 'ul',
 		enableDividers = true,
 		textAlign = 'left',
 	} = attributes;
 
-	const ListTag = listStyle;
-	const classes = [
-		'apbl-authors-list-preview',
+	const ListTag = listStyle as 'ul' | 'ol';
+
+	const listClasses = [
+		'apbl-author-list',
 		`apbl-display-${ displayStyle }`,
 		`apbl-text-align-${ textAlign }`,
-		enableDividers ? 'apbl-has-dividers' : '',
-	]
-		.filter( Boolean )
-		.join( ' ' );
+		enableDividers ? 'has-dividers' : '',
+	].filter( Boolean ).join( ' ' );
+
+	const layoutClass = displayStyle === 'detailed' ? 'apbl-author-detailed' : 'apbl-author-compact';
 
 	return (
-		<div className={ classes }>
-			<ListTag className="apbl-authors-list">
-				{ authors.map( ( author, index ) => (
-					<li
-						key={ author.id || index }
-						className="apbl-author-list-item"
-					>
-						<div className="apbl-author-content">
-							{ showImage && author.avatar && (
-								<div className="apbl-author-avatar">
+		<ListTag className={ listClasses }>
+			{ authors.map( ( author, index ) => (
+				<li key={ author.id || index } className="apbl-author-list-item">
+					<div className="apbl-author-list-item-content">
+						<div className={ layoutClass }>
+							{ showImage && ( author as any ).avatar && (
+								<div className="apbl-author-image">
 									<img
-										src={ author.avatar }
-										alt={
-											author.name ||
-											author.display_name ||
-											''
-										}
-										width="60"
-										height="60"
+										src={ ( author as any ).avatar }
+										alt={ author.name || '' }
+										width={ displayStyle === 'detailed' ? 80 : 56 }
+										height={ displayStyle === 'detailed' ? 80 : 56 }
+										loading="lazy"
 									/>
 								</div>
 							) }
 
 							<div className="apbl-author-info">
-								<h3 className="apbl-author-name">
-									{ author.name ||
-										author.display_name ||
-										`User ${ author.id }` }
-								</h3>
+								<span className="apbl-author-name">
+									{ author.name || `User ${ author.id }` }
+								</span>
 
-								{ showPosition && author.position && (
-									<div className="apbl-author-position">
-										{ author.position }
-									</div>
+								{ showPosition && ( author as any ).position && (
+									<span className="apbl-author-position">
+										{ ( author as any ).position }
+									</span>
 								) }
 
 								{ showEmail && author.email && (
-									<div className="apbl-author-email">
-										<a href={ `mailto:${ author.email }` }>
-											{ author.email }
-										</a>
-									</div>
+									<a className="apbl-author-email" href={ `mailto:${ author.email }` }>
+										{ author.email }
+									</a>
 								) }
 
-								{ showDescription &&
-									author.description &&
-									displayStyle === 'detailed' && (
-									<div className="apbl-author-description">
-										{ author.description.length > 150
-											? `${ author.description.substring( 0, 150 ) }...`
+								{ showDescription && author.description && displayStyle === 'detailed' && (
+									<p className="apbl-author-description">
+										{ author.description.length > 120
+											? `${ author.description.substring( 0, 120 ) }…`
 											: author.description }
-									</div>
+									</p>
 								) }
 							</div>
 						</div>
-
-						{ showSocial &&
-							author.social &&
-							Object.keys( author.social ).some(
-								( key ) => author.social[ key ],
-							) && (
-							<div className="apbl-author-social">
-								{ Object.entries( author.social ).map(
-									( [ network, url ] ) =>
-										url && (
-											<a
-												key={ network }
-												href={ url }
-												className={ `apbl-social-${ network }` }
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												{ network }
-											</a>
-										),
-								) }
-							</div>
-						) }
-					</li>
-				) ) }
-			</ListTag>
-		</div>
+					</div>
+				</li>
+			) ) }
+		</ListTag>
 	);
 };
 

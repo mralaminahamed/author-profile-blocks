@@ -79,52 +79,9 @@
   // ─── Inspector controls ────────────────────────────────────────────────
 
   .components-panel__body {
-    .apbl-columns-selector {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: c.$spacing-md;
-
-      button {
-        flex: 1 0 30%;
-        padding: 8px 0;
-        text-align: center;
-        background: c.$light-gray;
-        border: 1px solid transparent;
-        border-radius: c.$border-radius-sm;
-        font-size: c.$font-size-sm;
-        font-weight: c.$font-weight-medium;
-        color: c.$dark-gray;
-        cursor: pointer;
-        transition: all c.$transition-fast;
-
-        &:hover {
-          background: c.$primary-light;
-          color: c.$primary-color;
-        }
-
-        &.is-active {
-          background: c.$primary-light;
-          border-color: c.$primary-color;
-          color: c.$primary-color;
-          box-shadow: 0 0 0 1px c.$primary-color;
-        }
-      }
-    }
-
     .components-base-control {
       margin-bottom: 1rem;
     }
   }
 
-  // ─── Loading state ─────────────────────────────────────────────────────
-
-  .apbl-grid-loading {
-    padding: c.$spacing-xl;
-    text-align: center;
-
-    .components-spinner {
-      margin: 0 auto c.$spacing-md;
-    }
-  }
 }

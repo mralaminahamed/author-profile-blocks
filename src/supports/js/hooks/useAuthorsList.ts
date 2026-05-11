@@ -26,21 +26,14 @@ const useAuthorsList = ( { authorIds = [], role = '', maxAuthors = 0 }: UseAutho
 			setError( null );
 
 			try {
-				let authorsData = [];
+				let authorsData: Author[];
 
 				if ( authorIds.length > 0 ) {
-					// Fetch specific authors by IDs
 					authorsData = await fetchAuthorsByIds( authorIds );
 				} else {
-					// Fetch all authors with optional role filter
-					const fetchOptions = {};
-					if ( role ) {
-						fetchOptions.roles = role;
-					}
-					if ( maxAuthors > 0 ) {
-						fetchOptions.perPage = maxAuthors;
-					}
-
+					const fetchOptions: { roles?: string; perPage?: number } = {};
+					if ( role ) fetchOptions.roles = role;
+					if ( maxAuthors > 0 ) fetchOptions.perPage = maxAuthors;
 					authorsData = await fetchAuthors( fetchOptions );
 				}
 

@@ -23,7 +23,6 @@ import { useEffect } from '@wordpress/element';
 import './editor.scss';
 import { AuthorBlockPlaceholder } from '../../supports/js/components';
 import AuthorGridPreview from './components/AuthorGridPreview';
-import GridLayoutSelector from './components/GridLayoutSelector';
 import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './components/inspector';
 
 /**
@@ -97,7 +96,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 		}
 	}, [ googleFont ] );
 
-	const loadGoogleFont = ( fontName ) => {
+	const loadGoogleFont = ( fontName: string ) => {
 		if ( ! fontName ) {
 			return;
 		}
@@ -164,11 +163,6 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 	// Handle author selection
 	const handleAuthorIdsChange = ( selectedIds ) => {
 		setAttributes( { authorIds: selectedIds } );
-	};
-
-	// Handle layout selection
-	const handleSelectLayout = ( newLayout ) => {
-		setAttributes( { layout: newLayout } );
 	};
 
 	// Clear all selected authors
@@ -241,13 +235,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 						) }
 					/>
 				) : (
-					<div className="apbl-author-grid-preview">
-						<GridLayoutSelector
-							selectedLayout={ layout }
-							onSelectLayout={ handleSelectLayout }
-						/>,
-						<AuthorGridPreview attributes={ attributes } />
-					</div>
+					<AuthorGridPreview attributes={ attributes } />
 				) }
 			</div>
 		</>

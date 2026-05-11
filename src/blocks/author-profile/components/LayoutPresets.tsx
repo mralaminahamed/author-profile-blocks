@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { Button } from '@wordpress/components';
-import { UserRound, IdCard, Minus, Frame, Layers2, PanelTop } from 'lucide-react';
+import { UserRound, IdCard, Minus, Frame, Layers2 } from 'lucide-react';
 
 /**
  * Layout presets component for the Author Profile block
@@ -41,12 +41,6 @@ export function LayoutPresets( { selectedLayout, onChange } ) {
 			label: __( 'Shadow', 'author-profile-blocks' ),
 			icon: Layers2,
 			description: __( 'Layout with shadow effects', 'author-profile-blocks' ),
-		},
-		{
-			id: 'is-style-banner',
-			label: __( 'Banner', 'author-profile-blocks' ),
-			icon: PanelTop,
-			description: __( 'Wide banner layout perfect for headers', 'author-profile-blocks' ),
 		},
 	];
 

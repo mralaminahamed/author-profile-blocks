@@ -67,6 +67,14 @@
     &.is-layout-card    { @include c.card-layout; }
     &.is-layout-compact { @include c.compact-layout; }
     &.is-layout-centered{ @include c.centered-layout; }
+    &.is-layout-minimal {
+      padding: c.$spacing-sm;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid c.$border-color-light;
+      box-shadow: none;
+      border-radius: 0;
+    }
   }
 
   // ─── Author elements ──────────────────────────────────────────────────

@@ -14,7 +14,6 @@ import {
 	ToolbarGroup,
 	ToolbarButton,
 } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import { list, grid, update } from '@wordpress/icons';
 import { useEffect } from '@wordpress/element';
@@ -111,23 +110,6 @@ export default function Edit( {
 		maxAuthors,
 	);
 
-	// Get roles for dropdown
-	const authorRoles = useSelect( ( select ) => {
-		const { getRoles } = select( 'core' );
-		return getRoles ? getRoles() : [];
-	}, [] );
-
-	// Format roles for dropdown
-	const roleOptions = [
-		{ label: __( 'All Roles', 'author-profile-blocks' ), value: '' },
-	];
-
-	if ( authorRoles && authorRoles.length ) {
-		authorRoles.forEach( ( role ) => {
-			roleOptions.push( { label: role.name, value: role.id } );
-		} );
-	}
-
 	// Load Google Font if selected
 	useEffect( () => {
 		if ( googleFont && googleFont !== '' ) {
@@ -135,7 +117,7 @@ export default function Edit( {
 		}
 	}, [ googleFont ] );
 
-	const loadGoogleFont = ( fontName ) => {
+	const loadGoogleFont = ( fontName: string ) => {
 		if ( ! fontName ) {
 			return;
 		}

@@ -1,7 +1,4 @@
 import type { GridInspectorProps } from '../../types';
-/**
- * WordPress dependencies
- */
 import { __ } from '@wordpress/i18n';
 import {
 	PanelBody,
@@ -10,11 +7,8 @@ import {
 	RangeControl,
 	__experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
-
-/**
- * Internal dependencies
- */
 import { LayoutPresets } from '../LayoutPresets';
+import GridLayoutSelector from '../GridLayoutSelector';
 
 /**
  * LayoutPanel component for layout-related settings in the InspectorControls
@@ -26,6 +20,7 @@ import { LayoutPresets } from '../LayoutPresets';
  */
 const LayoutPanel = ( { attributes, setAttributes }: GridInspectorProps ) => {
 	const {
+		layout,
 		layoutPreset,
 		columns,
 		textAlign,
@@ -42,18 +37,9 @@ const LayoutPanel = ( { attributes, setAttributes }: GridInspectorProps ) => {
 			/>
 
 			<PanelBody title={ __( 'Grid Layout', 'author-profile-blocks' ) }>
-				<SelectControl
-					label={ __( 'Layout Preset', 'author-profile-blocks' ) }
-					value={ layoutPreset }
-					options={ [
-						{ value: 'default', label: __( 'Default', 'author-profile-blocks' ) },
-						{ value: 'is-style-card', label: __( 'Card Grid', 'author-profile-blocks' ) },
-						{ value: 'is-style-minimal', label: __( 'Minimal', 'author-profile-blocks' ) },
-						{ value: 'is-style-bordered', label: __( 'Bordered', 'author-profile-blocks' ) },
-						{ value: 'is-style-shadow', label: __( 'Shadow Grid', 'author-profile-blocks' ) },
-						{ value: 'is-style-mosaic', label: __( 'Mosaic', 'author-profile-blocks' ) },
-					] }
-					onChange={ ( value ) => setAttributes( { layoutPreset: value } ) }
+				<GridLayoutSelector
+					selectedLayout={ layout }
+					onSelectLayout={ ( value ) => setAttributes( { layout: value } ) }
 				/>
 
 				<RangeControl

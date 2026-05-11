@@ -12,6 +12,7 @@ import {
 } from '@wordpress/block-editor';
 import { TabPanel } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
+import { people } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -255,11 +256,11 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 	const blockClassName = [
 		textAlign ? `has-text-align-${ textAlign }` : '',
 		blockStyle || '',
-		layoutPreset ? `layout-preset-${ layoutPreset }` : '',
-		customCssClass || '',
+		layoutPreset && layoutPreset !== 'default' ? layoutPreset : '',
 		contentOrder ? `content-order-${ contentOrder }` : '',
-		animationType && animationType !== 'none' ? `apbl-animation-${ animationType }` : '',
-		hoverEffect && hoverEffect !== 'none' ? `apbl-hover-${ hoverEffect }` : '',
+		animationType && animationType !== 'none' ? `has-${ animationType }-animation` : '',
+		hoverEffect && hoverEffect !== 'none' ? `has-${ hoverEffect }-hover` : '',
+		customCssClass || '',
 	]
 		.filter( Boolean )
 		.join( ' ' );
@@ -361,7 +362,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 			<div { ...blockProps }>
 				{ ! authorId ? (
 					<AuthorBlockPlaceholder
-						icon="admin-users"
+						icon={ people }
 						title={ __( 'Select an Author', 'author-profile-blocks' ) }
 						instructions={ __(
 							'Choose an author to display their profile.',

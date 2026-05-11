@@ -49,7 +49,7 @@ if ( ! empty( $social_profiles['socialIconSpacing'] ) ) {
 	$apbl_icon_styles[] = '--author-social-icon-spacing: ' . esc_attr( $social_profiles['socialIconSpacing'] ) . 'px';
 }
 
-// Build style attribute
+// Build style attribute — values already esc_attr'd above
 $apbl_style_html = ! empty( $apbl_icon_styles ) ? ' style="' . implode( '; ', $apbl_icon_styles ) . '"' : '';
 
 // Get social icons mapping
@@ -58,6 +58,8 @@ $apbl_social_icons = array(
 	'twitter'   => 'dashicons-twitter',
 	'linkedin'  => 'dashicons-linkedin',
 	'instagram' => 'dashicons-instagram',
+	'youtube'   => 'dashicons-video-alt3',
+	'github'    => 'dashicons-editor-code',
 	'website'   => 'dashicons-admin-site',
 );
 
@@ -91,7 +93,9 @@ if ( ! empty( $show_profiles ) ) {
 	}
 }
 ?>
-<div class="<?php echo esc_attr( $apbl_classes ); ?>"<?php echo esc_attr( $apbl_style_html ); ?>>
+<div class="<?php echo esc_attr( $apbl_classes ); ?>"<?php
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- values already esc_attr'd
+	echo $apbl_style_html; ?>>
 	<ul class="apbl-social-list">
 		<?php foreach ( $apbl_filtered_profiles as $apbl_network => $apbl_url ) : ?>
 			<?php if ( ! empty( $apbl_url ) && isset( $apbl_social_icons[ $apbl_network ] ) ) : ?>

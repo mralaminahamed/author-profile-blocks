@@ -53,6 +53,7 @@
 
     .apbl-author-carousel-slide {
       @include c.carousel-slide;
+      padding-inline: var(--author-carousel-slide-spacing, #{c.$spacing-sm});
     }
   }
 
@@ -73,6 +74,13 @@
     &.is-layout-card    { @include c.card-layout; }
     &.is-layout-compact { @include c.compact-layout; }
     &.is-layout-centered{ @include c.centered-layout; }
+    &.is-layout-minimal {
+      padding: c.$spacing-sm;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      border-bottom: 1px solid c.$border-color-light;
+    }
   }
 
   // ─── Author elements ──────────────────────────────────────────────────

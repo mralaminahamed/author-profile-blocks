@@ -58,12 +58,13 @@
 
 @mixin author-image {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
   border-radius: v.$border-radius-md;
 
   img {
+
     @include responsive-image;
     transition: transform v.$transition-standard;
   }
@@ -77,10 +78,10 @@
   margin: 0 0 0.25em;
   font-size: var(--author-name-size, 1.125rem);
   font-weight: v.$font-weight-bold;
-  line-height: v.$line-height-tight;
-  letter-spacing: v.$letter-spacing-tight;
-  color: v.$text-color;
   font-feature-settings: "kern" 1;
+  line-height: v.$line-height-tight;
+  color: v.$text-color;
+  letter-spacing: v.$letter-spacing-tight;
 }
 
 @mixin author-position {
@@ -100,6 +101,7 @@
   color: v.$text-color-secondary;
 
   @if $lines {
+
     @include truncate-lines($lines);
   }
 }
@@ -111,8 +113,8 @@
 
 @mixin author-email {
   display: inline-flex;
-  align-items: center;
   gap: 0.25em;
+  align-items: center;
   margin: 0.2em 0;
   font-size: v.$font-size-sm;
   color: v.$text-color-secondary;
@@ -128,8 +130,8 @@
   display: block;
   margin: 0.25em 0;
   font-size: v.$font-size-xs;
-  color: v.$muted-color;
   font-style: italic;
+  color: v.$muted-color;
   letter-spacing: 0.01em;
 }
 
@@ -141,10 +143,10 @@
   justify-content: center;
   width: 34px;
   height: 34px;
-  border-radius: v.$border-radius-sm;
-  background-color: var(--author-social-icon-bg, #{v.$primary-light});
   color: var(--author-social-icon-color, #{v.$primary-color});
   text-decoration: none;
+  background-color: var(--author-social-icon-bg, #{v.$primary-light});
+  border-radius: v.$border-radius-sm;
   transition:
     background-color v.$transition-base,
     color v.$transition-base,
@@ -152,10 +154,10 @@
     box-shadow v.$transition-base;
 
   &:hover {
-    background-color: var(--author-social-icon-bg-hover, #{v.$primary-color});
     color: var(--author-social-icon-hover-color, #{v.$white});
-    transform: translateY(-2px);
+    background-color: var(--author-social-icon-bg-hover, #{v.$primary-color});
     box-shadow: 0 4px 12px color.change(v.$primary-color, $alpha: 0.25);
+    transform: translateY(-2px);
   }
 
   .dashicons {
@@ -169,43 +171,53 @@
 @mixin social-profiles-base($justify: flex-start) {
   display: flex;
   flex-wrap: wrap;
-  justify-content: $justify;
   gap: var(--author-social-icon-spacing, 0.5rem);
+  justify-content: $justify;
   margin-top: v.$spacing-md;
 
   .apbl-social-list {
     display: flex;
     flex-wrap: wrap;
     gap: var(--author-social-icon-spacing, 0.5rem);
+    justify-content: $justify;
     padding: 0;
     margin: 0;
     list-style: none;
-    justify-content: $justify;
   }
 
   a {
+
     @include social-icon-base;
   }
 }
 
-@mixin social-profiles-center  { @include social-profiles-base(center); }
-@mixin social-profiles-start   { @include social-profiles-base(flex-start); }
-@mixin social-profiles-end     { @include social-profiles-base(flex-end); }
+@mixin social-profiles-center  {
+
+ @include social-profiles-base(center); }
+
+@mixin social-profiles-start   {
+
+ @include social-profiles-base(flex-start); }
+
+@mixin social-profiles-end     {
+
+ @include social-profiles-base(flex-end); }
 
 // ─── Layout variants ──────────────────────────────────────────────────────────
 
 @mixin card-layout {
+
   @include card;
   position: relative;
   overflow: hidden;
   transition: transform v.$transition-standard, box-shadow v.$transition-standard;
 
   &::after {
-    content: '';
     position: absolute;
     inset-block-start: 0;
     inset-inline: 0;
     height: 3px;
+    content: '';
     background: linear-gradient(90deg, v.$primary-color, #9d96f5);
     transform: scaleX(0);
     transform-origin: left center;
@@ -213,8 +225,8 @@
   }
 
   &:hover {
-    transform: translateY(-4px);
     box-shadow: v.$shadow-primary;
+    transform: translateY(-4px);
 
     &::after {
       transform: scaleX(1);
@@ -243,8 +255,8 @@
 }
 
 @mixin rounded-corners {
-  border-radius: v.$border-radius-lg;
   overflow: hidden;
+  border-radius: v.$border-radius-lg;
 }
 
 // ─── Effect mixins ────────────────────────────────────────────────────────────
@@ -273,8 +285,8 @@
   transition: transform v.$transition-base, box-shadow v.$transition-base;
 
   &:hover {
-    transform: translateY(-2px);
     box-shadow: v.$shadow-md;
+    transform: translateY(-2px);
   }
 }
 
@@ -291,6 +303,7 @@
 }
 
 @mixin list-dividers {
+
   li {
     border-bottom: 1px solid v.$border-color-light;
 
@@ -301,14 +314,15 @@
 }
 
 @mixin reset-list-styles {
-  margin: 0;
   padding: 0;
+  margin: 0;
   list-style: none;
 }
 
 // ─── Carousel ─────────────────────────────────────────────────────────────────
 
 @mixin carousel-base {
+
   .slick-slider {
     position: relative;
     box-sizing: border-box;
@@ -323,8 +337,8 @@
     display: flex !important;
     gap: 0.4rem;
     justify-content: center;
-    margin-top: v.$spacing-xl;
     padding: 0;
+    margin-top: v.$spacing-xl;
     list-style: none;
 
     li {
@@ -334,12 +348,12 @@
         width: 8px;
         height: 8px;
         padding: 0;
+        font-size: 0;
+        cursor: pointer;
+        background: v.$border-color;
         border: none;
         border-radius: v.$border-radius-full;
-        background: v.$border-color;
-        cursor: pointer;
         transition: background v.$transition-base, width v.$transition-base;
-        font-size: 0;
 
         &::before {
           display: none;
@@ -354,30 +368,30 @@
   }
 
   .slick-arrow {
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 36px;
-    border-radius: v.$border-radius-sm;
-    background: v.$white;
-    border: 1px solid v.$border-color;
-    box-shadow: v.$shadow-sm;
     color: v.$dark-gray;
     cursor: pointer;
+    background: v.$white;
+    border: 1px solid v.$border-color;
+    border-radius: v.$border-radius-sm;
+    box-shadow: v.$shadow-sm;
     transition: all v.$transition-base;
-    z-index: 10;
 
     &:hover {
+      color: v.$white;
       background: v.$primary-color;
       border-color: v.$primary-color;
-      color: v.$white;
       box-shadow: v.$shadow-primary;
     }
 
     &::before {
-      color: inherit;
       font-size: 14px;
+      color: inherit;
     }
   }
 }
@@ -398,9 +412,9 @@
 @mixin editor-placeholder {
   padding: v.$spacing-md;
   text-align: center;
+  background-color: color.change(v.$primary-color, $alpha: 0.02);
   border: 1px dashed v.$border-color;
   border-radius: v.$border-radius-sm;
-  background-color: color.change(v.$primary-color, $alpha: 0.02);
 }
 
 @mixin color-picker-section {
@@ -415,8 +429,8 @@
 
 @mixin author-picker-wrapper {
   display: flex;
-  align-items: center;
   gap: v.$spacing-md;
+  align-items: center;
   margin-bottom: v.$spacing-md;
 
   .apbl-author-selector-dropdown {
@@ -435,26 +449,26 @@
 
 @mixin error-message {
   padding: v.$spacing-sm;
+  font-size: v.$font-size-sm;
+  color: v.$error;
   background-color: color.change(v.$error, $alpha: 0.06);
   border: 1px solid color.change(v.$error, $alpha: 0.3);
   border-radius: v.$border-radius-sm;
-  color: v.$error;
-  font-size: v.$font-size-sm;
 }
 
 @mixin carousel-loading {
   display: flex;
+  gap: v.$spacing-sm;
   align-items: center;
   justify-content: center;
-  gap: v.$spacing-sm;
   padding: v.$spacing-2xl;
-  color: v.$text-color-secondary;
   font-size: v.$font-size-sm;
+  color: v.$text-color-secondary;
 
   &::before {
-    content: '';
     width: 18px;
     height: 18px;
+    content: '';
     border: 2px solid v.$border-color;
     border-top-color: v.$primary-color;
     border-radius: 50%;
@@ -473,11 +487,15 @@
 // ─── Responsive breakpoints ───────────────────────────────────────────────────
 
 @mixin respond-to($breakpoint) {
+
   @if $breakpoint == large {
+
     @media (min-width: 768px) { @content; }
   } @else if $breakpoint == medium {
+
     @media (min-width: 576px) { @content; }
   } @else if $breakpoint == small {
+
     @media (max-width: 575px) { @content; }
   }
 }
@@ -486,43 +504,60 @@
 // Include this mixin once at the top level of each block's style.scss.
 
 @mixin apbl-keyframes {
+
   @keyframes apbl-spin {
+
     to { transform: rotate(360deg); }
   }
 
   @keyframes apbl-fadeIn {
+
     from { opacity: 0; }
+
     to   { opacity: 1; }
   }
 
   @keyframes apbl-slideUp {
+
     from { opacity: 0; transform: translateY(24px); }
+
     to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes apbl-slideDown {
+
     from { opacity: 0; transform: translateY(-24px); }
+
     to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes apbl-slideLeft {
+
     from { opacity: 0; transform: translateX(24px); }
+
     to   { opacity: 1; transform: translateX(0); }
   }
 
   @keyframes apbl-slideRight {
+
     from { opacity: 0; transform: translateX(-24px); }
+
     to   { opacity: 1; transform: translateX(0); }
   }
 
   @keyframes apbl-scaleIn {
+
     from { opacity: 0; transform: scale(0.92); }
+
     to   { opacity: 1; transform: scale(1); }
   }
 
   @keyframes apbl-bounce {
+
     0%, 60%, 100% { transform: translateY(0); }
+
     30%           { transform: translateY(-10px); }
+
     45%           { transform: translateY(-5px); }
   }
 }

@@ -53,13 +53,26 @@ const AuthorBlockPlaceholder = ( {
 	single = false,
 	layoutSelector,
 	additionalControls,
+	className,
 	children,
+}: {
+	title?: string;
+	instructions?: string;
+	isLoading?: boolean;
+	icon?: string | JSX.Element;
+	selectedAuthorIds?: number[];
+	onChange?: ( ids: number[] ) => void;
+	buttonLabel?: string;
+	single?: boolean;
+	layoutSelector?: JSX.Element;
+	additionalControls?: JSX.Element;
+	className?: string;
+	children?: React.ReactNode;
 } ) => {
 	const hasPicker = typeof onChange === 'function';
 	const ids = Array.isArray( selectedAuthorIds ) ? selectedAuthorIds : [];
 
-	// Only fetch authors when this placeholder actually renders a picker.
-	const { authors, isLoading: isLoadingAuthors } = useAuthors( hasPicker ? 0 : 0 );
+	const { authors, isLoading: isLoadingAuthors } = useAuthors( 0 );
 
 	const [ pendingId, setPendingId ] = useState( '' );
 
@@ -89,7 +102,7 @@ const AuthorBlockPlaceholder = ( {
 					</p>
 					<Button
 						variant="primary"
-						href={ `${ window.AuthorProfileBlocks?.adminUrl || '/wp-admin/' }user-new.php` }
+						href={ `${ ( window as any ).apblAdmin?.adminUrl || '/wp-admin/' }user-new.php` }
 						target="_blank"
 					>
 						{ __( 'Create New User', 'author-profile-blocks' ) }
@@ -133,12 +146,13 @@ const AuthorBlockPlaceholder = ( {
 			<div className="apbl-placeholder-picker">
 				<Flex
 					className="apbl-placeholder-picker-controls"
-					align="flex-end"
+					align="center"
 					gap={ 2 }
 				>
 					<FlexItem isBlock>
 						<SelectControl
 							label={ __( 'Author', 'author-profile-blocks' ) }
+							hideLabelFromVision
 							value={ pendingId }
 							options={ options }
 							onChange={ setPendingId }
@@ -172,7 +186,7 @@ const AuthorBlockPlaceholder = ( {
 			icon={ <Icon icon={ placeholderIcon } /> }
 			label={ title }
 			instructions={ instructions }
-			className="apbl-block-placeholder"
+			className={ [ 'apbl-block-placeholder', className ].filter( Boolean ).join( ' ' ) }
 			isColumnLayout
 		>
 			{ hasPicker ? renderPicker() : children }

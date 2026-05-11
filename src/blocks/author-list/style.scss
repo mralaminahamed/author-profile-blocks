@@ -51,7 +51,7 @@
   .apbl-author-list-items {
     display: flex;
     flex-direction: column;
-    gap: c.$spacing-md;
+    gap: var(--author-list-item-spacing, #{c.$spacing-md});
     padding: 0;
     margin: 0;
     list-style: none;
@@ -70,6 +70,8 @@
   // ─── List item ────────────────────────────────────────────────────────
 
   .apbl-author-list-item {
+    background-color: var(--author-list-item-bg, transparent);
+
     .apbl-author-list-item-content {
       width: 100%;
     }
@@ -83,6 +85,12 @@
     }
   }
 
+  // ─── Divider color hook ───────────────────────────────────────────────
+
+  .apbl-author-list.has-dividers li {
+    border-bottom-color: var(--author-list-divider-color, #{c.$border-color-light});
+  }
+
   // ─── Compact layout ───────────────────────────────────────────────────
 
   .apbl-author-compact {
@@ -92,6 +100,40 @@
 
     .apbl-author-info   { flex: 1; min-width: 0; }
     .apbl-author-social { flex: 0 0 auto; }
+  }
+
+  // ─── Minimal layout ──────────────────────────────────────────────────
+
+  .apbl-author-minimal {
+    display: flex;
+    gap: c.$spacing-md;
+    align-items: center;
+    padding: c.$spacing-sm 0;
+
+    .apbl-author-minimal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2em;
+      min-width: 0;
+    }
+
+    .apbl-author-image {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius: 50%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .apbl-author-name     { font-size: c.$font-size-sm; font-weight: c.$font-weight-semibold; }
+    .apbl-author-position { font-size: c.$font-size-xs; color: c.$primary-color; }
+    .apbl-author-email    { font-size: c.$font-size-xs; color: c.$muted-color; text-decoration: none; }
   }
 
   // ─── Detailed layout ──────────────────────────────────────────────────
