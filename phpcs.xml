@@ -64,7 +64,7 @@
     </rule>
 
     <!-- PHP compatibility checks -->
-    <rule ref="PHPCompatibility"/>
+    <rule ref="PHPCompatibilityWP"/>
     <config name="testVersion" value="7.4-"/>
 
     <!-- WordPress VIP specific rules for better code quality -->
