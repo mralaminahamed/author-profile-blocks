@@ -8,7 +8,7 @@ use WP_REST_Request;
 use WP_REST_Server;
 
 /**
- * REST API integration tests for the Author_Profile_Service.
+ * REST API integration tests for the AuthorProfileService.
  *
  * The service registers fields onto the `user` REST resource. These tests
  * boot a real REST server and verify the fields are exposed and populated.

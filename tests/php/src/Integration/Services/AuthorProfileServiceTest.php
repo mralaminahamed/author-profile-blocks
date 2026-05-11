@@ -6,7 +6,7 @@ namespace AuthorProfileBlocks\Test\Integration\Services;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Integration tests for Author_Profile_Service.
+ * Integration tests for AuthorProfileService.
  */
 class AuthorProfileServiceTest extends IntegrationTestCase {
 

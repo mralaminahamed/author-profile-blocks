@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles author profile data operations.
  */
-class Author_Profile_Service {
+class AuthorProfileService {
 	/**
 	 * User Meta Provider instance.
 	 *

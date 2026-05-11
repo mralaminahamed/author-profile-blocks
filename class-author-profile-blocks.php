@@ -17,7 +17,7 @@ use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Profile_Block;
 use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
-use AuthorProfileBlocks\Services\Author_Profile_Service;
+use AuthorProfileBlocks\Services\AuthorProfileService;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -52,9 +52,9 @@ class Author_Profile_Blocks {
 	/**
 	 * Author Profile Service instance.
 	 *
-	 * @var Author_Profile_Service
+	 * @var AuthorProfileService
 	 */
-	private Author_Profile_Service $author_profile_service;
+	private AuthorProfileService $author_profile_service;
 
 	/**
 	 * Get plugin instance.
@@ -84,7 +84,7 @@ class Author_Profile_Blocks {
 	 */
 	public function register_services(): void {
 		$this->user_meta_provider     = new UserMetaProvider();
-		$this->author_profile_service = new Author_Profile_Service( $this->user_meta_provider );
+		$this->author_profile_service = new AuthorProfileService( $this->user_meta_provider );
 
 		$this->register_blocks();
 	}
@@ -652,9 +652,9 @@ class Author_Profile_Blocks {
 	/**
 	 * Get the author profile service.
 	 *
-	 * @return Author_Profile_Service The author profile service instance.
+	 * @return AuthorProfileService The author profile service instance.
 	 */
-	public function get_author_profile_service(): Author_Profile_Service {
+	public function get_author_profile_service(): AuthorProfileService {
 		return $this->author_profile_service;
 	}
 

@@ -6,7 +6,7 @@ namespace AuthorProfileBlocks\Test\Integration\Services;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Edge-case tests for Author_Profile_Service.
+ * Edge-case tests for AuthorProfileService.
  */
 class EdgeCasesTest extends IntegrationTestCase {
 

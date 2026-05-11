@@ -9,7 +9,7 @@ use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Core\UserMetaProvider;
-use AuthorProfileBlocks\Services\Author_Profile_Service;
+use AuthorProfileBlocks\Services\AuthorProfileService;
 
 /**
  * Integration tests for the main plugin class.
@@ -86,7 +86,7 @@ class PluginTest extends IntegrationTestCase {
 
 	public function test_get_author_profile_service_returns_service(): void {
 		$this->assertInstanceOf(
-			Author_Profile_Service::class,
+			AuthorProfileService::class,
 			\author_profile_blocks()->get_author_profile_service()
 		);
 	}

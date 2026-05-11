@@ -13,16 +13,16 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
      * Test that service class file exists.
      */
     public function test_service_class_file_exists() {
-        $this->assertFileExists(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $this->assertFileExists(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
     }
 
     /**
      * Test that service class contains expected structure.
      */
     public function test_service_class_structure() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
 
-        $this->assertStringContainsString('class Author_Profile_Service', $class_content);
+        $this->assertStringContainsString('class AuthorProfileService', $class_content);
         $this->assertStringContainsString('private UserMetaProvider $meta_provider;', $class_content);
         $this->assertStringContainsString('private array $author_cache = array();', $class_content);
     }
@@ -31,7 +31,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
      * Test service has expected methods.
      */
     public function test_service_has_expected_methods() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
 
         $this->assertStringContainsString('public function init(): void', $class_content);
         $this->assertStringContainsString('public function register_rest_fields(): void', $class_content);
@@ -44,7 +44,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
      * Test service contains expected WordPress function calls.
      */
     public function test_service_contains_wordpress_function_calls() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
 
         $this->assertStringContainsString('register_rest_field(', $class_content);
         $this->assertStringContainsString('get_userdata(', $class_content);
@@ -56,7 +56,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
      * Test service has proper constructor.
      */
     public function test_service_has_constructor() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
 
         $this->assertStringContainsString('public function __construct(', $class_content);
         $this->assertStringContainsString('UserMetaProvider $meta_provider', $class_content);
@@ -66,7 +66,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
      * Test service has social profiles method.
      */
     public function test_service_has_social_profiles_method() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
 
         $this->assertStringContainsString('public function get_social_profiles(', $class_content);
     }
@@ -75,7 +75,7 @@ class AuthorProfileServiceTest extends AuthorProfileBlocksTestCase {
      * Test service has cache-related methods.
      */
     public function test_service_has_cache_methods() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/Author_Profile_Service.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorProfileService.php');
 
         $this->assertStringContainsString('public function clear_user_cache(', $class_content);
         $this->assertStringContainsString('public function clear_cache(', $class_content);
