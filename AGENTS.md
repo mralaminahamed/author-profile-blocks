@@ -13,10 +13,11 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 ## Project Structure
 
 ### Key Directories
-- `includes/`: PSR-4 autoloaded PHP classes (Admin, Blocks, Common, Core, Services)
+- `includes/`: PSR-4 autoloaded PHP classes (Admin, Blocks, Core, REST, Services)
+- `src/admin/`: React + shadcn/ui admin SPA (TypeScript)
 - `src/blocks/`: Gutenberg block implementations with block.json files
-- `src/js/`: Shared JavaScript utilities and React components
-- `src/scss/`: SCSS stylesheets with variables and mixins
+- `src/supports/js/`: Shared JS/TS utilities, hooks, and components
+- `src/supports/scss/`: SCSS stylesheets with variables and mixins
 - `build/`: Compiled assets (do not edit directly)
 - `docs/`: Documentation and guides
 - `languages/`: Translation files (.po, .pot, .mo)
@@ -32,24 +33,26 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 
 ## Build/Lint/Test Commands
 
-### Frontend (JavaScript/React)
+### Frontend (JavaScript/React/TypeScript)
 - `yarn start` - Development build with watch mode
-- `yarn build` - Production build
+- `yarn build` - Production build (`wp-scripts build --webpack-copy-php`)
 - `yarn lint` - Run all linting (JS, CSS, markdown, package.json)
 - `yarn plugin-zip` - Create plugin distribution zip
-- `yarn bundle-analyze` - Analyze webpack bundle
-- `yarn type` - TypeScript type checking (if using TS)
+- `yarn type` - TypeScript type checking (`tsc --noEmit`)
+- `yarn wp:make-pot` - Generate translation pot file
 
 ### Backend (PHP)
 - `composer phpcs:check` - Check PHP code standards
-- `composer phpcs:fix` - Fix PHP code standards violations
-- `composer phpcs:check:review` - Check with WordPress plugin review standards
+- `composer phpcbf:fix` - Fix PHP code standards violations
+- `composer phpcs:plugin-review` - Check with WordPress plugin review standards
+- `composer phpcbf:plugin-review` - Fix plugin review violations
 - `composer phpstan` - Run static analysis
-- `composer wp:make-pot` - Generate translation pot file
-- `composer test` - Run PHPUnit tests (if configured)
+- `composer makepot` - Generate translation pot file
+- `composer test` - Run PHPUnit tests
+- `composer test-f` - Run PHPUnit with filter
 
 ### Release
-- `composer release` - Complete release process (build, lint, analyze, package)
+- `composer zip` / `composer zip:wporg` - Build distribution zip (no-dev deps)
 
 ### GitHub Workflows
 - CI: Automated testing on push/PR (PHP 8.1-8.3, WP latest/6.0+)
@@ -61,7 +64,7 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 
 ### PHP
 - Follow WordPress coding standards with PSR-4 autoloading (reference: warranty-cart)
-- Namespace: `AuthorProfileBlocks\` (includes/) or `APBL\` (legacy)
+- Namespace: `AuthorProfileBlocks\` (includes/)
 - Prefixes: `author_profile_blocks`, `apbl`, `APBL`
 - PHP 7.4+ minimum, tabs for indentation, strict typing
 - Use type declarations and return types where possible
@@ -77,13 +80,13 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 - WordPress components (`@wordpress/components`) for Gutenberg blocks
 - Import order: WordPress deps first, then internal
 - JSDoc comments for component props and functions
-- Path alias: `@/*` for `src/*` directory
+- Path alias: `@/*` for `src/admin/*` (tsconfig + webpack)
 - Consider TypeScript for complex admin interfaces (like warranty-cart)
 - Use Shadcn UI + Tailwind for modern admin UIs (reference: warranty-cart)
 
 ### CSS/SCSS
 - WordPress stylelint config with recess order
-- SCSS with mixins and variables in `src/scss/common/`
+- SCSS with mixins and variables in `src/supports/scss/common/`
 - Follow BEM-like naming conventions
 - Responsive design with mobile-first approach
 - Consider Tailwind CSS for admin interfaces (reference: warranty-cart)
@@ -127,8 +130,8 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 
 ### Block Structure
 - Each block has its own directory in `src/blocks/`
-- Required files: `block.json`, `index.js`, `edit.js`, `style.scss`
-- Optional: `view.js` (for frontend-only functionality), `editor.scss`, `components/`
+- Required files: `block.json`, `index.tsx`, `edit.tsx`, `style.scss`
+- Optional: `view.ts` (frontend-only), `editor.scss`, `components/`, `types.ts`, `attributes.ts`
 - Use `block.json` for block registration and settings
 
 ### Block Registration
@@ -145,8 +148,8 @@ Reference the `warranty-cart` plugin (/Users/alamin/Sites/woocommerce/wp-content
 
 ### Styling Guidelines
 - Use SCSS with BEM-like naming conventions
-- Define variables in `src/scss/common/_variables.scss`
-- Create mixins in `src/scss/common/_mixins.scss`
+- Define variables in `src/supports/scss/common/_variables.scss`
+- Create mixins in `src/supports/scss/common/_mixins.scss`
 - Ensure responsive design with mobile-first approach
 - Use CSS custom properties for dynamic styling
 
