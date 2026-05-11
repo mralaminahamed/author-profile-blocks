@@ -442,10 +442,8 @@ abstract class Author_Block_Base implements Registerable {
 			$classes[] = esc_attr( $attributes['customCssClass'] );
 		}
 
-		// Add display style for list/grid blocks.
-		if ( ! empty( $attributes['displayStyle'] ) ) {
-			$classes[] = 'is-style-' . $attributes['displayStyle'];
-		}
+		// Add display style for list block — uses apbl-display-* prefix (set in template)
+		// Do NOT add is-style-* from displayStyle as it conflicts with layoutPreset classes.
 
 		// Add classes based on display options.
 		if ( ! empty( $attributes['showImage'] ) ) {
@@ -468,7 +466,7 @@ abstract class Author_Block_Base implements Registerable {
 			$classes[] = 'has-registered-date';
 		}
 
-		if ( ! empty( $attributes['showSocialLinks'] ) ) {
+		if ( ! empty( $attributes['showSocialLinks'] ) || ! empty( $attributes['showSocial'] ) ) {
 			$classes[] = 'has-social-profiles';
 		}
 
@@ -546,9 +544,15 @@ abstract class Author_Block_Base implements Registerable {
 			$styles['margin'] = $attributes['margin'];
 		}
 
-		// Width
+		// Container width — profile uses width directly; other blocks expose a CSS var
+		// so the block's SCSS can apply max-width + auto-centering via attribute selector.
 		if ( isset( $attributes['containerWidth'] ) && ! empty( $attributes['containerWidth'] ) ) {
-			$styles['width'] = $attributes['containerWidth'];
+			if ( 'author-profile' === $this->block_name ) {
+				$styles['max-width'] = $attributes['containerWidth'];
+				$styles['margin-inline'] = 'auto';
+			} else {
+				$styles[ '--' . $this->block_name . '-container-width' ] = $attributes['containerWidth'];
+			}
 		}
 
 		// Border styles
@@ -915,7 +919,7 @@ abstract class Author_Block_Base implements Registerable {
 		$template_vars = array(
 			'author'             => $author,
 			'attributes'         => $attributes,
-			'author_image'       => $this->render_author_image( $author ),
+			'author_image'       => $this->render_author_image( $author, '', $attributes ),
 			'author_name'        => $this->render_author_name( $author ),
 			'author_position'    => $this->render_author_position( $author ),
 			'author_email'       => $this->render_author_email( $author ),
@@ -958,7 +962,7 @@ abstract class Author_Block_Base implements Registerable {
 		$template_vars = array(
 			'author'             => $author,
 			'attributes'         => $attributes,
-			'author_image'       => $this->render_author_image( $author ),
+			'author_image'       => $this->render_author_image( $author, '', $attributes ),
 			'author_name'        => $this->render_author_name( $author ),
 			'author_position'    => $this->render_author_position( $author ),
 			'author_email'       => $this->render_author_email( $author ),
@@ -1002,7 +1006,7 @@ abstract class Author_Block_Base implements Registerable {
 		$template_vars = array(
 			'author'             => $author,
 			'attributes'         => $attributes,
-			'author_image'       => $this->render_author_image( $author, 'apbl-card-image' ),
+			'author_image'       => $this->render_author_image( $author, 'apbl-card-image', $attributes ),
 			'author_name'        => $this->render_author_name( $author ),
 			'author_position'    => $this->render_author_position( $author ),
 			'author_email'       => $this->render_author_email( $author ),
@@ -1043,8 +1047,14 @@ abstract class Author_Block_Base implements Registerable {
 	 */
 	protected function render_centered_layout( array $author, array $attributes ): string {
 		$template_vars = array(
-			'author'     => $author,
-			'attributes' => $attributes,
+			'author'             => $author,
+			'attributes'         => $attributes,
+			'author_image'       => $this->render_author_image( $author, '', $attributes ),
+			'author_name'        => $this->render_author_name( $author ),
+			'author_position'    => $this->render_author_position( $author, $attributes ),
+			'author_email'       => $this->render_author_email( $author, $attributes ),
+			'author_description' => $this->render_author_description( $author, $attributes ),
+			'social_links'       => $this->render_social_links( $author, $attributes ),
 		);
 
 		ob_start();
@@ -1109,11 +1119,11 @@ abstract class Author_Block_Base implements Registerable {
 	 *
 	 * @return string Rendered HTML.
 	 */
-	protected function render_author_image( array $author, string $wrapper_class = '' ): string {
+	protected function render_author_image( array $author, string $wrapper_class = '', array $attributes = array() ): string {
 		// Prepare template variables.
 		$template_vars = array(
 			'author'           => $author,
-			'attributes'       => array(), // Not used in this template
+			'attributes'       => $attributes,
 			'additional_class' => $wrapper_class,
 		);
 
