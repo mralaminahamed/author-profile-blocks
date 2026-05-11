@@ -169,7 +169,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 		$style_attribute = '';
 
 		if ( ! empty( $item_styles ) ) {
-			$style_attribute = ' style="' . $this->get_styles_string( $item_styles ) . '"';
+			$style_attribute = ' style="' . esc_attr( $this->get_styles_string( $item_styles ) ) . '"';
 		}
 
 		// Item classes based on layout and options.
@@ -217,7 +217,7 @@ class Author_Carousel_Block extends Author_Block_Base {
 		$item_class = esc_attr( implode( ' ', $item_classes ) );
 
 		// Pre-render author content components.
-		$author_image       = $this->render_author_image( $author );
+		$author_image       = $this->render_author_image( $author, '', $attributes );
 		$author_name        = $this->render_author_name( $author );
 		$author_position    = $this->render_author_position( $author );
 		$author_email       = $this->render_author_email( $author );

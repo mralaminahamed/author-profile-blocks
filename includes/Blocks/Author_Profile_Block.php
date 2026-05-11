@@ -103,7 +103,7 @@ class Author_Profile_Block extends Author_Block_Base {
 		$content_order = $attributes['contentOrder'] ?? 'image-content';
 
 		// Pre-render content for template
-		$author_image       = $this->render_author_image( $author_data );
+		$author_image       = $this->render_author_image( $author_data, '', $attributes );
 		$author_name        = $this->render_author_name( $author_data );
 		$author_position    = $this->render_author_position( $author_data );
 		$author_email       = $this->render_author_email( $author_data );

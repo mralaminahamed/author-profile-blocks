@@ -142,7 +142,7 @@ class Author_List_Block extends Author_Block_Base {
 		$style_attribute = '';
 
 		if ( ! empty( $item_styles ) ) {
-			$style_attribute = ' style="' . $this->get_styles_string( $item_styles ) . '"';
+			$style_attribute = ' style="' . esc_attr( $this->get_styles_string( $item_styles ) ) . '"';
 		}
 
 		// Item classes based on layout and options.
