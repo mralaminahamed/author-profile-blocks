@@ -14,7 +14,7 @@ namespace AuthorProfileBlocks\Blocks;
 use AuthorProfileBlocks\Blocks\Concerns\Builds_Block_Classes;
 use AuthorProfileBlocks\Blocks\Concerns\Builds_Block_Styles;
 use AuthorProfileBlocks\Blocks\Concerns\Has_Render_Cache;
-use AuthorProfileBlocks\Blocks\Concerns\Provides_Messages;
+use AuthorProfileBlocks\Blocks\Concerns\ProvidesMessages;
 use AuthorProfileBlocks\Blocks\Concerns\Renders_Components;
 use AuthorProfileBlocks\Blocks\Concerns\Renders_Layouts;
 use AuthorProfileBlocks\Blocks\Concerns\Resolves_Author_Data;
@@ -25,7 +25,7 @@ use Author_Profile_Blocks;
  * Abstract base class for author-related blocks.
  */
 abstract class Author_Block_Base implements Registerable {
-	use Provides_Messages;
+	use ProvidesMessages;
 	use Resolves_Author_Data;
 	use Has_Render_Cache;
 	use Builds_Block_Classes;

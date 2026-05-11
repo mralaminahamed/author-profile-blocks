@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Provides_Messages {
+trait ProvidesMessages {
 
 	/**
 	 * Render an error message for author blocks.
