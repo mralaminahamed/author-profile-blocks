@@ -1,6 +1,6 @@
 <?php
 
-namespace AuthorProfileBlocks\Test\Admin;
+namespace AuthorProfileBlocks\Test\Unit\Admin;
 
 use AuthorProfileBlocks\Test\AuthorProfileBlocksTestCase;
 
@@ -45,8 +45,7 @@ class AdminTest extends AuthorProfileBlocksTestCase {
 
         $this->assertStringContainsString('add_action(', $class_content);
         $this->assertStringContainsString('wp_enqueue_style(', $class_content);
-        $this->assertStringContainsString('add_options_page(', $class_content);
-        $this->assertStringContainsString('settings_fields(', $class_content);
+        $this->assertStringContainsString('add_menu_page(', $class_content);
     }
 
     /**

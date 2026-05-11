@@ -1,6 +1,6 @@
 <?php
 
-namespace AuthorProfileBlocks\Test\Services;
+namespace AuthorProfileBlocks\Test\Unit\Services;
 
 use AuthorProfileBlocks\Test\AuthorProfileBlocksTestCase;
 
