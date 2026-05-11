@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Builds_Block_Classes {
+trait BuildsBlockClasses {
 
 	/**
 	 * Get block classes based on attributes.
