@@ -1046,15 +1046,16 @@ abstract class Author_Block_Base implements Registerable {
 	 * @return string Rendered HTML.
 	 */
 	protected function render_centered_layout( array $author, array $attributes ): string {
+		$social_profiles = is_array( $author['social'] ?? null ) ? $author['social'] : array();
 		$template_vars = array(
 			'author'             => $author,
 			'attributes'         => $attributes,
 			'author_image'       => $this->render_author_image( $author, '', $attributes ),
 			'author_name'        => $this->render_author_name( $author ),
-			'author_position'    => $this->render_author_position( $author, $attributes ),
-			'author_email'       => $this->render_author_email( $author, $attributes ),
-			'author_description' => $this->render_author_description( $author, $attributes ),
-			'social_links'       => $this->render_social_links( $author, $attributes ),
+			'author_position'    => $this->render_author_position( $author ),
+			'author_email'       => $this->render_author_email( $author ),
+			'author_description' => $this->render_author_description( $author ),
+			'social_links'       => $this->render_social_profiles( $social_profiles ),
 		);
 
 		ob_start();

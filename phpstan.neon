@@ -1,6 +1,5 @@
 includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
-	- vendor/szepeviktor/phpstan-wordpress/extension.neon
 
 parameters:
     level: 8
@@ -17,11 +16,11 @@ parameters:
         - node_modules/
         - build/
 
+    reportUnmatchedIgnoredErrors: false
+
     ignoreErrors:
-        - identifier: function.notFound
         - identifier: argument.templateType
         - identifier: missingType.iterableValue
-        - identifier: method.unused
 
     treatPhpDocTypesAsCertain: false
     inferPrivatePropertyTypeFromConstructor: true
