@@ -16,7 +16,7 @@ use AuthorProfileBlocks\Blocks\Concerns\BuildsBlockStyles;
 use AuthorProfileBlocks\Blocks\Concerns\HasRenderCache;
 use AuthorProfileBlocks\Blocks\Concerns\ProvidesMessages;
 use AuthorProfileBlocks\Blocks\Concerns\RendersComponents;
-use AuthorProfileBlocks\Blocks\Concerns\Renders_Layouts;
+use AuthorProfileBlocks\Blocks\Concerns\RendersLayouts;
 use AuthorProfileBlocks\Blocks\Concerns\ResolvesAuthorData;
 use AuthorProfileBlocks\Core\Registerable;
 use Author_Profile_Blocks;
@@ -31,7 +31,7 @@ abstract class Author_Block_Base implements Registerable {
 	use BuildsBlockClasses;
 	use BuildsBlockStyles;
 	use RendersComponents;
-	use Renders_Layouts;
+	use RendersLayouts;
 
 	/**
 	 * Block name.

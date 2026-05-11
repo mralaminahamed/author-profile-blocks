@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Renders_Layouts {
+trait RendersLayouts {
 
 	/**
 	 * Render compact layout for author profiles.
