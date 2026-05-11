@@ -1,11 +1,24 @@
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
-import { SelectControl, PanelBody, Notice } from '@wordpress/components';
-import { useEffect } from '@wordpress/element';
+import { Notice, PanelBody, SelectControl } from '@wordpress/components';
+import type { ReactNode } from 'react';
 
 interface AdvancedTypographyProps {
 	googleFont: string;
 	fontSizeUnit: string;
 	onChange: ( attrs: Record< string, unknown > ) => void;
+	/** Panel title. Defaults to "Typography". */
+	title?: string;
+	/** Help text for the Google Font SelectControl. Omit for no help text. */
+	googleFontHelp?: string;
+	/** Notice shown below the font picker once a font is selected. */
+	fontNotice?: string;
+	/** Help text for the font-size-unit SelectControl. */
+	fontSizeUnitHelp?: string;
+	/** Optional render slot below the controls — used by author-list for tips. */
+	tips?: ReactNode;
 }
 
 const GOOGLE_FONTS = [
@@ -32,33 +45,29 @@ const FONT_SIZE_UNITS = [
 	{ value: '%', label: '%' },
 ];
 
-function loadGoogleFont( fontName: string ) {
-	if ( ! fontName ) return;
-	const existingLink = document.querySelector( 'link[href*="fonts.googleapis.com"]' );
-	if ( existingLink ) existingLink.remove();
-	const link = document.createElement( 'link' );
-	link.href = `https://fonts.googleapis.com/css2?family=${ encodeURIComponent( fontName ) }:wght@300;400;500;600;700&display=swap`;
-	link.rel = 'stylesheet';
-	document.head.appendChild( link );
-}
-
-export function AdvancedTypography( { googleFont, fontSizeUnit, onChange }: AdvancedTypographyProps ) {
-	useEffect( () => {
-		if ( googleFont ) loadGoogleFont( googleFont );
-	}, [ googleFont ] );
-
+export function AdvancedTypography( {
+	googleFont,
+	fontSizeUnit,
+	onChange,
+	title = __( 'Typography', 'author-profile-blocks' ),
+	googleFontHelp,
+	fontNotice = __( 'Font loaded — applies to author names.', 'author-profile-blocks' ),
+	fontSizeUnitHelp = __( 'em/rem for responsive sizing', 'author-profile-blocks' ),
+	tips,
+}: AdvancedTypographyProps ) {
 	return (
-		<PanelBody title={ __( 'Typography', 'author-profile-blocks' ) } initialOpen={ false }>
+		<PanelBody title={ title } initialOpen={ false }>
 			<SelectControl
 				label={ __( 'Google Font', 'author-profile-blocks' ) }
 				value={ googleFont }
 				options={ GOOGLE_FONTS }
 				onChange={ ( value ) => onChange( { googleFont: value } ) }
+				help={ googleFontHelp }
 			/>
 
 			{ googleFont && (
 				<Notice status="info" isDismissible={ false }>
-					{ __( 'Font loaded — applies to author names.', 'author-profile-blocks' ) }
+					{ fontNotice }
 				</Notice>
 			) }
 
@@ -67,8 +76,10 @@ export function AdvancedTypography( { googleFont, fontSizeUnit, onChange }: Adva
 				value={ fontSizeUnit }
 				options={ FONT_SIZE_UNITS }
 				onChange={ ( value ) => onChange( { fontSizeUnit: value } ) }
-				help={ __( 'em/rem for responsive sizing', 'author-profile-blocks' ) }
+				help={ fontSizeUnitHelp }
 			/>
+
+			{ tips }
 		</PanelBody>
 	);
 }

@@ -1,8 +1,10 @@
 import type { CarouselInspectorProps } from '../../types';
 import { __ } from '@wordpress/i18n';
 import { PanelBody, TextControl } from '@wordpress/components';
-import { AnimationControls } from '../../../../supports/js/components/inspector';
-import { AdvancedTypography } from '../AdvancedTypography';
+import {
+	AdvancedTypography,
+	AnimationControls,
+} from '../../../../supports/js/components/inspector';
 
 export default function AdvancedPanel( { attributes, setAttributes }: CarouselInspectorProps ) {
 	const {

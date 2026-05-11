@@ -8,8 +8,10 @@ import { PanelBody, TextControl } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { AnimationControls } from '../../../../supports/js/components/inspector';
-import { AdvancedTypography } from '../AdvancedTypography';
+import {
+	AdvancedTypography,
+	AnimationControls,
+} from '../../../../supports/js/components/inspector';
 
 /**
  * AdvancedPanel component for advanced settings in the InspectorControls
@@ -47,6 +49,19 @@ const AdvancedPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) =
 				googleFont={ googleFont }
 				fontSizeUnit={ fontSizeUnit }
 				onChange={ setAttributes }
+				title={ __( 'Advanced Typography', 'author-profile-blocks' ) }
+				googleFontHelp={ __(
+					'Choose from popular Google Fonts to enhance typography',
+					'author-profile-blocks',
+				) }
+				fontNotice={ __(
+					'Google Font loaded. The selected font will be applied to the author name.',
+					'author-profile-blocks',
+				) }
+				fontSizeUnitHelp={ __(
+					'Choose the unit for font sizes (px for fixed, em/rem for responsive)',
+					'author-profile-blocks',
+				) }
 			/>
 
 			<PanelBody
