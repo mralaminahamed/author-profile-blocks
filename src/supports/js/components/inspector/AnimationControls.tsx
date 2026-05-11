@@ -1,4 +1,7 @@
-import { __ } from '@wordpress/i18n';
+/**
+ * WordPress dependencies
+ */
+import { __, sprintf } from '@wordpress/i18n';
 import { SelectControl, RangeControl, PanelBody } from '@wordpress/components';
 
 interface AnimationControlsProps {
@@ -6,6 +9,11 @@ interface AnimationControlsProps {
 	animationDuration: number;
 	hoverEffect: string;
 	onChange: ( attrs: Record< string, unknown > ) => void;
+	/**
+	 * Singular/plural noun used in help text — e.g. "grid items",
+	 * "list items", "carousel slides". Defaults to "items".
+	 */
+	itemLabel?: string;
 }
 
 const ANIMATION_TYPES = [
@@ -28,24 +36,39 @@ const HOVER_EFFECTS = [
 	{ value: 'shadow', label: __( 'Shadow', 'author-profile-blocks' ) },
 ];
 
-export function AnimationControls( { animationType, animationDuration, hoverEffect, onChange }: AnimationControlsProps ) {
+export function AnimationControls( {
+	animationType,
+	animationDuration,
+	hoverEffect,
+	onChange,
+	itemLabel = __( 'items', 'author-profile-blocks' ),
+}: AnimationControlsProps ) {
 	return (
-		<PanelBody title={ __( 'Animation & Effects', 'author-profile-blocks' ) } initialOpen={ false }>
+		<PanelBody
+			title={ __( 'Animation & Effects', 'author-profile-blocks' ) }
+			initialOpen={ false }
+		>
 			<SelectControl
 				label={ __( 'Entrance Animation', 'author-profile-blocks' ) }
 				value={ animationType }
 				options={ ANIMATION_TYPES }
 				onChange={ ( value ) => onChange( { animationType: value } ) }
+				help={ sprintf(
+					/* translators: %s: items / slides / etc. */
+					__( 'Choose how %s appear when loaded', 'author-profile-blocks' ),
+					itemLabel,
+				) }
 			/>
 
 			{ animationType !== 'none' && (
 				<RangeControl
-					label={ __( 'Duration (ms)', 'author-profile-blocks' ) }
+					label={ __( 'Animation Duration', 'author-profile-blocks' ) }
 					value={ animationDuration }
 					onChange={ ( value ) => onChange( { animationDuration: value } ) }
 					min={ 100 }
 					max={ 2000 }
 					step={ 50 }
+					help={ __( 'Duration in milliseconds', 'author-profile-blocks' ) }
 				/>
 			) }
 
@@ -54,6 +77,11 @@ export function AnimationControls( { animationType, animationDuration, hoverEffe
 				value={ hoverEffect }
 				options={ HOVER_EFFECTS }
 				onChange={ ( value ) => onChange( { hoverEffect: value } ) }
+				help={ sprintf(
+					/* translators: %s: items / slides / etc. */
+					__( 'Visual effect when hovering over %s', 'author-profile-blocks' ),
+					itemLabel,
+				) }
 			/>
 		</PanelBody>
 	);

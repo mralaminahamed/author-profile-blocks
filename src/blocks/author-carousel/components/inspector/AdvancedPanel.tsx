@@ -1,7 +1,7 @@
 import type { CarouselInspectorProps } from '../../types';
 import { __ } from '@wordpress/i18n';
 import { PanelBody, TextControl } from '@wordpress/components';
-import { AnimationControls } from '../AnimationControls';
+import { AnimationControls } from '../../../../supports/js/components/inspector';
 import { AdvancedTypography } from '../AdvancedTypography';
 
 export default function AdvancedPanel( { attributes, setAttributes }: CarouselInspectorProps ) {
@@ -23,6 +23,7 @@ export default function AdvancedPanel( { attributes, setAttributes }: CarouselIn
 				animationDuration={ animationDuration }
 				hoverEffect={ hoverEffect }
 				onChange={ setAttributes }
+				itemLabel={ __( 'slides', 'author-profile-blocks' ) }
 			/>
 
 			<AdvancedTypography

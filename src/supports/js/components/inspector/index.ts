@@ -7,3 +7,4 @@
  * components themselves stay identical.
  */
 export { AdvancedStyling } from './AdvancedStyling';
+export { AnimationControls } from './AnimationControls';

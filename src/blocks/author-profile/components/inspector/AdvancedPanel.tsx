@@ -8,7 +8,7 @@ import { PanelBody, TextControl } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { AnimationControls } from '../AnimationControls';
+import { AnimationControls } from '../../../../supports/js/components/inspector';
 import { AdvancedTypography } from '../AdvancedTypography';
 
 /**
@@ -40,6 +40,7 @@ const AdvancedPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) =
 				animationDuration={ animationDuration }
 				hoverEffect={ hoverEffect }
 				onChange={ setAttributes }
+				itemLabel={ __( 'the profile', 'author-profile-blocks' ) }
 			/>
 
 			<AdvancedTypography
