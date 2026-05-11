@@ -15,13 +15,13 @@ import {
 	Button,
 } from '@wordpress/components';
 import { grid } from '@wordpress/icons';
-import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
 import { AuthorBlockPlaceholder } from '../../supports/js/components';
+import { useGoogleFont } from '../../supports/js/hooks';
 import AuthorGridPreview from './components/AuthorGridPreview';
 import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './components/inspector';
 
@@ -89,30 +89,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 		customVar2,
 	} = attributes;
 
-	// Load Google Font if selected
-	useEffect( () => {
-		if ( googleFont && googleFont !== '' ) {
-			loadGoogleFont( googleFont );
-		}
-	}, [ googleFont ] );
-
-	const loadGoogleFont = ( fontName: string ) => {
-		if ( ! fontName ) {
-			return;
-		}
-
-		// Remove existing Google Fonts link if present
-		const existingLink = document.querySelector( 'link[href*="fonts.googleapis.com"]' );
-		if ( existingLink ) {
-			existingLink.remove();
-		}
-
-		// Add new Google Font
-		const link = document.createElement( 'link' );
-		link.href = `https://fonts.googleapis.com/css2?family=${ encodeURIComponent( fontName ) }:wght@300;400;500;600;700&display=swap`;
-		link.rel = 'stylesheet';
-		document.head.appendChild( link );
-	};
+	useGoogleFont( googleFont );
 
 	const getShadowStyle = () => {
 		if ( ! boxShadow ) return undefined;

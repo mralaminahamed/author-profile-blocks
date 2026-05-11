@@ -11,14 +11,13 @@ import {
 	AlignmentToolbar,
 } from '@wordpress/block-editor';
 import { TabPanel } from '@wordpress/components';
-import { useEffect } from '@wordpress/element';
 import { people } from '@wordpress/icons';
 
 /**
  * Internal dependencies
  */
 import './editor.scss';
-import { useAuthors } from '../../supports/js/hooks';
+import { useAuthors, useGoogleFont } from '../../supports/js/hooks';
 import { AuthorBlockPlaceholder } from '../../supports/js/components';
 import AuthorPreview from './components/AuthorPreview';
 import MoreContent from './components/MoreContent';
@@ -120,30 +119,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Aut
 	// Use our custom hook to manage authors
 	const { setSelectedAuthor } = useAuthors( authorId );
 
-	// Load Google Font if selected
-	useEffect( () => {
-		if ( googleFont && googleFont !== '' ) {
-			loadGoogleFont( googleFont );
-		}
-	}, [ googleFont ] );
-
-	const loadGoogleFont = ( fontName ) => {
-		if ( ! fontName ) {
-			return;
-		}
-
-		// Remove existing Google Fonts link if present
-		const existingLink = document.querySelector( 'link[href*="fonts.googleapis.com"]' );
-		if ( existingLink ) {
-			existingLink.remove();
-		}
-
-		// Add new Google Font
-		const link = document.createElement( 'link' );
-		link.href = `https://fonts.googleapis.com/css2?family=${ encodeURIComponent( fontName ) }:wght@300;400;500;600;700&display=swap`;
-		link.rel = 'stylesheet';
-		document.head.appendChild( link );
-	};
+	useGoogleFont( googleFont );
 
 	// Create advanced shadow style
 	const getShadowStyle = () => {
