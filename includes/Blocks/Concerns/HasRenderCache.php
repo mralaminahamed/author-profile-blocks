@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-trait Has_Render_Cache {
+trait HasRenderCache {
 
 	/**
 	 * Get an item from the render cache.
