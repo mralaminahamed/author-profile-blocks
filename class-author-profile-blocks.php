@@ -692,7 +692,7 @@ class Author_Profile_Blocks {
 		// Allow 3rd party plugins to filter template file from their plugin.
 		$template = apply_filters( 'author_profile_blocks_get_template_part', $template, $slug, $name );
 
-		if ( $template ) {
+		if ( $template && file_exists( $template ) ) {
 			load_template( $template, false );
 		}
 	}
@@ -728,7 +728,7 @@ class Author_Profile_Blocks {
 			'args'          => $args,
 		);
 
-		if ( ! empty( $template ) ) {
+		if ( ! empty( $template ) && file_exists( $template ) ) {
 			do_action( 'author_profile_blocks_before_template_part', $action_args );
 			include $template;
 			do_action( 'author_profile_blocks_after_template_part', $action_args );
