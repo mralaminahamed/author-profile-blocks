@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Blocks;
 
+use AuthorProfileBlocks\Blocks\Concerns\Provides_Messages;
 use AuthorProfileBlocks\Core\Registerable;
 use Author_Profile_Blocks;
 
@@ -18,6 +19,8 @@ use Author_Profile_Blocks;
  * Abstract base class for author-related blocks.
  */
 abstract class Author_Block_Base implements Registerable {
+	use Provides_Messages;
+
 	/**
 	 * Block name.
 	 *
@@ -158,54 +161,6 @@ abstract class Author_Block_Base implements Registerable {
 
 		// Then apply a general filter for all blocks.
 		return apply_filters( 'author_profile_blocks_rendered_block', $filtered_content, $block, $this->block_name );
-	}
-
-	/**
-	 * Render an error message for author blocks.
-	 *
-	 * @param string $message The error message to display.
-	 *
-	 * @return string HTML for error message.
-	 */
-	protected function render_error_message( string $message ): string {
-		return '<div class="apbl-error-message">' . esc_html( $message ) . '</div>';
-	}
-
-	/**
-	 * Get standardized error message for missing author selection.
-	 *
-	 * @return string The error message.
-	 */
-	protected function get_no_authors_selected_message(): string {
-		/* translators: %s: block type (grid, carousel, list) */
-		return __( 'Please select authors for the %s.', 'author-profile-blocks' );
-	}
-
-	/**
-	 * Get standardized error message for no authors found.
-	 *
-	 * @return string The error message.
-	 */
-	protected function get_no_authors_found_message(): string {
-		return __( 'No authors found matching the specified criteria.', 'author-profile-blocks' );
-	}
-
-	/**
-	 * Get standardized error message for missing single author selection.
-	 *
-	 * @return string The error message.
-	 */
-	protected function get_no_author_selected_message(): string {
-		return __( 'Please select an author.', 'author-profile-blocks' );
-	}
-
-	/**
-	 * Get standardized error message for author not found.
-	 *
-	 * @return string The error message.
-	 */
-	protected function get_author_not_found_message(): string {
-		return __( 'Author not found.', 'author-profile-blocks' );
 	}
 
 	/**
