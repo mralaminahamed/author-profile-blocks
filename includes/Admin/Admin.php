@@ -28,7 +28,7 @@ class Admin {
 	}
 
 	public function enqueue_scripts( string $hook ): void {
-		if ( 'settings_page_author-profile-blocks' !== $hook ) {
+		if ( 'toplevel_page_author-profile-blocks' !== $hook ) {
 			return;
 		}
 
@@ -63,12 +63,14 @@ class Admin {
 	}
 
 	public function add_menu_pages(): void {
-		add_options_page(
+		add_menu_page(
 			__( 'Author Profile Blocks', 'author-profile-blocks' ),
 			__( 'Author Profile Blocks', 'author-profile-blocks' ),
 			'manage_options',
 			'author-profile-blocks',
-			array( $this, 'settings_page' )
+			array( $this, 'settings_page' ),
+			'dashicons-groups',
+			58
 		);
 	}
 
