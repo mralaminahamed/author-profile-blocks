@@ -23,8 +23,8 @@ import { useEffect } from '@wordpress/element';
  */
 import './editor.scss';
 import { AuthorBlockPlaceholder } from '../../supports/js/components';
+import { useAuthorsList } from '../../supports/js/hooks';
 import AuthorListPreview from './components/AuthorListPreview';
-import useAuthors from './hooks/useAuthors';
 import { ContentPanel, StylePanel, LayoutPanel, AdvancedPanel } from './components/inspector';
 
 /**
@@ -104,11 +104,11 @@ export default function Edit( {
 	} = attributes;
 
 	// Use our custom hook to fetch and manage authors
-	const { authors, isLoading, error } = useAuthors(
+	const { authors, isLoading, error } = useAuthorsList( {
 		authorIds,
-		authorRole,
+		role: authorRole,
 		maxAuthors,
-	);
+	} );
 
 	// Load Google Font if selected
 	useEffect( () => {
