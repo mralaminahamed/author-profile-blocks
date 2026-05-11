@@ -9,3 +9,5 @@
 export { AdvancedStyling } from './AdvancedStyling';
 export { AdvancedTypography } from './AdvancedTypography';
 export { AnimationControls } from './AnimationControls';
+export { LayoutPresets } from './LayoutPresets';
+export type { LayoutOption } from './LayoutPresets';

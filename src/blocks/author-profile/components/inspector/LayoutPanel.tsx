@@ -14,11 +14,57 @@ import {
 	ColorPalette,
 	ToggleControl,
 } from '@wordpress/components';
+import { UserRound, IdCard, Minus, Frame, Layers2 } from 'lucide-react';
 
 /**
  * Internal dependencies
  */
-import { LayoutPresets } from '../LayoutPresets';
+import {
+	LayoutPresets,
+	type LayoutOption,
+} from '../../../../supports/js/components/inspector';
+
+const PROFILE_LAYOUTS: LayoutOption[] = [
+	{
+		id: '',
+		label: __( 'Default', 'author-profile-blocks' ),
+		icon: UserRound,
+		description: __(
+			'Classic card layout with image and content',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-card',
+		label: __( 'Card', 'author-profile-blocks' ),
+		icon: IdCard,
+		description: __(
+			'Traditional card layout with clean styling',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-minimal',
+		label: __( 'Minimal', 'author-profile-blocks' ),
+		icon: Minus,
+		description: __(
+			'Clean, minimal design with essential information',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-bordered',
+		label: __( 'Bordered', 'author-profile-blocks' ),
+		icon: Frame,
+		description: __( 'Layout with visible borders', 'author-profile-blocks' ),
+	},
+	{
+		id: 'is-style-shadow',
+		label: __( 'Shadow', 'author-profile-blocks' ),
+		icon: Layers2,
+		description: __( 'Layout with shadow effects', 'author-profile-blocks' ),
+	},
+];
 
 /**
  * LayoutPanel component for layout-related settings in the InspectorControls
@@ -51,6 +97,7 @@ const LayoutPanel = ( { attributes, setAttributes }: ProfileInspectorProps ) => 
 	return (
 		<>
 			<LayoutPresets
+				layouts={ PROFILE_LAYOUTS }
 				selectedLayout={ blockStyle }
 				onChange={ ( value ) => setAttributes( { blockStyle: value } ) }
 			/>

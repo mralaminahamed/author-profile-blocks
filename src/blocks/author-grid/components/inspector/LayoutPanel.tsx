@@ -7,8 +7,76 @@ import {
 	RangeControl,
 	__experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
-import { LayoutPresets } from '../LayoutPresets';
+import {
+	LayoutGrid,
+	Layers,
+	Minus,
+	Square,
+	Layers2,
+	LayoutDashboard,
+} from 'lucide-react';
+import {
+	LayoutPresets,
+	type LayoutOption,
+} from '../../../../supports/js/components/inspector';
 import GridLayoutSelector from '../GridLayoutSelector';
+
+const GRID_LAYOUTS: LayoutOption[] = [
+	{
+		id: 'default',
+		label: __( 'Default', 'author-profile-blocks' ),
+		icon: LayoutGrid,
+		description: __(
+			'Standard grid layout with clean styling',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-card',
+		label: __( 'Card Grid', 'author-profile-blocks' ),
+		icon: Layers,
+		description: __(
+			'Individual cards in grid formation',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-minimal',
+		label: __( 'Minimal', 'author-profile-blocks' ),
+		icon: Minus,
+		description: __(
+			'Clean, minimal grid design',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-bordered',
+		label: __( 'Bordered', 'author-profile-blocks' ),
+		icon: Square,
+		description: __(
+			'Grid with visible borders around items',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-shadow',
+		label: __( 'Shadow Grid', 'author-profile-blocks' ),
+		icon: Layers2,
+		description: __(
+			'Grid with shadow effects on items',
+			'author-profile-blocks',
+		),
+	},
+	{
+		id: 'is-style-mosaic',
+		label: __( 'Mosaic', 'author-profile-blocks' ),
+		icon: LayoutDashboard,
+		description: __(
+			'Mosaic-style grid with varied item sizes',
+			'author-profile-blocks',
+		),
+	},
+];
 
 /**
  * LayoutPanel component for layout-related settings in the InspectorControls
@@ -32,6 +100,7 @@ const LayoutPanel = ( { attributes, setAttributes }: GridInspectorProps ) => {
 	return (
 		<>
 			<LayoutPresets
+				layouts={ GRID_LAYOUTS }
 				selectedLayout={ layoutPreset }
 				onChange={ ( value ) => setAttributes( { layoutPreset: value } ) }
 			/>
