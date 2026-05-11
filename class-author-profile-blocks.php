@@ -90,16 +90,6 @@ class Author_Profile_Blocks {
 	}
 
 	/**
-	 * Register admin components.
-	 *
-	 * @return void
-	 */
-	private function register_admin(): void {
-		new Admin();
-		new PluginLinks();
-	}
-
-	/**
 	 * Register all blocks.
 	 *
 	 * @return void
