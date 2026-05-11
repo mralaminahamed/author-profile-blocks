@@ -11,3 +11,5 @@ export { AdvancedTypography } from './AdvancedTypography';
 export { AnimationControls } from './AnimationControls';
 export { LayoutPresets } from './LayoutPresets';
 export type { LayoutOption } from './LayoutPresets';
+export { PresetStyles } from './PresetStyles';
+export type { StylePreset } from './PresetStyles';
