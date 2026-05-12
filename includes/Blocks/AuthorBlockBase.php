@@ -199,5 +199,4 @@ abstract class AuthorBlockBase implements Registerable {
 			$localized_data
 		);
 	}
-
 }

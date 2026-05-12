@@ -11,8 +11,10 @@
     <exclude-pattern>/build/*</exclude-pattern>
     <exclude-pattern>/docs/*</exclude-pattern>
     <exclude-pattern>/languages/*</exclude-pattern>
+    <exclude-pattern>/resources/*</exclude-pattern>
     <exclude-pattern>/src/*</exclude-pattern>
     <exclude-pattern>/tests/*</exclude-pattern>
+    <exclude-pattern>/release/*</exclude-pattern>
     <exclude-pattern>*.asset.php</exclude-pattern>
 
     <!-- Only scan PHP files -->
@@ -24,8 +26,14 @@
 
     <!-- WordPress standards -->
     <rule ref="WordPress">
-        <!-- Customize rules as needed -->
+        <!-- PSR-4 PascalCase filenames -->
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <!-- declare(strict_types=1) before file-level docblock — modern PHP convention -->
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+        <exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
+        <exclude name="PSR12.Files.FileHeader.IncorrectOrder"/>
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
         <!-- Allow camelCase for JS interop and modern patterns -->
         <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>

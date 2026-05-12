@@ -15,10 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<li class="<?php echo esc_attr( $item_class ); ?>"<?php
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- style value already esc_attr'd in block class
-	echo $style_attribute; ?>>
+<?php
+// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+// $style_attribute is built with esc_attr() in the block's render callback.
+?>
+<li class="<?php echo esc_attr( $item_class ); ?>"<?php echo $style_attribute; ?>>
 	<div class="apbl-author-list-item-content">
 		<?php echo wp_kses_post( $author_content ); ?>
 	</div>
 </li>
+<?php
+// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+?>

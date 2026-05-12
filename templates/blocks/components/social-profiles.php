@@ -93,9 +93,12 @@ if ( ! empty( $show_profiles ) ) {
 	}
 }
 ?>
-<div class="<?php echo esc_attr( $apbl_classes ); ?>"<?php
+<div class="<?php echo esc_attr( $apbl_classes ); ?>"
+<?php
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- values already esc_attr'd
-	echo $apbl_style_html; ?>>
+	echo $apbl_style_html;
+?>
+	>
 	<ul class="apbl-social-list">
 		<?php foreach ( $apbl_filtered_profiles as $apbl_network => $apbl_url ) : ?>
 			<?php if ( ! empty( $apbl_url ) && isset( $apbl_social_icons[ $apbl_network ] ) ) : ?>

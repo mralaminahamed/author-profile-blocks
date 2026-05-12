@@ -18,22 +18,40 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin {
 
+	/**
+	 * Wire up admin menu and asset hooks.
+	 */
 	public function __construct() {
 		$this->init();
 	}
 
+	/**
+	 * Register WordPress hooks.
+	 *
+	 * @return void
+	 */
 	private function init(): void {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'add_menu_pages' ) );
 	}
 
+	/**
+	 * Enqueue admin SPA assets on the plugin's top-level page only.
+	 *
+	 * @param string $hook Current admin page hook.
+	 *
+	 * @return void
+	 */
 	public function enqueue_scripts( string $hook ): void {
 		if ( 'toplevel_page_author-profile-blocks' !== $hook ) {
 			return;
 		}
 
 		$asset_file = plugin_dir_path( APBL_PLUGIN_FILE ) . 'build/admin/index.asset.php';
-		$asset      = file_exists( $asset_file ) ? require $asset_file : array( 'dependencies' => array(), 'version' => APBL_VERSION );
+		$asset      = file_exists( $asset_file ) ? require $asset_file : array(
+			'dependencies' => array(),
+			'version'      => APBL_VERSION,
+		);
 
 		wp_enqueue_script(
 			'apbl-admin',
@@ -62,6 +80,11 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Register the top-level admin menu page.
+	 *
+	 * @return void
+	 */
 	public function add_menu_pages(): void {
 		add_menu_page(
 			__( 'Author Profile Blocks', 'author-profile-blocks' ),
@@ -74,6 +97,11 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Render the React SPA mount point.
+	 *
+	 * @return void
+	 */
 	public function settings_page(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission to access this page.', 'author-profile-blocks' ) );
@@ -82,6 +110,11 @@ class Admin {
 		echo '<div id="apbl-admin-root"></div>';
 	}
 
+	/**
+	 * Default plugin settings used as fallbacks.
+	 *
+	 * @return array<string, mixed>
+	 */
 	public static function get_default_settings(): array {
 		return array(
 			'author_roles'     => array( 'administrator', 'editor', 'author' ),
@@ -92,6 +125,11 @@ class Admin {
 		);
 	}
 
+	/**
+	 * Stored settings merged with defaults.
+	 *
+	 * @return array<string, mixed>
+	 */
 	public static function get_settings(): array {
 		return wp_parse_args(
 			get_option( 'author_profile_blocks_settings', array() ),

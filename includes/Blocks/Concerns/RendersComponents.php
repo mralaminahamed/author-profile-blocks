@@ -37,6 +37,7 @@ trait RendersComponents {
 	 *     @type string $registered_date Registration date.
 	 * }
 	 * @param string               $wrapper_class Optional. Additional CSS class for the image container. Default empty string.
+	 * @param array<string, mixed> $attributes    Optional. Block attributes (avatarSize, avatarShape, etc.).
 	 *
 	 * @return string Rendered HTML.
 	 */

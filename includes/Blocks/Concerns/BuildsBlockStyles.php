@@ -57,7 +57,7 @@ trait BuildsBlockStyles {
 		// so the block's SCSS can apply max-width + auto-centering via attribute selector.
 		if ( isset( $attributes['containerWidth'] ) && ! empty( $attributes['containerWidth'] ) ) {
 			if ( 'author-profile' === $this->block_name ) {
-				$styles['max-width'] = $attributes['containerWidth'];
+				$styles['max-width']     = $attributes['containerWidth'];
 				$styles['margin-inline'] = 'auto';
 			} else {
 				$styles[ '--' . $this->block_name . '-container-width' ] = $attributes['containerWidth'];
@@ -157,8 +157,8 @@ trait BuildsBlockStyles {
 		}
 
 		if ( ! empty( $attributes['avatarAlignment'] ) ) {
-			$styles['--author-avatar-align'] = $attributes['avatarAlignment'];
-			$flex_justify = array(
+			$styles['--author-avatar-align']   = $attributes['avatarAlignment'];
+			$flex_justify                      = array(
 				'left'   => 'flex-start',
 				'center' => 'center',
 				'right'  => 'flex-end',

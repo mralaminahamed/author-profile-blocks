@@ -173,7 +173,7 @@ trait RendersLayouts {
 	 */
 	protected function render_centered_layout( array $author, array $attributes ): string {
 		$social_profiles = is_array( $author['social'] ?? null ) ? $author['social'] : array();
-		$template_vars = array(
+		$template_vars   = array(
 			'author'             => $author,
 			'attributes'         => $attributes,
 			'author_image'       => $this->render_author_image( $author, '', $attributes ),

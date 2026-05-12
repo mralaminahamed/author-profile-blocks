@@ -25,10 +25,18 @@ class Settings {
 	const REST_NAMESPACE = 'author-profile-blocks/v1';
 	const ROUTE          = '/settings';
 
+	/**
+	 * Wire up REST route registration.
+	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
+	/**
+	 * Register GET and POST routes for /v1/settings.
+	 *
+	 * @return void
+	 */
 	public function register_routes(): void {
 		register_rest_route(
 			self::REST_NAMESPACE,
@@ -48,16 +56,33 @@ class Settings {
 		);
 	}
 
+	/**
+	 * Allow only users with manage_options capability.
+	 *
+	 * @return bool
+	 */
 	public function check_permission(): bool {
 		return current_user_can( 'manage_options' );
 	}
 
+	/**
+	 * Return current plugin settings.
+	 *
+	 * @return WP_REST_Response
+	 */
 	public function get_settings(): WP_REST_Response {
 		$settings               = Admin::get_settings();
 		$settings['show_email'] = (bool) $settings['show_email'];
 		return new WP_REST_Response( $settings, 200 );
 	}
 
+	/**
+	 * Sanitize and persist plugin settings.
+	 *
+	 * @param WP_REST_Request $request REST request with JSON body.
+	 *
+	 * @return WP_REST_Response
+	 */
 	public function update_settings( WP_REST_Request $request ): WP_REST_Response {
 		$params    = $request->get_json_params() ?? array();
 		$sanitized = array();
@@ -94,8 +119,8 @@ class Settings {
 			$sanitized['cache_duration'] = max( 1, min( 168, absint( $params['cache_duration'] ) ) );
 		}
 
-		$base    = Admin::get_settings();
-		$merged  = array_merge( $base, $sanitized );
+		$base   = Admin::get_settings();
+		$merged = array_merge( $base, $sanitized );
 		update_option( 'author_profile_blocks_settings', $merged );
 
 		$merged['show_email'] = (bool) $merged['show_email'];
