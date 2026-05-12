@@ -72,51 +72,55 @@ const AuthorsListPreview = ( { authors = [], attributes = {}, isLoading = false,
 
 	return (
 		<ListTag className={ listClasses }>
-			{ authors.map( ( author, index ) => (
-				<li key={ author.id || index } className="apbl-author-list-item">
-					<div className="apbl-author-list-item-content">
-						<div className={ layoutClass }>
-							{ showImage && ( author as any ).avatar && (
-								<div className="apbl-author-image">
-									<img
-										src={ ( author as any ).avatar }
-										alt={ author.name || '' }
-										width={ displayStyle === 'detailed' ? 80 : 56 }
-										height={ displayStyle === 'detailed' ? 80 : 56 }
-										loading="lazy"
-									/>
-								</div>
-							) }
+			{ authors.map( ( author, index ) => {
+				const avatarSrc = author.avatar_url || author.avatar_urls?.[ '96' ] || author.avatar_urls?.[ '48' ];
+				const position = author.author_position;
+				const bio = author.author_description || author.description;
 
-							<div className="apbl-author-info">
-								<span className="apbl-author-name">
-									{ author.name || `User ${ author.id }` }
-								</span>
+				return (
+					<li key={ author.id || index } className="apbl-author-list-item">
+						<div className="apbl-author-list-item-content">
+							<div className={ layoutClass }>
+								{ showImage && avatarSrc && (
+									<div className="apbl-author-image">
+										<img
+											src={ avatarSrc }
+											alt={ author.name || '' }
+											width={ displayStyle === 'detailed' ? 80 : 56 }
+											height={ displayStyle === 'detailed' ? 80 : 56 }
+											loading="lazy"
+										/>
+									</div>
+								) }
 
-								{ showPosition && ( author as any ).position && (
-									<span className="apbl-author-position">
-										{ ( author as any ).position }
+								<div className="apbl-author-info">
+									<span className="apbl-author-name">
+										{ author.name || `User ${ author.id }` }
 									</span>
-								) }
 
-								{ showEmail && author.email && (
-									<a className="apbl-author-email" href={ `mailto:${ author.email }` }>
-										{ author.email }
-									</a>
-								) }
+									{ showPosition && position && (
+										<span className="apbl-author-position">{ position }</span>
+									) }
 
-								{ showDescription && author.description && displayStyle === 'detailed' && (
-									<p className="apbl-author-description">
-										{ author.description.length > 120
-											? `${ author.description.substring( 0, 120 ) }…`
-											: author.description }
-									</p>
-								) }
+									{ showEmail && author.email && (
+										<a className="apbl-author-email" href={ `mailto:${ author.email }` }>
+											{ author.email }
+										</a>
+									) }
+
+									{ showDescription && bio && displayStyle === 'detailed' && (
+										<p className="apbl-author-description">
+											{ bio.length > 120
+												? `${ bio.substring( 0, 120 ) }…`
+												: bio }
+										</p>
+									) }
+								</div>
 							</div>
 						</div>
-					</div>
-				</li>
-			) ) }
+					</li>
+				);
+			} ) }
 		</ListTag>
 	);
 };
