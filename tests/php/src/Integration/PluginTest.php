@@ -6,7 +6,7 @@ namespace AuthorProfileBlocks\Test\Integration;
 use Author_Profile_Blocks;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
-use AuthorProfileBlocks\Blocks\Author_List_Block;
+use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\Services\AuthorProfileService;
@@ -49,7 +49,7 @@ class PluginTest extends IntegrationTestCase {
 
 		$this->assertInstanceOf( AuthorProfileBlock::class, $plugin->get_block( 'author-profile' ) );
 		$this->assertInstanceOf( AuthorGridBlock::class, $plugin->get_block( 'author-grid' ) );
-		$this->assertInstanceOf( Author_List_Block::class, $plugin->get_block( 'author-list' ) );
+		$this->assertInstanceOf( AuthorListBlock::class, $plugin->get_block( 'author-list' ) );
 		$this->assertInstanceOf( Author_Carousel_Block::class, $plugin->get_block( 'author-carousel' ) );
 		$this->assertNull( $plugin->get_block( 'nonexistent' ) );
 	}

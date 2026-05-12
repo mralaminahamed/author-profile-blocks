@@ -5,7 +5,7 @@ namespace AuthorProfileBlocks\Test\Integration;
 
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
-use AuthorProfileBlocks\Blocks\Author_List_Block;
+use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 
 /**

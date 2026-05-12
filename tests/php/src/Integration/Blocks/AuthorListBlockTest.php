@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_List_Block;
+use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Integration tests for Author_List_Block.
+ * Integration tests for AuthorListBlock.
  */
 class AuthorListBlockTest extends IntegrationTestCase {
 
-	private Author_List_Block $block;
+	private AuthorListBlock $block;
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->block = new Author_List_Block();
+		$this->block = new AuthorListBlock();
 	}
 
 	public function test_block_name(): void {

@@ -5,7 +5,7 @@ namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
-use AuthorProfileBlocks\Blocks\Author_List_Block;
+use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
@@ -139,7 +139,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	public function multi_block_classes(): array {
 		return array(
 			'grid'     => array( AuthorGridBlock::class ),
-			'list'     => array( Author_List_Block::class ),
+			'list'     => array( AuthorListBlock::class ),
 			'carousel' => array( Author_Carousel_Block::class ),
 		);
 	}

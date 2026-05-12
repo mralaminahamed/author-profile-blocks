@@ -13,7 +13,7 @@ use AuthorProfileBlocks\Admin\PluginLinks;
 use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
-use AuthorProfileBlocks\Blocks\Author_List_Block;
+use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
@@ -99,7 +99,7 @@ class Author_Profile_Blocks {
 		$this->register_block( new AuthorProfileBlock() );
 		$this->register_block( new AuthorGridBlock() );
 		$this->register_block( new Author_Carousel_Block() );
-		$this->register_block( new Author_List_Block() );
+		$this->register_block( new AuthorListBlock() );
 
 		// Allow plugins/themes to register additional blocks.
 		do_action( 'author_profile_blocks_register_blocks', $this );
