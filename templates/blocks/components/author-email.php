@@ -11,6 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( empty( $author['email'] ) ) {
+	return;
+}
+
 $apbl_class_attr = 'apbl-author-email';
 
 $apbl_style = '';

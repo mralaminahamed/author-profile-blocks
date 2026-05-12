@@ -52,7 +52,7 @@ class AuthorListBlockTest extends IntegrationTestCase {
 
 			$this->assertNotEmpty( $html, "displayStyle={$style} produced empty output" );
 			$this->assertStringNotContainsString( 'apbl-error-message', $html );
-			$this->assertStringContainsString( "is-style-{$style}", $html );
+			$this->assertStringContainsString( "apbl-display-{$style}", $html );
 		}
 	}
 

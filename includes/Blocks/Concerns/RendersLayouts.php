@@ -182,6 +182,7 @@ trait RendersLayouts {
 			'author_email'       => $this->render_author_email( $author ),
 			'author_description' => $this->render_author_description( $author ),
 			'social_links'       => $this->render_social_profiles( $social_profiles ),
+			'registered_date'    => $this->render_registered_date( $author ),
 		);
 
 		ob_start();

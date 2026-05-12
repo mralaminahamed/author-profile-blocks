@@ -122,7 +122,8 @@ class AuthorBlockBaseTest extends IntegrationTestCase {
 		$this->assertStringContainsString( 'has-text-align-center', $result );
 		$this->assertStringContainsString( 'has-fadeIn-animation', $result );
 		$this->assertStringContainsString( 'has-lift-hover', $result );
-		$this->assertStringContainsString( 'is-style-compact', $result );
+		// is-style-* is no longer emitted from displayStyle attribute to avoid
+		// conflicts with the layoutPreset class (see fix(blocks) 54daa34).
 		$this->assertStringContainsString( 'avatar-shape-circle', $result );
 		$this->assertStringContainsString( 'has-author-image', $result );
 		$this->assertStringContainsString( 'has-shadow', $result );

@@ -224,7 +224,7 @@ class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
 			array( $author, array() )
 		);
 
-		$this->assertStringContainsString( 'author-profile-blocks-minimal', $html );
+		$this->assertStringContainsString( 'apbl-author-minimal', $html );
 	}
 
 	public function test_render_centered_layout_includes_template(): void {
