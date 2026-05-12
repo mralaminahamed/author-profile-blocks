@@ -6,7 +6,7 @@ namespace AuthorProfileBlocks\Test\Integration;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 
 /**
  * Adversarial inputs through every public seam:

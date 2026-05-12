@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Profile block.
  */
-class Author_Profile_Block extends Author_Block_Base {
+class AuthorProfileBlock extends Author_Block_Base {
 	/**
 	 * Get the block name.
 	 *

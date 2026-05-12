@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Integration tests for Author_Profile_Block.
+ * Integration tests for AuthorProfileBlock.
  *
  * Direct render_callback() tests use error paths (which don't call
  * get_block_wrapper_attributes()). Happy-path tests go through do_blocks()
@@ -15,11 +15,11 @@ use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
  */
 class AuthorProfileBlockTest extends IntegrationTestCase {
 
-	private Author_Profile_Block $block;
+	private AuthorProfileBlock $block;
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->block = new Author_Profile_Block();
+		$this->block = new AuthorProfileBlock();
 	}
 
 	public function test_block_name(): void {

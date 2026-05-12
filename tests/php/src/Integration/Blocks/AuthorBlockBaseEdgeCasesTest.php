@@ -4,23 +4,23 @@ declare(strict_types=1);
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
 use AuthorProfileBlocks\Blocks\Author_Block_Base;
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 use ReflectionClass;
 use ReflectionMethod;
 
 /**
  * Edge cases for shared logic in Author_Block_Base (exercised through the
- * concrete Author_Profile_Block subclass).
+ * concrete AuthorProfileBlock subclass).
  */
 class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
 
-	private Author_Profile_Block $block;
+	private AuthorProfileBlock $block;
 	private ReflectionClass $rc;
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->block = new Author_Profile_Block();
+		$this->block = new AuthorProfileBlock();
 		$this->rc    = new ReflectionClass( $this->block );
 	}
 

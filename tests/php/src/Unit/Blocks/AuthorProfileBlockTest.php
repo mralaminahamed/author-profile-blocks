@@ -5,31 +5,31 @@ namespace AuthorProfileBlocks\Test\Unit\Blocks;
 use AuthorProfileBlocks\Test\AuthorProfileBlocksTestCase;
 
 /**
- * Unit test for Author_Profile_Block.
+ * Unit test for AuthorProfileBlock.
  */
 class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
 
     /**
-     * Test that Author_Profile_Block class file exists.
+     * Test that AuthorProfileBlock class file exists.
      */
     public function test_author_profile_block_class_file_exists() {
-        $this->assertFileExists(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $this->assertFileExists(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
     }
 
     /**
-     * Test that Author_Profile_Block class contains expected structure.
+     * Test that AuthorProfileBlock class contains expected structure.
      */
     public function test_author_profile_block_class_structure() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
-        $this->assertStringContainsString('class Author_Profile_Block extends Author_Block_Base', $class_content);
+        $this->assertStringContainsString('class AuthorProfileBlock extends Author_Block_Base', $class_content);
     }
 
     /**
-     * Test that Author_Profile_Block class contains expected methods.
+     * Test that AuthorProfileBlock class contains expected methods.
      */
     public function test_author_profile_block_has_expected_methods() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
         $this->assertStringContainsString('public function get_block_name(): string', $class_content);
         $this->assertStringContainsString('protected function block_specific_init(): void', $class_content);
@@ -41,7 +41,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
      * Test that get_block_name method returns correct value.
      */
     public function test_get_block_name_method_returns_correct_value() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
         $this->assertStringContainsString("return 'author-profile';", $class_content);
     }
@@ -50,7 +50,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
      * Test that class contains block-specific initialization.
      */
     public function test_class_contains_block_specific_initialization() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
         $this->assertStringContainsString("add_action( 'enqueue_block_editor_assets', array( \$this, 'localize_block_script' ) );", $class_content);
     }
@@ -68,7 +68,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
      * Test that class contains proper namespace and imports.
      */
     public function test_class_has_proper_namespace_and_imports() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Profile_Block.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
         $this->assertStringContainsString('namespace AuthorProfileBlocks\Blocks;', $class_content);
         $this->assertStringContainsString('use AuthorProfileBlocks\Blocks\Author_Block_Base;', $class_content);

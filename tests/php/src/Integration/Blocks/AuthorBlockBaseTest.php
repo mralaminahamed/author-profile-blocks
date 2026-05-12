@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 use ReflectionClass;
 
 /**
- * Integration tests for shared logic in Author_Block_Base via Author_Profile_Block.
+ * Integration tests for shared logic in Author_Block_Base via AuthorProfileBlock.
  *
  * Author_Block_Base is abstract — exercise its protected helpers through a
  * concrete subclass and reflection, since they're shared infrastructure for
@@ -16,12 +16,12 @@ use ReflectionClass;
  */
 class AuthorBlockBaseTest extends IntegrationTestCase {
 
-	private Author_Profile_Block $block;
+	private AuthorProfileBlock $block;
 	private ReflectionClass $rc;
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->block = new Author_Profile_Block();
+		$this->block = new AuthorProfileBlock();
 		$this->rc    = new ReflectionClass( $this->block );
 	}
 

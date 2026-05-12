@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
@@ -25,7 +25,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 
 	public function test_profile_block_handles_negative_author_id(): void {
 		// (int) -1 stays -1, truthy → service hits get_user_by → no user found.
-		$html = ( new Author_Profile_Block() )->render_callback(
+		$html = ( new AuthorProfileBlock() )->render_callback(
 			array( 'authorId' => -1 ),
 			'',
 			null
@@ -34,7 +34,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_profile_block_handles_null_author_id(): void {
-		$html = ( new Author_Profile_Block() )->render_callback(
+		$html = ( new AuthorProfileBlock() )->render_callback(
 			array( 'authorId' => null ),
 			'',
 			null
@@ -47,7 +47,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 		\wp_delete_user( $id );
 		$this->created_user_ids = array_diff( $this->created_user_ids, array( $id ) );
 
-		$html = ( new Author_Profile_Block() )->render_callback(
+		$html = ( new AuthorProfileBlock() )->render_callback(
 			array( 'authorId' => $id ),
 			'',
 			null

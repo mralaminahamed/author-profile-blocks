@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace AuthorProfileBlocks\Test\Integration;
 
 use Author_Profile_Blocks;
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
@@ -47,7 +47,7 @@ class PluginTest extends IntegrationTestCase {
 	public function test_get_block_returns_correct_instance(): void {
 		$plugin = \author_profile_blocks();
 
-		$this->assertInstanceOf( Author_Profile_Block::class, $plugin->get_block( 'author-profile' ) );
+		$this->assertInstanceOf( AuthorProfileBlock::class, $plugin->get_block( 'author-profile' ) );
 		$this->assertInstanceOf( Author_Grid_Block::class, $plugin->get_block( 'author-grid' ) );
 		$this->assertInstanceOf( Author_List_Block::class, $plugin->get_block( 'author-list' ) );
 		$this->assertInstanceOf( Author_Carousel_Block::class, $plugin->get_block( 'author-carousel' ) );

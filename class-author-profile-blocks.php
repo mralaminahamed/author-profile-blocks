@@ -14,7 +14,7 @@ use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Blocks\Author_Grid_Block;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
-use AuthorProfileBlocks\Blocks\Author_Profile_Block;
+use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Core\UserMetaProvider;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
 use AuthorProfileBlocks\Services\AuthorProfileService;
@@ -96,7 +96,7 @@ class Author_Profile_Blocks {
 	 */
 	private function register_blocks(): void {
 		// Register all blocks here.
-		$this->register_block( new Author_Profile_Block() );
+		$this->register_block( new AuthorProfileBlock() );
 		$this->register_block( new Author_Grid_Block() );
 		$this->register_block( new Author_Carousel_Block() );
 		$this->register_block( new Author_List_Block() );
