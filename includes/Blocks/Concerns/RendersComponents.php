@@ -7,7 +7,7 @@ declare(strict_types=1);
  * a `blocks/components/*.php` template via the plugin service and returns the
  * captured HTML. Also exposes the two social-icon lookup tables consumed by
  * the social-profiles template and the editor. Extracted from
- * Author_Block_Base for separation of concerns.
+ * AuthorBlockBase for separation of concerns.
  *
  * @package AuthorProfileBlocks
  * @license GPL-2.0-or-later

@@ -5,7 +5,7 @@ declare(strict_types=1);
  *
  * Author-data resolver helpers shared by all author blocks. Extracts author
  * identifiers, roles, and limits from block attributes, and fetches author
- * records via the plugin service. Extracted from Author_Block_Base for
+ * records via the plugin service. Extracted from AuthorBlockBase for
  * separation of concerns.
  *
  * @package AuthorProfileBlocks

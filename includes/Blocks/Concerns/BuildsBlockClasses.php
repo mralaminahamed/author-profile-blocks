@@ -4,7 +4,7 @@ declare(strict_types=1);
  * Builds_Block_Classes trait
  *
  * Assembles the wrapper className string for author blocks based on their
- * attributes. Extracted from Author_Block_Base for separation of concerns.
+ * attributes. Extracted from AuthorBlockBase for separation of concerns.
  *
  * @package AuthorProfileBlocks
  * @license GPL-2.0-or-later

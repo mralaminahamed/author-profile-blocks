@@ -4,7 +4,7 @@ declare(strict_types=1);
  * Has_Render_Cache trait
  *
  * In-memory render cache helpers shared by all author blocks. Extracted
- * from Author_Block_Base for separation of concerns. The using class must
+ * from AuthorBlockBase for separation of concerns. The using class must
  * declare a `protected array $render_cache` property which this trait
  * reads and writes via `$this->render_cache`.
  *

@@ -24,7 +24,7 @@ use Author_Profile_Blocks;
 /**
  * Abstract base class for author-related blocks.
  */
-abstract class Author_Block_Base implements Registerable {
+abstract class AuthorBlockBase implements Registerable {
 	use ProvidesMessages;
 	use ResolvesAuthorData;
 	use HasRenderCache;

@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\AuthorBlockBase;
 use WP_Block;
 
 // Exit if accessed directly.
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Grid block.
  */
-class AuthorGridBlock extends Author_Block_Base {
+class AuthorGridBlock extends AuthorBlockBase {
 	/**
 	 * Get the block name.
 	 *

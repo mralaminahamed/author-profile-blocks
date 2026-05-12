@@ -4,7 +4,7 @@ declare(strict_types=1);
  * Provides_Messages trait
  *
  * Standardised user-facing error / status messages shared by all author
- * blocks. Extracted from Author_Block_Base for separation of concerns.
+ * blocks. Extracted from AuthorBlockBase for separation of concerns.
  *
  * @package AuthorProfileBlocks
  * @license GPL-2.0-or-later

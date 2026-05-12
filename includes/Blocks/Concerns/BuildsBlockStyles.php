@@ -4,7 +4,7 @@ declare(strict_types=1);
  * Builds_Block_Styles trait
  *
  * Assembles inline style arrays and the inline style string for author
- * blocks based on their attributes. Extracted from Author_Block_Base for
+ * blocks based on their attributes. Extracted from AuthorBlockBase for
  * separation of concerns. The using class must declare a
  * `protected string $block_name` property which this trait reads via
  * `$this->block_name`.

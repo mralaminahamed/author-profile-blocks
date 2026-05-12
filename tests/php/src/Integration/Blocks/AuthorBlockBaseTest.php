@@ -8,9 +8,9 @@ use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 use ReflectionClass;
 
 /**
- * Integration tests for shared logic in Author_Block_Base via AuthorProfileBlock.
+ * Integration tests for shared logic in AuthorBlockBase via AuthorProfileBlock.
  *
- * Author_Block_Base is abstract — exercise its protected helpers through a
+ * AuthorBlockBase is abstract — exercise its protected helpers through a
  * concrete subclass and reflection, since they're shared infrastructure for
  * every block.
  */

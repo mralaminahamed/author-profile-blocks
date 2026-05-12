@@ -22,7 +22,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
     public function test_author_profile_block_class_structure() {
         $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
-        $this->assertStringContainsString('class AuthorProfileBlock extends Author_Block_Base', $class_content);
+        $this->assertStringContainsString('class AuthorProfileBlock extends AuthorBlockBase', $class_content);
     }
 
     /**
@@ -59,7 +59,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
      * Test that class contains social icons data usage.
      */
     public function test_class_contains_social_icons_usage() {
-        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/Author_Block_Base.php');
+        $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorBlockBase.php');
 
         $this->assertStringContainsString("'socialIcons' => \$this->get_social_icon_data()", $class_content);
     }
@@ -71,7 +71,7 @@ class AuthorProfileBlockTest extends AuthorProfileBlocksTestCase {
         $class_content = file_get_contents(TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorProfileBlock.php');
 
         $this->assertStringContainsString('namespace AuthorProfileBlocks\Blocks;', $class_content);
-        $this->assertStringContainsString('use AuthorProfileBlocks\Blocks\Author_Block_Base;', $class_content);
+        $this->assertStringContainsString('use AuthorProfileBlocks\Blocks\AuthorBlockBase;', $class_content);
         $this->assertStringContainsString('use WP_Block;', $class_content);
     }
 }

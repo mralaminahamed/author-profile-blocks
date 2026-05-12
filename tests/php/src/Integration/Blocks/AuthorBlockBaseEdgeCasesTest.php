@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\AuthorBlockBase;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 use ReflectionClass;
 use ReflectionMethod;
 
 /**
- * Edge cases for shared logic in Author_Block_Base (exercised through the
+ * Edge cases for shared logic in AuthorBlockBase (exercised through the
  * concrete AuthorProfileBlock subclass).
  */
 class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
@@ -35,7 +35,7 @@ class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
 	public function test_register_skips_when_block_json_missing(): void {
 		// Create a fake block subclass whose name points to a non-existent
 		// build path — register() must short-circuit silently.
-		$anon = new class() extends Author_Block_Base {
+		$anon = new class() extends AuthorBlockBase {
 			public function get_block_name(): string {
 				return 'this-block-does-not-exist';
 			}
@@ -51,7 +51,7 @@ class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_get_social_icon_data_returns_expected_platforms(): void {
-		$method = new ReflectionMethod( Author_Block_Base::class, 'get_social_icon_data' );
+		$method = new ReflectionMethod( AuthorBlockBase::class, 'get_social_icon_data' );
 		if ( PHP_VERSION_ID < 80100 ) {
 			$method->setAccessible( true );
 		}
@@ -66,7 +66,7 @@ class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_get_social_icons_returns_dashicons_map(): void {
-		$method = new ReflectionMethod( Author_Block_Base::class, 'get_social_icons' );
+		$method = new ReflectionMethod( AuthorBlockBase::class, 'get_social_icons' );
 		if ( PHP_VERSION_ID < 80100 ) {
 			$method->setAccessible( true );
 		}

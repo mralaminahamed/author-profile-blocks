@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 use AuthorProfileBlocks\Admin\Admin;
 use AuthorProfileBlocks\Admin\PluginLinks;
-use AuthorProfileBlocks\Blocks\Author_Block_Base;
+use AuthorProfileBlocks\Blocks\AuthorBlockBase;
 use AuthorProfileBlocks\Blocks\AuthorCarouselBlock;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\AuthorListBlock;
@@ -38,7 +38,7 @@ class Author_Profile_Blocks {
 	/**
 	 * List of blocks to register.
 	 *
-	 * @var Author_Block_Base[]
+	 * @var AuthorBlockBase[]
 	 */
 	private array $blocks = array();
 
@@ -123,18 +123,18 @@ class Author_Profile_Blocks {
 	/**
 	 * Register a block instance.
 	 *
-	 * @param Author_Block_Base $block Block instance.
+	 * @param AuthorBlockBase $block Block instance.
 	 *
 	 * @return void
 	 */
-	public function register_block( Author_Block_Base $block ): void {
+	public function register_block( AuthorBlockBase $block ): void {
 		$this->blocks[] = $block;
 	}
 
 	/**
 	 * Get all registered blocks.
 	 *
-	 * @return Author_Block_Base[] Array of block instances.
+	 * @return AuthorBlockBase[] Array of block instances.
 	 */
 	public function get_blocks(): array {
 		return $this->blocks;
@@ -145,9 +145,9 @@ class Author_Profile_Blocks {
 	 *
 	 * @param string $name Block name.
 	 *
-	 * @return Author_Block_Base|null Block instance or null if not found.
+	 * @return AuthorBlockBase|null Block instance or null if not found.
 	 */
-	public function get_block( string $name ): ?Author_Block_Base {
+	public function get_block( string $name ): ?AuthorBlockBase {
 		foreach ( $this->blocks as $block ) {
 			if ( $block->get_block_name() === $name ) {
 				return $block;

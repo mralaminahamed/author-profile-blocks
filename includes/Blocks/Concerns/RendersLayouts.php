@@ -7,7 +7,7 @@ declare(strict_types=1);
  * the per-layout template variables (delegating to component renderers from
  * the RendersComponents trait), loads the matching `blocks/layouts/*.php`
  * template via the plugin service, and returns the captured HTML. Extracted
- * from Author_Block_Base for separation of concerns.
+ * from AuthorBlockBase for separation of concerns.
  *
  * @package AuthorProfileBlocks
  * @license GPL-2.0-or-later
