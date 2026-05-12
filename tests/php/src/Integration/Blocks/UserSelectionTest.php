@@ -87,7 +87,7 @@ class UserSelectionTest extends IntegrationTestCase {
 	 */
 	public function test_empty_selection_renders_error( string $block, string $marker ): void {
 		$class = array(
-			'author-grid'     => \AuthorProfileBlocks\Blocks\Author_Grid_Block::class,
+			'author-grid'     => \AuthorProfileBlocks\Blocks\AuthorGridBlock::class,
 			'author-list'     => \AuthorProfileBlocks\Blocks\Author_List_Block::class,
 			'author-carousel' => \AuthorProfileBlocks\Blocks\Author_Carousel_Block::class,
 		)[ $block ];

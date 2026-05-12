@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace AuthorProfileBlocks\Test\Integration;
 
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
-use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 

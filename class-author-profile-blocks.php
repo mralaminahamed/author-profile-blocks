@@ -12,7 +12,7 @@ use AuthorProfileBlocks\Admin\Admin;
 use AuthorProfileBlocks\Admin\PluginLinks;
 use AuthorProfileBlocks\Blocks\Author_Block_Base;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
-use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Core\UserMetaProvider;
@@ -97,7 +97,7 @@ class Author_Profile_Blocks {
 	private function register_blocks(): void {
 		// Register all blocks here.
 		$this->register_block( new AuthorProfileBlock() );
-		$this->register_block( new Author_Grid_Block() );
+		$this->register_block( new AuthorGridBlock() );
 		$this->register_block( new Author_Carousel_Block() );
 		$this->register_block( new Author_List_Block() );
 

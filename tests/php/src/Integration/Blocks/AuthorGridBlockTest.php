@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Integration tests for Author_Grid_Block.
+ * Integration tests for AuthorGridBlock.
  */
 class AuthorGridBlockTest extends IntegrationTestCase {
 
-	private Author_Grid_Block $block;
+	private AuthorGridBlock $block;
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->block = new Author_Grid_Block();
+		$this->block = new AuthorGridBlock();
 	}
 
 	public function test_block_name(): void {

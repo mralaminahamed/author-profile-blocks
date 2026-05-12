@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
-use AuthorProfileBlocks\Blocks\Author_Grid_Block;
+use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\Author_List_Block;
 use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
@@ -138,7 +138,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 
 	public function multi_block_classes(): array {
 		return array(
-			'grid'     => array( Author_Grid_Block::class ),
+			'grid'     => array( AuthorGridBlock::class ),
 			'list'     => array( Author_List_Block::class ),
 			'carousel' => array( Author_Carousel_Block::class ),
 		);
@@ -342,7 +342,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_multi_block_render_item_handles_missing_optional_fields(): void {
-		$grid    = new Author_Grid_Block();
+		$grid    = new AuthorGridBlock();
 		$minimal = array( 'id' => 99999, 'title' => 'StubAuthor' );
 
 		$html = $grid->render_author_item( $minimal, array( 'showSocial' => true ) );

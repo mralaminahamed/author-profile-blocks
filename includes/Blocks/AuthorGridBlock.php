@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Grid block.
  */
-class Author_Grid_Block extends Author_Block_Base {
+class AuthorGridBlock extends Author_Block_Base {
 	/**
 	 * Get the block name.
 	 *
