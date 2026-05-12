@@ -26,6 +26,17 @@ jQuery( document ).ready( function( $ ) {
 	$( '.apbl-author-carousel' ).each( function() {
 		const $carousel = $( this );
 		const settings = $carousel.data( 'settings' ) || {};
+		// Direct .apbl-author-carousel-item children are the slick slides.
+		// Use that selector rather than .children() because the DOM may
+		// contain wrapper nodes that slick shouldn't treat as slides.
+		const slideCount = $carousel.find( '> .apbl-author-carousel-item' ).length
+			|| $carousel.children().length;
+
+		// Slick's initADA crashes when slideCount <= 1. Skip init entirely;
+		// the markup degrades gracefully to a static stack of cards.
+		if ( slideCount <= 1 ) {
+			return;
+		}
 
 		// Default settings
 		const defaults = {
@@ -56,6 +67,15 @@ jQuery( document ).ready( function( $ ) {
 
 		// Merge defaults with user settings
 		const slickSettings = $.extend( {}, defaults, settings );
+
+		// Slick's ADA / arrow init crashes when slideCount <= slidesToShow.
+		// Disable arrows + dots + infinite + autoplay in that case.
+		if ( slideCount <= ( slickSettings.slidesToShow ?? 3 ) ) {
+			slickSettings.arrows = false;
+			slickSettings.dots = false;
+			slickSettings.infinite = false;
+			slickSettings.autoplay = false;
+		}
 
 		// Initialize slick
 		$carousel.slick( slickSettings );
