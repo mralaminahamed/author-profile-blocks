@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration\Blocks;
 
-use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
+use AuthorProfileBlocks\Blocks\AuthorCarouselBlock;
 use AuthorProfileBlocks\Test\Integration\IntegrationTestCase;
 
 /**
- * Integration tests for Author_Carousel_Block.
+ * Integration tests for AuthorCarouselBlock.
  */
 class AuthorCarouselBlockTest extends IntegrationTestCase {
 
-	private Author_Carousel_Block $block;
+	private AuthorCarouselBlock $block;
 
 	public function set_up(): void {
 		parent::set_up();
-		$this->block = new Author_Carousel_Block();
+		$this->block = new AuthorCarouselBlock();
 		// Block-specific init registers the carousel script.
 		$this->block->register_carousel_dependencies();
 	}

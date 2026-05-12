@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace AuthorProfileBlocks\Test\Integration;
 
-use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
+use AuthorProfileBlocks\Blocks\AuthorCarouselBlock;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;

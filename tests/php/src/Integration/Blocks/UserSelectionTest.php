@@ -89,7 +89,7 @@ class UserSelectionTest extends IntegrationTestCase {
 		$class = array(
 			'author-grid'     => \AuthorProfileBlocks\Blocks\AuthorGridBlock::class,
 			'author-list'     => \AuthorProfileBlocks\Blocks\AuthorListBlock::class,
-			'author-carousel' => \AuthorProfileBlocks\Blocks\Author_Carousel_Block::class,
+			'author-carousel' => \AuthorProfileBlocks\Blocks\AuthorCarouselBlock::class,
 		)[ $block ];
 
 		$instance = new $class();

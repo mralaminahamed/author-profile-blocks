@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class that handles the Author Carousel block.
  */
-class Author_Carousel_Block extends Author_Block_Base {
+class AuthorCarouselBlock extends Author_Block_Base {
 	/**
 	 * Get the block name.
 	 *

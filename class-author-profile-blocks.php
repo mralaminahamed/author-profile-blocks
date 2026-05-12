@@ -11,7 +11,7 @@ declare(strict_types=1);
 use AuthorProfileBlocks\Admin\Admin;
 use AuthorProfileBlocks\Admin\PluginLinks;
 use AuthorProfileBlocks\Blocks\Author_Block_Base;
-use AuthorProfileBlocks\Blocks\Author_Carousel_Block;
+use AuthorProfileBlocks\Blocks\AuthorCarouselBlock;
 use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
@@ -98,7 +98,7 @@ class Author_Profile_Blocks {
 		// Register all blocks here.
 		$this->register_block( new AuthorProfileBlock() );
 		$this->register_block( new AuthorGridBlock() );
-		$this->register_block( new Author_Carousel_Block() );
+		$this->register_block( new AuthorCarouselBlock() );
 		$this->register_block( new AuthorListBlock() );
 
 		// Allow plugins/themes to register additional blocks.
