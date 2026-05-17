@@ -40,8 +40,13 @@
 body {
   font-family: var(--apbl-font-body) !important;
   background-color: var(--apbl-neutral-50);
-  display: flex;
-  flex-direction: row;
+}
+
+@media (min-width: 801px) {
+  body {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

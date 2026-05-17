@@ -72,6 +72,8 @@ coverage/
 
 # ─── Extra ─────────────────────────────────────────────────────────────────
 docs/superpowers/
+docs/_config_local.yml
 .remember/
 .tmp/
 /.playwright-mcp
+package-lock.json
