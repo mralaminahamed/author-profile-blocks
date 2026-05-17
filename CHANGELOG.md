@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2026-05-17
+
+### Fixed
+
+- Blocks blank on frontend when no author selected: `render_error_message()` now returns `''` outside editor context instead of leaking an error div to visitors
+- Carousel broken on classic themes (Astra, Blocksy, etc.): `author-carousel-view.js` now declares `jquery` as a dependency so Slick initialises correctly
+- Production zip missing `vendor/autoload.php`: removed `vendor` from `.distignore` so the Composer classmap autoloader ships with the plugin (root cause of "block does not appear" on fresh installs from WordPress.org)
+- CSS color/length injection: all color attributes now pass through `sanitize_css_color()` (hex, rgba, hsl, keywords), length attributes through `sanitize_css_length()`, and gradient direction through an allowlist
+- Dead CSS variable block: removed duplicate `--author-custom-var-1/2` assignment that targeted a CSS variable name never referenced in SCSS or JS
+- Template arbitrary file inclusion: `get_template()` now validates the filtered path is within the plugin, active theme, or child theme directory before `include`
+- `do_action('author_profile_blocks_save_profile_fields')` no longer passes raw `$_POST` as second argument
+- `extract()` in `get_template()` replaced with explicit `foreach` loop to satisfy WordPress.org plugin review checker
+- Registration date displayed in wrong timezone: replaced `strtotime()` + `date_i18n()` with `mysql2date()` which correctly converts the UTC-stored value to the site's configured timezone
+
+### Tests
+
+- PHP integration suite updated for new `render_error_message()` behaviour: all error-path tests now explicitly call `simulate_editor_context()` (328 tests, 876 assertions — all green)
+- New e2e spec `error-message-visibility.spec.ts` covering frontend-blank and editor-placeholder scenarios for all four blocks
+- TypeScript config: fixed TS5107/TS5101 deprecation errors, added `@types/node`, type stub for `dotenv/config`
+
 ## [1.0.3] - 2026-05-12
 
 ### Changed
