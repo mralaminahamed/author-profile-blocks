@@ -23,10 +23,25 @@ trait ProvidesMessages {
 	 *
 	 * @param string $message The error message to display.
 	 *
-	 * @return string HTML for error message.
+	 * @return string HTML for error message, or empty string on the frontend.
 	 */
 	protected function render_error_message( string $message ): string {
+		if ( ! $this->is_editor_context() ) {
+			return '';
+		}
 		return '<div class="apbl-error-message">' . esc_html( $message ) . '</div>';
+	}
+
+	/**
+	 * Check if the current request is from the block editor.
+	 *
+	 * @return bool True if rendering in block editor context.
+	 */
+	protected function is_editor_context(): bool {
+		return (bool) apply_filters(
+			'author_profile_blocks_is_editor_context',
+			defined( 'REST_REQUEST' ) && REST_REQUEST
+		);
 	}
 
 	/**

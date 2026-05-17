@@ -187,6 +187,7 @@ class AuthorBlockBaseTest extends IntegrationTestCase {
 	}
 
 	public function test_render_error_message_escapes_message(): void {
+		$this->simulate_editor_context();
 		$result = $this->call_protected( 'render_error_message', array( '<script>alert(1)</script>' ) );
 
 		$this->assertStringContainsString( 'apbl-error-message', $result );

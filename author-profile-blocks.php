@@ -13,7 +13,7 @@
  * Description:       Gutenberg blocks for displaying author profiles and team members with customizable layouts.
  * Version:           1.0.3
  * Requires at least: 6.0
- * Tested up to:      6.7
+ * Tested up to:      6.9
  * Requires PHP:      7.4
  * Author:            Al Amin Ahamed
  * Author URI:        https://github.com/mralaminahamed

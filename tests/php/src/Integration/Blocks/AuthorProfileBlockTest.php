@@ -26,20 +26,34 @@ class AuthorProfileBlockTest extends IntegrationTestCase {
 		$this->assertSame( 'author-profile', $this->block->get_block_name() );
 	}
 
-	public function test_render_callback_returns_error_when_author_id_missing(): void {
+	public function test_render_callback_returns_empty_on_frontend_when_author_id_missing(): void {
+		$html = $this->block->render_callback( array(), '', null );
+
+		$this->assertSame( '', $html );
+	}
+
+	public function test_render_callback_returns_empty_on_frontend_when_author_id_zero(): void {
+		$html = $this->block->render_callback( array( 'authorId' => 0 ), '', null );
+
+		$this->assertSame( '', $html );
+	}
+
+	public function test_render_callback_returns_empty_on_frontend_when_author_not_found(): void {
+		$html = $this->block->render_callback( array( 'authorId' => 999999 ), '', null );
+
+		$this->assertSame( '', $html );
+	}
+
+	public function test_render_callback_returns_error_in_editor_when_author_id_missing(): void {
+		$this->simulate_editor_context();
 		$html = $this->block->render_callback( array(), '', null );
 
 		$this->assertStringContainsString( 'apbl-error-message', $html );
 		$this->assertStringContainsString( 'Please select an author', $html );
 	}
 
-	public function test_render_callback_returns_error_when_author_id_zero(): void {
-		$html = $this->block->render_callback( array( 'authorId' => 0 ), '', null );
-
-		$this->assertStringContainsString( 'apbl-error-message', $html );
-	}
-
-	public function test_render_callback_returns_error_when_author_not_found(): void {
+	public function test_render_callback_returns_error_in_editor_when_author_not_found(): void {
+		$this->simulate_editor_context();
 		$html = $this->block->render_callback( array( 'authorId' => 999999 ), '', null );
 
 		$this->assertStringContainsString( 'apbl-error-message', $html );

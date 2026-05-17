@@ -24,6 +24,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	 * --------------------------------------------------------------- */
 
 	public function test_profile_block_handles_negative_author_id(): void {
+		$this->simulate_editor_context();
 		// (int) -1 stays -1, truthy → service hits get_user_by → no user found.
 		$html = ( new AuthorProfileBlock() )->render_callback(
 			array( 'authorId' => -1 ),
@@ -34,6 +35,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_profile_block_handles_null_author_id(): void {
+		$this->simulate_editor_context();
 		$html = ( new AuthorProfileBlock() )->render_callback(
 			array( 'authorId' => null ),
 			'',
@@ -43,6 +45,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_profile_block_handles_deleted_user(): void {
+		$this->simulate_editor_context();
 		$id = $this->create_author();
 		\wp_delete_user( $id );
 		$this->created_user_ids = array_diff( $this->created_user_ids, array( $id ) );
@@ -180,6 +183,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	 * @dataProvider multi_block_classes
 	 */
 	public function test_multi_block_with_zero_ids_renders_error( string $class ): void {
+		$this->simulate_editor_context();
 		$html = ( new $class() )->render_callback(
 			array( 'authorIds' => array( 0, 0, 0 ) ),
 			'',
@@ -192,6 +196,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	 * @dataProvider multi_block_classes
 	 */
 	public function test_multi_block_with_negative_ids_renders_error( string $class ): void {
+		$this->simulate_editor_context();
 		$html = ( new $class() )->render_callback(
 			array( 'authorIds' => array( -1, -2 ) ),
 			'',
@@ -248,6 +253,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	 * @dataProvider multi_block_classes
 	 */
 	public function test_multi_block_with_invalid_role_filter( string $class ): void {
+		$this->simulate_editor_context();
 		$id = $this->create_full_author( array( 'role' => 'author' ) );
 
 		$html = ( new $class() )->render_callback(
@@ -286,6 +292,7 @@ class EdgeCasesTest extends IntegrationTestCase {
 	 * @dataProvider multi_block_classes
 	 */
 	public function test_multi_block_handles_role_filter_case_mismatch( string $class ): void {
+		$this->simulate_editor_context();
 		$id = $this->create_full_author( array( 'role' => 'author', 'display_name' => 'CaseTest' ) );
 
 		// Roles in WP are case-sensitive — "Author" must not match "author".

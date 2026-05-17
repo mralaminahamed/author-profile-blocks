@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * End-to-end tests for the in-editor user selection component (
@@ -35,7 +35,7 @@ const BLOCKS = [
     },
 ] as const;
 
-async function newPost(page) {
+async function newPost(page: Page) {
     // Navigate via the admin sidebar like a real editor would: Posts → Add Post.
     await page.goto('/wp-admin/');
     await page.locator('#menu-posts a:has-text("Posts")').first().hover();
@@ -48,7 +48,7 @@ async function newPost(page) {
     ).toBeAttached({ timeout: 30_000 });
 }
 
-async function insertBlock(page, label: string) {
+async function insertBlock(page: Page, label: string) {
     await page.getByRole('button', { name: 'Block Inserter' }).click();
     const tile = page.getByRole('option', { name: label, exact: true });
     await tile.scrollIntoViewIfNeeded();
@@ -57,7 +57,7 @@ async function insertBlock(page, label: string) {
     await page.getByRole('button', { name: 'Close Block Inserter' }).click().catch(() => undefined);
 }
 
-function canvas(page) {
+function canvas(page: Page) {
     return page.frameLocator('iframe[name="editor-canvas"]');
 }
 

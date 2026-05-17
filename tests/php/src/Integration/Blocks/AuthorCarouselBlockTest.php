@@ -28,22 +28,45 @@ class AuthorCarouselBlockTest extends IntegrationTestCase {
 		$this->assertTrue( \wp_script_is( 'author-carousel-view', 'registered' ) );
 	}
 
-	public function test_render_callback_returns_error_when_no_authors_selected(): void {
-		$html = $this->block->render_callback( array(), '', null );
-
-		$this->assertStringContainsString( 'apbl-error-message', $html );
-		$this->assertStringContainsString( 'carousel', $html );
+	public function test_register_carousel_dependencies_declares_jquery_dependency(): void {
+		$script = \wp_scripts()->registered['author-carousel-view'] ?? null;
+		$this->assertNotNull( $script, 'author-carousel-view script not registered' );
+		$this->assertContains( 'jquery', $script->deps, 'carousel view.js must list jquery as a dependency for classic themes' );
 	}
 
-	public function test_render_callback_returns_error_when_role_filter_excludes_all(): void {
-		$id = $this->create_author( array( 'role' => 'author' ) );
+	public function test_render_callback_returns_empty_on_frontend_when_no_authors_selected(): void {
+		$this->assertSame( '', $this->block->render_callback( array(), '', null ) );
+	}
 
+	public function test_render_callback_returns_empty_on_frontend_when_role_filter_excludes_all(): void {
+		$id   = $this->create_author( array( 'role' => 'author' ) );
 		$html = $this->block->render_callback(
 			array( 'authorIds' => array( $id ), 'authorRole' => 'editor' ),
 			'',
 			null
 		);
 
+		$this->assertSame( '', $html );
+	}
+
+	public function test_render_callback_returns_error_in_editor_when_no_authors_selected(): void {
+		$this->simulate_editor_context();
+		$html = $this->block->render_callback( array(), '', null );
+
+		$this->assertStringContainsString( 'apbl-error-message', $html );
+		$this->assertStringContainsString( 'carousel', $html );
+	}
+
+	public function test_render_callback_returns_error_in_editor_when_role_filter_excludes_all(): void {
+		$this->simulate_editor_context();
+		$id   = $this->create_author( array( 'role' => 'author' ) );
+		$html = $this->block->render_callback(
+			array( 'authorIds' => array( $id ), 'authorRole' => 'editor' ),
+			'',
+			null
+		);
+
+		$this->assertStringContainsString( 'apbl-error-message', $html );
 		$this->assertStringContainsString( 'No authors found', $html );
 	}
 

@@ -92,6 +92,7 @@ class UserSelectionTest extends IntegrationTestCase {
 			'author-carousel' => \AuthorProfileBlocks\Blocks\AuthorCarouselBlock::class,
 		)[ $block ];
 
+		$this->simulate_editor_context();
 		$instance = new $class();
 		$html     = $instance->render_callback( array(), '', null );
 
@@ -102,6 +103,7 @@ class UserSelectionTest extends IntegrationTestCase {
 	 * @dataProvider multi_author_blocks_provider
 	 */
 	public function test_only_invalid_ids_renders_no_authors_found( string $block, string $marker ): void {
+		$this->simulate_editor_context();
 		$html = $this->render_block( $block, array( 'authorIds' => array( 999999, 888888 ) ) );
 
 		$this->assertStringContainsString( 'apbl-error-message', $html );
@@ -146,6 +148,7 @@ class UserSelectionTest extends IntegrationTestCase {
 	 * @dataProvider multi_author_blocks_provider
 	 */
 	public function test_role_filter_excluding_all_renders_no_authors_found( string $block, string $marker ): void {
+		$this->simulate_editor_context();
 		$id = $this->create_full_author( array( 'role' => 'author' ) );
 
 		$html = $this->render_block(
@@ -284,6 +287,7 @@ class UserSelectionTest extends IntegrationTestCase {
 	}
 
 	public function test_single_author_block_with_unknown_author_id(): void {
+		$this->simulate_editor_context();
 		$html = $this->render_block( 'author-profile', array( 'authorId' => 999999 ) );
 
 		$this->assertStringContainsString( 'apbl-error-message', $html );

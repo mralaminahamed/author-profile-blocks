@@ -317,3 +317,16 @@
   font-size: v.$font-size-xs;
   color: v.$muted-color;
 }
+
+// ─── Block error / unconfigured state ─────────────────────────────────────────
+
+.apbl-error-message {
+  padding: v.$spacing-md;
+  border-radius: v.$border-radius-md;
+  border: 1px solid v.$warning;
+  background-color: v.$accent-light;
+  color: v.$dark-gray;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  text-align: center;
+}

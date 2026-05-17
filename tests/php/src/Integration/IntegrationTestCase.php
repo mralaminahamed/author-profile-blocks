@@ -43,18 +43,6 @@ abstract class IntegrationTestCase extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tear down created authors.
-	 */
-	public function tear_down(): void {
-		foreach ( $this->created_user_ids as $user_id ) {
-			\wp_delete_user( $user_id );
-		}
-		$this->created_user_ids = array();
-
-		parent::tear_down();
-	}
-
-	/**
 	 * Create an author user with optional Author Profile Blocks meta.
 	 *
 	 * @param array<string, mixed> $user_args  Args for wp_insert_user.
@@ -101,6 +89,29 @@ abstract class IntegrationTestCase extends WP_UnitTestCase {
 		$json    = \wp_json_encode( $attributes );
 		$comment = '<!-- wp:author-profile-blocks/' . $block_name . ' ' . $json . ' /-->';
 		return \do_blocks( $comment );
+	}
+
+	/**
+	 * Simulate the block editor REST context so render_error_message() returns HTML.
+	 *
+	 * Call in a test; the filter is automatically removed in tear_down().
+	 */
+	protected function simulate_editor_context(): void {
+		add_filter( 'author_profile_blocks_is_editor_context', '__return_true' );
+	}
+
+	/**
+	 * Tear down created authors and reset editor context filter.
+	 */
+	public function tear_down(): void {
+		remove_filter( 'author_profile_blocks_is_editor_context', '__return_true' );
+
+		foreach ( $this->created_user_ids as $user_id ) {
+			\wp_delete_user( $user_id );
+		}
+		$this->created_user_ids = array();
+
+		parent::tear_down();
 	}
 
 	/**

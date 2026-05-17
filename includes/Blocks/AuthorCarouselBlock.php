@@ -50,7 +50,7 @@ class AuthorCarouselBlock extends AuthorBlockBase {
 		wp_register_script(
 			'author-carousel-view',
 			plugin_dir_url( APBL_PLUGIN_FILE ) . 'build/blocks/author-carousel/view.js',
-			array(),
+			array( 'jquery' ),
 			APBL_VERSION,
 			true
 		);

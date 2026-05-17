@@ -22,22 +22,39 @@ class AuthorListBlockTest extends IntegrationTestCase {
 		$this->assertSame( 'author-list', $this->block->get_block_name() );
 	}
 
-	public function test_render_callback_returns_error_when_no_authors_selected(): void {
-		$html = $this->block->render_callback( array(), '', null );
-
-		$this->assertStringContainsString( 'apbl-error-message', $html );
-		$this->assertStringContainsString( 'list', $html );
+	public function test_render_callback_returns_empty_on_frontend_when_no_authors_selected(): void {
+		$this->assertSame( '', $this->block->render_callback( array(), '', null ) );
 	}
 
-	public function test_render_callback_returns_error_when_role_filter_excludes_all(): void {
-		$id = $this->create_author( array( 'role' => 'author' ) );
-
+	public function test_render_callback_returns_empty_on_frontend_when_role_filter_excludes_all(): void {
+		$id   = $this->create_author( array( 'role' => 'author' ) );
 		$html = $this->block->render_callback(
 			array( 'authorIds' => array( $id ), 'authorRole' => 'editor' ),
 			'',
 			null
 		);
 
+		$this->assertSame( '', $html );
+	}
+
+	public function test_render_callback_returns_error_in_editor_when_no_authors_selected(): void {
+		$this->simulate_editor_context();
+		$html = $this->block->render_callback( array(), '', null );
+
+		$this->assertStringContainsString( 'apbl-error-message', $html );
+		$this->assertStringContainsString( 'list', $html );
+	}
+
+	public function test_render_callback_returns_error_in_editor_when_role_filter_excludes_all(): void {
+		$this->simulate_editor_context();
+		$id   = $this->create_author( array( 'role' => 'author' ) );
+		$html = $this->block->render_callback(
+			array( 'authorIds' => array( $id ), 'authorRole' => 'editor' ),
+			'',
+			null
+		);
+
+		$this->assertStringContainsString( 'apbl-error-message', $html );
 		$this->assertStringContainsString( 'No authors found', $html );
 	}
 

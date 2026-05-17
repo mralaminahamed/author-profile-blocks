@@ -22,21 +22,34 @@ class AuthorGridBlockTest extends IntegrationTestCase {
 		$this->assertSame( 'author-grid', $this->block->get_block_name() );
 	}
 
-	public function test_render_callback_returns_error_when_no_authors_selected(): void {
+	public function test_render_callback_returns_empty_on_frontend_when_no_authors_selected(): void {
+		$this->assertSame( '', $this->block->render_callback( array(), '', null ) );
+	}
+
+	public function test_render_callback_returns_empty_on_frontend_when_no_authors_match_role(): void {
+		$user_id = $this->create_author( array( 'role' => 'author' ) );
+		$html    = $this->block->render_callback(
+			array( 'authorIds' => array( $user_id ), 'authorRole' => 'editor' ),
+			'',
+			null
+		);
+
+		$this->assertSame( '', $html );
+	}
+
+	public function test_render_callback_returns_error_in_editor_when_no_authors_selected(): void {
+		$this->simulate_editor_context();
 		$html = $this->block->render_callback( array(), '', null );
 
 		$this->assertStringContainsString( 'apbl-error-message', $html );
 		$this->assertStringContainsString( 'grid', $html );
 	}
 
-	public function test_render_callback_returns_error_when_no_authors_match_role(): void {
+	public function test_render_callback_returns_error_in_editor_when_no_authors_match_role(): void {
+		$this->simulate_editor_context();
 		$user_id = $this->create_author( array( 'role' => 'author' ) );
-
-		$html = $this->block->render_callback(
-			array(
-				'authorIds'  => array( $user_id ),
-				'authorRole' => 'editor',
-			),
+		$html    = $this->block->render_callback(
+			array( 'authorIds' => array( $user_id ), 'authorRole' => 'editor' ),
 			'',
 			null
 		);

@@ -78,6 +78,7 @@ class AuthorBlockBaseEdgeCasesTest extends IntegrationTestCase {
 	}
 
 	public function test_render_error_message_renders_translated_strings(): void {
+		$this->simulate_editor_context();
 		$out = $this->call_protected( 'render_error_message', array( 'Custom error' ) );
 		$this->assertStringContainsString( 'apbl-error-message', $out );
 		$this->assertStringContainsString( 'Custom error', $out );
