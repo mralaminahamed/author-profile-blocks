@@ -170,6 +170,15 @@ Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n func
 = 1.0.4 =
 Security and bug-fix release. Fixes CSS injection, template path traversal, blocks blank on frontend, and carousel init on classic themes. Upgrade recommended for all users.
 
+= 1.0.3 =
+Refactoring and bug-fix release. Splits the author block base class into focused traits and fixes several frontend rendering issues. Recommended upgrade.
+
+= 1.0.2 =
+Major feature update. Replaces the legacy PHP settings page with a React/shadcn admin SPA and migrates all JS to TypeScript. Recommended upgrade.
+
+= 1.0.1 =
+Bug-fix and polish release. Fixes CSS class selectors and animation timing. Refines the indigo design system. Recommended upgrade.
+
 = 1.0.0 =
 Initial release — no upgrade required.
 

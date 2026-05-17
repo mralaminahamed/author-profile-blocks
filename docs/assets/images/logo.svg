@@ -14,6 +14,6 @@
     <circle cx="25" cy="31" r="8" fill="none" stroke="white" stroke-width="2" />
 
     <!-- Text Part -->
-    <text x="50" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#212529">Author Profile Blocks</text>
-    <text x="50" y="42" font-family="Arial, sans-serif" font-size="10" fill="#6c757d">Documentation</text>
+    <text x="50" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffffff">Author Profile Blocks</text>
+    <text x="50" y="42" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.55)">Documentation</text>
 </svg>

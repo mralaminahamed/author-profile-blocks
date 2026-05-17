@@ -82,6 +82,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Placeholder button/select vertical alignment
 - Apply Tailwind `apbl` prefix consistently across admin components
 
+## [1.0.1] - 2026-04-21
+
+### Fixed
+
+- CSS class selectors: aligned all `apbl-` prefixed selectors with PHP template output
+- Animation duration: block now reads `--author-animation-duration` CSS custom property correctly
+
+### Changed
+
+- Indigo editorial design system: refined shadows, cubic-bezier transitions, animated accent reveals
+- Tested up to WordPress 6.7
+
 ## [1.0.0] - 2025-04-20
 
 ### Added

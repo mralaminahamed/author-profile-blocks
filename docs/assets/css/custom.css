@@ -38,9 +38,10 @@
 
 /* ─── Global typography ──────────────────────────────────────────────────── */
 body {
-  font-family: var(--apbl-font-body), serif !important;
+  font-family: var(--apbl-font-body) !important;
   background-color: var(--apbl-neutral-50);
   display: flex;
+  flex-direction: row;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -50,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 code, pre, kbd, .highlight {
-  font-family: var(--apbl-font-mono), serif !important;
+  font-family: var(--apbl-font-mono) !important;
 }
 
 /* ─── Sidebar overrides (dark navy) ─────────────────────────────────────── */
@@ -123,6 +124,7 @@ code, pre, kbd, .highlight {
   color: #ffffff !important;
 }
 
+.nav-list .nav-list-item > .nav-list-link.active,
 .nav-list-link.active {
   color: var(--apbl-sidebar-active) !important;
   background-color: rgba(129,140,248,0.12) !important;
@@ -160,8 +162,8 @@ code, pre, kbd, .highlight {
 .main-content h3 { font-size: 1.15rem; }
 .main-content h4 { font-size: 0.95rem; font-weight: 600 !important; font-family: var(--apbl-font-body) !important; letter-spacing: 0; text-transform: none !important; }
 
-.main-content a { color: var(--apbl-indigo-600); }
-.main-content a:hover { color: var(--apbl-indigo-800); }
+.main-content a:not(.btn) { color: var(--apbl-indigo-600); }
+.main-content a:not(.btn):hover { color: var(--apbl-indigo-800); }
 
 /* ─── Tables ─────────────────────────────────────────────────────────────── */
 .main-content table {
@@ -219,6 +221,7 @@ p code, li code, td code {
 .btn-primary {
   background: var(--apbl-indigo-600) !important;
   border-color: var(--apbl-indigo-600) !important;
+  color: #ffffff !important;
   border-radius: 8px !important;
   font-family: var(--apbl-font-body) !important;
   font-weight: 500 !important;
