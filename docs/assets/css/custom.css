@@ -49,6 +49,15 @@ body {
   }
   .main {
     margin-left: 0 !important;
+    flex: 1;
+    min-width: 0;
+  }
+  .side-bar {
+    position: sticky !important;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
   }
 }
 
@@ -66,7 +75,6 @@ code, pre, kbd, .highlight {
 .side-bar {
   background-color: var(--apbl-indigo-950) !important;
   border-right: none !important;
-  position: relative;
 }
 
 /* Subtle grid texture on sidebar */
