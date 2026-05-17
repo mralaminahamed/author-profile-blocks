@@ -1,8 +1,8 @@
 === Author Profile Blocks ===
 Contributors:      mralaminahamed
 Tags:              block, gutenberg, author, profile, team
-Tested up to:      6.7
-Stable tag:        1.0.3
+Tested up to:      6.9
+Stable tag:        1.0.4
 Requires at least: 6.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
@@ -117,41 +117,58 @@ Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n func
 
 == Changelog ==
 
+= 1.0.4 =
+* Fix: blocks render blank on frontend when no author selected (error div was leaking to visitors).
+* Fix: carousel broken on classic themes — jquery declared as dependency so Slick initialises correctly.
+* Fix: production zip was missing vendor/autoload.php on fresh installs from WordPress.org.
+* Fix: CSS color/length injection — all color and length attributes now pass through sanitization helpers.
+* Fix: dead duplicate --author-custom-var-1/2 CSS variable block removed.
+* Fix: template arbitrary file inclusion — get_template() now validates path is within plugin, active theme, or child theme.
+* Fix: raw $_POST no longer passed as argument to do_action('author_profile_blocks_save_profile_fields').
+* Fix: extract() in get_template() replaced with explicit foreach loop for wp.org review compliance.
+* Fix: registration date displayed in wrong timezone — now uses mysql2date() for correct UTC to local conversion.
+* Update: tested up to WordPress 6.9.
+
+= 1.0.3 =
+* Refactor: split AuthorBlockBase god-class into 7 focused traits under includes/Blocks/Concerns/.
+* Refactor: promoted 5 inspector components to shared src/supports/js/components/inspector/.
+* Refactor: extracted loadGoogleFont into shared useGoogleFont hook.
+* Fix: author profile block missing save: () => null (silent default-save bug).
+* Fix: carousel single-slide crash in Slick initADA.
+* Fix: AuthorsListPreview data shape mismatch corrected.
+* Fix: PHPCS clean for wp.org plugin review standard.
+
+= 1.0.2 =
+* Add: React + shadcn/ui admin SPA replacing legacy PHP settings page.
+* Add: REST API endpoint /v1/settings for plugin configuration.
+* Add: TypeScript migration for all JS files in src/blocks/ and src/admin/.
+* Change: Tailwind v3 migrated to v4 with CSS variable-based theming.
+
 = 1.0.1 =
-* Fix: align all `apbl-` CSS class selectors with PHP template output — styles now apply correctly on the frontend.
-* Fix: animation duration now reads `--author-animation-duration` CSS custom property (was `--animation-duration`).
-* Fix: profile block entrance animations now use `has-*-animation` classes matching PHP output.
-* Fix: list block layout selectors updated to match `apbl-author-compact` / `apbl-author-detailed` template output.
-* Improve: SCSS fully migrated to `@use`/`@forward` module system with `sass:color` and `sass:math`.
-* Improve: removed `@extend` anti-pattern; hover effects are now direct scoped rules per block.
+* Fix: align all apbl- CSS class selectors with PHP template output.
+* Fix: animation duration now reads --author-animation-duration CSS custom property.
 * Improve: indigo editorial design system — refined shadows, cubic-bezier transitions, animated accent reveals.
-* Improve: social icons redesigned as square-pill shape with indigo fill on hover.
-* Improve: slick carousel dots styled as pill-shaped progress indicators.
 * Update: tested up to WordPress 6.7.
 
 = 1.0.0 =
 * Initial release.
 * Author Profile block with four content order variants and full typography/avatar controls.
-* Author Grid block with 1–4 column responsive grid and five style presets.
+* Author Grid block with 1-4 column responsive grid and five style presets.
 * Author List block with compact, detailed, and minimal display styles.
 * Author Carousel block with Slick slider integration and seven style presets.
-* Indigo editorial design system — refined shadows, cubic-bezier transitions, animated hover reveals.
+* Indigo editorial design system.
 * Seven entrance animation types per block.
 * Five hover effect types per block.
 * Social icon support: Facebook, Twitter/X, LinkedIn, Instagram, website.
 * Extended WordPress user profile fields: position, bio, social links, member-since label.
 * PHP template system with full theme-override support.
 * CSS custom property architecture for runtime styling.
-* Modern SCSS source using `@use`/`@forward` module system with `sass:color`.
-* PHP template caching with configurable duration.
-* Author role filter for Grid, List, and Carousel blocks.
-* Full server-side rendering — no client-side data fetching.
-* Translation-ready with `author-profile-blocks` text domain.
+* Translation-ready with author-profile-blocks text domain.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-Bug-fix release. CSS selectors are now correctly aligned with PHP template output — upgrading restores styling on the frontend for all blocks.
+= 1.0.4 =
+Security and bug-fix release. Fixes CSS injection, template path traversal, blocks blank on frontend, and carousel init on classic themes. Upgrade recommended for all users.
 
 = 1.0.0 =
 Initial release — no upgrade required.

@@ -1,8 +1,8 @@
 # Author Profile Blocks #
 **Contributors:** [mralaminahamed](https://profiles.wordpress.org/mralaminahamed/)  
 **Tags:**              block, author, profile, gutenberg, team  
-**Tested up to:**      6.7  
-**Stable tag:**        1.0.3  
+**Tested up to:**      6.9  
+**Stable tag:**        1.0.4  
 **Requires at least:** 6.0  
 **Requires PHP:**      7.4  
 **License:**           GPL-2.0-or-later  
@@ -122,16 +122,39 @@ Yes, Author Profile Blocks is fully internationalized and translation-ready. All
 
 ## Changelog ##
 
+### 1.0.4 ###
+* Fix: blocks render blank on frontend when no author selected.
+* Fix: carousel broken on classic themes (jquery dependency declared).
+* Fix: production zip missing vendor autoloader on fresh WordPress.org installs.
+* Fix: CSS color/length injection via sanitize_css_color() and sanitize_css_length().
+* Fix: template path traversal — get_template() validates against allowed directories.
+* Fix: raw $_POST removed from do_action() call.
+* Fix: extract() replaced with foreach loop for wp.org compliance.
+* Fix: registration date timezone — uses mysql2date() for correct UTC conversion.
+
+### 1.0.3 ###
+* Refactor: AuthorBlockBase split into 7 focused traits under includes/Blocks/Concerns/.
+* Refactor: 5 shared inspector components promoted to src/supports/js/components/inspector/.
+* Fix: author profile block missing save: () => null.
+* Fix: carousel single-slide crash in Slick initADA.
+* Fix: AuthorsListPreview data shape mismatch.
+
+### 1.0.2 ###
+* Add: React + shadcn/ui admin SPA.
+* Add: REST API endpoint /v1/settings.
+* Add: TypeScript migration across src/blocks/ and src/admin/.
+* Change: Tailwind v3 to v4 with CSS variable-based theming.
+
 ### 1.0.0 ###
-* Initial release
-* Added Author Profile block
-* Added Author Grid block
-* Added Author Carousel block
-* Added Author List block
-* Added enhanced user profile fields
-* Added block customization options
+* Initial release.
+* Author Profile, Grid, Carousel, and List blocks.
+* Enhanced WordPress user profile fields.
+* Block customization options.
 
 ## Upgrade Notice ##
+
+### 1.0.4 ###
+Security and bug-fix release. Upgrade recommended for all users.
 
 ### 1.0.0 ###
 Initial release of Author Profile Blocks.

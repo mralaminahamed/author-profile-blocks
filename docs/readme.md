@@ -16,7 +16,7 @@ Four production-ready Gutenberg blocks for showcasing WordPress users — profil
 [Get Started]({{ site.baseurl }}{% link getting-started.md %}){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/mralaminahamed/author-profile-blocks){: .btn .fs-5 .mb-4 .mb-md-0 }
 
-<div class="apbl-version-badge"><span class="apbl-version-tag">v1.0.1</span><span>Tested on WordPress 6.7 · PHP 7.4+</span></div>
+<div class="apbl-version-badge"><span class="apbl-version-tag">v1.0.4</span><span>Tested on WordPress 6.9 · PHP 7.4+</span></div>
 
 ---
 

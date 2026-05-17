@@ -314,7 +314,7 @@ class AuthorProfileService {
 		}
 
 		// Get registration date.
-		$registered_date = date_i18n( get_option( 'date_format' ), strtotime( $user->user_registered ) );
+		$registered_date = mysql2date( get_option( 'date_format' ), $user->user_registered );
 
 		$author_data = array(
 			'id'                 => $author_id,

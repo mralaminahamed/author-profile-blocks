@@ -130,19 +130,31 @@ Guidelines for contributing to the Author Profile Blocks plugin development.
 author-profile-blocks/
 ├── includes/
 │   └── Blocks/
-│       ├── Author_Block_Base.php      # shared render logic
-│       ├── Author_Profile_Block.php
-│       ├── Author_Grid_Block.php
-│       ├── Author_Carousel_Block.php
-│       └── Author_List_Block.php
+│       ├── Concerns/                  # 7 traits extracted from AuthorBlockBase
+│       │   ├── BuildsBlockClasses.php
+│       │   ├── BuildsBlockStyles.php
+│       │   ├── HasRenderCache.php
+│       │   ├── ProvidesMessages.php
+│       │   ├── RendersComponents.php
+│       │   ├── RendersLayouts.php
+│       │   └── ResolvesAuthorData.php
+│       ├── AuthorBlockBase.php        # shared render logic (uses traits)
+│       ├── AuthorProfileBlock.php
+│       ├── AuthorGridBlock.php
+│       ├── AuthorCarouselBlock.php
+│       └── AuthorListBlock.php
 ├── src/
-│   ├── scss/common/                   # shared design tokens + mixins
-│   └── blocks/
-│       ├── author-profile/
-│       ├── author-grid/
-│       ├── author-carousel/
-│       │   └── view.js                # Slick carousel init (frontend)
-│       └── author-list/
+│   ├── admin/                         # React + shadcn/ui admin SPA
+│   ├── blocks/
+│   │   ├── author-profile/
+│   │   ├── author-grid/
+│   │   ├── author-carousel/
+│   │   │   └── view.js                # Slick carousel init (frontend)
+│   │   └── author-list/
+│   └── supports/
+│       ├── js/components/inspector/   # shared inspector panel components
+│       ├── js/hooks/                  # shared React hooks (e.g. useGoogleFont)
+│       └── scss/common/               # shared design tokens + mixins
 ├── templates/blocks/                  # PHP render templates
 └── docs/                              # Jekyll documentation site
 ```
