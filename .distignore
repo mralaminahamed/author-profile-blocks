@@ -62,7 +62,6 @@ phpcs.xml
 phpcs.plugin-review.xml
 phpstan.neon
 phpunit.xml
-vendor
 
 # ─── Source files (compiled output lives in build/) ──────────────────────────
 src
