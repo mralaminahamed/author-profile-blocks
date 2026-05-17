@@ -229,8 +229,8 @@ class AuthorProfileService {
 			return '';
 		}
 
-		// Format the registration date according to the site's date format setting.
-		return date_i18n( get_option( 'date_format' ), strtotime( $user_obj->user_registered ) );
+		// mysql2date converts the UTC MySQL date to the site's local timezone before formatting.
+		return mysql2date( get_option( 'date_format' ), $user_obj->user_registered );
 	}
 
 	/**

@@ -555,15 +555,11 @@ class Author_Profile_Blocks {
 		/**
 		 * Fires after the author profile fields are saved.
 		 *
-		 * This action allows plugins and themes to save additional author profile fields
-		 * or perform operations after the built-in fields have been saved.
-		 *
 		 * @since 1.0.0
 		 *
-		 * @param int   $user_id The ID of the user being saved.
-		 * @param array $_POST   The raw POST data containing all submitted form values.
+		 * @param int $user_id The ID of the user whose profile was saved.
 		 */
-		do_action( 'author_profile_blocks_save_profile_fields', $user_id, $_POST );
+		do_action( 'author_profile_blocks_save_profile_fields', $user_id );
 	}
 
 	/**
@@ -708,7 +704,11 @@ class Author_Profile_Blocks {
 		}
 
 		if ( ! empty( $args ) && is_array( $args ) ) {
-			extract( $args, EXTR_SKIP ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+			foreach ( $args as $key => $value ) {
+				if ( is_string( $key ) && ! isset( $$key ) ) {
+					$$key = $value;
+				}
+			}
 		}
 
 		$action_args = array(
@@ -718,7 +718,15 @@ class Author_Profile_Blocks {
 			'args'          => $args,
 		);
 
-		if ( ! empty( $template ) && file_exists( $template ) ) {
+		$realpath     = realpath( $template );
+		$plugin_path  = realpath( plugin_dir_path( APBL_PLUGIN_FILE ) );
+		$theme_path   = realpath( get_template_directory() );
+		$child_path   = realpath( get_stylesheet_directory() );
+		$in_plugin    = $realpath && $plugin_path && 0 === strpos( $realpath, $plugin_path );
+		$in_theme     = $realpath && $theme_path && 0 === strpos( $realpath, $theme_path );
+		$in_child     = $realpath && $child_path && 0 === strpos( $realpath, $child_path );
+
+		if ( ( $in_plugin || $in_theme || $in_child ) && file_exists( $template ) ) {
 			do_action( 'author_profile_blocks_before_template_part', $action_args );
 			include $template;
 			do_action( 'author_profile_blocks_after_template_part', $action_args );
