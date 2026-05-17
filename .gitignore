@@ -71,6 +71,7 @@ coverage/
 
 
 # ─── Extra ─────────────────────────────────────────────────────────────────
-docs/superpowers/*
+docs/superpowers/
 .remember/
 .tmp/
+/.playwright-mcp
