@@ -181,6 +181,17 @@ code, pre, kbd, .highlight {
 .main-content a:not(.btn) { color: var(--apbl-indigo-600); }
 .main-content a:not(.btn):hover { color: var(--apbl-indigo-800); }
 
+/* ─── Lists ──────────────────────────────────────────────────────────────── */
+.main-content ul li::before {
+  color: var(--apbl-indigo-400) !important;
+  font-size: 1.1em !important;
+}
+
+.main-content ol li::before {
+  color: var(--apbl-indigo-500) !important;
+  font-weight: 600 !important;
+}
+
 /* ─── Tables ─────────────────────────────────────────────────────────────── */
 .main-content table {
   border-collapse: collapse;
