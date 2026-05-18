@@ -20,6 +20,11 @@ use AuthorProfileBlocks\PostTypes\TeamMemberPostType;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
 use AuthorProfileBlocks\Services\AuthorDataProvider;
 use AuthorProfileBlocks\Services\AuthorProfileService;
+use AuthorProfileBlocks\Shortcodes\ShortcodeRegistry;
+use AuthorProfileBlocks\Shortcodes\AuthorProfileShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorGridShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorListShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorCarouselShortcode;
 use AuthorProfileBlocks\Taxonomies\DepartmentTaxonomy;
 
 // Exit if accessed directly.
@@ -81,6 +86,13 @@ class Author_Profile_Blocks {
 	private AuthorDataProvider $author_data_provider;
 
 	/**
+	 * Shortcode registry instance.
+	 *
+	 * @var ShortcodeRegistry
+	 */
+	private ShortcodeRegistry $shortcode_registry;
+
+	/**
 	 * Get plugin instance.
 	 *
 	 * @return Author_Profile_Blocks Plugin instance.
@@ -117,6 +129,13 @@ class Author_Profile_Blocks {
 		$this->department_taxonomy->register();
 		$this->team_member_post_type->register();
 		$this->author_data_provider->register();
+
+		$this->shortcode_registry = new ShortcodeRegistry();
+		$this->shortcode_registry->add( new AuthorProfileShortcode( $this->author_data_provider ) );
+		$this->shortcode_registry->add( new AuthorGridShortcode( $this->author_data_provider ) );
+		$this->shortcode_registry->add( new AuthorListShortcode( $this->author_data_provider ) );
+		$this->shortcode_registry->add( new AuthorCarouselShortcode( $this->author_data_provider ) );
+		$this->shortcode_registry->register();
 
 		$this->register_blocks();
 	}
