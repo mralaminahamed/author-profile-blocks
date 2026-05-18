@@ -213,6 +213,72 @@ class Author_Profile_Blocks {
 			)
 		);
 
+		$this->user_meta_provider->add_meta_field(
+			'apbl_department',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_skills',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_location',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_phone',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_availability',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_website_label',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
 		// Register the meta fields with WordPress.
 		$this->user_meta_provider->register_meta_fields();
 	}
@@ -480,6 +546,48 @@ class Author_Profile_Blocks {
 					</div>
 				</td>
 			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_department"><?php esc_html_e( 'Department', 'author-profile-blocks' ); ?></label></th>
+				<td><input type="text" id="apbl_department" name="apbl_department" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_department', true ) ); ?>" class="regular-text" /></td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_skills"><?php esc_html_e( 'Skills / Expertise', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" id="apbl_skills" name="apbl_skills" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_skills', true ) ); ?>" class="regular-text" />
+					<p class="description"><?php esc_html_e( 'Comma-separated list of skills.', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_location"><?php esc_html_e( 'Location', 'author-profile-blocks' ); ?></label></th>
+				<td><input type="text" id="apbl_location" name="apbl_location" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_location', true ) ); ?>" class="regular-text" /></td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_phone"><?php esc_html_e( 'Phone', 'author-profile-blocks' ); ?></label></th>
+				<td><input type="text" id="apbl_phone" name="apbl_phone" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_phone', true ) ); ?>" class="regular-text" /></td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_availability"><?php esc_html_e( 'Availability', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<select id="apbl_availability" name="apbl_availability">
+						<option value="" <?php selected( '', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( '— Select —', 'author-profile-blocks' ); ?></option>
+						<option value="available" <?php selected( 'available', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( 'Available', 'author-profile-blocks' ); ?></option>
+						<option value="busy" <?php selected( 'busy', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( 'Busy', 'author-profile-blocks' ); ?></option>
+						<option value="not-available" <?php selected( 'not-available', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( 'Not taking work', 'author-profile-blocks' ); ?></option>
+					</select>
+				</td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_website_label"><?php esc_html_e( 'Website Button Label', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" id="apbl_website_label" name="apbl_website_label" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_website_label', true ) ); ?>" class="regular-text" placeholder="<?php esc_attr_e( 'Visit Website', 'author-profile-blocks' ); ?>" />
+				</td>
+			</tr>
 		</table>
 		<?php
 
@@ -547,6 +655,18 @@ class Author_Profile_Blocks {
 				'apbl_member_since_label',
 				sanitize_text_field( wp_unslash( $_POST['apbl_member_since_label'] ) )
 			);
+		}
+
+		// Update new meta fields.
+		$new_fields = array( 'apbl_department', 'apbl_skills', 'apbl_location', 'apbl_phone', 'apbl_availability', 'apbl_website_label' );
+		foreach ( $new_fields as $field ) {
+			if ( isset( $_POST[ $field ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$this->user_meta_provider->update_meta(
+					$user_id,
+					$field,
+					sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				);
+			}
 		}
 
 		// Clear the author cache.
