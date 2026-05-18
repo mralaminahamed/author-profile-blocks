@@ -214,6 +214,15 @@ class Author_Profile_Blocks {
 	}
 
 	/**
+	 * Register classic WordPress widgets.
+	 *
+	 * @return void
+	 */
+	public function register_widgets(): void {
+		register_widget( AuthorProfileWidget::class );
+	}
+
+	/**
 	 * Get all registered blocks.
 	 *
 	 * @return AuthorBlockBase[] Array of block instances.
@@ -397,9 +406,7 @@ class Author_Profile_Blocks {
 		$this->initialize_shortcodes();
 
 		// Register classic widgets.
-		add_action( 'widgets_init', function () {
-			register_widget( AuthorProfileWidget::class );
-		} );
+		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 
 		// Initialize admin components.
 		if ( is_admin() ) {
