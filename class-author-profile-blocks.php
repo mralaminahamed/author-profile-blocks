@@ -16,8 +16,11 @@ use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Core\UserMetaProvider;
+use AuthorProfileBlocks\PostTypes\TeamMemberPostType;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
+use AuthorProfileBlocks\Services\AuthorDataProvider;
 use AuthorProfileBlocks\Services\AuthorProfileService;
+use AuthorProfileBlocks\Taxonomies\DepartmentTaxonomy;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -57,6 +60,27 @@ class Author_Profile_Blocks {
 	private AuthorProfileService $author_profile_service;
 
 	/**
+	 * Department taxonomy instance.
+	 *
+	 * @var DepartmentTaxonomy
+	 */
+	private DepartmentTaxonomy $department_taxonomy;
+
+	/**
+	 * Team member post type instance.
+	 *
+	 * @var TeamMemberPostType
+	 */
+	private TeamMemberPostType $team_member_post_type;
+
+	/**
+	 * Author data provider instance.
+	 *
+	 * @var AuthorDataProvider
+	 */
+	private AuthorDataProvider $author_data_provider;
+
+	/**
 	 * Get plugin instance.
 	 *
 	 * @return Author_Profile_Blocks Plugin instance.
@@ -85,6 +109,14 @@ class Author_Profile_Blocks {
 	public function register_services(): void {
 		$this->user_meta_provider     = new UserMetaProvider();
 		$this->author_profile_service = new AuthorProfileService( $this->user_meta_provider );
+
+		$this->department_taxonomy   = new DepartmentTaxonomy();
+		$this->team_member_post_type = new TeamMemberPostType();
+		$this->author_data_provider  = new AuthorDataProvider( $this->user_meta_provider );
+
+		$this->department_taxonomy->register();
+		$this->team_member_post_type->register();
+		$this->author_data_provider->register();
 
 		$this->register_blocks();
 	}
@@ -772,6 +804,15 @@ class Author_Profile_Blocks {
 	 */
 	public function get_author_profile_service(): AuthorProfileService {
 		return $this->author_profile_service;
+	}
+
+	/**
+	 * Get the author data provider instance.
+	 *
+	 * @return AuthorDataProvider
+	 */
+	public function get_author_data_provider(): AuthorDataProvider {
+		return $this->author_data_provider;
 	}
 
 	/**
