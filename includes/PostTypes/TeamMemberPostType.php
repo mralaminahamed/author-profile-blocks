@@ -24,15 +24,30 @@ class TeamMemberPostType implements Registerable {
 
 	const POST_TYPE = 'apbl_team_member';
 
+	/**
+	 * Register the post type.
+	 *
+	 * @return void
+	 */
 	public function register(): void {
 		$this->init();
 	}
 
+	/**
+	 * Initialize the post type registration.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		add_action( 'init', array( $this, 'register_post_type' ) );
 		add_action( 'init', array( $this, 'register_meta_fields' ) );
 	}
 
+	/**
+	 * Register the post type.
+	 *
+	 * @return void
+	 */
 	public function register_post_type(): void {
 		register_post_type(
 			self::POST_TYPE,
@@ -56,6 +71,11 @@ class TeamMemberPostType implements Registerable {
 		);
 	}
 
+	/**
+	 * Register post meta fields.
+	 *
+	 * @return void
+	 */
 	public function register_meta_fields(): void {
 		register_post_meta(
 			self::POST_TYPE,
@@ -65,7 +85,7 @@ class TeamMemberPostType implements Registerable {
 				'type'              => 'string',
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => function() {
+				'auth_callback'     => function () {
 					return current_user_can( 'edit_posts' );
 				},
 			)
@@ -75,10 +95,11 @@ class TeamMemberPostType implements Registerable {
 			self::POST_TYPE,
 			'apbl_tm_social_profiles',
 			array(
-				'single'        => true,
-				'type'          => 'string',
-				'show_in_rest'  => true,
-				'auth_callback' => function() {
+				'single'            => true,
+				'type'              => 'string',
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function () {
 					return current_user_can( 'edit_posts' );
 				},
 			)
