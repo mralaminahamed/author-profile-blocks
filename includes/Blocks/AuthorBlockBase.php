@@ -57,6 +57,23 @@ abstract class AuthorBlockBase implements Registerable {
 	}
 
 	/**
+	 * Get the source attribute definition for block.json.
+	 *
+	 * Shared by Phase 2 blocks that support both WP Users and Team Member CPT sources.
+	 *
+	 * @return array<string,mixed>
+	 */
+	protected function get_source_attribute(): array {
+		return array(
+			'source' => array(
+				'type'    => 'string',
+				'enum'    => array( 'user', 'team_member' ),
+				'default' => 'user',
+			),
+		);
+	}
+
+	/**
 	 * Initialize the block.
 	 *
 	 * @return void
