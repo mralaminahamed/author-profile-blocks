@@ -25,6 +25,7 @@ use AuthorProfileBlocks\Shortcodes\AuthorGridShortcode;
 use AuthorProfileBlocks\Shortcodes\AuthorListShortcode;
 use AuthorProfileBlocks\Shortcodes\AuthorProfileShortcode;
 use AuthorProfileBlocks\Taxonomies\DepartmentTaxonomy;
+use AuthorProfileBlocks\Widgets\AuthorProfileWidget;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -394,6 +395,11 @@ class Author_Profile_Blocks {
 
 		// Initialize shortcodes.
 		$this->initialize_shortcodes();
+
+		// Register classic widgets.
+		add_action( 'widgets_init', function () {
+			register_widget( AuthorProfileWidget::class );
+		} );
 
 		// Initialize admin components.
 		if ( is_admin() ) {
