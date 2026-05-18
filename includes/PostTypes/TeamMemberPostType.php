@@ -53,10 +53,10 @@ class TeamMemberPostType implements Registerable {
 			self::POST_TYPE,
 			array(
 				'labels'       => array(
-					'name'         => __( 'Team Members', 'author-profile-blocks' ),
+					'name'          => __( 'Team Members', 'author-profile-blocks' ),
 					'singular_name' => __( 'Team Member', 'author-profile-blocks' ),
-					'add_new_item' => __( 'Add New Team Member', 'author-profile-blocks' ),
-					'edit_item'    => __( 'Edit Team Member', 'author-profile-blocks' ),
+					'add_new_item'  => __( 'Add New Team Member', 'author-profile-blocks' ),
+					'edit_item'     => __( 'Edit Team Member', 'author-profile-blocks' ),
 				),
 				'public'       => true,
 				'show_ui'      => true,
