@@ -16,8 +16,8 @@ class AuthorBlockBaseTest extends AuthorProfileBlocksTestCase {
 		$content = file_get_contents(
 			TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Blocks/AuthorBlockBase.php'
 		);
-		$this->assertStringContainsString( "'source'", $content );
-		$this->assertStringContainsString( "'team_member'", $content );
 		$this->assertStringContainsString( 'get_source_attribute', $content );
+		$this->assertStringContainsString( "'team_member'", $content );
+		$this->assertStringContainsString( "'enum'", $content );
 	}
 }

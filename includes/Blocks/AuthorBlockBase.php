@@ -65,11 +65,9 @@ abstract class AuthorBlockBase implements Registerable {
 	 */
 	protected function get_source_attribute(): array {
 		return array(
-			'source' => array(
-				'type'    => 'string',
-				'enum'    => array( 'user', 'team_member' ),
-				'default' => 'user',
-			),
+			'type'    => 'string',
+			'enum'    => array( 'user', 'team_member' ),
+			'default' => 'user',
 		);
 	}
 
