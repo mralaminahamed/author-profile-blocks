@@ -20,11 +20,10 @@ use AuthorProfileBlocks\PostTypes\TeamMemberPostType;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
 use AuthorProfileBlocks\Services\AuthorDataProvider;
 use AuthorProfileBlocks\Services\AuthorProfileService;
-use AuthorProfileBlocks\Shortcodes\ShortcodeRegistry;
-use AuthorProfileBlocks\Shortcodes\AuthorProfileShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorCarouselShortcode;
 use AuthorProfileBlocks\Shortcodes\AuthorGridShortcode;
 use AuthorProfileBlocks\Shortcodes\AuthorListShortcode;
-use AuthorProfileBlocks\Shortcodes\AuthorCarouselShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorProfileShortcode;
 use AuthorProfileBlocks\Taxonomies\DepartmentTaxonomy;
 
 // Exit if accessed directly.
@@ -86,11 +85,11 @@ class Author_Profile_Blocks {
 	private AuthorDataProvider $author_data_provider;
 
 	/**
-	 * Shortcode registry instance.
+	 * List of shortcodes to register.
 	 *
-	 * @var ShortcodeRegistry
+	 * @var object[]
 	 */
-	private ShortcodeRegistry $shortcode_registry;
+	private array $shortcodes = array();
 
 	/**
 	 * Get plugin instance.
@@ -130,14 +129,8 @@ class Author_Profile_Blocks {
 		$this->team_member_post_type->register();
 		$this->author_data_provider->register();
 
-		$this->shortcode_registry = new ShortcodeRegistry();
-		$this->shortcode_registry->add( new AuthorProfileShortcode( $this->author_data_provider ) );
-		$this->shortcode_registry->add( new AuthorGridShortcode( $this->author_data_provider ) );
-		$this->shortcode_registry->add( new AuthorListShortcode( $this->author_data_provider ) );
-		$this->shortcode_registry->add( new AuthorCarouselShortcode( $this->author_data_provider ) );
-		$this->shortcode_registry->register();
-
 		$this->register_blocks();
+		$this->register_shortcodes();
 	}
 
 	/**
@@ -180,6 +173,43 @@ class Author_Profile_Blocks {
 	 */
 	public function register_block( AuthorBlockBase $block ): void {
 		$this->blocks[] = $block;
+	}
+
+	/**
+	 * Register all shortcodes.
+	 *
+	 * @return void
+	 */
+	private function register_shortcodes(): void {
+		$this->register_shortcode( new AuthorProfileShortcode( $this->author_data_provider ) );
+		$this->register_shortcode( new AuthorGridShortcode( $this->author_data_provider ) );
+		$this->register_shortcode( new AuthorListShortcode( $this->author_data_provider ) );
+		$this->register_shortcode( new AuthorCarouselShortcode( $this->author_data_provider ) );
+
+		do_action( 'author_profile_blocks_register_shortcodes', $this );
+	}
+
+	/**
+	 * Initialize all registered shortcodes.
+	 *
+	 * @return void
+	 */
+	private function initialize_shortcodes(): void {
+		foreach ( $this->shortcodes as $shortcode ) {
+			$shortcode->register();
+		}
+
+		do_action( 'author_profile_blocks_shortcodes_registered', $this );
+	}
+
+	/**
+	 * Register a shortcode instance.
+	 *
+	 * @param object $shortcode Shortcode instance.
+	 * @return void
+	 */
+	public function register_shortcode( object $shortcode ): void {
+		$this->shortcodes[] = $shortcode;
 	}
 
 	/**
@@ -361,6 +391,9 @@ class Author_Profile_Blocks {
 
 		// Initialize blocks.
 		$this->initialize_blocks();
+
+		// Initialize shortcodes.
+		$this->initialize_shortcodes();
 
 		// Initialize admin components.
 		if ( is_admin() ) {

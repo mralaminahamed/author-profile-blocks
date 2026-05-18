@@ -7,7 +7,6 @@ class AuthorProfileShortcodeTest extends AuthorProfileBlocksTestCase {
 
 	public function test_shortcode_files_exist(): void {
 		$base = TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Shortcodes/';
-		$this->assertFileExists( $base . 'ShortcodeRegistry.php' );
 		$this->assertFileExists( $base . 'AuthorProfileShortcode.php' );
 		$this->assertFileExists( $base . 'AuthorGridShortcode.php' );
 		$this->assertFileExists( $base . 'AuthorListShortcode.php' );
@@ -40,11 +39,12 @@ class AuthorProfileShortcodeTest extends AuthorProfileBlocksTestCase {
 		}
 	}
 
-	public function test_registry_has_add_and_init(): void {
+	public function test_main_class_has_shortcode_methods(): void {
 		$content = file_get_contents(
-			TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Shortcodes/ShortcodeRegistry.php'
+			TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/class-author-profile-blocks.php'
 		);
-		$this->assertStringContainsString( 'public function add(', $content );
-		$this->assertStringContainsString( 'public function init(): void', $content );
+		$this->assertStringContainsString( 'register_shortcodes(', $content );
+		$this->assertStringContainsString( 'initialize_shortcodes(', $content );
+		$this->assertStringContainsString( 'register_shortcode(', $content );
 	}
 }
