@@ -1,0 +1,68 @@
+name: Sync Assets and Readme to WordPress.org
+
+on:
+  push:
+    branches:
+      - trunk
+    paths:
+      - 'readme.txt'
+      - '.wordpress-org/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: assets-deploy
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Sync assets and readme
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set plugin slug
+        id: plugin
+        run: echo "slug=${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
+
+      - name: Sync plugin assets (.wordpress-org/) to WordPress.org SVN /assets/
+        uses: 10up/action-wordpress-plugin-assets-deploy@stable
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: ${{ steps.plugin.outputs.slug }}
+
+      - name: Install SVN
+        run: sudo apt-get update -y && sudo apt-get install -y subversion
+
+      - name: Sync readme.txt to SVN trunk
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SLUG: ${{ steps.plugin.outputs.slug }}
+        run: |
+          SVN_URL="https://plugins.svn.wordpress.org/${SLUG}"
+          SVN_DIR="/tmp/svn-${SLUG}"
+
+          svn checkout --depth immediates "$SVN_URL" "$SVN_DIR"
+          svn update --set-depth immediates "$SVN_DIR/trunk"
+
+          cp readme.txt "$SVN_DIR/trunk/readme.txt"
+
+          cd "$SVN_DIR"
+
+          if svn diff --quiet; then
+            echo "readme.txt unchanged in SVN, nothing to commit."
+            exit 0
+          fi
+
+          svn commit \
+            --message "Sync readme.txt from GitHub (${GITHUB_SHA::8})" \
+            --username "$SVN_USERNAME" \
+            --password "$SVN_PASSWORD" \
+            --no-auth-cache
