@@ -16,8 +16,16 @@ use AuthorProfileBlocks\Blocks\AuthorGridBlock;
 use AuthorProfileBlocks\Blocks\AuthorListBlock;
 use AuthorProfileBlocks\Blocks\AuthorProfileBlock;
 use AuthorProfileBlocks\Core\UserMetaProvider;
+use AuthorProfileBlocks\PostTypes\TeamMemberPostType;
 use AuthorProfileBlocks\REST\Settings as REST_Settings;
+use AuthorProfileBlocks\Services\AuthorDataProvider;
 use AuthorProfileBlocks\Services\AuthorProfileService;
+use AuthorProfileBlocks\Shortcodes\AuthorCarouselShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorGridShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorListShortcode;
+use AuthorProfileBlocks\Shortcodes\AuthorProfileShortcode;
+use AuthorProfileBlocks\Taxonomies\DepartmentTaxonomy;
+use AuthorProfileBlocks\Widgets\AuthorProfileWidget;
 
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -57,6 +65,34 @@ class Author_Profile_Blocks {
 	private AuthorProfileService $author_profile_service;
 
 	/**
+	 * Department taxonomy instance.
+	 *
+	 * @var DepartmentTaxonomy
+	 */
+	private DepartmentTaxonomy $department_taxonomy;
+
+	/**
+	 * Team member post type instance.
+	 *
+	 * @var TeamMemberPostType
+	 */
+	private TeamMemberPostType $team_member_post_type;
+
+	/**
+	 * Author data provider instance.
+	 *
+	 * @var AuthorDataProvider
+	 */
+	private AuthorDataProvider $author_data_provider;
+
+	/**
+	 * List of shortcodes to register.
+	 *
+	 * @var object[]
+	 */
+	private array $shortcodes = array();
+
+	/**
 	 * Get plugin instance.
 	 *
 	 * @return Author_Profile_Blocks Plugin instance.
@@ -86,7 +122,16 @@ class Author_Profile_Blocks {
 		$this->user_meta_provider     = new UserMetaProvider();
 		$this->author_profile_service = new AuthorProfileService( $this->user_meta_provider );
 
+		$this->department_taxonomy   = new DepartmentTaxonomy();
+		$this->team_member_post_type = new TeamMemberPostType();
+		$this->author_data_provider  = new AuthorDataProvider( $this->user_meta_provider );
+
+		$this->department_taxonomy->register();
+		$this->team_member_post_type->register();
+		$this->author_data_provider->register();
+
 		$this->register_blocks();
+		$this->register_shortcodes();
 	}
 
 	/**
@@ -129,6 +174,52 @@ class Author_Profile_Blocks {
 	 */
 	public function register_block( AuthorBlockBase $block ): void {
 		$this->blocks[] = $block;
+	}
+
+	/**
+	 * Register all shortcodes.
+	 *
+	 * @return void
+	 */
+	private function register_shortcodes(): void {
+		$this->register_shortcode( new AuthorProfileShortcode( $this->author_data_provider ) );
+		$this->register_shortcode( new AuthorGridShortcode( $this->author_data_provider ) );
+		$this->register_shortcode( new AuthorListShortcode( $this->author_data_provider ) );
+		$this->register_shortcode( new AuthorCarouselShortcode( $this->author_data_provider ) );
+
+		do_action( 'author_profile_blocks_register_shortcodes', $this );
+	}
+
+	/**
+	 * Initialize all registered shortcodes.
+	 *
+	 * @return void
+	 */
+	private function initialize_shortcodes(): void {
+		foreach ( $this->shortcodes as $shortcode ) {
+			$shortcode->register();
+		}
+
+		do_action( 'author_profile_blocks_shortcodes_registered', $this );
+	}
+
+	/**
+	 * Register a shortcode instance.
+	 *
+	 * @param object $shortcode Shortcode instance.
+	 * @return void
+	 */
+	public function register_shortcode( object $shortcode ): void {
+		$this->shortcodes[] = $shortcode;
+	}
+
+	/**
+	 * Register classic WordPress widgets.
+	 *
+	 * @return void
+	 */
+	public function register_widgets(): void {
+		register_widget( AuthorProfileWidget::class );
 	}
 
 	/**
@@ -213,6 +304,72 @@ class Author_Profile_Blocks {
 			)
 		);
 
+		$this->user_meta_provider->add_meta_field(
+			'apbl_department',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_skills',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_location',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_phone',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_availability',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
+		$this->user_meta_provider->add_meta_field(
+			'apbl_website_label',
+			array(
+				'type'              => 'string',
+				'single'            => true,
+				'show_in_rest'      => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => '__return_true',
+			)
+		);
+
 		// Register the meta fields with WordPress.
 		$this->user_meta_provider->register_meta_fields();
 	}
@@ -244,6 +401,12 @@ class Author_Profile_Blocks {
 
 		// Initialize blocks.
 		$this->initialize_blocks();
+
+		// Initialize shortcodes.
+		$this->initialize_shortcodes();
+
+		// Register classic widgets.
+		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 
 		// Initialize admin components.
 		if ( is_admin() ) {
@@ -480,6 +643,48 @@ class Author_Profile_Blocks {
 					</div>
 				</td>
 			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_department"><?php esc_html_e( 'Department', 'author-profile-blocks' ); ?></label></th>
+				<td><input type="text" id="apbl_department" name="apbl_department" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_department', true ) ); ?>" class="regular-text" /></td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_skills"><?php esc_html_e( 'Skills / Expertise', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" id="apbl_skills" name="apbl_skills" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_skills', true ) ); ?>" class="regular-text" />
+					<p class="description"><?php esc_html_e( 'Comma-separated list of skills.', 'author-profile-blocks' ); ?></p>
+				</td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_location"><?php esc_html_e( 'Location', 'author-profile-blocks' ); ?></label></th>
+				<td><input type="text" id="apbl_location" name="apbl_location" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_location', true ) ); ?>" class="regular-text" /></td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_phone"><?php esc_html_e( 'Phone', 'author-profile-blocks' ); ?></label></th>
+				<td><input type="text" id="apbl_phone" name="apbl_phone" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_phone', true ) ); ?>" class="regular-text" /></td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_availability"><?php esc_html_e( 'Availability', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<select id="apbl_availability" name="apbl_availability">
+						<option value="" <?php selected( '', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( '— Select —', 'author-profile-blocks' ); ?></option>
+						<option value="available" <?php selected( 'available', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( 'Available', 'author-profile-blocks' ); ?></option>
+						<option value="busy" <?php selected( 'busy', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( 'Busy', 'author-profile-blocks' ); ?></option>
+						<option value="not-available" <?php selected( 'not-available', $this->user_meta_provider->get_meta( $user->ID, 'apbl_availability', true ) ); ?>><?php esc_html_e( 'Not taking work', 'author-profile-blocks' ); ?></option>
+					</select>
+				</td>
+			</tr>
+
+			<tr class="apbl-meta-field">
+				<th><label for="apbl_website_label"><?php esc_html_e( 'Website Button Label', 'author-profile-blocks' ); ?></label></th>
+				<td>
+					<input type="text" id="apbl_website_label" name="apbl_website_label" value="<?php echo esc_attr( $this->user_meta_provider->get_meta( $user->ID, 'apbl_website_label', true ) ); ?>" class="regular-text" placeholder="<?php esc_attr_e( 'Visit Website', 'author-profile-blocks' ); ?>" />
+				</td>
+			</tr>
 		</table>
 		<?php
 
@@ -547,6 +752,18 @@ class Author_Profile_Blocks {
 				'apbl_member_since_label',
 				sanitize_text_field( wp_unslash( $_POST['apbl_member_since_label'] ) )
 			);
+		}
+
+		// Update new meta fields.
+		$new_fields = array( 'apbl_department', 'apbl_skills', 'apbl_location', 'apbl_phone', 'apbl_availability', 'apbl_website_label' );
+		foreach ( $new_fields as $field ) {
+			if ( isset( $_POST[ $field ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$this->user_meta_provider->update_meta(
+					$user_id,
+					$field,
+					sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				);
+			}
 		}
 
 		// Clear the author cache.
@@ -652,6 +869,15 @@ class Author_Profile_Blocks {
 	 */
 	public function get_author_profile_service(): AuthorProfileService {
 		return $this->author_profile_service;
+	}
+
+	/**
+	 * Get the author data provider instance.
+	 *
+	 * @return AuthorDataProvider
+	 */
+	public function get_author_data_provider(): AuthorDataProvider {
+		return $this->author_data_provider;
 	}
 
 	/**
