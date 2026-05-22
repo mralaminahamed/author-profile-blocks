@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-05-22
+
+### Added
+
+- **Team Member CPT** (`apbl_team_member`): custom post type with position and social profiles meta, REST-enabled, supports title/editor/thumbnail/menu-order
+- **Department Taxonomy** (`apbl_department`): hierarchical taxonomy attached to both `apbl_team_member` and `user` object types
+- **AuthorDataProvider service**: normalises WP Users and Team Member CPT posts into a shared author shape (`id, name, position, bio, avatar_url, socials, department, skills, location, phone, availability, website_label, source, post_count, joined`); result cache cleared on profile update and team-member save
+- **6 new user meta fields**: department, skills, location, phone, availability, website label — all shown on the WP profile screen and exposed via REST
+- **4 shortcodes** mirroring the `register_blocks()` pattern:
+  - `[apbl_profile]` — single author card with source, style, show_socials, show_bio options
+  - `[apbl_grid]` — responsive author grid with column and number controls
+  - `[apbl_list]` — author list with detailed layout
+  - `[apbl_carousel]` — author carousel with autoplay toggle
+- **AuthorProfileWidget** classic widget: wraps `[apbl_profile]`, exposes author picker, style selector, and show-socials/show-bio toggles in the widget admin
+- **`get_source_attribute()` helper** on `AuthorBlockBase`: returns the shared `{ type, enum, default }` attribute definition for Phase 2 blocks that toggle between WP Users and Team Member sources
+
+### Tests
+
+- 357 tests / 970 assertions — all green
+- New test suites: DepartmentTaxonomyTest, TeamMemberPostTypeTest, UserMetaProviderTest, AuthorDataProviderTest, PluginTest (shortcode/widget wiring), AuthorProfileShortcodeTest, AuthorProfileWidgetTest, AuthorBlockBaseTest
+
 ## [1.0.4] - 2026-05-17
 
 ### Fixed

@@ -29,7 +29,7 @@ class PluginTest extends IntegrationTestCase {
 		$this->assertTrue( defined( 'APBL_PLUGIN_FILE' ) );
 		$this->assertTrue( defined( 'APBL_PLUGIN_PATH' ) );
 		$this->assertTrue( defined( 'APBL_PLUGIN_URL' ) );
-		$this->assertSame( '1.0.4', APBL_VERSION );
+		$this->assertSame( '1.1.0', APBL_VERSION );
 	}
 
 	public function test_register_blocks_registers_four_blocks(): void {
