@@ -1,4 +1,4 @@
-name: Sync Assets and Readme to WordPress.org
+name: Plugin asset/readme update
 
 on:
   push:
@@ -9,31 +9,22 @@ on:
       - '.wordpress-org/**'
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 concurrency:
   group: assets-deploy
   cancel-in-progress: true
 
 jobs:
   sync:
-    name: Sync assets and readme
+    name: Sync
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v6
 
-      - name: Set plugin slug
-        id: plugin
-        run: echo "slug=${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
-
-      - name: Sync assets and readme.txt to WordPress.org
+      - name: WordPress.org plugin asset/readme update
         uses: 10up/action-wordpress-plugin-asset-update@2.2.0
         env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: ${{ steps.plugin.outputs.slug }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: ${{ github.event.repository.name }}
+          IGNORE_OTHER_FILES: true
