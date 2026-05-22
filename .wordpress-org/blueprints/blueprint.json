@@ -1,0 +1,38 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": {
+    "php": "8.1",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": false
+  },
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "author-profile-blocks"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n\n// Create demo WordPress user\n$user_id = wp_insert_user([\n    'user_login'   => 'jane-smith',\n    'user_email'   => 'jane@example.com',\n    'user_pass'    => wp_generate_password(),\n    'display_name' => 'Jane Smith',\n    'description'  => 'Senior product designer with 10 years of experience building digital products. Passionate about accessibility and design systems.',\n    'role'         => 'author',\n]);\n\nif ( ! is_wp_error( $user_id ) ) {\n    update_user_meta( $user_id, 'apbl_author_position',    'Senior Product Designer' );\n    update_user_meta( $user_id, 'apbl_location',           'San Francisco, CA' );\n    update_user_meta( $user_id, 'apbl_department',         'Design' );\n    update_user_meta( $user_id, 'apbl_skills',             'Figma, Design Systems, Accessibility, UX Research' );\n    update_user_meta( $user_id, 'apbl_availability',       'available' );\n    update_user_meta( $user_id, 'apbl_social_profiles',    serialize([\n        'twitter'   => 'https://twitter.com/janesmith',\n        'linkedin'  => 'https://linkedin.com/in/janesmith',\n        'website'   => 'https://janesmith.design',\n    ]) );\n}\n\n// Create second demo user\n$user_id_2 = wp_insert_user([\n    'user_login'   => 'alex-chen',\n    'user_email'   => 'alex@example.com',\n    'user_pass'    => wp_generate_password(),\n    'display_name' => 'Alex Chen',\n    'description'  => 'Full-stack engineer specialising in WordPress block development and REST APIs. Open source contributor.',\n    'role'         => 'author',\n]);\n\nif ( ! is_wp_error( $user_id_2 ) ) {\n    update_user_meta( $user_id_2, 'apbl_author_position',  'Lead Engineer' );\n    update_user_meta( $user_id_2, 'apbl_location',         'New York, NY' );\n    update_user_meta( $user_id_2, 'apbl_department',       'Engineering' );\n    update_user_meta( $user_id_2, 'apbl_skills',           'PHP, React, TypeScript, WordPress Blocks' );\n    update_user_meta( $user_id_2, 'apbl_availability',     'busy' );\n    update_user_meta( $user_id_2, 'apbl_social_profiles',  serialize([\n        'twitter'  => 'https://twitter.com/alexchen',\n        'github'   => 'https://github.com/alexchen',\n        'linkedin' => 'https://linkedin.com/in/alexchen',\n    ]) );\n}\n\n// Create Team Member CPT entries\n$tm_1 = wp_insert_post([\n    'post_type'    => 'apbl_team_member',\n    'post_title'   => 'Maria Garcia',\n    'post_content' => 'Marketing strategist and content lead with a background in brand communications and growth marketing.',\n    'post_status'  => 'publish',\n]);\n\nif ( $tm_1 ) {\n    update_post_meta( $tm_1, 'apbl_tm_position',        'Head of Marketing' );\n    update_post_meta( $tm_1, 'apbl_tm_social_profiles', serialize([\n        'linkedin'  => 'https://linkedin.com/in/mariagarcia',\n        'twitter'   => 'https://twitter.com/mariagarcia',\n    ]) );\n    $dept = wp_insert_term( 'Marketing', 'apbl_department' );\n    if ( ! is_wp_error( $dept ) ) {\n        wp_set_object_terms( $tm_1, (int) $dept['term_id'], 'apbl_department' );\n    }\n}\n\n$tm_2 = wp_insert_post([\n    'post_type'    => 'apbl_team_member',\n    'post_title'   => 'David Park',\n    'post_content' => 'Operations lead focused on scaling teams and building efficient cross-functional processes.',\n    'post_status'  => 'publish',\n]);\n\nif ( $tm_2 ) {\n    update_post_meta( $tm_2, 'apbl_tm_position',        'VP of Operations' );\n    update_post_meta( $tm_2, 'apbl_tm_social_profiles', serialize([\n        'linkedin' => 'https://linkedin.com/in/davidpark',\n    ]) );\n    $ops_dept = wp_insert_term( 'Operations', 'apbl_department' );\n    if ( ! is_wp_error( $ops_dept ) ) {\n        wp_set_object_terms( $tm_2, (int) $ops_dept['term_id'], 'apbl_department' );\n    }\n}\n\n// Create demo page with blocks\n$admin = get_users(['role' => 'administrator', 'number' => 1]);\n$admin_id = $admin ? $admin[0]->ID : 1;\n\n$page_content = '<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Author Profile Block</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Single author displayed with the default card style.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:author-profile-blocks/author-profile {\"authorId\":' . $user_id . ',\"showBio\":true,\"showSocialProfiles\":true} /-->\n\n<!-- wp:spacer {\"height\":\"48px\"} -->\n<div style=\"height:48px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<!-- /wp:spacer -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Author Grid Block</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Multiple authors displayed in a responsive 3-column grid.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:author-profile-blocks/author-grid {\"columns\":3,\"showSocialProfiles\":true} /-->\n\n<!-- wp:spacer {\"height\":\"48px\"} -->\n<div style=\"height:48px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<!-- /wp:spacer -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Author List Block</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Authors displayed in the detailed list style.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:author-profile-blocks/author-list {\"style\":\"detailed\"} /-->\n\n<!-- wp:spacer {\"height\":\"48px\"} -->\n<div style=\"height:48px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<!-- /wp:spacer -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Author Carousel Block</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Authors displayed in a scrollable carousel.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:author-profile-blocks/author-carousel {\"autoplay\":false,\"style\":\"modern\"} /-->\n\n<!-- wp:spacer {\"height\":\"48px\"} -->\n<div style=\"height:48px\" aria-hidden=\"true\" class=\"wp-block-spacer\"></div>\n<!-- /wp:spacer -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">Shortcode Examples</h2>\n<!-- /wp:heading -->\n\n<!-- wp:shortcode -->\n[apbl_grid columns=\"2\" number=\"4\" style=\"card\"]\n<!-- /wp:shortcode -->';\n\n$page_id = wp_insert_post([\n    'post_type'    => 'page',\n    'post_title'   => 'Author Profile Blocks Demo',\n    'post_content' => $page_content,\n    'post_status'  => 'publish',\n    'post_author'  => $admin_id,\n]);\n\nif ( $page_id ) {\n    update_option( 'page_on_front', $page_id );\n    update_option( 'show_on_front', 'page' );\n}\n"
+    },
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "Author Profile Blocks Demo",
+        "blogdescription": "Live preview of the Author Profile Blocks plugin"
+      }
+    }
+  ]
+}
