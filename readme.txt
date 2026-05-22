@@ -14,6 +14,8 @@ Display author profiles and team members in Gutenberg blocks, shortcodes, and wi
 
 **Author Profile Blocks** is a WordPress plugin for showcasing author profiles and team members using four Gutenberg blocks, four shortcodes, and a classic widget. It supports two data sources: standard WordPress Users and an optional Team Member custom post type (`apbl_team_member`).
 
+[Live Preview](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/mralaminahamed/author-profile-blocks/trunk/.wordpress-org/blueprints/blueprint.json) | [GitHub](https://github.com/mralaminahamed/author-profile-blocks) | [Documentation](https://github.com/mralaminahamed/author-profile-blocks#readme)
+
 === Four Block Types ===
 
 **Author Profile** — Single author showcase with full control over layout order, avatar shape, typography, and social links. Four content order variants: image-content, content-image, image-top, content-top.
@@ -22,7 +24,7 @@ Display author profiles and team members in Gutenberg blocks, shortcodes, and wi
 
 **Author List** — Vertical author list with three display styles: compact (image + summary), detailed (full two-column layout), and minimal (name + position only). Supports ordered or unordered lists.
 
-**Author Carousel** — Interactive slider built on Slick. Seven style presets including modern cards, classic carousel, elegant profile, and creative gradient layout. Configurable slides, autoplay, dots, and arrows.
+**Author Carousel** — Interactive slider built on [Slick](https://kenwheeler.github.io/slick/). Seven style presets including modern cards, classic carousel, elegant profile, and creative gradient layout. Configurable slides, autoplay, dots, and arrows.
 
 === Shortcodes ===
 
@@ -45,7 +47,7 @@ Activate the built-in `apbl_team_member` custom post type to manage team members
 
 === Design System ===
 
-Every block ships with a refined indigo editorial design — distinctive typography, layered shadows, smooth cubic-bezier transitions, and an indigo accent system with animated hover reveals. All visual properties are overridable via CSS custom properties.
+Every block ships with a refined indigo editorial design — distinctive typography, layered shadows, smooth cubic-bezier transitions, and an indigo accent system with animated hover reveals. All visual properties are overridable via [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 
 === Customization Options ===
 
@@ -57,11 +59,11 @@ Every block ships with a refined indigo editorial design — distinctive typogra
 * **Social icons**: square pill shape with indigo fill on hover; supports Facebook, Twitter/X, LinkedIn, Instagram, website
 * **Colors**: background, border, text, gradient — all configurable via the inspector
 * **Spacing**: section spacing, padding, item spacing, container width
-* **Advanced**: CSS filters (brightness, contrast, saturation), transform (scale, rotate), box shadow, custom CSS class, Google Font support
+* **Advanced**: CSS filters (brightness, contrast, saturation), transform (scale, rotate), box shadow, custom CSS class, [Google Font](https://fonts.google.com/) support
 
 === User Profile Extensions ===
 
-The plugin adds extra fields to the standard WordPress user profile screen:
+The plugin adds extra fields to the standard [WordPress user profile screen](https://wordpress.org/documentation/article/users-your-profile-screen/):
 
 * Position / job title
 * Extended bio
@@ -84,11 +86,12 @@ The plugin adds extra fields to the standard WordPress user profile screen:
 === Developer-Friendly ===
 
 * Clean PHP template hierarchy — override any template from your theme
-* Extensive CSS custom properties for runtime styling
+* Extensive [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) for runtime styling
 * WordPress filter hooks on every rendered block and shortcode
 * Modern SCSS source with `@use`/`@forward` module system and `sass:color` functions
 * `apbl-` namespaced CSS classes throughout
-* PSR-4 autoloaded, WordPress Coding Standards compliant
+* [PSR-4](https://www.php-fig.org/psr/psr-4/) autoloaded, [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/) compliant
+* Full [developer documentation on GitHub](https://github.com/mralaminahamed/author-profile-blocks#readme)
 
 == Installation ==
 
@@ -96,7 +99,7 @@ The plugin adds extra fields to the standard WordPress user profile screen:
 2. Activate the plugin.
 3. Go to **Users → Your Profile** (or any user's profile) to add author information.
 4. Optionally go to **Team Members** in the admin menu to add team members.
-5. Open any page or post in the Gutenberg editor and search for "author" to find the blocks.
+5. Open any page or post in the [Gutenberg editor](https://wordpress.org/gutenberg/) and search for "author" to find the blocks.
 
 == Frequently Asked Questions ==
 
@@ -116,15 +119,15 @@ Yes. Four shortcodes are available for classic themes or page builders: `[apbl_p
 
 = Can I override the block templates? =
 
-Yes. Copy any file from `wp-content/plugins/author-profile-blocks/templates/` into `wp-content/themes/your-theme/author-profile-blocks/` and the plugin will use your version instead.
+Yes. Copy any file from `wp-content/plugins/author-profile-blocks/templates/` into `wp-content/themes/your-theme/author-profile-blocks/` and the plugin will use your version instead. See [template override documentation](https://github.com/mralaminahamed/author-profile-blocks#template-override) for details.
 
 = How do I change block styles? =
 
-Each block exposes a full Style panel in the block sidebar. For deeper overrides, all CSS uses `apbl-` prefixed classes and `--author-*` CSS custom properties, making targeted overrides straightforward.
+Each block exposes a full Style panel in the block sidebar. For deeper overrides, all CSS uses `apbl-` prefixed classes and `--author-*` [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties), making targeted overrides straightforward.
 
 = Can I show only authors with a specific role? =
 
-Yes. The Grid, List, and Carousel blocks and their shortcode equivalents include a role filter. Set it to any registered WordPress role and only users with that role will be displayed.
+Yes. The Grid, List, and Carousel blocks and their shortcode equivalents include a role filter. Set it to any registered [WordPress role](https://wordpress.org/documentation/article/roles-and-capabilities/) and only users with that role will be displayed.
 
 = Can I show only team members from a specific department? =
 
@@ -132,7 +135,7 @@ Yes. The `apbl_department` taxonomy is hierarchical. Use the department filter i
 
 = Is the plugin compatible with full-site editing (FSE) themes? =
 
-Yes. The blocks render server-side and use standard Gutenberg wrapper attributes, so they work in both classic and FSE/block themes.
+Yes. The blocks render server-side and use standard [Gutenberg block wrapper attributes](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/), so they work in both classic and FSE/block themes.
 
 = Will it slow down my site? =
 
@@ -140,7 +143,11 @@ Each block caches its rendered HTML. On repeat page loads, output is served from
 
 = Is the plugin translation-ready? =
 
-Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n functions with the `author-profile-blocks` text domain.
+Yes. All user-facing strings use `__()`, `_e()`, and related [WordPress i18n functions](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/) with the `author-profile-blocks` text domain.
+
+= Where can I report bugs or request features? =
+
+Open an issue on [GitHub](https://github.com/mralaminahamed/author-profile-blocks/issues) or post in the [WordPress.org support forum](https://wordpress.org/support/plugin/author-profile-blocks/).
 
 == Screenshots ==
 
@@ -159,6 +166,7 @@ Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n func
 * Add: 6 new user meta fields — department, skills, location, phone, availability, website label; all REST-exposed and shown on the WP profile screen.
 * Add: Four shortcodes — [apbl_profile], [apbl_grid], [apbl_list], [apbl_carousel] — all supporting source, style, and display toggle attributes.
 * Add: Author Profile classic widget — wraps [apbl_profile] with author picker, style selector, and show-socials/show-bio toggles.
+* Add: WordPress Playground blueprint for live preview on WordPress.org.
 
 = 1.0.4 =
 * Fix: blocks render blank on frontend when no author selected (error div was leaking to visitors).
@@ -230,5 +238,7 @@ Initial release — no upgrade required.
 
 == Support ==
 
-* WordPress.org support forum: https://wordpress.org/support/plugin/author-profile-blocks/
-* GitHub issues: https://github.com/mralaminahamed/author-profile-blocks/issues
+* [WordPress.org support forum](https://wordpress.org/support/plugin/author-profile-blocks/)
+* [GitHub issues](https://github.com/mralaminahamed/author-profile-blocks/issues)
+* [Developer documentation](https://github.com/mralaminahamed/author-profile-blocks#readme)
+* [Live Preview on WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/mralaminahamed/author-profile-blocks/trunk/.wordpress-org/blueprints/blueprint.json)
