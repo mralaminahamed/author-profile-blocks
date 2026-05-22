@@ -187,10 +187,10 @@ add_action( 'author_profile_blocks_register_blocks', function( $plugin ) {
 
 ### `get_source_attribute()` helper
 
-`AuthorBlockBase::get_source_attribute()` returns the shared attribute definition for Phase 2 blocks that switch between WP Users and Team Member sources:
+`AuthorBlockBase::get_source_attribute()` returns the shared attribute definition for blocks that switch between WP Users and Team Member sources:
 
 ```php
-// In a Phase 2 block's attribute map:
+// In a block's attribute map:
 'source' => $this->get_source_attribute(),
 // → [ 'type' => 'string', 'enum' => ['user', 'team_member'], 'default' => 'user' ]
 ```

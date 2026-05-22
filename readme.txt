@@ -8,13 +8,11 @@ Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Display WordPress user profiles in beautiful, customizable Gutenberg blocks — grid, carousel, list, and single profile.
+Display author profiles and team members in Gutenberg blocks, shortcodes, and widgets — grid, carousel, list, and single profile.
 
 == Description ==
 
-**Author Profile Blocks** is a modern WordPress plugin that showcases user profiles using four fully-featured Gutenberg blocks. It's ideal for team pages, contributor sections, author bios, and any use case where you want to display WordPress users in a polished, branded layout.
-
-The plugin works directly with your existing WordPress users — no custom post types, no content duplication.
+**Author Profile Blocks** is a WordPress plugin for showcasing author profiles and team members using four Gutenberg blocks, four shortcodes, and a classic widget. It supports two data sources: standard WordPress Users and an optional Team Member custom post type (`apbl_team_member`).
 
 === Four Block Types ===
 
@@ -25,6 +23,25 @@ The plugin works directly with your existing WordPress users — no custom post 
 **Author List** — Vertical author list with three display styles: compact (image + summary), detailed (full two-column layout), and minimal (name + position only). Supports ordered or unordered lists.
 
 **Author Carousel** — Interactive slider built on Slick. Seven style presets including modern cards, classic carousel, elegant profile, and creative gradient layout. Configurable slides, autoplay, dots, and arrows.
+
+=== Shortcodes ===
+
+Four shortcodes are available for classic themes or page builders:
+
+* `[apbl_profile]` — single author card
+* `[apbl_grid]` — responsive author grid
+* `[apbl_list]` — author list
+* `[apbl_carousel]` — author carousel with autoplay
+
+All shortcodes accept `id`, `source` (user or team_member), `style`, `number`, and display toggle attributes.
+
+=== Classic Widget ===
+
+The **Author Profile Widget** lets you add a single author card to any widget area. Choose the author, display style, and whether to show social links and bio.
+
+=== Team Member CPT ===
+
+Activate the built-in `apbl_team_member` custom post type to manage team members separately from WordPress users. Supports title, bio, featured image, and menu order. Each team member has position and social profile meta fields. Organise members by department using the hierarchical `apbl_department` taxonomy.
 
 === Design System ===
 
@@ -47,9 +64,15 @@ Every block ships with a refined indigo editorial design — distinctive typogra
 The plugin adds extra fields to the standard WordPress user profile screen:
 
 * Position / job title
-* Extended bio (plain text, shown alongside the WordPress bio)
+* Extended bio
 * Social media URLs: Facebook, Twitter/X, LinkedIn, Instagram, personal website
 * Custom "Member since" label
+* Department
+* Skills
+* Location
+* Phone
+* Availability
+* Website label
 
 === Performance ===
 
@@ -62,26 +85,34 @@ The plugin adds extra fields to the standard WordPress user profile screen:
 
 * Clean PHP template hierarchy — override any template from your theme
 * Extensive CSS custom properties for runtime styling
-* WordPress filter hooks on every rendered block
+* WordPress filter hooks on every rendered block and shortcode
 * Modern SCSS source with `@use`/`@forward` module system and `sass:color` functions
 * `apbl-` namespaced CSS classes throughout
+* PSR-4 autoloaded, WordPress Coding Standards compliant
 
 == Installation ==
 
 1. Upload the plugin folder to `/wp-content/plugins/`, or install via **Plugins → Add New**.
 2. Activate the plugin.
-3. Go to **Users → Your Profile** (or any user's profile) to add extra author information.
-4. Open any page or post in the Gutenberg editor and search for "author" to find the blocks.
+3. Go to **Users → Your Profile** (or any user's profile) to add author information.
+4. Optionally go to **Team Members** in the admin menu to add team members.
+5. Open any page or post in the Gutenberg editor and search for "author" to find the blocks.
 
 == Frequently Asked Questions ==
 
-= Does this create a custom post type? =
+= Does this plugin create a custom post type? =
 
-No. All blocks pull from your existing WordPress users. This avoids content duplication and keeps author data in the native user system.
+Yes, optionally. The plugin registers an `apbl_team_member` custom post type alongside standard WordPress Users. You can use either source (or both) in any block or shortcode via the `source` attribute. If you only want to display WordPress users, ignore the Team Members menu entirely.
 
 = How do I add author data like position or social links? =
 
-Edit any user profile under **Users → All Users → Edit**. The plugin adds a dedicated "Author Profile" section with position, extended bio, and social link fields.
+For WordPress Users, edit any user profile under **Users → All Users → Edit**. The plugin adds a dedicated "Author Profile" section.
+
+For Team Members, go to **Team Members → Add New** in the admin menu.
+
+= Can I use shortcodes instead of blocks? =
+
+Yes. Four shortcodes are available for classic themes or page builders: `[apbl_profile]`, `[apbl_grid]`, `[apbl_list]`, and `[apbl_carousel]`. Each accepts the same source, style, and display options as the corresponding block.
 
 = Can I override the block templates? =
 
@@ -93,7 +124,11 @@ Each block exposes a full Style panel in the block sidebar. For deeper overrides
 
 = Can I show only authors with a specific role? =
 
-Yes. The Grid, List, and Carousel blocks include an Author Role filter. Set it to any registered WordPress role and the block will only display users with that role.
+Yes. The Grid, List, and Carousel blocks and their shortcode equivalents include a role filter. Set it to any registered WordPress role and only users with that role will be displayed.
+
+= Can I show only team members from a specific department? =
+
+Yes. The `apbl_department` taxonomy is hierarchical. Use the department filter in the block inspector or shortcode `department` attribute to narrow results.
 
 = Is the plugin compatible with full-site editing (FSE) themes? =
 
@@ -116,6 +151,14 @@ Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n func
 5. Author List block — detailed display style with two-column image and bio layout.
 
 == Changelog ==
+
+= 1.1.0 =
+* Add: Team Member CPT (`apbl_team_member`) — title, editor, thumbnail, menu-order; position and social profiles meta; REST-enabled.
+* Add: Department taxonomy (`apbl_department`) — hierarchical, attached to both team members and WordPress users; REST-enabled.
+* Add: AuthorDataProvider service — normalises WP Users and Team Members into a shared author shape; result cache cleared on profile update and team-member save.
+* Add: 6 new user meta fields — department, skills, location, phone, availability, website label; all REST-exposed and shown on the WP profile screen.
+* Add: Four shortcodes — [apbl_profile], [apbl_grid], [apbl_list], [apbl_carousel] — all supporting source, style, and display toggle attributes.
+* Add: Author Profile classic widget — wraps [apbl_profile] with author picker, style selector, and show-socials/show-bio toggles.
 
 = 1.0.4 =
 * Fix: blocks render blank on frontend when no author selected (error div was leaking to visitors).
@@ -166,6 +209,9 @@ Yes. All user-facing strings use `__()`, `_e()`, and related WordPress i18n func
 * Translation-ready with author-profile-blocks text domain.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Feature release. Adds Team Member CPT, Department taxonomy, four shortcodes, Author Profile widget, and six new user meta fields. Fully backward compatible — existing blocks and user data are unchanged.
 
 = 1.0.4 =
 Security and bug-fix release. Fixes CSS injection, template path traversal, blocks blank on frontend, and carousel init on classic themes. Upgrade recommended for all users.
