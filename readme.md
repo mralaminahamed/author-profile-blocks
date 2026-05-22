@@ -1,164 +1,386 @@
-# Author Profile Blocks #
-**Contributors:** [mralaminahamed](https://profiles.wordpress.org/mralaminahamed/)  
-**Tags:**              block, author, profile, gutenberg, team  
-**Tested up to:**      6.9  
-**Stable tag:**        1.0.4  
-**Requires at least:** 6.0  
-**Requires PHP:**      7.4  
-**License:**           GPL-2.0-or-later  
-**License URI:**       https://www.gnu.org/licenses/gpl-2.0.html  
+# Author Profile Blocks
 
-A collection of powerful Gutenberg blocks for showcasing author profiles and team members using WordPress users.
+WordPress plugin — four Gutenberg blocks for displaying author profiles and team members from WP Users or a Team Member CPT.
 
-## Description ##
+**Requires:** WordPress 6.0+, PHP 7.4+  
+**Tested up to:** 6.9  
+**License:** GPL-2.0-or-later
 
-Author Profile Blocks is a modern WordPress plugin that allows you to display user profiles in various layouts using Gutenberg blocks. It's perfect for showcasing team members, contributors, authors, or any WordPress users you want to feature on your website.
+---
 
-Unlike other plugins, Author Profile Blocks leverages your existing WordPress users rather than creating a separate custom post type. This means you can showcase all your site contributors without duplicating content.
+## Architecture
 
-**Key Features:**
+```
+author-profile-blocks/
+├── author-profile-blocks.php       # Entry point — constants, autoloader bootstrap
+├── class-author-profile-blocks.php # Main singleton (Author_Profile_Blocks)
+├── includes/
+│   ├── Blocks/
+│   │   ├── AuthorBlockBase.php     # Abstract base — registration, render filter, localize
+│   │   ├── Concerns/               # 7 traits composing block behaviour
+│   │   │   ├── BuildsBlockClasses.php
+│   │   │   ├── BuildsBlockStyles.php
+│   │   │   ├── HasRenderCache.php
+│   │   │   ├── ProvidesMessages.php
+│   │   │   ├── RendersComponents.php
+│   │   │   ├── RendersLayouts.php
+│   │   │   └── ResolvesAuthorData.php
+│   │   ├── AuthorProfileBlock.php
+│   │   ├── AuthorGridBlock.php
+│   │   ├── AuthorListBlock.php
+│   │   └── AuthorCarouselBlock.php
+│   ├── Core/
+│   │   ├── Registerable.php        # Interface: register(): void
+│   │   ├── MetaDataProvider.php
+│   │   └── UserMetaProvider.php    # Fluent meta field registration + REST exposure
+│   ├── PostTypes/
+│   │   └── TeamMemberPostType.php  # apbl_team_member CPT
+│   ├── Taxonomies/
+│   │   └── DepartmentTaxonomy.php  # apbl_department hierarchical taxonomy
+│   ├── Services/
+│   │   ├── AuthorDataProvider.php  # Normalises WP Users + Team Members → shared shape
+│   │   └── AuthorProfileService.php
+│   ├── Shortcodes/
+│   │   ├── AuthorProfileShortcode.php   # [apbl_profile]
+│   │   ├── AuthorGridShortcode.php      # [apbl_grid]
+│   │   ├── AuthorListShortcode.php      # [apbl_list]
+│   │   └── AuthorCarouselShortcode.php  # [apbl_carousel]
+│   ├── Widgets/
+│   │   └── AuthorProfileWidget.php      # Classic widget wrapping [apbl_profile]
+│   ├── REST/
+│   │   └── Settings.php            # /wp-json/apbl/v1/settings
+│   └── Admin/
+│       ├── Admin.php
+│       └── PluginLinks.php
+├── templates/blocks/               # PHP templates — theme-overridable
+│   ├── components/                 # Shared partials (author-item, social-profiles, …)
+│   ├── layouts/                    # card, compact, centered, detailed, minimal
+│   ├── author-profile/             # image-content, content-image, image-top, content-top
+│   ├── author-grid/
+│   ├── author-list/
+│   └── author-carousel/
+└── src/                            # JS/TS/SCSS source (built to build/)
+    ├── blocks/
+    └── admin/
+```
 
-* **Four versatile block types**:
-  * **Author Profile**: Display a single author profile with detailed information
-  * **Author Grid**: Arrange multiple authors in a responsive grid layout
-  * **Author Carousel**: Present authors in an interactive slider/carousel
-  * **Author List**: Show authors in a clean, organized list format
+### Boot sequence
 
-* **Multiple layout options**:
-  * Card layout
-  * Compact layout
-  * Centered layout
-  * Detailed layout (for lists)
+```
+author-profile-blocks.php
+  └─ Author_Profile_Blocks::get_instance()
+       ├─ register_services()     → DepartmentTaxonomy, TeamMemberPostType,
+       │                            AuthorDataProvider, AuthorProfileService,
+       │                            UserMetaProvider (10 meta fields), shortcodes
+       ├─ register_blocks()       → AuthorProfileBlock, AuthorGridBlock,
+       │                            AuthorListBlock, AuthorCarouselBlock
+       └─ init_components()       → each block init(), shortcodes init(),
+                                    widgets_init → register_widget()
+```
 
-* **Rich display options**:
-  * Author avatar/image
-  * Name and position/title
-  * Email address
-  * Biographical description
-  * Member since date (registration date)
-  * Social media profiles (Facebook, Twitter, LinkedIn, Instagram, website)
-  * Additional custom content
+---
 
-* **Extensive customization**:
-  * Show/hide specific elements
-  * Background colors
-  * Border options (with/without, color, width)
-  * Shadow effects
-  * Rounded corners
-  * Text alignment
-  * Spacing/padding options
-  * Hover effects
+## Data Layer
 
-* **Advanced features**:
-  * Filter authors by role
-  * Limit number of displayed authors
-  * Performance optimization with caching
-  * Responsive design for all screen sizes
-  * Full accessibility compliance
-  * Translation-ready
+### AuthorDataProvider
 
-* **User profile extensions**:
-  * Adds custom fields to WordPress user profiles
-  * Author position/title field
-  * Extended author description (with rich text editor)
-  * Social media profile links
-  * Custom "Member since" label
+Normalises both WP Users and `apbl_team_member` posts into one shape.
 
-## Installation ##
+```php
+$provider = author_profile_blocks()->get_author_data_provider();
 
-1. Upload the plugin files to the `/wp-content/plugins/author-profile-blocks` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Edit user profiles to add additional author information (optional).
-4. Add any of the author blocks to your pages or posts using the Gutenberg editor.
+$author  = $provider->get_author( $id, 'user' );        // or 'team_member'
+$authors = $provider->get_authors( [ 'source' => 'team_member', 'number' => 10 ] );
+$provider->clear_cache();
+```
 
-## Frequently Asked Questions ##
+Normalised shape:
 
-### Does this plugin create a custom post type? ###
+| Key | Source |
+|---|---|
+| `id` | `WP_User->ID` / `WP_Post->ID` |
+| `name` | `display_name` / post title |
+| `position` | `apbl_author_position` meta / `apbl_tm_position` meta |
+| `bio` | `description` meta / post content |
+| `avatar_url` | `get_avatar_url()` / `get_the_post_thumbnail_url()` |
+| `socials` | `apbl_social_profiles` meta / `apbl_tm_social_profiles` meta |
+| `department` | `apbl_department` user meta / taxonomy term |
+| `skills` | `apbl_skills` meta |
+| `location` | `apbl_location` meta |
+| `phone` | `apbl_phone` meta |
+| `availability` | `apbl_availability` meta |
+| `website_label` | `apbl_website_label` meta |
+| `source` | `'user'` \| `'team_member'` |
+| `post_count` | `count_user_posts()` / `0` |
+| `joined` | `user_registered` / `post_date` |
 
-No. Author Profile Blocks uses your existing WordPress users instead of creating a separate custom post type. This prevents duplicate content and leverages the built-in user management system.
+Result cache is keyed `{source}_{id}` and cleared on `profile_update` and `save_post_apbl_team_member`.
 
-### How do I add author information? ###
+---
 
-The plugin adds extra fields to the standard WordPress user profile. You can edit any user and add their position/title, extended description, social media links, and more.
+## Custom Post Type — Team Member (`apbl_team_member`)
 
-### Can I customize how the author profiles appear? ###
+```php
+TeamMemberPostType::POST_TYPE  // 'apbl_team_member'
+```
 
-Yes! Each block includes many customization options in the block sidebar:
-* Choose from multiple layouts (card, compact, centered, etc.)
-* Toggle visibility of image, email, description, social links, etc.
-* Change background and border colors
-* Add shadows and rounded corners
-* Adjust text alignment and spacing
-* And much more!
+- Supports: `title`, `editor`, `thumbnail`, `menu-order`
+- `show_in_rest: true`, public
+- Taxonomy: `apbl_department`
+- Post meta (REST-enabled): `apbl_tm_position` (string), `apbl_tm_social_profiles` (string)
 
-### Can I filter which authors are displayed? ###
+---
 
-Yes. You can select specific authors to display, filter by user role, and limit the maximum number of displayed authors.
+## Taxonomy — Department (`apbl_department`)
 
-### How do social media profiles work? ###
+```php
+DepartmentTaxonomy::TAXONOMY  // 'apbl_department'
+```
 
-The plugin adds fields for Facebook, Twitter, LinkedIn, Instagram, and personal website URLs to each user profile. When enabled in the blocks, these appear as social icons that visitors can click to view the author's profiles.
+- Hierarchical, attached to both `apbl_team_member` and `user` object types
+- `show_in_rest: true`
 
-### Is the plugin responsive? ###
+---
 
-Yes, all blocks are designed to look great on all screen sizes from mobile devices to desktop computers. Layouts automatically adjust based on the available screen space.
+## User Meta Fields
 
-### Does this plugin work with my theme? ###
+All fields registered via `UserMetaProvider::add_meta_field()`, sanitised, and exposed in REST.
 
-The plugin is designed to work with any WordPress theme that supports Gutenberg blocks. The styling is contained within the blocks to ensure compatibility.
+| Meta key | Type | Profile label |
+|---|---|---|
+| `apbl_author_description` | string | Extended bio |
+| `apbl_author_position` | string | Position / job title |
+| `apbl_social_profiles` | string | Social media URLs |
+| `apbl_member_since_label` | string | Member since label |
+| `apbl_department` | string | Department |
+| `apbl_skills` | string | Skills |
+| `apbl_location` | string | Location |
+| `apbl_phone` | string | Phone |
+| `apbl_availability` | string | Availability |
+| `apbl_website_label` | string | Website label |
 
-### Is the plugin translation-ready? ###
+---
 
-Yes, Author Profile Blocks is fully internationalized and translation-ready. All text strings can be translated using standard WordPress translation tools.
+## Block Registration
 
-## Screenshots ##
+Each block class extends `AuthorBlockBase implements Registerable`:
 
-1. Author Profile block in the Gutenberg editor
-2. Author Grid block displaying team members
-3. Author Carousel block with card layout
-4. Author List block with compact layout
-5. Block settings and customization options
-6. Enhanced user profile fields
+```php
+// Minimal concrete block
+class MyBlock extends AuthorBlockBase {
+    public function get_block_name(): string {
+        return 'my-block'; // matches build/blocks/my-block/block.json
+    }
+}
+```
 
-## Changelog ##
+`AuthorBlockBase::register()` calls `register_block_type( $build_path, $args )`.  
+Override `get_render_callback()` to return a PHP render callback; return `null` (default) for block.json `render`.
 
-### 1.0.4 ###
-* Fix: blocks render blank on frontend when no author selected.
-* Fix: carousel broken on classic themes (jquery dependency declared).
-* Fix: production zip missing vendor autoloader on fresh WordPress.org installs.
-* Fix: CSS color/length injection via sanitize_css_color() and sanitize_css_length().
-* Fix: template path traversal — get_template() validates against allowed directories.
-* Fix: raw $_POST removed from do_action() call.
-* Fix: extract() replaced with foreach loop for wp.org compliance.
-* Fix: registration date timezone — uses mysql2date() for correct UTC conversion.
+Blocks are wired in `Author_Profile_Blocks::register_blocks()`:
 
-### 1.0.3 ###
-* Refactor: AuthorBlockBase split into 7 focused traits under includes/Blocks/Concerns/.
-* Refactor: 5 shared inspector components promoted to src/supports/js/components/inspector/.
-* Fix: author profile block missing save: () => null.
-* Fix: carousel single-slide crash in Slick initADA.
-* Fix: AuthorsListPreview data shape mismatch.
+```php
+add_action( 'author_profile_blocks_register_blocks', function( $plugin ) {
+    $plugin->register_block( new MyBlock() );
+} );
+```
 
-### 1.0.2 ###
-* Add: React + shadcn/ui admin SPA.
-* Add: REST API endpoint /v1/settings.
-* Add: TypeScript migration across src/blocks/ and src/admin/.
-* Change: Tailwind v3 to v4 with CSS variable-based theming.
+### `get_source_attribute()` helper
 
-### 1.0.0 ###
-* Initial release.
-* Author Profile, Grid, Carousel, and List blocks.
-* Enhanced WordPress user profile fields.
-* Block customization options.
+`AuthorBlockBase::get_source_attribute()` returns the shared attribute definition for Phase 2 blocks that switch between WP Users and Team Member sources:
 
-## Upgrade Notice ##
+```php
+// In a Phase 2 block's attribute map:
+'source' => $this->get_source_attribute(),
+// → [ 'type' => 'string', 'enum' => ['user', 'team_member'], 'default' => 'user' ]
+```
 
-### 1.0.4 ###
-Security and bug-fix release. Upgrade recommended for all users.
+---
 
-### 1.0.0 ###
-Initial release of Author Profile Blocks.
+## Shortcodes
 
-## Support ##
+Shortcodes are registered via `Author_Profile_Blocks::register_shortcodes()`, mirroring the `register_blocks()` pattern.
 
-If you encounter any issues or have questions about the plugin, please visit the [plugin support forum](https://wordpress.org/support/plugin/author-profile-blocks/) or submit an issue on our [GitHub repository](https://github.com/mralaminahamed/author-profile-blocks/issues).
+| Shortcode | Key attributes |
+|---|---|
+| `[apbl_profile]` | `id`, `source` (`user`\|`team_member`), `style`, `show_socials`, `show_bio` |
+| `[apbl_grid]` | `ids`, `source`, `role`, `columns` (default 3), `style`, `number` (default 10) |
+| `[apbl_list]` | `ids`, `source`, `role`, `style` (default `detailed`), `number` |
+| `[apbl_carousel]` | `ids`, `source`, `role`, `style` (default `modern`), `autoplay`, `number` |
+
+All shortcodes render via `ob_start()` / `ob_get_clean()` using the existing PHP template hierarchy.
+
+Register a custom shortcode at runtime:
+
+```php
+add_action( 'author_profile_blocks_register_shortcodes', function( $plugin ) {
+    $plugin->register_shortcode( new MyCustomShortcode() );
+} );
+```
+
+---
+
+## Classic Widget
+
+`AuthorProfileWidget` (ID: `apbl_author_profile`) wraps `[apbl_profile]`. Controls: author picker (up to 100 users), style select, show-socials checkbox, show-bio checkbox.
+
+---
+
+## Template Override
+
+Copy any file from `templates/` into your theme:
+
+```
+wp-content/themes/my-theme/author-profile-blocks/blocks/components/author-item.php
+```
+
+The plugin resolves templates via `get_template()` → `locate_template()` → `author_profile_blocks_locate_template` filter, checking theme/child-theme directories before falling back to the plugin.
+
+---
+
+## Hooks Reference
+
+### Actions
+
+| Hook | When |
+|---|---|
+| `author_profile_blocks_init` | After all components initialised |
+| `author_profile_blocks_activated` | On plugin activation |
+| `author_profile_blocks_deactivated` | On plugin deactivation |
+| `author_profile_blocks_register_blocks` | Before blocks are registered — add custom blocks here |
+| `author_profile_blocks_blocks_registered` | After all blocks registered |
+| `author_profile_blocks_block_registered` | After each individual block registered (`$block_name, $instance`) |
+| `author_profile_blocks_register_shortcodes` | Before shortcodes init — add custom shortcodes here |
+| `author_profile_blocks_shortcodes_registered` | After all shortcodes registered |
+| `author_profile_blocks_register_rest_fields` | Before REST field registration |
+| `author_profile_blocks_profile_fields` | Inside the user profile "Author Profile" section |
+| `author_profile_blocks_save_profile_fields` | After profile fields saved (`$user_id`) |
+| `author_profile_blocks_before_template_part` | Before a template part is included |
+| `author_profile_blocks_after_template_part` | After a template part is included |
+
+### Filters
+
+| Filter | What it controls |
+|---|---|
+| `author_profile_blocks_block_args` | Args array passed to `register_block_type()` |
+| `author_profile_blocks_rendered_block` | Final rendered HTML for all blocks |
+| `author_profile_blocks_rendered_{block_name}` | Final rendered HTML for a specific block |
+| `author_profile_blocks_author_data` | Normalised author array from `AuthorProfileService` |
+| `author_profile_blocks_author_query_args` | `WP_User_Query` / `WP_Query` args before execution |
+| `author_profile_blocks_authors` | Author array after query |
+| `author_profile_blocks_localized_block_data` | Data passed to `wp_localize_script()` |
+| `author_profile_blocks_get_template` | Template path before include |
+| `author_profile_blocks_get_template_part` | Template part path before include |
+| `author_profile_blocks_locate_template` | Resolved template path (theme override entry point) |
+| `author_profile_blocks_setting` | Single plugin setting value |
+| `author_profile_blocks_settings` | All plugin settings array |
+
+---
+
+## Constants
+
+```php
+APBL_VERSION      // '1.1.0'
+APBL_PLUGIN_FILE  // absolute path to author-profile-blocks.php
+APBL_PLUGIN_PATH  // plugin directory with trailing slash
+APBL_PLUGIN_URL   // plugin URL with trailing slash
+```
+
+---
+
+## REST API
+
+`/wp-json/apbl/v1/settings` — read/write plugin settings. Requires `manage_options` capability.
+
+---
+
+## Development
+
+**Prerequisites:** Node 18+, PHP 7.4+, Composer 2
+
+```bash
+composer install
+yarn install
+
+# Watch (JS/CSS)
+yarn start
+
+# Production build
+yarn build
+
+# Type check
+yarn type
+
+# Lint JS + CSS + docs
+yarn lint
+```
+
+### PHP
+
+```bash
+# Run tests
+composer test
+
+# Filter to a test
+composer test-f -- AuthorDataProviderTest
+
+# Coverage report (HTML → tests/coverage/html/)
+composer test:coverage
+
+# PHPCS (WordPress Coding Standards)
+composer phpcs
+
+# PHPCBF auto-fix
+composer phpcbf
+
+# PHPStan static analysis
+composer phpstan
+```
+
+### Release
+
+```bash
+composer release
+# Builds zip to release/author-profile-blocks.zip
+```
+
+---
+
+## Namespace & Autoloading
+
+PSR-4 via Composer:
+
+```
+AuthorProfileBlocks\  →  includes/
+AuthorProfileBlocks\Test\  →  tests/php/src/
+```
+
+Main plugin class (`Author_Profile_Blocks`) lives in `class-author-profile-blocks.php` and is loaded explicitly — it predates the PSR-4 map.
+
+---
+
+## Testing
+
+PHPUnit 9.6. Test suites under `tests/php/src/`:
+
+```
+Unit/
+  Blocks/       AuthorBlockBaseTest
+  Core/         UserMetaProviderTest
+  Plugin/       PluginTest (shortcode/widget wiring)
+  PostTypes/    TeamMemberPostTypeTest
+  Services/     AuthorDataProviderTest
+  Shortcodes/   AuthorProfileShortcodeTest
+  Taxonomies/   DepartmentTaxonomyTest
+  Widgets/      AuthorProfileWidgetTest
+Integration/
+  PluginTest    (constants, singleton, block wiring)
+```
+
+357 tests / 970 assertions as of v1.1.0.
+
+---
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
