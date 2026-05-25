@@ -85,7 +85,7 @@
 		"tailwindcss": "^4",
 		"terser-webpack-plugin": "^5.6.0",
 		"typescript": "^6.0.3",
-		"webpack": "^5.106.2",
+		"webpack": "^5.107.1",
 		"webpack-cli": "^7.0.2",
 		"wp-readme-to-markdown": "^1.0.1"
 	},
