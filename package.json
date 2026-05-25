@@ -60,7 +60,7 @@
 		"@wordpress/server-side-render": "^6.22.0",
 		"@wordpress/stylelint-config": "^23.38.0",
 		"@wordpress/url": "^4.46.0",
-		"baseline-browser-mapping": "^2.10.30",
+		"baseline-browser-mapping": "^2.10.32",
 		"classnames": "^2.5.1",
 		"css-loader": "^7.1.4",
 		"eslint": "^10.4.0",

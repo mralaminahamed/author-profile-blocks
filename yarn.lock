@@ -2816,7 +2816,7 @@ __metadata:
     "@wordpress/server-side-render": "npm:^6.22.0"
     "@wordpress/stylelint-config": "npm:^23.38.0"
     "@wordpress/url": "npm:^4.46.0"
-    baseline-browser-mapping: "npm:^2.10.30"
+    baseline-browser-mapping: "npm:^2.10.32"
     class-variance-authority: "npm:^0.7.1"
     classnames: "npm:^2.5.1"
     clsx: "npm:^2.1.1"
@@ -8383,12 +8383,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"baseline-browser-mapping@npm:^2.10.12, baseline-browser-mapping@npm:^2.10.30":
+"baseline-browser-mapping@npm:^2.10.12":
   version: 2.10.30
   resolution: "baseline-browser-mapping@npm:2.10.30"
   bin:
     baseline-browser-mapping: dist/cli.cjs
   checksum: 10/40f635dc8c1f851f3bbef90c9d2b936a9196c6e0fbfa4e1ff2161a9c5137f7ccab7cd2da8175d72e43eca131a80b7ee4470a4a653480550db22c5fbdef488404
+  languageName: node
+  linkType: hard
+
+"baseline-browser-mapping@npm:^2.10.32":
+  version: 2.10.32
+  resolution: "baseline-browser-mapping@npm:2.10.32"
+  bin:
+    baseline-browser-mapping: dist/cli.cjs
+  checksum: 10/65e8fa5ae614ed266d24e69aab517e46a7da5bbe16c46fa8373ae22007ab9f492c05d7308240e0a8b55bd0e899c67fd82a0e225f78ecb7e9164f23b0791f2784
   languageName: node
   linkType: hard
 
