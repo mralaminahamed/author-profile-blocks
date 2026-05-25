@@ -74,7 +74,7 @@
 		"prettier": "^3.8.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"sass-loader": "^16.0.8",
+		"sass-loader": "^17.0.0",
 		"slick-carousel": "^1.8.1",
 		"style-loader": "^4.0.0",
 		"stylelint": "^16.26.1",
