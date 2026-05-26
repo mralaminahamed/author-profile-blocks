@@ -67,6 +67,11 @@ class AuthorGridShortcode {
 			'apbl_grid'
 		);
 
+		$block = author_profile_blocks()->get_block( 'author-grid' );
+		if ( null === $block ) {
+			return '';
+		}
+
 		$include = ! empty( $atts['ids'] ) ? array_map( 'intval', explode( ',', $atts['ids'] ) ) : array();
 		$authors = $this->provider->get_authors(
 			array(
@@ -81,12 +86,28 @@ class AuthorGridShortcode {
 			return '';
 		}
 
+		$style      = sanitize_html_class( $atts['style'] );
+		$attributes = array(
+			'layout'     => $style,
+			'columns'    => (int) $atts['columns'],
+			'showSocial' => true,
+		);
+
+		$wrapper_attributes = sprintf(
+			'class="%s"',
+			esc_attr( 'wp-block-author-profile-blocks-author-grid apbl-shortcode is-style-' . $style )
+		);
+
 		ob_start();
-		$columns = (int) $atts['columns'];
-		$style   = sanitize_html_class( $atts['style'] );
-		foreach ( $authors as $author ) {
-			include APBL_PLUGIN_PATH . 'templates/blocks/components/author-item.php';
-		}
+		author_profile_blocks()->get_template(
+			'blocks/author-grid/grid.php',
+			array(
+				'authors'            => $authors,
+				'attributes'         => $attributes,
+				'block_instance'     => $block,
+				'wrapper_attributes' => $wrapper_attributes,
+			)
+		);
 		return (string) ob_get_clean();
 	}
 }

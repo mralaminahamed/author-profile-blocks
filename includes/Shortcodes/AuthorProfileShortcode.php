@@ -66,16 +66,42 @@ class AuthorProfileShortcode {
 			'apbl_profile'
 		);
 
+		$block = author_profile_blocks()->get_block( 'author-grid' );
+		if ( null === $block ) {
+			return '';
+		}
+
 		$author = $this->provider->get_author( (int) $atts['id'], $atts['source'] );
 		if ( ! $author ) {
 			return '';
 		}
 
+		if ( 'true' !== $atts['show_bio'] ) {
+			unset( $author['description'], $author['bio'] );
+		}
+
+		$style      = sanitize_html_class( $atts['style'] );
+		$attributes = array(
+			'layout'     => $style,
+			'columns'    => 1,
+			'showSocial' => 'true' === $atts['show_socials'],
+		);
+
+		$wrapper_attributes = sprintf(
+			'class="%s"',
+			esc_attr( 'wp-block-author-profile-blocks-author-profile apbl-shortcode is-style-' . $style )
+		);
+
 		ob_start();
-		$show_socials = 'true' === $atts['show_socials'];
-		$show_bio     = 'true' === $atts['show_bio'];
-		$style        = sanitize_html_class( $atts['style'] );
-		include APBL_PLUGIN_PATH . 'templates/blocks/components/author-item.php';
+		author_profile_blocks()->get_template(
+			'blocks/author-grid/grid.php',
+			array(
+				'authors'            => array( $author ),
+				'attributes'         => $attributes,
+				'block_instance'     => $block,
+				'wrapper_attributes' => $wrapper_attributes,
+			)
+		);
 		return (string) ob_get_clean();
 	}
 }
