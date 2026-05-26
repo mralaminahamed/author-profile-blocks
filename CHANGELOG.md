@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-05-26
+
+### Security
+
+- Profile meta fields `apbl_department`, `apbl_skills`, `apbl_location`, `apbl_phone`, `apbl_availability` and `apbl_website_label` were registered with `auth_callback => __return_true` while `show_in_rest` was enabled, allowing any authenticated user to write them over the REST API. They now require the `edit_users` capability, matching the other profile meta fields.
+
+### Fixed
+
+- **Shortcodes rendered empty cards.** `[apbl_profile]`, `[apbl_grid]`, `[apbl_list]`, `[apbl_carousel]` and the Author Profile widget included item templates without their pre-rendered component variables and fed them author data in the wrong shape. They now delegate to the block rendering path and produce full author cards.
+- **Author names did not link.** The Author Profile, Grid, List and Carousel blocks now link author names to the author archive (WP users) or the team-member permalink; the `minimal` layout links too.
+- Shortcode template includes resolved to a non-existent `includes/templates/` path; they now resolve from the plugin root via `APBL_PLUGIN_PATH`.
+- The uninstall routine was gated on an undefined constant and never removed plugin options or transients; cleanup now runs on uninstall.
+- `AuthorProfileService::get_registered_date()` and the CSS color sanitizer now guard their `false`/`null` returns against their declared `string` return types.
+
+### Tests
+
+- 362 tests / 1002 assertions — all green. New: ShortcodeRenderTest renders all four shortcodes end-to-end.
+
 ## [1.1.0] - 2026-05-22
 
 ### Added
