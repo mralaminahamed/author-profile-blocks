@@ -66,6 +66,11 @@ class AuthorListShortcode {
 			'apbl_list'
 		);
 
+		$block = author_profile_blocks()->get_block( 'author-list' );
+		if ( null === $block ) {
+			return '';
+		}
+
 		$include = ! empty( $atts['ids'] ) ? array_map( 'intval', explode( ',', $atts['ids'] ) ) : array();
 		$authors = $this->provider->get_authors(
 			array(
@@ -80,11 +85,29 @@ class AuthorListShortcode {
 			return '';
 		}
 
+		$style         = sanitize_html_class( $atts['style'] );
+		$display_style = in_array( $style, array( 'compact', 'detailed', 'minimal' ), true ) ? $style : 'detailed';
+		$attributes    = array(
+			'displayStyle'    => $display_style,
+			'showSocial'      => true,
+			'showSocialLinks' => true,
+		);
+
+		$wrapper_attributes = sprintf(
+			'class="%s"',
+			esc_attr( 'wp-block-author-profile-blocks-author-list apbl-shortcode is-style-' . $style )
+		);
+
 		ob_start();
-		$style = sanitize_html_class( $atts['style'] );
-		foreach ( $authors as $author ) {
-			include APBL_PLUGIN_PATH . 'templates/blocks/components/author-item.php';
-		}
+		author_profile_blocks()->get_template(
+			'blocks/author-list/list.php',
+			array(
+				'authors'            => $authors,
+				'attributes'         => $attributes,
+				'block_instance'     => $block,
+				'wrapper_attributes' => $wrapper_attributes,
+			)
+		);
 		return (string) ob_get_clean();
 	}
 }
