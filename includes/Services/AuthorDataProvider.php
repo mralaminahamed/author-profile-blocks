@@ -121,7 +121,7 @@ class AuthorDataProvider implements Registerable {
 			'number'     => 10,
 			'orderby'    => 'display_name',
 		);
-		$args = wp_parse_args( $args, $defaults );
+		$args     = wp_parse_args( $args, $defaults );
 
 		if ( 'team_member' === $args['source'] ) {
 			return $this->get_team_members( $args );
@@ -205,21 +205,22 @@ class AuthorDataProvider implements Registerable {
 		$skills  = $this->meta_provider->get_meta( $user->ID, 'apbl_skills', true );
 
 		return array(
-			'id'             => $user->ID,
-			'name'           => $user->display_name,
-			'position'       => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_author_position', true ),
-			'bio'            => $user->description,
-			'avatar_url'     => get_avatar_url( $user->ID, array( 'size' => 150 ) ),
-			'socials'        => is_array( $socials ) ? $socials : array(),
-			'department'     => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_department', true ),
-			'skills'         => ! empty( $skills ) ? array_map( 'trim', explode( ',', (string) $skills ) ) : array(),
-			'location'       => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_location', true ),
-			'phone'          => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_phone', true ),
-			'availability'   => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_availability', true ),
-			'website_label'  => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_website_label', true ),
-			'source'         => 'user',
-			'post_count'     => (int) count_user_posts( $user->ID ),
-			'joined'         => $user->user_registered,
+			'id'            => $user->ID,
+			'name'          => $user->display_name,
+			'url'           => get_author_posts_url( $user->ID ),
+			'position'      => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_author_position', true ),
+			'bio'           => $user->description,
+			'avatar_url'    => get_avatar_url( $user->ID, array( 'size' => 150 ) ),
+			'socials'       => is_array( $socials ) ? $socials : array(),
+			'department'    => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_department', true ),
+			'skills'        => ! empty( $skills ) ? array_map( 'trim', explode( ',', (string) $skills ) ) : array(),
+			'location'      => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_location', true ),
+			'phone'         => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_phone', true ),
+			'availability'  => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_availability', true ),
+			'website_label' => (string) $this->meta_provider->get_meta( $user->ID, 'apbl_website_label', true ),
+			'source'        => 'user',
+			'post_count'    => (int) count_user_posts( $user->ID ),
+			'joined'        => $user->user_registered,
 		);
 	}
 
@@ -234,13 +235,15 @@ class AuthorDataProvider implements Registerable {
 		$socials     = ! empty( $socials_raw ) ? json_decode( $socials_raw, true ) : array();
 		$terms       = get_the_terms( $post->ID, 'apbl_department' );
 		$department  = ! empty( $terms ) && ! is_wp_error( $terms ) ? $terms[0]->name : '';
+		$thumbnail   = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
 
 		return array(
 			'id'            => $post->ID,
 			'name'          => $post->post_title,
+			'url'           => (string) get_permalink( $post ),
 			'position'      => (string) get_post_meta( $post->ID, 'apbl_tm_position', true ),
 			'bio'           => wp_strip_all_tags( $post->post_content ),
-			'avatar_url'    => get_the_post_thumbnail_url( $post->ID, 'thumbnail' ) ?: '',
+			'avatar_url'    => is_string( $thumbnail ) ? $thumbnail : '',
 			'socials'       => is_array( $socials ) ? $socials : array(),
 			'department'    => $department,
 			'skills'        => array(),

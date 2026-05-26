@@ -86,13 +86,12 @@ trait ResolvesAuthorData {
 	/**
 	 * Get multiple authors data from the service.
 	 *
-	 * @param int[]                $author_ids Array of author IDs.
-	 * @param string[]             $roles      Optional. Roles to filter by. Default empty array.
-	 * @param array<string, mixed> $args      Optional. Additional arguments for filtering. Default empty array.
+	 * @param int[]    $author_ids Array of author IDs.
+	 * @param string[] $roles      Optional. Roles to filter by. Default empty array.
 	 *
 	 * @return array<int, array<string, mixed>> Array of author data. Each item contains author information.
 	 */
-	protected function get_authors_data( array $author_ids, array $roles = array(), array $args = array() ): array {
+	protected function get_authors_data( array $author_ids, array $roles = array() ): array {
 		if ( empty( $author_ids ) ) {
 			return array();
 		}

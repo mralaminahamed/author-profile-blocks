@@ -75,7 +75,7 @@ class AuthorProfileShortcode {
 		$show_socials = 'true' === $atts['show_socials'];
 		$show_bio     = 'true' === $atts['show_bio'];
 		$style        = sanitize_html_class( $atts['style'] );
-		include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/blocks/components/author-item.php';
+		include APBL_PLUGIN_PATH . 'templates/blocks/components/author-item.php';
 		return (string) ob_get_clean();
 	}
 }

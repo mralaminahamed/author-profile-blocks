@@ -76,7 +76,12 @@ class AuthorProfileWidget extends \WP_Widget {
 		$show_socials = ! empty( $instance['show_socials'] );
 		$show_bio     = isset( $instance['show_bio'] ) ? (bool) $instance['show_bio'] : true;
 
-		$users = get_users( array( 'fields' => array( 'ID', 'display_name' ), 'number' => 100 ) );
+		$users = get_users(
+			array(
+				'fields' => array( 'ID', 'display_name' ),
+				'number' => 100,
+			)
+		);
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'author_id' ) ); ?>">
@@ -107,16 +112,16 @@ class AuthorProfileWidget extends \WP_Widget {
 		</p>
 		<p>
 			<input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'show_socials' ) ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'show_socials' ) ); ?>"
-				   <?php checked( $show_socials ); ?> />
+					name="<?php echo esc_attr( $this->get_field_name( 'show_socials' ) ); ?>"
+					<?php checked( $show_socials ); ?> />
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_socials' ) ); ?>">
 				<?php esc_html_e( 'Show social links', 'author-profile-blocks' ); ?>
 			</label>
 		</p>
 		<p>
 			<input type="checkbox" id="<?php echo esc_attr( $this->get_field_id( 'show_bio' ) ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'show_bio' ) ); ?>"
-				   <?php checked( $show_bio ); ?> />
+					name="<?php echo esc_attr( $this->get_field_name( 'show_bio' ) ); ?>"
+					<?php checked( $show_bio ); ?> />
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_bio' ) ); ?>">
 				<?php esc_html_e( 'Show bio', 'author-profile-blocks' ); ?>
 			</label>

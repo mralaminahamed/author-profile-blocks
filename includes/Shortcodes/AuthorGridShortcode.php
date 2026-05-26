@@ -85,7 +85,7 @@ class AuthorGridShortcode {
 		$columns = (int) $atts['columns'];
 		$style   = sanitize_html_class( $atts['style'] );
 		foreach ( $authors as $author ) {
-			include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/blocks/components/author-item.php';
+			include APBL_PLUGIN_PATH . 'templates/blocks/components/author-item.php';
 		}
 		return (string) ob_get_clean();
 	}
