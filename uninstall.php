@@ -10,11 +10,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-// Check if uninstall is requested.
-if ( ! defined( 'AUTHOR_PROFILE_BLOCKS_UNINSTALL' ) || ! AUTHOR_PROFILE_BLOCKS_UNINSTALL ) {
-	return;
-}
-
 // Delete plugin options.
 delete_option( 'author_profile_blocks_settings' );
 delete_option( 'author_profile_blocks_activated' );
