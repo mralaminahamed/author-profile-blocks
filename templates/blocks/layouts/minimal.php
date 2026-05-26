@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Safely extract author data with fallbacks
 $apbl_author_name     = $author['title'] ?? $author['name'] ?? $author['display_name'] ?? '';
+$apbl_author_url      = $author['url'] ?? '';
 $apbl_author_image    = $author['image'] ?? '';
 $apbl_author_position = $author['position'] ?? '';
 $apbl_author_email    = $author['email'] ?? '';
@@ -34,7 +35,13 @@ $apbl_show_position   = $attributes['showPosition'] ?? true;
 
 	<div class="apbl-author-minimal-info">
 		<?php if ( ! empty( $apbl_author_name ) ) : ?>
-			<span class="apbl-author-name"><?php echo esc_html( $apbl_author_name ); ?></span>
+			<span class="apbl-author-name">
+				<?php if ( ! empty( $apbl_author_url ) ) : ?>
+					<a href="<?php echo esc_url( $apbl_author_url ); ?>"><?php echo esc_html( $apbl_author_name ); ?></a>
+				<?php else : ?>
+					<?php echo esc_html( $apbl_author_name ); ?>
+				<?php endif; ?>
+			</span>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $apbl_author_position ) && $apbl_show_position ) : ?>

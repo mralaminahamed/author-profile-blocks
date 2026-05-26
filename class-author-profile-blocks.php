@@ -311,7 +311,9 @@ class Author_Profile_Blocks {
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => '__return_true',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
 			)
 		);
 
@@ -322,7 +324,9 @@ class Author_Profile_Blocks {
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => '__return_true',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
 			)
 		);
 
@@ -333,7 +337,9 @@ class Author_Profile_Blocks {
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => '__return_true',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
 			)
 		);
 
@@ -344,7 +350,9 @@ class Author_Profile_Blocks {
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => '__return_true',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
 			)
 		);
 
@@ -355,7 +363,9 @@ class Author_Profile_Blocks {
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => '__return_true',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
 			)
 		);
 
@@ -366,7 +376,9 @@ class Author_Profile_Blocks {
 				'single'            => true,
 				'show_in_rest'      => true,
 				'sanitize_callback' => 'sanitize_text_field',
-				'auth_callback'     => '__return_true',
+				'auth_callback'     => function () {
+					return current_user_can( 'edit_users' );
+				},
 			)
 		);
 
