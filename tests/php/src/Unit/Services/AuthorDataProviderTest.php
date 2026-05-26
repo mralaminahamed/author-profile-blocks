@@ -34,7 +34,7 @@ class AuthorDataProviderTest extends AuthorProfileBlocksTestCase {
 		$content = file_get_contents(
 			TEST_AUTHOR_PROFILE_BLOCKS_PLUGIN_DIR . '/includes/Services/AuthorDataProvider.php'
 		);
-		foreach ( array( 'id', 'name', 'url', 'position', 'bio', 'avatar_url', 'socials', 'department', 'skills', 'location', 'source', 'post_count', 'joined' ) as $key ) {
+		foreach ( array( 'id', 'name', 'title', 'url', 'email', 'position', 'bio', 'description', 'avatar_url', 'image', 'socials', 'social', 'registered_date', 'member_since_label', 'department', 'skills', 'location', 'source', 'post_count', 'joined' ) as $key ) {
 			$this->assertStringContainsString( "'$key'", $content, "Missing key: $key" );
 		}
 	}
