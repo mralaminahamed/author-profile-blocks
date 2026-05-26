@@ -85,7 +85,7 @@ class AuthorCarouselShortcode {
 		$style    = sanitize_html_class( $atts['style'] );
 		$autoplay = 'true' === $atts['autoplay'];
 		foreach ( $authors as $author ) {
-			include plugin_dir_path( dirname( __FILE__ ) ) . 'templates/blocks/author-carousel/slide.php';
+			include APBL_PLUGIN_PATH . 'templates/blocks/author-carousel/slide.php';
 		}
 		return (string) ob_get_clean();
 	}
