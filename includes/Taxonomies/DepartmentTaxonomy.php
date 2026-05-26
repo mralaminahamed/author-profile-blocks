@@ -25,14 +25,29 @@ class DepartmentTaxonomy implements Registerable {
 
 	const TAXONOMY = 'apbl_department';
 
+	/**
+	 * Register the taxonomy component.
+	 *
+	 * @return void
+	 */
 	public function register(): void {
 		$this->init();
 	}
 
+	/**
+	 * Hook taxonomy registration into WordPress init.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		add_action( 'init', array( $this, 'register_taxonomy' ) );
 	}
 
+	/**
+	 * Register the apbl_department taxonomy.
+	 *
+	 * @return void
+	 */
 	public function register_taxonomy(): void {
 		register_taxonomy(
 			self::TAXONOMY,

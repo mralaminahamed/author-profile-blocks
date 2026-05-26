@@ -235,6 +235,7 @@ class AuthorDataProvider implements Registerable {
 		$socials     = ! empty( $socials_raw ) ? json_decode( $socials_raw, true ) : array();
 		$terms       = get_the_terms( $post->ID, 'apbl_department' );
 		$department  = ! empty( $terms ) && ! is_wp_error( $terms ) ? $terms[0]->name : '';
+		$thumbnail   = get_the_post_thumbnail_url( $post->ID, 'thumbnail' );
 
 		return array(
 			'id'            => $post->ID,
@@ -242,7 +243,7 @@ class AuthorDataProvider implements Registerable {
 			'url'           => (string) get_permalink( $post ),
 			'position'      => (string) get_post_meta( $post->ID, 'apbl_tm_position', true ),
 			'bio'           => wp_strip_all_tags( $post->post_content ),
-			'avatar_url'    => get_the_post_thumbnail_url( $post->ID, 'thumbnail' ) ?: '',
+			'avatar_url'    => is_string( $thumbnail ) ? $thumbnail : '',
 			'socials'       => is_array( $socials ) ? $socials : array(),
 			'department'    => $department,
 			'skills'        => array(),

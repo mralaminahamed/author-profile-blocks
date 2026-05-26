@@ -230,7 +230,8 @@ class AuthorProfileService {
 		}
 
 		// mysql2date converts the UTC MySQL date to the site's local timezone before formatting.
-		return mysql2date( get_option( 'date_format' ), $user_obj->user_registered );
+		$formatted = mysql2date( get_option( 'date_format' ), $user_obj->user_registered );
+		return is_string( $formatted ) ? $formatted : '';
 	}
 
 	/**

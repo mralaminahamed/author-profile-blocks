@@ -91,7 +91,8 @@ trait BuildsBlockStyles {
 			$blur     = isset( $attributes['boxShadowBlur'] ) ? (int) $attributes['boxShadowBlur'] : 8;
 			$spread   = isset( $attributes['boxShadowSpread'] ) ? (int) $attributes['boxShadowSpread'] : 0;
 			$raw      = ! empty( $attributes['boxShadowColor'] ) ? $attributes['boxShadowColor'] : 'rgba(0,0,0,0.2)';
-			$color    = $this->sanitize_css_color( $raw ) ?: 'rgba(0,0,0,0.2)';
+			$color    = $this->sanitize_css_color( $raw );
+			$color    = '' !== $color ? $color : 'rgba(0,0,0,0.2)';
 
 			$styles['box-shadow'] = $h_offset . 'px ' . $v_offset . 'px ' . $blur . 'px ' . $spread . 'px ' . $color;
 		}
@@ -130,8 +131,10 @@ trait BuildsBlockStyles {
 
 		// Gradient background.
 		if ( ! empty( $attributes['gradientBackground'] ) ) {
-			$start_color = $this->sanitize_css_color( $attributes['gradientStartColor'] ?? '#ffffff' ) ?: '#ffffff';
-			$end_color   = $this->sanitize_css_color( $attributes['gradientEndColor'] ?? '#f8f9fa' ) ?: '#f8f9fa';
+			$start_color = $this->sanitize_css_color( $attributes['gradientStartColor'] ?? '#ffffff' );
+			$start_color = '' !== $start_color ? $start_color : '#ffffff';
+			$end_color   = $this->sanitize_css_color( $attributes['gradientEndColor'] ?? '#f8f9fa' );
+			$end_color   = '' !== $end_color ? $end_color : '#f8f9fa';
 			$direction   = $this->sanitize_gradient_direction( $attributes['gradientDirection'] ?? 'to bottom' );
 
 			$styles['background'] = 'linear-gradient(' . $direction . ', ' . $start_color . ', ' . $end_color . ')';
@@ -467,7 +470,7 @@ trait BuildsBlockStyles {
 
 		// rgb() / rgba() / hsl() / hsla() — strip to safe characters only.
 		if ( preg_match( '/^(rgba?|hsla?)\s*\([^)]*\)$/i', $color ) ) {
-			return preg_replace( '/[^a-zA-Z0-9(),%. \/\-]/', '', $color );
+			return preg_replace( '/[^a-zA-Z0-9(),%. \/\-]/', '', $color ) ?? '';
 		}
 
 		return '';
