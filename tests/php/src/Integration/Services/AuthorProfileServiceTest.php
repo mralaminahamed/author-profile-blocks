@@ -27,6 +27,7 @@ class AuthorProfileServiceTest extends IntegrationTestCase {
 		$expected_keys = array(
 			'id',
 			'title',
+			'url',
 			'email',
 			'description',
 			'position',
@@ -41,6 +42,7 @@ class AuthorProfileServiceTest extends IntegrationTestCase {
 		}
 
 		$this->assertSame( $user_id, $data['id'] );
+		$this->assertSame( \get_author_posts_url( $user_id ), $data['url'] );
 		$this->assertSame( 'Senior Editor', $data['position'] );
 		$this->assertStringContainsString( 'Long-form author bio', $data['description'] );
 		$this->assertSame( 'Writing since', $data['member_since_label'] );

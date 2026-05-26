@@ -264,6 +264,7 @@ class AuthorProfileService {
 	 *
 	 *     @type int    $id             User ID.
 	 *     @type string $name           Display name.
+	 *     @type string $url            Author archive URL.
 	 *     @type string $email          Email address.
 	 *     @type string $image          Avatar URL.
 	 *     @type string $position       Job position/title.
@@ -319,6 +320,7 @@ class AuthorProfileService {
 		$author_data = array(
 			'id'                 => $author_id,
 			'title'              => $user->display_name,
+			'url'                => get_author_posts_url( $author_id ),
 			'email'              => $user->user_email,
 			'description'        => $description,
 			'position'           => $position,
