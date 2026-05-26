@@ -11,7 +11,7 @@
  * Plugin Name:       Author Profile Blocks
  * Plugin URI:        https://github.com/mralaminahamed/author-profile-blocks
  * Description:       Gutenberg blocks for displaying author profiles and team members with customizable layouts.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 6.0
  * Tested up to:      6.9
  * Requires PHP:      7.4
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'APBL_VERSION', '1.1.0' );
+define( 'APBL_VERSION', '1.1.1' );
 define( 'APBL_PLUGIN_FILE', __FILE__ );
 define( 'APBL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'APBL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );

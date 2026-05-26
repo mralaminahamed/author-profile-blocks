@@ -2,7 +2,7 @@
 Contributors:      mralaminahamed
 Tags:              block, gutenberg, author, profile, team
 Tested up to:      6.9
-Stable tag:        1.1.0
+Stable tag:        1.1.1
 Requires at least: 6.0
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
@@ -158,6 +158,13 @@ Open an issue on [GitHub](https://github.com/mralaminahamed/author-profile-block
 5. Author List block — detailed display style with two-column image and bio layout.
 
 == Changelog ==
+
+= 1.1.1 =
+* Security: profile meta fields (department, skills, location, phone, availability, website label) were writable over REST by any authenticated user; they now require the edit_users capability.
+* Fix: shortcodes [apbl_profile], [apbl_grid], [apbl_list], [apbl_carousel] and the Author Profile widget rendered empty cards — they now render full author cards.
+* Fix: author names now link to the author archive (users) or team-member profile across the Author Profile, Grid, List, Carousel blocks and the minimal layout.
+* Fix: shortcode template includes pointed at a non-existent path; now resolved from the plugin root.
+* Fix: uninstall never removed plugin options/transients (gated on an undefined constant); cleanup now runs on uninstall.
 
 = 1.1.0 =
 * Add: Team Member CPT (`apbl_team_member`) — title, editor, thumbnail, menu-order; position and social profiles meta; REST-enabled.
