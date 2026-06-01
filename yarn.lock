@@ -2990,7 +2990,7 @@ __metadata:
     "@wordpress/scripts": "npm:^32.2.0"
     "@wordpress/server-side-render": "npm:^6.22.0"
     "@wordpress/stylelint-config": "npm:^23.38.0"
-    "@wordpress/url": "npm:^4.46.0"
+    "@wordpress/url": "npm:^4.47.0"
     baseline-browser-mapping: "npm:^2.10.32"
     class-variance-authority: "npm:^0.7.1"
     classnames: "npm:^2.5.1"
@@ -7705,6 +7705,15 @@ __metadata:
   dependencies:
     remove-accents: "npm:^0.5.0"
   checksum: 10/df94265a42757894df6dfccfb79ee9d1c3b3a3d65a38040216e59456d2f6fa261ef4e4de39b3adaac8764517a34df96b4a2c7c5433547f5ebfbd74761b2ce75f
+  languageName: node
+  linkType: hard
+
+"@wordpress/url@npm:^4.47.0":
+  version: 4.47.0
+  resolution: "@wordpress/url@npm:4.47.0"
+  dependencies:
+    remove-accents: "npm:^0.5.0"
+  checksum: 10/65a2a0fbe418e5bbbe574ce578d2437616fb82ea815f6db7e217b5ee172a4b5c2f6fb478202c8690360fa69eb33d6b038387333de80e77c2c05a43240d6b1e29
   languageName: node
   linkType: hard
 
