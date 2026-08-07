@@ -26,11 +26,13 @@
 		"npm": ">=8.0.0"
 	},
 	"scripts": {
-		"start": "wp-scripts start",
 		"build": "wp-scripts build --webpack-copy-php",
-		"type": "npx tsc --noEmit",
 		"lint": "yarn lint:js && yarn lint:css && yarn lint:md:docs && yarn lint:pkg-json",
 		"plugin-zip": "wp-scripts plugin-zip --root-folder=author-profile-blocks",
+		"shots:banners": "playwright test --config=playwright.assets.config.ts --project=banners",
+		"shots:wporg": "playwright test --config=playwright.assets.config.ts --project=shots",
+		"start": "wp-scripts start",
+		"type": "npx tsc --noEmit",
 		"wp:make-pot": "wp i18n make-pot . languages/author-profile-blocks.pot"
 	},
 	"devDependencies": {

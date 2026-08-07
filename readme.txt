@@ -170,11 +170,11 @@ Open an issue on [GitHub](https://github.com/mralaminahamed/author-profile-block
 
 == Screenshots ==
 
-1. Author Profile block in the Gutenberg editor — content elements panel open.
-2. Style tab — avatar shape, typography controls, colors, and layout presets.
-3. Author Grid block — multiple authors displayed in responsive 3-column card layout.
-4. Author Carousel block — sliding author cards with the modern-cards preset active.
-5. Author List block — detailed display style with two-column image and bio layout.
+1. Author Grid — a team on a page, three across, with role, bio and links on each card.
+2. Author Profile — one author, with their role, bio, email and the date they joined.
+3. Author Carousel — the same authors as a carousel, with arrows and pagination.
+4. Author List — contributors as rows, avatar and role each.
+5. The Author Grid block being edited, with every option in the block sidebar.
 
 == Changelog ==
 

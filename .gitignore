@@ -77,3 +77,9 @@ docs/_config_local.yml
 .tmp/
 /.playwright-mcp
 package-lock.json
+
+# Playwright session for the listing-asset run (tests/assets).
+tests/assets/.auth/
+
+# Playwright run output from the listing-asset captures.
+test-results/
