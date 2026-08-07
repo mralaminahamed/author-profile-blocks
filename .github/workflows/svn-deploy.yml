@@ -8,8 +8,11 @@ on:
 permissions:
   contents: write
 
+# Shared with the asset/readme workflow: both of these commit to the same SVN repository, and two
+# jobs holding a working copy of it at once is a conflict waiting to happen. Never cancel-in-progress
+# — an interrupted SVN commit is worse than a queued one.
 concurrency:
-  group: deploy-${{ github.ref }}
+  group: wporg-svn
   cancel-in-progress: false
 
 defaults:
@@ -190,38 +193,10 @@ jobs:
       - name: Install Subversion
         run: sudo apt-get update -y && sudo apt-get install -y subversion
 
-      - name: Clear pre-existing SVN trunk files before deploy
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          PLUGIN_SLUG:  ${{ needs.meta.outputs.plugin_slug }}
-        run: |
-          SVN_TRUNK="https://plugins.svn.wordpress.org/${PLUGIN_SLUG}/trunk"
-
-          svn checkout "$SVN_TRUNK" svn-trunk \
-            --username  "$SVN_USERNAME" \
-            --password  "$SVN_PASSWORD" \
-            --non-interactive --quiet
-
-          ITEMS=$(svn list svn-trunk | sed 's|/$||')
-
-          if [ -z "$ITEMS" ]; then
-            echo "SVN trunk is empty — nothing to clear."
-          else
-            echo "Clearing existing SVN trunk contents: $ITEMS"
-            for item in $ITEMS; do
-              svn delete "svn-trunk/${item}" --force --quiet
-            done
-            svn commit svn-trunk \
-              -m "chore: clear trunk before deploying v${{ needs.meta.outputs.version }}" \
-              --username "$SVN_USERNAME" \
-              --password "$SVN_PASSWORD" \
-              --non-interactive --quiet
-            echo "Trunk cleared."
-          fi
-
-          rm -rf svn-trunk
-
+      # Trunk is not emptied first. 10up's action diffs the build against trunk and svn-deletes what
+      # is no longer there, in the same commit that adds the new files — so clearing it beforehand
+      # bought nothing and cost a published revision in which the plugin had no files at all. Any
+      # failure between those two commits left it that way until somebody noticed.
       - name: Deploy plugin to WordPress.org via SVN
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@2.3.0

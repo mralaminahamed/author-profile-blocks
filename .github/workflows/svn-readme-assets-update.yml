@@ -9,9 +9,11 @@ on:
       - '.wordpress-org/**'
   workflow_dispatch:
 
+# Shared with the release workflow: both commit to the same SVN repository. Never
+# cancel-in-progress — an interrupted SVN commit is worse than a queued one.
 concurrency:
-  group: assets-deploy
-  cancel-in-progress: true
+  group: wporg-svn
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -20,8 +22,37 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          # Tags are needed to resolve the published version; a shallow clone has none.
+          fetch-depth: 0
+
+      # `Stable tag` is the one line in readme.txt that trunk must not publish as written. WordPress
+      # serves downloads from /tags/<stable tag>/, so a readme naming a version that has not been
+      # released yet points the listing at a directory that does not exist, and it resolves to
+      # nothing. Everything else in the file is trunk's, which is the point of this workflow —
+      # correcting a listing should not require cutting a release.
+      - name: Pin Stable tag to the latest release tag
+        id: readme
+        run: |
+          set -euo pipefail
+
+          TAG="$(git tag --list --sort=-v:refname | head -n1)"
+
+          if [ -z "$TAG" ]; then
+            echo "::notice::No release tag yet — nothing to publish, leaving the directory alone."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          VERSION="${TAG#v}"
+          echo "::notice::Publishing trunk's readme.txt, Stable tag pinned to ${VERSION}"
+          # Keeps whatever spacing the header block uses — this readme aligns its values in a column.
+          sed -i -E "s/^(Stable tag:[[:space:]]*).*/\1${VERSION}/" readme.txt
+
+          grep -m1 '^Stable tag:' readme.txt
 
       - name: WordPress.org plugin asset/readme update
+        if: steps.readme.outputs.skip != 'true'
         uses: 10up/action-wordpress-plugin-asset-update@2.2.0
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
