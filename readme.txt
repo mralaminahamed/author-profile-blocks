@@ -157,6 +157,25 @@ Open an issue on [GitHub](https://github.com/mralaminahamed/author-profile-block
 4. Author Carousel block — sliding author cards with the modern-cards preset active.
 5. Author List block — detailed display style with two-column image and bio layout.
 
+== More from us ==
+
+Other free plugins by the same author, all on WordPress.org.
+
+**For any site**
+
+* [Swift Menu Duplicator](https://wordpress.org/plugins/swift-menu-duplicator/) - Duplicate menus in one click, snapshot revisions, export and import, WP-CLI and REST.
+
+**For the WordPress AI Client**
+
+* [AI Provider for OpenCode Zen](https://wordpress.org/plugins/alamin-ai-provider-for-opencode-zen/) - One API key, 57 models including GPT-5, Claude and Gemini 3, for the WordPress AI Client.
+* [AI Provider for MiniMax](https://wordpress.org/plugins/alamin-ai-provider-for-minimax/) - MiniMax M2 and M3 models for text generation, for the WordPress AI Client.
+
+**For a WooCommerce store**
+
+* [StoreSeeder](https://wordpress.org/plugins/storeseeder/) - Realistic test data for WooCommerce and Fluent Cart — a whole shop from a recipe, with one-click cleanup.
+* [StoreSheet](https://wordpress.org/plugins/storesheet/) - Sync WooCommerce products, orders and coupons to a Google spreadsheet, one way and in the background.
+* [Warranty Cart](https://wordpress.org/plugins/warranty-cart/) - Sell extended warranties on your products, then handle the claims and renewals that follow.
+
 == Changelog ==
 
 = 1.1.1 =
