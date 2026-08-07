@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Author Profile Blocks — icon master
+
+  A profile card: an avatar beside three lines of detail. It is the right mark —
+  every author box on the web is that shape, so the audience reads it without
+  being taught, and it says "profile" at a glance in a way a lone silhouette
+  does not.
+
+  What this replaces: three separate per-size SVGs (icon-128, icon-256,
+  icon-512), each with its own copy of the palette and its own geometry. Three
+  copies of a mark agree only until somebody edits one. There is now one master
+  and the PNGs are rasterised from it by tests/assets/wporg-brand.spec.ts.
+
+  The card is inset with real margins rather than drawn edge to edge. At 128px —
+  the size the directory grid actually uses — a card that runs to the squircle's
+  corners has its own corners clipped by them, and the silhouette collapses into
+  a plain rounded rectangle. The whole point of the mark is that it reads as a
+  card *on* something.
+
+  Palette — canonical copy lives in tests/assets/brand.ts.
+
+  These values are repeated here only because SVG cannot import. If they ever
+  disagree with that file, that file is right.
+
+    indigo-950  #1e1b4b   ground gradient start
+    indigo-900  #312e81   ground gradient mid
+    indigo-800  #3730a3   ground gradient end
+    indigo-600  #4f46e5   avatar disc, first line, glow
+    indigo-400  #818cf8   second line
+    indigo-200  #c7d2fe   card base, third line
+    indigo-50   #eef2ff   card mid
+    white       #ffffff   card crown, avatar figure
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Author Profile Blocks">
+  <defs>
+    <linearGradient id="ground" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0" stop-color="#1e1b4b"/>
+      <stop offset="0.42" stop-color="#312e81"/>
+      <stop offset="1" stop-color="#3730a3"/>
+    </linearGradient>
+
+    <radialGradient id="glow" cx="78%" cy="104%" r="70%">
+      <stop offset="0" stop-color="#4f46e5" stop-opacity="0.38"/>
+      <stop offset="0.64" stop-color="#4f46e5" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="specular" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="0.34" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="card" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.6" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#c7d2fe"/>
+    </linearGradient>
+
+    <clipPath id="tile">
+      <rect x="0" y="0" width="256" height="256" rx="56"/>
+    </clipPath>
+  </defs>
+
+  <!-- Ground, then the lighting worked into it. Same three layers, same order,
+       as field() in tests/assets/brand.ts paints in CSS. -->
+  <g clip-path="url(#tile)">
+    <rect x="0" y="0" width="256" height="256" fill="url(#ground)"/>
+    <rect x="0" y="0" width="256" height="256" fill="url(#glow)"/>
+    <rect x="0" y="0" width="256" height="256" fill="url(#specular)"/>
+  </g>
+
+  <!-- The card, inset to clear the squircle's radius. A second card peeks out
+       behind it: this plugin renders grids, carousels and lists of profiles,
+       not one profile, and a single card would say the opposite. -->
+  <rect x="58" y="52" width="164" height="140" rx="24" fill="#ffffff" fill-opacity="0.16"/>
+  <rect x="40" y="66" width="176" height="132" rx="24" fill="url(#card)"/>
+
+  <!-- Avatar: a disc with a figure on it, rather than an outline. At 128px an
+       outlined figure loses its stroke; a filled one keeps its shape. -->
+  <circle cx="86" cy="132" r="28" fill="#4f46e5"/>
+  <circle cx="86" cy="123" r="11" fill="#ffffff"/>
+  <path d="M69 152a17 17 0 0 1 34 0z" fill="#ffffff"/>
+
+  <!-- Three lines of detail, descending in weight — name, role, bio. -->
+  <rect x="128" y="113" width="62" height="13" rx="6.5" fill="#4f46e5"/>
+  <rect x="128" y="136" width="48" height="13" rx="6.5" fill="#818cf8"/>
+  <rect x="128" y="159" width="34" height="13" rx="6.5" fill="#c7d2fe"/>
+</svg>

@@ -63,6 +63,8 @@ phpcs.xml
 phpcs.plugin-review.xml
 phpstan.neon
 phpunit.xml
+playwright.config.ts
+playwright.assets.config.ts
 
 # ─── Source files (compiled output lives in build/) ──────────────────────────
 src
