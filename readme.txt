@@ -1,6 +1,6 @@
-=== Author Profile Blocks ===
+=== Author Profile Blocks – Author Box & Team Members for Gutenberg ===
 Contributors:      mralaminahamed
-Tags:              block, gutenberg, author, profile, team
+Tags:              author box, author bio, team members, author profile, gutenberg
 Tested up to:      6.9
 Stable tag:        1.1.1
 Requires at least: 6.0
