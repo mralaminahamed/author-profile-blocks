@@ -106,9 +106,9 @@ social links, and four pages — one per block. Everything carries
 `_apbl_demo_seed`, so `--remove` deletes what was seeded and nothing else:
 
 ```bash
-wp eval-file resources/dev/seed.php -- --list             # the scopes
-wp eval-file resources/dev/seed.php -- --only=authors     # one of them
-wp eval-file resources/dev/seed.php -- --remove           # all of it, backwards
+wp eval-file resources/dev/seed.php list                  # the scopes
+wp eval-file resources/dev/seed.php only=authors          # one of them
+wp eval-file resources/dev/seed.php remove                # all of it, backwards
 ```
 
 It also sets `avatar_default` to `identicon` and restores the previous value on

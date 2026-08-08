@@ -6,10 +6,16 @@
  * the data behind them is. This creates the authors and the pages the capture
  * run photographs, and can take all of it away again.
  *
- *   wp eval-file resources/dev/seed.php                    # everything
- *   wp eval-file resources/dev/seed.php -- --remove        # undo everything
- *   wp eval-file resources/dev/seed.php -- --list          # what the scopes are
- *   wp eval-file resources/dev/seed.php -- --only=authors  # one scope
+ *   wp eval-file resources/dev/seed.php                 # everything
+ *   wp eval-file resources/dev/seed.php remove          # undo everything
+ *   wp eval-file resources/dev/seed.php list            # what the scopes are
+ *   wp eval-file resources/dev/seed.php only=authors    # one scope
+ *
+ * The arguments carry no dashes on purpose. WP-CLI parses dash-prefixed words
+ * as its own parameters before the script sees them, so `-- --remove` fails
+ * with "unknown --remove parameter" and nothing runs. Dashed forms are still
+ * accepted if you type them, but they only reach here in WP-CLI versions that
+ * pass them through.
  *
  * Scopes run in dependency order: settings → authors → pages. Removal runs it
  * backwards, because a page that displays authors is meaningless once they are
@@ -125,17 +131,35 @@ const APBL_AUTHORS = array(
  * @return array{remove: bool, list: bool, only: string}
  */
 function apbl_seed_flags( array $args ): array {
-	$only = '';
+	$only   = '';
+	$remove = false;
+	$list   = false;
 
 	foreach ( $args as $arg ) {
-		if ( 0 === strpos( $arg, '--only=' ) ) {
-			$only = substr( $arg, 7 );
+		// Leading dashes are stripped before comparing. `wp eval-file` hands
+		// this script whatever follows the filename, but WP-CLI parses
+		// dash-prefixed words as its own parameters first — `-- --remove` fails
+		// with "unknown --remove parameter" and the script never runs.
+		$word = ltrim( $arg, '-' );
+
+		if ( 0 === strpos( $word, 'only=' ) ) {
+			$only = substr( $word, 5 );
+			continue;
+		}
+
+		if ( 'remove' === $word ) {
+			$remove = true;
+			continue;
+		}
+
+		if ( 'list' === $word ) {
+			$list = true;
 		}
 	}
 
 	return array(
-		'remove' => in_array( '--remove', $args, true ),
-		'list'   => in_array( '--list', $args, true ),
+		'remove' => $remove,
+		'list'   => $list,
 		'only'   => $only,
 	);
 }
