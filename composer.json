@@ -55,7 +55,6 @@
       "ergebnis/composer-normalize": true,
       "phpstan/extension-installer": true
     },
-    "classmap-authoritative": true,
     "optimize-autoloader": true,
     "platform": {
       "php": "7.4"
