@@ -2,192 +2,182 @@
 
 <img src=".wordpress-org/icon-256x256.png" alt="Author Profile Blocks icon" width="96" height="96">
 
-# Author Profile Blocks — Developer Guide
+# Author Profile Blocks
 
-**Author profiles and team members as Gutenberg blocks — grid, carousel, list, and single profile — with matching shortcodes and a classic widget.**
+[![WordPress plugin version](https://img.shields.io/wordpress/plugin/v/author-profile-blocks?style=flat-square)](https://wordpress.org/plugins/author-profile-blocks/)
+[![WordPress version tested up to](https://img.shields.io/wordpress/plugin/tested/author-profile-blocks?style=flat-square)](https://wordpress.org/plugins/author-profile-blocks/)
+[![Minimum PHP version required](https://img.shields.io/wordpress/plugin/required-php/author-profile-blocks?style=flat-square)](https://wordpress.org/plugins/author-profile-blocks/)
+[![Total downloads from WordPress.org](https://img.shields.io/wordpress/plugin/dt/author-profile-blocks?style=flat-square)](https://wordpress.org/plugins/author-profile-blocks/advanced/)
+[![License GPL v2 or later](https://img.shields.io/badge/license-GPL--2.0--or--later-blue?style=flat-square)](LICENSE)
 
-[![Version](https://img.shields.io/badge/version-1.1.1-21759b.svg)](https://github.com/mralaminahamed/author-profile-blocks)
-[![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b.svg?logo=wordpress&logoColor=white)](https://wordpress.org/)
-[![PHP](https://img.shields.io/badge/PHP-7.4%2B-777BB4.svg)](https://php.net/)
-[![PHPStan](https://img.shields.io/badge/PHPStan-Level%208-brightgreen.svg)](https://phpstan.org/)
-[![Tests](https://img.shields.io/badge/tests-362-brightgreen.svg)](tests/)
-[![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](LICENSE)
+Author profiles and team members as Gutenberg blocks — grid, carousel, list and single profile — with matching shortcodes and a classic widget.
 
 </div>
 
-> This is the **contributor / technical** guide. For the public plugin listing — features, screenshots, changelog, upgrade notices — see [`readme.txt`](readme.txt).
+![Author Profile Blocks showing a team grid rendered in the block editor](.wordpress-org/screenshot-1.png)
 
-| Requirement   | Minimum | Tested up to |
-|---------------|---------|--------------|
-| **WordPress** | 6.0     | 7.1          |
-| **PHP**       | 7.4     | —            |
+## Quick Start
 
-Current version **1.1.1** · License **GPL-2.0-or-later** · Tooling **Yarn** + Composer · Delivered free on WordPress.org
+Install from the WordPress admin — **Plugins → Add New**, search for "Author Profile Blocks", then **Install Now** and **Activate**.
 
----
-
-## What it is
-
-Author boxes are usually welded to a theme: change the theme and the bios go with it. This
-plugin keeps them in **content** instead — four Gutenberg blocks that read either a WordPress
-user or a `apbl_team_member` post, so the same profile can appear under an article, on an
-About page, and in a team grid without being written three times.
-
-Every block has a **shortcode twin** and there is a classic **widget**, so the same profiles
-work in a block theme, a classic theme, and a page builder without a separate integration for
-each.
-
----
-
-## What ships
-
-| Surface        | Provided                                                                 |
-|----------------|--------------------------------------------------------------------------|
-| **Blocks**     | `author-profile`, `author-grid`, `author-list`, `author-carousel`         |
-| **Shortcodes** | `[apbl_profile]`, `[apbl_grid]`, `[apbl_list]`, `[apbl_carousel]`         |
-| **Widget**     | `AuthorProfileWidget` — single profile in a classic sidebar               |
-| **Post type**  | `apbl_team_member` — profiles for people who are not WordPress users      |
-| **Taxonomy**   | `apbl_department` — groups team members, and filters the grid/list blocks |
-| **REST**       | `author-profile-blocks/v1/settings` (GET, POST)                          |
-
-Profiles resolve from a WordPress user *or* a team-member post through one provider, so a
-block does not care which it was given.
-
----
-
-## Architecture
-
-### PHP — `includes/` (PSR-4 `AuthorProfileBlocks\`)
-
-| Dir            | Responsibility                                              | Start here                  |
-|----------------|-------------------------------------------------------------|-----------------------------|
-| `Blocks/`      | Block registration + server-side render callbacks           | `AuthorBlockBase.php`       |
-| `Services/`    | Resolves a user or team-member post to one profile shape    | `AuthorDataProvider.php`    |
-| `Core/`        | Bootstrap, asset registration, profile meta                 | `MetaDataProvider.php`      |
-| `PostTypes/`   | The `apbl_team_member` post type                            | `TeamMemberPostType.php`    |
-| `Taxonomies/`  | The `apbl_department` taxonomy                              | `DepartmentTaxonomy.php`    |
-| `Shortcodes/`  | One shortcode per block, sharing the render path            | `AuthorGridShortcode.php`   |
-| `Widgets/`     | Classic-widget wrapper around the single profile            | `AuthorProfileWidget.php`   |
-| `REST/`        | Settings endpoints (`author-profile-blocks/v1`)             | `Settings.php`              |
-| `Admin/`       | Settings screen and admin assets                            | `Admin.php`                 |
-
-`AuthorBlockBase` is the seam worth knowing: block, shortcode, and widget all render through
-it, so a markup change lands in all three at once rather than drifting between them.
-
-### JavaScript — `src/` (WordPress block editor)
-
-| Dir         | Responsibility                                  | Built by     |
-|-------------|-------------------------------------------------|--------------|
-| `blocks/`   | Four blocks — `edit`, `save`, `block.json`      | `yarn build` |
-| `admin/`    | Settings screen                                 | `yarn build` |
-| `supports/` | Shared block supports and controls              | `yarn build` |
-
-`build/` is generated by `@wordpress/scripts`. Never edit it; it is what WordPress loads.
-
-### Repo map
-
-```
-author-profile-blocks.php   Bootstrap: constants, autoloader guard, plugin instance
-includes/                   PHP (PSR-4 AuthorProfileBlocks\)
-src/                        Block editor sources
-build/                      Compiled blocks — generated, do not edit
-templates/                  Overridable render templates
-resources/                  Brand/source assets
-tests/php/                  PHPUnit (362 tests)
-tests/pw/                   Playwright
-docs/                       Longer-form documentation
-.wordpress-org/             Directory assets: icon, banners, screenshots, blueprints
-```
-
----
-
-## Getting started
+To run it from source instead:
 
 ```bash
-composer install     # PHP dependencies + dev tooling
-yarn install         # JS dependencies
-yarn build           # compile blocks into build/
+git clone https://github.com/mralaminahamed/author-profile-blocks.git
+cd author-profile-blocks
+composer install
+yarn install
+yarn build
 ```
 
-The plugin will not run without `vendor/autoload.php`. If it is missing, the plugin says so
-in the admin rather than activating and doing nothing.
+Minimum WordPress, PHP, and tested-up-to versions are shown in the badges above; `readme.txt` and the plugin header are the source of truth. Node.js 20+ is needed for development only.
 
----
+## What It Does
 
-## Build
+Author boxes are usually welded to a theme: change the theme and the bios go with it. This plugin keeps them in content instead — blocks that read either a WordPress user or a team-member post, so the same profile can appear under an article, on an About page, and in a team grid without being written three times.
+
+Every block has a shortcode twin and there is a classic widget, so the same profiles work in a block theme, a classic theme, and a page builder without a separate integration for each.
+
+## What Ships
+
+| Surface | Provided |
+|---------|----------|
+| Blocks | `author-profile`, `author-grid`, `author-list`, `author-carousel` |
+| Shortcodes | `[apbl_profile]`, `[apbl_grid]`, `[apbl_list]`, `[apbl_carousel]` |
+| Widget | Single profile for a classic sidebar |
+| Post type | `apbl_team_member` — profiles for people who are not WordPress users |
+| Taxonomy | `apbl_department` — groups team members, and filters the grid and list |
+| REST | `author-profile-blocks/v1/settings` |
+
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| Four blocks | Grid, carousel, list, and single profile |
+| Users or posts | A profile resolves from a WordPress user or a team-member post, transparently |
+| Shortcode twins | Every block has one, so classic themes and page builders are covered |
+| Departments | Group and filter team members by taxonomy term |
+| Templates | Render templates are overridable |
+| Block supports | Colour, spacing, and typography through the standard block supports |
+| REST | Settings read and written over `author-profile-blocks/v1` |
+
+## Screenshots
+
+<details>
+<summary>View all screenshots</summary>
+
+### Author profile
+
+![Single author profile block](.wordpress-org/screenshot-2.png)
+
+### Grid
+
+![Team grid layout](.wordpress-org/screenshot-3.png)
+
+### Carousel
+
+![Author carousel](.wordpress-org/screenshot-4.png)
+
+### Settings
+
+![Plugin settings screen](.wordpress-org/screenshot-5.png)
+
+</details>
+
+## Development
 
 ```bash
-yarn build           # production build
-yarn start           # watch mode
-yarn type            # TypeScript check
-yarn lint            # lint JS
-```
+# JavaScript
+yarn start                   # Watch mode
+yarn build                   # Production build
+yarn lint                    # Lint JS
+yarn type                    # TypeScript check
 
----
-
-## Testing
-
-```bash
-composer test              # PHPUnit — 362 tests
-composer test:coverage     # with coverage
-composer test-f -- --filter SomeTest
+# PHP
+composer test                # PHPUnit
+composer test:coverage       # With coverage
+composer phpcs               # WordPress coding standards lint
+composer phpcbf              # Auto-fix coding standards
+composer phpstan             # Static analysis (level 8)
+composer release             # Build, generate assets, package
 ```
 
 Playwright specs live in `tests/pw/`.
 
----
+## Architecture
 
-## Code quality
-
-```bash
-composer phpcs                 # WordPress Coding Standards
-composer phpcbf                # auto-fix
-composer phpstan               # static analysis, level 8
-composer phpcs:plugin-review   # the stricter directory-review ruleset
+```mermaid
+flowchart LR
+    A["Block / shortcode / widget"] --> B["AuthorBlockBase"]
+    B --> C["AuthorDataProvider"]
+    C -->|"WordPress user"| D["Profile"]
+    C -->|"apbl_team_member post"| D
+    D --> E["Template render"]
 ```
 
----
+PHP lives under the PSR-4 namespace `AuthorProfileBlocks\`:
 
-## Internationalization
-
-```bash
-composer makepot     # or: yarn wp:make-pot
+```
+author-profile-blocks.php    Bootstrap: constants, autoloader guard
+includes/
+  Blocks/                    Block registration and server-side render
+  Services/                  Resolves a user or post to one profile shape
+  Core/                      Bootstrap, assets, profile meta
+  PostTypes/ Taxonomies/     apbl_team_member, apbl_department
+  Shortcodes/                One per block, sharing the render path
+  Widgets/                   Classic widget
+  REST/ Admin/               Settings endpoints and screen
+src/                         Block editor sources
+build/                       Compiled blocks — generated, do not edit
+templates/                   Overridable render templates
 ```
 
-Text domain `author-profile-blocks`. Translations live in `languages/`.
+`AuthorBlockBase` is the seam worth knowing: block, shortcode and widget all render through it, so a markup change lands in all three at once rather than drifting between them.
 
----
+## Extensibility
 
-## Release
+```php
+// Change the resolved profile data
+add_filter( 'author_profile_blocks_author_data', function( $data, $author_id ) {
+    return $data;
+}, 10, 2 );
 
-```bash
-composer release     # build, generate assets, package
-yarn plugin-zip      # distributable zip
+// Adjust the query behind grid and list blocks
+add_filter( 'author_profile_blocks_author_query_args', function( $args ) {
+    return $args;
+} );
+
+// Filter the rendered markup
+add_filter( 'author_profile_blocks_rendered_block', function( $html, $attributes ) {
+    return $html;
+}, 10, 2 );
+
+// Register extra REST fields
+add_filter( 'author_profile_blocks_register_rest_fields', function( $fields ) {
+    return $fields;
+} );
 ```
 
-Directory assets are generated rather than hand-drawn:
+## Security
 
-```bash
-composer gen-assets        # icons and banners
-composer gen-screenshots   # screenshots
-yarn shots:wporg           # WordPress.org screenshot set
-```
+- Settings endpoints are capability-checked
+- Profile output is escaped; attributes are sanitized
+- No analytics, telemetry, or phone-home
 
----
+Report vulnerabilities privately — see the [security policy](SECURITY.md).
 
-## Links
+## Changelog
 
-- [WordPress.org listing](https://wordpress.org/plugins/author-profile-blocks/)
-- [Public readme](readme.txt) — features, screenshots, changelog
-- [`docs/`](docs/) — longer-form documentation
+The complete version history lives in [CHANGELOG.md](CHANGELOG.md), in [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format. [`readme.txt`](readme.txt) carries only the most recent releases, and is rendered on the [WordPress.org changelog page](https://wordpress.org/plugins/author-profile-blocks/#developers).
 
----
+## Contributing
 
-## Contributing · Security · License
+Bug reports, feature requests, and pull requests are welcome. Read the [contributing guide](CONTRIBUTING.md) before opening a pull request, and file issues on the [issue tracker](https://github.com/mralaminahamed/author-profile-blocks/issues).
 
-Issues and pull requests are welcome. Please run `composer phpcs`, `composer phpstan` and
-`composer test` before opening one.
+## Maintainer
 
-Report security issues privately rather than in a public issue.
+Al Amin Ahamed — [alaminahamed.com](https://alaminahamed.com) · [@mralaminahamed](https://github.com/mralaminahamed)
 
-GPL-2.0-or-later. See [`LICENSE`](LICENSE).
+## License
+
+[GPL-2.0-or-later](LICENSE)
